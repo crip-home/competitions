@@ -7,3 +7,9 @@ Homestead.yaml
 .env
 _ide_helper.php
 /.phpstorm.meta.php
+/public/js/app.js
+/public/js/app.js.map
+/public/js/vendor.js
+/public/js/vendor.js.map
+/public/css/app.css
+/public/css/app.css.map
