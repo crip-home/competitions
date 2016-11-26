@@ -33,18 +33,14 @@
                 <li>
                   <router-link :to="{ name: 'home' }">Home</router-link>
                 </li>
-                <li>
+                <li v-if="!user.authenticated">
                   <router-link :to="{ name: 'login' }">Login</router-link>
                 </li>
-                <li>
+                <li v-if="!user.authenticated">
                   <router-link :to="{ name: 'signup' }">Sign Up</router-link>
                 </li>
-                <li>
-                  <a href="/logout" @click="logout">Logout</a>
-
-                  <form id="logout-form" action="/logout" method="POST">
-                    <input type="hidden" name="_token" v-model="csrf_token">
-                  </form>
+                <li v-if="user.authenticated">
+                  <a @click.prevent="logout">Logout</a>
                 </li>
               </ul>
             </li>
@@ -64,33 +60,39 @@
 </template>
 
 <script>
+    import * as aTypes from './../store/actions'
+    import * as mTypes from './../store/mutations'
+
     export default {
 
         mounted() {
-            console.log('Component ready.')
+            console.log('Component ready. Checking user authorisation.');
+            this.$store.dispatch(aTypes.USER_AUTHORISE_CHECK);
         },
 
         computed: {
+
+            user() {
+                return this.$store.state.auth.user;
+            },
 
             app_name() {
                 return $('title').text();
             },
 
             user_name() {
-                return $('meta[name="user-name"]').attr('content');
-            },
+                if (this.$store.state.auth.user.authenticated)
+                    return this.$store.state.auth.user.name;
 
-            csrf_token() {
-                return $('meta[name="csrf-token"]').attr('content');
-            }
+                return 'Actions'
+            },
 
         },
 
         methods: {
 
-            logout(e) {
-                e.preventDefault();
-                $('#logout-form').submit();
+            logout() {
+                this.$store.commit(mTypes.USER_UNAUTHORISED);
             },
 
         },
