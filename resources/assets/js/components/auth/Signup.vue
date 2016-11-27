@@ -16,9 +16,9 @@
                      v-model="details.name"
                      required autofocus>
 
-              <span class="help-block" v-if="errors.name">
-                  <strong>{{ errors.name }}</strong>
-              </span>
+              <ul class="help-block" v-if="errors.name">
+                  <li v-for="error in errors.name">{{ error }}</li>
+              </ul>
             </div>
           </div>
 
@@ -33,9 +33,9 @@
                      v-model="details.email"
                      required>
 
-              <span class="help-block" v-if="errors.email">
-                  <strong>{{ errors.email }}</strong>
-              </span>
+              <ul class="help-block" v-if="errors.email">
+                <li v-for="error in errors.email">{{ error }}</li>
+              </ul>
             </div>
           </div>
 
@@ -50,9 +50,9 @@
                      v-model="details.password"
                      required>
 
-              <span class="help-block" v-if="errors.password">
-                  <strong>{{ errors.password }}</strong>
-              </span>
+              <ul class="help-block" v-if="errors.password">
+                <li v-for="error in errors.password">{{ error }}</li>
+              </ul>
             </div>
           </div>
 
@@ -82,7 +82,9 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import * as routes from './../../router/routes'
+    import auth from './../../api/auth'
 
     export default {
 
@@ -93,7 +95,7 @@
 
         data() {
             return {
-                errors: {name: '', email: '', password: ''},
+                errors: {name: false, email: false, password: false},
                 details: {
                     name: '',
                     email: '',
@@ -106,7 +108,12 @@
         methods: {
 
             register() {
-              console.log(this.details)
+                auth.register(this.details)
+                    .then(() => {
+                        this.$router.push(routes.login)
+                    }, errors => {
+                        Vue.set(this, 'errors', errors);
+                    });
             },
 
         },

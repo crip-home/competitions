@@ -35,7 +35,17 @@ export default {
             }, r => settings.handleError(r))
     },
 
-    register(ctx, details, route) {
-
+    register(details) {
+        return new Promise((resolve, reject) => {
+            http.post(settings.apiUrl('register'), details)
+                .then(({data}) => {
+                    localStorage.setItem('token', data.token);
+                    store.commit(mTypes.AUTH_LOGIN);
+                    store.commit(mTypes.AUTH_DATA_UPD, data);
+                    resolve(data);
+                }, ({data}) => {
+                    reject(data);
+                });
+        });
     },
 }

@@ -15,3 +15,5 @@ use Illuminate\Http\Request;
 
 Route::post('authenticate', 'AuthenticateController@authenticate');
 Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
+
+$this->post('register', 'Auth\RegisterController@register');
