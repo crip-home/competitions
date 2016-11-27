@@ -1,0 +1,2 @@
+# crip-competitions
+Competition Manager
