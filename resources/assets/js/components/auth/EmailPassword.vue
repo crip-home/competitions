@@ -1,5 +1,5 @@
 <template>
-  <div id="password-reset" class="col-md-8 col-md-offset-2">
+  <div id="email-password" class="col-md-8 col-md-offset-2">
     <div class="panel panel-default">
       <div class="panel-heading">Reset Password</div>
       <form class="panel-body form-horizontal" @submit.prevent="reset">
@@ -59,6 +59,6 @@
                     );
             },
 
-        }
+        },
     }
 </script>

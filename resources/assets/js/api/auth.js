@@ -59,4 +59,15 @@ export default {
                 });
         });
     },
+
+    reset(details) {
+        return new Promise((resolve, reject) => {
+            http.post(settings.apiUrl('password/reset'), details)
+                .then(({data}) => {
+                    resolve(data.status);
+                }, ({data}) => {
+                    reject(data);
+                });
+        });
+    },
 }

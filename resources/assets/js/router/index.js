@@ -14,6 +14,7 @@ export default new Router({
         {path: '/home', name: routes.home.name, component: HomeView},
         auth,
         {path: '/auth', redirect: '/auth/login'},
+        {path: '/password/reset/:token', redirect: '/auth/password/reset/:token'},
         {path: '*', redirect: '/home'}
     ]
 })

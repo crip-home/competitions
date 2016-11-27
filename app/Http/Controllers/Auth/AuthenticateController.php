@@ -1,12 +1,12 @@
-<?php namespace App\Http\Controllers;
+<?php namespace App\Http\Controllers\Auth;
 
-use App\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 /**
  * Class AuthenticateController
- * @package App\Http\Controllers
+ * @package App\Http\Controllers\Auth
  */
 class AuthenticateController extends Controller
 {

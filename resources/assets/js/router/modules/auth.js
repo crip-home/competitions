@@ -4,11 +4,13 @@ import ChildHolderView from './../../components/ChildHolder.vue'
 import LoginView from './../../components/auth/Login.vue'
 import SignupView from './../../components/auth/Signup.vue'
 import EmailPasswordView from './../../components/auth/EmailPassword.vue'
+import ResetPasswordView from './../../components/auth/ResetPassword.vue'
 
 export default {
     path: '/auth', component: ChildHolderView, children: [
         {path: 'login', name: routes.login.name, component: LoginView},
         {path: 'register', name: routes.signup.name, component: SignupView},
         {path: 'password/email', name: routes.email_password.name, component: EmailPasswordView},
+        {path: 'password/reset/:token', name: routes.reset_password.name, component: ResetPasswordView},
     ]
 };
