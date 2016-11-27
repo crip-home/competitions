@@ -17,3 +17,4 @@ Route::post('authenticate', 'AuthenticateController@authenticate');
 Route::resource('authenticate', 'AuthenticateController', ['only' => ['index']]);
 
 $this->post('register', 'Auth\RegisterController@register');
+$this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail');

@@ -48,4 +48,15 @@ export default {
                 });
         });
     },
+
+    sendResetLink(email) {
+        return new Promise((resolve, reject) => {
+            http.post(settings.apiUrl('password/email'), {email})
+                .then(({data}) => {
+                    resolve(data.status);
+                }, ({data}) => {
+                    reject(data);
+                });
+        });
+    },
 }

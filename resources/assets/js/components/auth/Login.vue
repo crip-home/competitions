@@ -69,7 +69,7 @@
                     email: '',
                     password: ''
                 },
-                password_reset: routes.password_reset,
+                password_reset: routes.email_password,
                 error: ''
             }
         },
