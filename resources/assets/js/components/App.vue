@@ -56,13 +56,13 @@
 </template>
 
 <script>
-    import * as aTypes from './../store/actions'
-    import * as mTypes from './../store/mutations'
+    import auth from './../api/auth'
+    import * as types from './../store/mutations'
 
     export default {
 
         mounted() {
-            this.$store.dispatch(aTypes.AUTH_CHECK);
+            auth.checkAuth();
         },
 
         computed: {
@@ -87,7 +87,7 @@
         methods: {
 
             logout() {
-                this.$store.commit(mTypes.AUTH_LOGOUT);
+                this.$store.commit(types.AUTH_LOGOUT);
                 // TODO: show message about successful logout and redirect to home
             },
 

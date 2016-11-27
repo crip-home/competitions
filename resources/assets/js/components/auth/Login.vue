@@ -18,8 +18,8 @@
                      required autofocus>
 
               <span class="help-block" v-if="!!error">
-                    <strong>{{ error }}</strong>
-                </span>
+                <strong>{{ error }}</strong>
+              </span>
             </div>
           </div>
 
@@ -53,7 +53,7 @@
 </template>
 
 <script>
-    import * as aTypes from './../../store/actions'
+    import auth from './../../api/auth'
     import * as routes from './../../router/routes'
 
     export default {
@@ -69,13 +69,8 @@
                     email: '',
                     password: ''
                 },
-                password_reset: routes.password_reset
-            }
-        },
-
-        computed: {
-            error() {
-                return this.$store.state.auth.error;
+                password_reset: routes.password_reset,
+                error: ''
             }
         },
 
@@ -83,7 +78,12 @@
 
             login() {
                 let credentials = Object.assign({}, this.credentials);
-                this.$store.dispatch(aTypes.AUTH_USER, {credentials, route: routes.home});
+                auth.login(credentials)
+                    .then(() => {
+                        this.$router.push(routes.home)
+                    }, error => {
+                        this.error = error;
+                    });
             }
 
         }
