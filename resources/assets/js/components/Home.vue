@@ -10,10 +10,6 @@
 
     export default {
 
-        mounted() {
-            this.$store.dispatch(aTypes.USER_AUTHORISE_GET_DETAILS)
-        },
-
         computed: {
 
             user() {

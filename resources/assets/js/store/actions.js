@@ -1,4 +1,4 @@
 
-export const USER_AUTHORISE = 'auth/USER_AUTHORISE';
-export const USER_AUTHORISE_CHECK = 'auth/USER_AUTHORISE_CHECK';
-export const USER_AUTHORISE_GET_DETAILS = 'auth/USER_AUTHORISE_CHECK';
+export const AUTH_USER = 'AUTH_USER';
+export const AUTH_CHECK = 'AUTH_CHECK';
+export const AUTH_GET_USER = 'AUTH_GET_USER';

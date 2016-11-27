@@ -40,7 +40,7 @@
                   <router-link :to="{ name: 'signup' }">Sign Up</router-link>
                 </li>
                 <li v-if="user.authenticated">
-                  <a @click.prevent="logout">Logout</a>
+                  <a href="#" @click.prevent="logout">Logout</a>
                 </li>
               </ul>
             </li>
@@ -50,11 +50,7 @@
     </nav>
 
     <div class="container">
-      <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-          <router-view></router-view>
-        </div>
-      </div>
+      <router-view class="row"></router-view>
     </div>
   </div>
 </template>
@@ -66,8 +62,7 @@
     export default {
 
         mounted() {
-            console.log('Component ready. Checking user authorisation.');
-            this.$store.dispatch(aTypes.USER_AUTHORISE_CHECK);
+            this.$store.dispatch(aTypes.AUTH_CHECK);
         },
 
         computed: {
@@ -92,7 +87,8 @@
         methods: {
 
             logout() {
-                this.$store.commit(mTypes.USER_UNAUTHORISED);
+                this.$store.commit(mTypes.AUTH_LOGOUT);
+                // TODO: show message about successful logout and redirect to home
             },
 
         },

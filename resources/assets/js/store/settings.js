@@ -10,6 +10,6 @@ export default {
     },
 
     handleError(errorResponse) {
-        console.error('settings.handleError', errorResponse);
+        console.log('settings.handleError', errorResponse);
     }
 }

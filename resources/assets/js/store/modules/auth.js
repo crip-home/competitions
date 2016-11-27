@@ -18,23 +18,26 @@ const state = {
 
 const mutations = {
 
-    [mTypes.USER_AUTHORISED] (state) {
+    [mTypes.AUTH_LOGIN] (state) {
         state.user.authenticated = true;
-        Vue.http.headers.common['Authorization'] = {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
+
+        Vue.http.interceptors.push((request, next) => {
+            request.headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`);
+
+            next();
+        });
     },
 
-    [mTypes.USER_UNAUTHORISED] (state) {
+    [mTypes.AUTH_LOGOUT] (state) {
         localStorage.removeItem('token');
         state.user.authenticated = false
     },
 
-    [mTypes.USER_AUTHORISE_ERROR](state, error) {
+    [mTypes.AUTH_ERROR](state, error) {
         state.error = error
     },
 
-    [mTypes.USER_DETAILS_UPDATED](state, payload) {
+    [mTypes.AUTH_DATA_UPD](state, payload) {
         state.user.name = payload.name;
         state.user.email = payload.email;
     },
@@ -43,31 +46,33 @@ const mutations = {
 
 const actions = {
 
-    [aTypes.USER_AUTHORISE] ({commit}, {credentials, route}) {
+    [aTypes.AUTH_USER] ({commit, dispatch}, {credentials, route}) {
         Vue.http.post(settings.apiUrl('authenticate'), credentials)
             .then(({data}) => {
                 localStorage.setItem('token', data.token);
-                commit(mTypes.USER_AUTHORISED);
+                commit(mTypes.AUTH_LOGIN);
+                dispatch(aTypes.AUTH_GET_USER);
 
                 if (route)
                     router.push(route)
 
             }, ({data}) => {
-                commit(mTypes.USER_AUTHORISE_ERROR, data.error)
+                commit(mTypes.AUTH_ERROR, data.error)
             })
     },
 
-    [aTypes.USER_AUTHORISE_CHECK] ({commit}) {
-        console.log(aTypes.USER_AUTHORISE_CHECK, !!localStorage.getItem('token'));
-        if (localStorage.getItem('token'))
-            commit(mTypes.USER_AUTHORISED)
+    [aTypes.AUTH_CHECK] ({commit, dispatch}) {
+        if (localStorage.getItem('token')) {
+            commit(mTypes.AUTH_LOGIN);
+            dispatch(aTypes.AUTH_GET_USER);
+        }
     },
 
-    [aTypes.USER_AUTHORISE_GET_DETAILS] ({commit, state}) {
+    [aTypes.AUTH_GET_USER] ({commit, state}) {
         if (state.user.authenticated && localStorage.getItem('token')) {
             Vue.http.get(settings.apiUrl('authenticate'))
                 .then(({data}) => {
-                    commit(mTypes.USER_DETAILS_UPDATED, data);
+                    commit(mTypes.AUTH_DATA_UPD, data);
                 }, r => settings.handleError(r))
         }
     },

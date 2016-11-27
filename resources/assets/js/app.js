@@ -5,9 +5,9 @@ import VueResource from 'vue-resource'
 
 Vue.use(VueResource);
 
+import router from './router'
+import store from './store'
 import App from './components/App.vue'
-import router from './router';
-import store from './store';
 
 
 Vue.http.interceptors.push((request, next) => {

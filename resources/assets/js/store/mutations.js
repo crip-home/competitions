@@ -1,5 +1,5 @@
 
-export const USER_AUTHORISED = 'auth/USER_AUTHORISED';
-export const USER_UNAUTHORISED = 'auth/USER_UNAUTHORISED';
-export const USER_AUTHORISE_ERROR = 'auth/USER_AUTHORISE_ERROR';
-export const USER_DETAILS_UPDATED = 'auth/USER_DETAILS_UPDATED';
+export const AUTH_LOGIN = 'AUTH_LOGIN';
+export const AUTH_LOGOUT = 'AUTH_LOGOUT';
+export const AUTH_ERROR = 'auth/AUTH_ERROR';
+export const AUTH_DATA_UPD = 'auth/AUTH_DATA_UPD';

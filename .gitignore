@@ -13,3 +13,5 @@ _ide_helper.php
 /public/js/vendor.js.map
 /public/css/app.css
 /public/css/app.css.map
+
+public/js/app.js

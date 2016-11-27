@@ -1,26 +1,55 @@
 <template>
-  <div id="login-view" class="col-sm-4 col-sm-offset-4">
-    <h2>Log In</h2>
-    <p>Log in to your account to get some great quotes.</p>
-    <div class="alert alert-danger" v-if="error">
-      <p>{{ error }}</p>
+
+  <div id="login-view">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">Login</div>
+        <form class="panel-body form-horizontal" @submit.prevent="login">
+
+          <div class="form-group" :class="{'has-error': !!error}">
+            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+            <div class="col-md-6">
+              <input id="email"
+                     type="email"
+                     class="form-control"
+                     name="email"
+                     v-model="credentials.email"
+                     placeholder="Enter Your E-Mail Address"
+                     required autofocus>
+
+              <span class="help-block" v-if="!!error">
+                    <strong>{{ error }}</strong>
+                </span>
+            </div>
+          </div>
+
+          <div class="form-group" :class="{'has-error': !!error}">
+            <label for="password" class="col-md-4 control-label">Password</label>
+            <div class="col-md-6">
+              <input id="password"
+                     type="password"
+                     class="form-control"
+                     name="password"
+                     v-model="credentials.password"
+                     placeholder="Enter Your Password"
+                     required>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-8 col-md-offset-4">
+              <button type="submit" class="btn btn-primary">Login</button>
+              <router-link class="btn btn-link" :to="password_reset">Forgot Your Password?</router-link>
+            </div>
+          </div>
+
+        </form>
+      </div>
     </div>
-    <div class="form-group">
-      <input type="text"
-             name="email"
-             class="form-control"
-             placeholder="Enter your username"
-             v-model="credentials.email">
-    </div>
-    <div class="form-group">
-      <input type="password"
-             name="password"
-             class="form-control"
-             placeholder="Enter your password"
-             v-model="credentials.password">
-    </div>
-    <button class="btn btn-primary" @click="login()">Access</button>
+
   </div>
+
 </template>
 
 <script>
@@ -39,7 +68,8 @@
                 credentials: {
                     email: '',
                     password: ''
-                }
+                },
+                password_reset: routes.password_reset
             }
         },
 
@@ -53,7 +83,7 @@
 
             login() {
                 let credentials = Object.assign({}, this.credentials);
-                this.$store.dispatch(aTypes.USER_AUTHORISE, {credentials, route: routes.home});
+                this.$store.dispatch(aTypes.AUTH_USER, {credentials, route: routes.home});
             }
 
         }
