@@ -4,8 +4,6 @@
       <div class="panel-heading">Reset Password</div>
       <form class="panel-body form-horizontal" @submit.prevent="reset">
 
-        <div class="alert alert-success" v-if="status">{{ status }}</div>
-
         <div class="form-group" :class="{'has-error': errors.email}">
           <label for="email" class="col-md-4 control-label">E-Mail Address</label>
 
@@ -37,13 +35,14 @@
 <script>
     import Vue from 'vue'
     import auth from './../../api/auth'
+    import * as routes from './../../router/routes'
+    import * as types from './../../store/mutations'
 
     export default {
 
         data() {
             return {
                 email: '',
-                status: '',
                 errors: {email: false}
             }
         },
@@ -52,8 +51,10 @@
 
             reset() {
                 auth.sendResetLink(this.email)
-                    .then(
-                        status => this.status = status,
+                    .then(status => {
+                            this.$store.commit(types.TOAST_ADD, {message: status});
+                            this.$router.push(routes.home);
+                        },
                         errors => Vue.set(this, 'errors', errors)
                     );
             },
