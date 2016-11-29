@@ -7,14 +7,14 @@
           <!-- Collapsed Hamburger -->
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                   data-target="#app-navbar-collapse">
-            <span class="sr-only">Toggle Navigation</span>
+            <span class="sr-only">{{ $t('app.toggle_nav') }}</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
 
           <!-- Branding Image -->
-          <a class="navbar-brand" href="/">{{ app_name }}</a>
+          <a class="navbar-brand" href="/">{{ $t('app.title') }}</a>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -25,26 +25,36 @@
           <ul class="nav navbar-nav navbar-right">
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+              <a href class="dropdown-toggle" data-toggle="dropdown">
                 {{ user_name }} <span class="caret"></span>
               </a>
 
               <ul class="dropdown-menu" role="menu">
                 <li>
-                  <router-link :to="{ name: 'home' }">Home</router-link>
+                  <router-link :to="{ name: 'home' }">{{ $t('app.home') }}</router-link>
                 </li>
                 <li v-if="!user.authenticated">
-                  <router-link :to="{ name: 'login' }">Login</router-link>
+                  <router-link :to="{ name: 'login' }">{{ $t('app.login') }}</router-link>
                 </li>
                 <li v-if="!user.authenticated">
-                  <router-link :to="{ name: 'signup' }">Sign Up</router-link>
+                  <router-link :to="{ name: 'signup' }">{{ $t('app.signup') }}</router-link>
                 </li>
                 <li v-if="user.authenticated">
-                  <a href="#" @click.prevent="logout">Logout</a>
+                  <a href @click.prevent="logout">{{ $t('app.logout') }}</a>
                 </li>
                 <!--<li>
-                  <a href="#" @click.prevent="toast">Toast</a>
+                  <a href @click.prevent="toast">Toast</a>
                 </li>-->
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href class="dropdown-toggle" data-toggle="dropdown">
+                {{ $t('locale') }} <span class="caret"></span>
+              </a>
+
+              <ul class="dropdown-menu">
+                <li v-for="locale in locales"><a @click.prevent="setLocale(locale.key)" href>{{ locale.text }}</a></li>
               </ul>
             </li>
           </ul>
@@ -61,14 +71,24 @@
 </template>
 
 <script>
+    import Vue from 'vue'
     import Toast from './helpers/Toast.vue'
     import auth from './../api/auth'
     import * as types from './../store/mutations'
+    import * as lang from './../lang'
 
     export default {
 
         mounted() {
             auth.checkAuth();
+        },
+
+        data() {
+
+            return {
+                locales: lang.locales
+            }
+
         },
 
         computed: {
@@ -77,15 +97,11 @@
                 return this.$store.state.auth.user;
             },
 
-            app_name() {
-                return $('title').text();
-            },
-
             user_name() {
                 if (this.$store.state.auth.user.authenticated)
                     return this.$store.state.auth.user.name;
 
-                return 'Actions'
+                return this.$t('app.actions')
             },
 
         },
@@ -94,7 +110,11 @@
 
             logout() {
                 this.$store.commit(types.AUTH_LOGOUT);
-                // TODO: show message about successful logout and redirect to home
+                this.$store.commit(types.TOAST_ADD, {message: this.$t('app.auth_success')});
+            },
+
+            setLocale(locale) {
+                lang.setLocale(locale);
             },
 
             //toast() {
