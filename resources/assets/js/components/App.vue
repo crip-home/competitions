@@ -14,7 +14,7 @@
           </button>
 
           <!-- Branding Image -->
-          <a class="navbar-brand" href="/">{{ $t('app.title') }}</a>
+          <router-link :to="{ name: 'home' }" class="navbar-brand">{{ $t('app.title') }}</router-link>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -24,22 +24,21 @@
           <!-- Right Side Of Navbar -->
           <ul class="nav navbar-nav navbar-right">
 
-            <li class="dropdown">
+            <li v-if="!user.authenticated">
+              <router-link :to="{ name: 'login' }">{{ $t('app.login') }}</router-link>
+            </li>
+
+            <li v-if="!user.authenticated">
+              <router-link :to="{ name: 'signup' }">{{ $t('app.signup') }}</router-link>
+            </li>
+
+            <li class="dropdown" v-if="user.authenticated">
               <a href class="dropdown-toggle" data-toggle="dropdown">
                 {{ user_name }} <span class="caret"></span>
               </a>
 
               <ul class="dropdown-menu" role="menu">
                 <li>
-                  <router-link :to="{ name: 'home' }">{{ $t('app.home') }}</router-link>
-                </li>
-                <li v-if="!user.authenticated">
-                  <router-link :to="{ name: 'login' }">{{ $t('app.login') }}</router-link>
-                </li>
-                <li v-if="!user.authenticated">
-                  <router-link :to="{ name: 'signup' }">{{ $t('app.signup') }}</router-link>
-                </li>
-                <li v-if="user.authenticated">
                   <a href @click.prevent="logout">{{ $t('app.logout') }}</a>
                 </li>
                 <!--<li>
@@ -98,10 +97,7 @@
             },
 
             user_name() {
-                if (this.$store.state.auth.user.authenticated)
-                    return this.$store.state.auth.user.name;
-
-                return this.$t('app.actions')
+                return this.$store.state.auth.user.name;
             },
 
         },
@@ -110,7 +106,7 @@
 
             logout() {
                 this.$store.commit(types.AUTH_LOGOUT);
-                this.$store.commit(types.TOAST_ADD, {message: this.$t('app.auth_success')});
+                this.$store.commit(types.TOAST_ADD, {message: this.$t('app.logout_toast_msg')});
             },
 
             setLocale(locale) {
