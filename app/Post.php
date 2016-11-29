@@ -1,0 +1,36 @@
+<?php namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Post
+ * @package App
+ */
+class Post extends Model
+{
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'posts';
+
+    /**
+     * The attributes that are mass assignable.
+     * 'state', ['PUBLISHED', 'DRAFT', 'PENDING', 'TRASH', 'PRIVATE']
+     * @var array
+     */
+    protected $fillable = [
+        'title', 'body', 'image', 'state', 'publish_at', 'author_id'
+    ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id', 'id');
+    }
+
+}
