@@ -28,6 +28,7 @@ class PostsController extends Controller
 
     /**
      * GET    /api/posts
+     * @return JsonResponse
      */
     public function index()
     {

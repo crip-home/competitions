@@ -32,7 +32,12 @@ export default {
             .then(({data}) => {
                 store.commit(mTypes.AUTH_DATA_UPD, data);
                 onResolved(data);
-            }, r => settings.handleError(r))
+            }, r => {
+                if (r.status === 401)
+                    store.commit(mTypes.AUTH_LOGOUT);
+                else
+                    settings.handleError(r);
+            })
     },
 
     register(details) {
