@@ -1,6 +1,6 @@
-import {http} from 'vue'
+import {http, t} from 'vue'
 import store from './../store'
-import * as mTypes from './../store/mutations'
+import * as types from './../store/mutations'
 import settings from './../store/settings'
 
 export default {
@@ -11,7 +11,7 @@ export default {
             http.post(settings.apiUrl('authenticate'), credentials)
                 .then(({data}) => {
                     localStorage.setItem('token', data.token);
-                    store.commit(mTypes.AUTH_LOGIN);
+                    store.commit(types.AUTH_LOGIN);
                     this.getAuthUserDetails(resolve);
                 }, ({data}) => {
                     reject(data.error)
@@ -22,7 +22,7 @@ export default {
 
     checkAuth() {
         if (localStorage.getItem('token')) {
-            store.commit(mTypes.AUTH_LOGIN);
+            store.commit(types.AUTH_LOGIN);
             this.getAuthUserDetails(window.noop);
         }
     },
@@ -30,11 +30,13 @@ export default {
     getAuthUserDetails(onResolved) {
         http.get(settings.apiUrl('authenticate'))
             .then(({data}) => {
-                store.commit(mTypes.AUTH_DATA_UPD, data);
+                store.commit(types.AUTH_DATA_UPD, data);
                 onResolved(data);
             }, r => {
-                if (r.status === 401)
-                    store.commit(mTypes.AUTH_LOGOUT);
+                if (r.status === 401) {
+                    store.commit(types.TOAST_ADD, {message: t('auth.token_expired'), class: 'toast-info'});
+                    store.commit(types.AUTH_LOGOUT);
+                }
                 else
                     settings.handleError(r);
             })
@@ -45,8 +47,8 @@ export default {
             http.post(settings.apiUrl('register'), details)
                 .then(({data}) => {
                     localStorage.setItem('token', data.token);
-                    store.commit(mTypes.AUTH_LOGIN);
-                    store.commit(mTypes.AUTH_DATA_UPD, data);
+                    store.commit(types.AUTH_LOGIN);
+                    store.commit(types.AUTH_DATA_UPD, data);
                     resolve(data);
                 }, ({data}) => {
                     reject(data);
