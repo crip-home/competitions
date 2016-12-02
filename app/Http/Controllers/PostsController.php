@@ -30,9 +30,10 @@ class PostsController extends Controller
      * GET    /api/posts
      * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $result = $this->post->newQuery()->where('state', 'PUBLISHED')->with('author')->paginate();
+        $result = $this->post->newQuery()->where('state', 'PUBLISHED')->whereRaw('publish_at < CURDATE()')
+            ->orderBy('publish_at', false)->with('author')->paginate($request->per_page ?: 5);
 
         return new JsonResponse($result);
     }

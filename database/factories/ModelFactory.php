@@ -24,9 +24,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
-        'title' => $faker->title,
-        'body' => $faker->realText(),
-        'image' => $faker->imageUrl(),
+        'title' => $faker->sentence(),
+        'body' => join('<br>', $faker->paragraphs()),
+        'image' => $faker->imageUrl(1110, 300),
         'state' => $faker->randomElement(['PUBLISHED', 'DRAFT', 'PENDING', 'TRASH', 'PRIVATE']),
         'publish_at' => $faker->dateTimeThisMonth,
     ];
