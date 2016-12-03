@@ -15,8 +15,11 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('posts')->delete();
-        DB::table('users')->delete();
+        $posts_table = app(\App\Post::class)->getTable();
+        $users_table = app(\App\User::class)->getTable();
+
+        DB::table($posts_table)->delete();
+        DB::table($users_table)->delete();
 
         $admin = App\User::create([
             'name' => 'TAHQ69',

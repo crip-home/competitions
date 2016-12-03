@@ -15,6 +15,14 @@ class Post extends Model
     const STATE_PUBLISHED = 'PUBLISHED';
     const STATE_TRASH = 'TRASH';
 
+    const STATES = [
+        Post::STATE_DRAFT,
+        Post::STATE_PENDING,
+        Post::STATE_PRIVATE,
+        Post::STATE_PUBLISHED,
+        Post::STATE_TRASH,
+    ];
+
     /**
      * The table associated with the model.
      *
@@ -24,11 +32,10 @@ class Post extends Model
 
     /**
      * The attributes that are mass assignable.
-     * 'state', ['PUBLISHED', 'DRAFT', 'PENDING', 'TRASH', 'PRIVATE']
      * @var array
      */
     protected $fillable = [
-        'title', 'body', 'image', 'state', 'publish_at', 'author_id'
+        'title', 'body', 'image', 'state', 'publish_at', 'author_id', 'locale'
     ];
 
     /**

@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Http\Requests\Posts\StorePost;
 use App\Post;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\JsonResponse;
@@ -34,20 +35,30 @@ class PostsController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = $this->post->newQuery()->where('state', Post::STATE_PUBLISHED)->whereRaw('publish_at < CURDATE()')
-            ->orderBy('publish_at', false)
-            ->paginate($request->per_page ?: 5, ['id', 'title', 'image', 'body', 'publish_at']);
+        $post_query = $this->post->newQuery()->where('state', Post::STATE_PUBLISHED)->whereRaw('publish_at < CURDATE()')
+            ->orderBy('publish_at', false);
+
+        if ($request->locales) {
+            $post_query = $post_query->whereIn('locale', explode(',', $request->locales));
+        }
+
+        $posts = $post_query->paginate($request->per_page ?: 5, ['id', 'title', 'image', 'body', 'publish_at']);
 
         return new JsonResponse($posts);
     }
 
     /**
      * POST    /api/posts
-     * @param Request $request
+     * @param StorePost $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
+        $details = $request->only(['title', 'body', 'image', 'state', 'publish_at', 'locale']);
+        $details['author_id'] = \Auth::user()->id;
+        $post = Post::create($details);
 
+        return new JsonResponse($post);
     }
 
     /**
