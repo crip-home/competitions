@@ -3,7 +3,8 @@
   "scripts": {
     "prod": "gulp --production & webpack --minimize",
     "dev": "gulp watch",
-    "spa": "webpack --watch"
+    "webpack-watch": "webpack --watch",
+    "webpack": "webpack"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
