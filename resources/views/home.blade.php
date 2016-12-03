@@ -24,6 +24,7 @@
   Loading...
   <!-- Scripts -->
   <script src="/js/vendor.js"></script>
+  <script src="/ckeditor/ckeditor.js"></script>
   <script src="/js/app.js"></script>
 </div>
 

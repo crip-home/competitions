@@ -14,12 +14,24 @@
           </button>
 
           <!-- Branding Image -->
-          <router-link :to="{ name: 'home' }" class="navbar-brand">{{ $t('app.title') }}</router-link>
+          <router-link :to="routes.home" class="navbar-brand">{{ $t('app.title') }}</router-link>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
           <!-- Left Side Of Navbar -->
-          <ul class="nav navbar-nav">&nbsp;</ul>
+          <ul class="nav navbar-nav">
+            <li class="dropdown" v-if="user.authenticated">
+              <a href class="dropdown-toggle" data-toggle="dropdown">
+                Posts <span class="caret"></span>
+              </a>
+
+              <ul class="dropdown-menu">
+                <li>
+                  <router-link :to="routes.create_post">Create</router-link>
+                </li>
+              </ul>
+            </li>
+          </ul>
 
           <!-- Right Side Of Navbar -->
           <ul class="nav navbar-nav navbar-right">
@@ -37,7 +49,7 @@
                 {{ user_name }} <span class="caret"></span>
               </a>
 
-              <ul class="dropdown-menu" role="menu">
+              <ul class="dropdown-menu">
                 <li>
                   <a href @click.prevent="logout">{{ $t('app.logout') }}</a>
                 </li>
@@ -81,6 +93,7 @@
     import auth from './../api/auth'
     import * as types from './../store/mutations'
     import * as lang from './../lang'
+    import * as routes from './../router/routes'
 
     export default {
 
@@ -91,7 +104,8 @@
         data() {
 
             return {
-                locales: lang.locales
+                locales: lang.locales,
+                routes
             }
 
         },
