@@ -9,6 +9,12 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
 
+    const STATE_DRAFT = 'DRAFT';
+    const STATE_PENDING = 'PENDING';
+    const STATE_PRIVATE = 'PRIVATE';
+    const STATE_PUBLISHED = 'PUBLISHED';
+    const STATE_TRASH = 'TRASH';
+
     /**
      * The table associated with the model.
      *

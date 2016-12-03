@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Post;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -28,14 +29,16 @@ class PostsController extends Controller
 
     /**
      * GET    /api/posts
+     * @param Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
     {
-        $result = $this->post->newQuery()->where('state', 'PUBLISHED')->whereRaw('publish_at < CURDATE()')
-            ->orderBy('publish_at', false)->with('author')->paginate($request->per_page ?: 5);
+        $posts = $this->post->newQuery()->where('state', Post::STATE_PUBLISHED)->whereRaw('publish_at < CURDATE()')
+            ->orderBy('publish_at', false)
+            ->paginate($request->per_page ?: 5, ['id', 'title', 'image', 'body', 'publish_at']);
 
-        return new JsonResponse($result);
+        return new JsonResponse($posts);
     }
 
     /**
@@ -50,10 +53,16 @@ class PostsController extends Controller
     /**
      * GET    /api/posts/{post}
      * @param $post
+     * @return JsonResponse
      */
     public function show($post)
     {
+        $post_model = $this->post->newQuery()->where('id', $post)->where('state', Post::STATE_PUBLISHED)
+            ->with(['author' => function (BelongsTo $query) {
+                $query->getQuery()->select(['id', 'name']);
+            }])->firstOrFail(['id', 'author_id', 'title', 'image', 'body', 'publish_at']);
 
+        return new JsonResponse($post_model);
     }
 
     /**

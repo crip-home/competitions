@@ -1,6 +1,7 @@
 <template>
   <section id="home" class="col-md-12">
-    <article class="row" v-for="post in posts">
+
+    <article class="row" v-for="post in posts" :key="post.id">
       <hr>
       <div class="col-md-12">
         <router-link :to="openPost(post)">
@@ -13,12 +14,11 @@
         <p>{{ post.short_body }}</p>
       </div>
     </article>
+
     <paging :current-page="current_page"
             :per-page="per_page"
             :last-page="last_page"
-            :change="fetchPage"></paging>
-
-    <router-view></router-view>
+            :change="openPage"></paging>
   </section>
 </template>
 
@@ -26,12 +26,11 @@
     import posts from './../api/posts'
     import * as routes from './../router/routes'
     import Paging from './helpers/Paging.vue'
-    import {scrollTo} from './helpers/scrollTo'
 
     export default {
 
         mounted() {
-            this.fetchPage(1);
+            this.fetchPage(this.$route.params.page || 1);
         },
 
         data() {
@@ -46,14 +45,17 @@
         methods: {
 
             fetchPage(page) {
-                posts.get(page).then(data => {
-                    this.current_page = data.current_page;
-                    this.last_page = data.last_page;
-                    this.per_page = data.per_page;
-                    this.posts = [];
-                    scrollTo(document.body, 0, 375);
+                this.posts = [];
+                posts.get(page, this.per_page).then(data => {
+                    this.current_page = parseInt(data.current_page);
+                    this.last_page = parseInt(data.last_page);
+                    this.per_page = parseInt(data.per_page);
                     data.data.forEach(post => this.posts.push(post));
                 });
+            },
+
+            openPage(page) {
+                this.$router.push({name: routes.home.name, params: {page: page}});
             },
 
             openPost(post) {
@@ -65,6 +67,12 @@
                 };
             },
 
+        },
+
+        watch: {
+            '$route' (to, from) {
+                this.fetchPage(to.params.page || 1);
+            }
         },
 
         components: {

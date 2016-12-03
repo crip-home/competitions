@@ -62,7 +62,13 @@
     </nav>
 
     <div class="container">
-      <router-view class="row"></router-view>
+
+      <transition name="fade-horizontal" mode="out-in"
+                  enter-active-class="animated fadeInLeft"
+                  leave-active-class="animated fadeOutRight">
+        <router-view class="row"></router-view>
+      </transition>
+
     </div>
 
     <toast></toast>
