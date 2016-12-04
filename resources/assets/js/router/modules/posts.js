@@ -8,6 +8,9 @@ export const home = {path: '/home/:page?', name: routes.home.name, component: Ho
 export const posts = {
     path: '/posts', component: ChildHolderView, children: [
         {path: 'read/:id', name: routes.read_post.name, component: ReadPostView},
-        {path: 'create', name: routes.create_post.name, component: CreateEditPost},
+        {
+            path: 'create', name: routes.create_post.name, component: CreateEditPost,
+            meta: {requiresAuth: true, requiresRoles: ['CREATE_POST']}
+        },
     ]
 };

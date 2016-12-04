@@ -77,4 +77,70 @@ export default {
                 });
         });
     },
+
+    middleware: {
+
+        /**
+         * Determines user authenticated sate
+         *
+         * @returns {boolean}
+         */
+        isAuthenticated() {
+            return store.state.auth.user.authenticated;
+        },
+
+        /**
+         * Determine has a auth user presented role
+         *
+         * @param {string} role
+         * @returns {boolean}
+         */
+        hasRole(role) {
+            if (!this.isAuthenticated())
+                return false;
+
+            let check = (role) => !!~store.state.auth.roles.indexOf(role);
+
+            // if user has an super_admin role, allow him to do anything
+            if (check('SUPER_ADMIN'))
+                return true;
+
+            return check(role);
+        },
+
+        /**
+         * Determine has a auth user any of role presented in list of roles
+         *
+         * @param {Array} roles List of roles to match
+         * @returns {boolean}
+         */
+        hasAnyRole(roles) {
+            if (!this.isAuthenticated())
+                return false;
+
+            for (let key in roles)
+                if (roles.hasOwnProperty(key) && this.hasRole(roles[key]))
+                    return true;
+
+            return false;
+        },
+
+        /**
+         * Determine has a auth user all roles presented in list
+         *
+         * @param {Array} roles List of roles to match
+         * @returns {boolean}
+         */
+        hasAllRoles(roles) {
+            if (!this.isAuthenticated())
+                return false;
+
+            for (let key in roles)
+                if (roles.hasOwnProperty(key) && !this.hasRole(roles[key]))
+                    return false;
+
+            return true;
+        }
+
+    },
 }

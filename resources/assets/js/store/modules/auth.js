@@ -9,6 +9,8 @@ const state = {
         email: ''
     },
 
+    roles: []
+
 };
 
 const mutations = {

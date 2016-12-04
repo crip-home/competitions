@@ -9,8 +9,11 @@ Lang.checkLocale();
 Vue.use(VueResource);
 
 import router from './router'
+import guard from './router/guard'
 import store from './store'
 import App from './components/App.vue'
+
+guard.start();
 
 Vue.http.interceptors.push((request, next) => {
     request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken);

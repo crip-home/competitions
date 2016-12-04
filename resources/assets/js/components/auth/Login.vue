@@ -52,7 +52,11 @@
                 let credentials = Object.assign({}, this.credentials);
                 auth.login(credentials)
                     .then(() => {
-                        this.$router.push(routes.home)
+                        if (this.$route.query && this.$route.query.redirect)
+                            // if user has redirected here by guard, redirect him back to guarded route instead of home
+                            this.$router.push(this.$route.query.redirect);
+                        else
+                            this.$router.push(routes.home)
                     }, error => {
                         this.error = [error];
                     });
