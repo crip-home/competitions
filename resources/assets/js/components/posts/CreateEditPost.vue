@@ -12,6 +12,22 @@
       <ckeditor v-model="post.body" id="editor-body"></ckeditor>
     </form-group>
 
+    <form-group id="state" label="State" :errors="errors.state">
+      <select2 id="state" :options="state.options" v-model="post.state" :search="false">
+        <option disabled value="0">Select one</option>
+      </select2>
+    </form-group>
+
+    <form-group id="publish-at" label="Published At" :errors="errors.publish_at">
+      <date v-model="post.publish_at"></date>
+      <span class="help-block">If state is 'published' but date is greater than now, post will become available for
+        users after date become actual.</span>
+    </form-group>
+
+    <form-group id="locale" label="Locale" :errors="errors.locale">
+      <select2 id="locale" :options="locale.options" v-model="post.locale" :search="false"></select2>
+    </form-group>
+
     <submit>
       <button type="submit" class="btn btn-primary">Save</button>
     </submit>
@@ -19,12 +35,23 @@
 </template>
 
 <script>
+    import Vue from 'vue'
+    import * as lang from './../../lang'
+
     import CKEditor from './../helpers/CKEditor.vue'
     import Panel from './../helpers/forms/Panel.vue'
     import FormGroup from './../helpers/forms/FormGroup.vue'
     import SubmitArea from './../helpers/forms/SubmitArea.vue'
+    import Datepicker from './../helpers/bootstrap/Datepicker.vue'
+    import Select2 from './../helpers/Select2.vue'
 
     export default {
+
+        mounted() {
+            this.post.locale = Vue.config.lang;
+            Object.keys(lang.locales).forEach((locale) =>
+                this.locale.options.push({id: lang.locales[locale].key, text: lang.locales[locale].text}));
+        },
 
         data() {
             return {
@@ -32,13 +59,26 @@
                     title: '',
                     image: '',
                     body: '',
+                    state: '',
+                    publish_at: '',
+                    locale: '',
                 },
 
-                errors: {
-                    title: null,
-                    image: null,
-                    body: null
+                errors: {},
+
+                locale: {
+                    options: []
                 },
+
+                state: {
+                    options: [
+                        {id: 'DRAFT', text: 'Draft'},
+                        {id: 'PENDING', text: 'Pending'},
+                        {id: 'PRIVATE', text: 'Private'},
+                        {id: 'PUBLISHED', text: 'Published'},
+                        {id: 'TRASH', text: 'Trash'},
+                    ]
+                }
             }
         },
 
@@ -54,7 +94,9 @@
             ckeditor: CKEditor,
             panel: Panel,
             formGroup: FormGroup,
-            submit: SubmitArea
+            submit: SubmitArea,
+            date: Datepicker,
+            select2: Select2
         },
 
     }

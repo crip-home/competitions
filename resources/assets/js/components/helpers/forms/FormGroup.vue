@@ -16,7 +16,7 @@
         props: {
             label: {type: String, required: true},
             id: {type: String, required: true},
-            errors: {type: Array, 'default': false},
+            errors: {type: Array, 'default': null},
             sizeChange: {type: String, 'default': 'lg'},
             size: {type: Number, 'default': 8},
         },

@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 
-var plugins = [
+let plugins = [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.js', Infinity),
     new webpack.ProvidePlugin({jQuery: 'jquery', $: 'jquery', jquery: 'jquery'})
 ];
@@ -14,7 +14,8 @@ module.exports = {
     devtool: '#source-map',
     entry: {
         app: './resources/assets/js/app.js',
-        vendor: ['babel-polyfill', 'es6-promise', 'vue', 'vue-router', 'vuex', 'vue-resource', 'jquery', 'bootstrap-sass']
+        vendor: ['babel-polyfill', 'es6-promise', 'vue', 'vue-router', 'vuex', 'vue-resource', 'jquery',
+            'bootstrap-sass', 'bootstrap-datepicker', 'select2']
     },
     output: {
         path: './public/js',
