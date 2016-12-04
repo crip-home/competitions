@@ -52,14 +52,33 @@
                 let credentials = Object.assign({}, this.credentials);
                 auth.login(credentials)
                     .then(() => {
-                        if (this.$route.query && this.$route.query.redirect)
-                            // if user has redirected here by guard, redirect him back to guarded route instead of home
-                            this.$router.push(this.$route.query.redirect);
-                        else
-                            this.$router.push(routes.home)
+                        this.redirectAuthenticated();
                     }, error => {
                         this.error = [error];
                     });
+            },
+
+            redirectAuthenticated() {
+                if (this.$route.query && this.$route.query.redirect) {
+                    // if user has redirected here by guard, redirect him back
+                    // to guarded route instead of home
+                    this.$router.push(this.$route.query.redirect);
+                }
+                else
+                    this.$router.push(routes.home);
+            },
+
+        },
+
+        watch: {
+
+            '$store.state.auth.user.details'(newVal) {
+                // Watching user details, because they arrives later than route
+                // guard redirects to login and in case we receive them, we can
+                // redirect him to requested route
+                if (newVal === true) {
+                    this.redirectAuthenticated();
+                }
             },
 
         },

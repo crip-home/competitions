@@ -5,6 +5,7 @@ const state = {
 
     user: {
         authenticated: false,
+        details: false,
         name: '',
         email: ''
     },
@@ -27,7 +28,8 @@ const mutations = {
 
     [mTypes.AUTH_LOGOUT] (state) {
         localStorage.removeItem('token');
-        state.user.authenticated = false
+        state.user.authenticated = false;
+        state.details = false;
     },
 
     [mTypes.AUTH_DATA_UPD](state, payload) {
@@ -35,6 +37,9 @@ const mutations = {
         state.user.email = payload.email;
         state.roles = [];
         payload.roles.forEach((role) => state.roles.push(role.key));
+
+        // allow listeners to watch that user has details received
+        state.user.details = true;
     },
 
 };
