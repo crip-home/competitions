@@ -1,7 +1,7 @@
 import {http, t} from 'vue'
-import store from './../store'
-import * as types from './../store/mutations'
-import settings from './../store/settings'
+import store from './../../store'
+import * as types from './../../store/mutations'
+import settings from './../../store/settings'
 
 export default {
 

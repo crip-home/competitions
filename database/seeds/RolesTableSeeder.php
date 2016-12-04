@@ -1,5 +1,6 @@
 <?php
 
+use App\Role;
 use Illuminate\Database\Seeder;
 
 class RolesTableSeeder extends Seeder
@@ -11,19 +12,18 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $role_table = app(\App\Role::class)->getTable();
+        $role_table = app(Role::class)->getTable();
         $roles = [
-            'SUPER_ADMIN',
-            'CREATE_POST',
-            'EDIT_POSTS',
+            Role::SUPER_ADMIN,
+            Role::CREATE_POST,
+            Role::MANAGE_POSTS,
         ];
 
+        DB::table('role_user')->delete();
         DB::table($role_table)->delete();
 
         foreach ($roles as $role) {
-            DB::table($role_table)->insert([
-                'key' => $role
-            ]);
+            Role::create(['key' => $role]);
         }
     }
 }

@@ -33,6 +33,8 @@ const mutations = {
     [mTypes.AUTH_DATA_UPD](state, payload) {
         state.user.name = payload.name;
         state.user.email = payload.email;
+        state.roles = [];
+        payload.roles.forEach((role) => state.roles.push(role.key));
     },
 
 };

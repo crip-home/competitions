@@ -1,4 +1,5 @@
 import * as routes from './../routes'
+import * as roles from './../../api/auth/roles'
 import ChildHolderView from './../../components/ChildHolder.vue'
 import HomeView from './../../components/Home.vue'
 import ReadPostView from './../../components/posts/ReadPost.vue'
@@ -10,7 +11,7 @@ export const posts = {
         {path: 'read/:id', name: routes.read_post.name, component: ReadPostView},
         {
             path: 'create', name: routes.create_post.name, component: CreateEditPost,
-            meta: {requiresAuth: true, requiresRoles: ['CREATE_POST']}
+            meta: {requiresAuth: true, requiresRoles: [roles.CREATE_POST]}
         },
     ]
 };

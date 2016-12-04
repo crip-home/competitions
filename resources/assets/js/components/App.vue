@@ -20,13 +20,13 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
           <!-- Left Side Of Navbar -->
           <ul class="nav navbar-nav">
-            <li class="dropdown" v-if="user.authenticated">
+            <li class="dropdown" v-if="userCan('see_posts')">
               <a href class="dropdown-toggle" data-toggle="dropdown">
                 Posts <span class="caret"></span>
               </a>
 
               <ul class="dropdown-menu">
-                <li>
+                <li v-if="userCan('create_posts')">
                   <router-link :to="routes.create_post">Create</router-link>
                 </li>
               </ul>
@@ -91,6 +91,7 @@
     import Vue from 'vue'
     import Toast from './helpers/Toast.vue'
     import auth from './../api/auth'
+    import * as roles from './../api/auth/roles'
     import * as types from './../store/mutations'
     import * as lang from './../lang'
     import * as routes from './../router/routes'
@@ -127,10 +128,26 @@
             logout() {
                 this.$store.commit(types.AUTH_LOGOUT);
                 this.$store.commit(types.TOAST_ADD, {message: this.$t('app.logout_toast_msg')});
+                // Redirect user to homepage after logout
+                this.$router.push(routes.home);
             },
 
             setLocale(locale) {
                 lang.setLocale(locale);
+            },
+
+            userCan(action) {
+                let user = auth.middleware;
+                if (!user.isAuthenticated()) return false;
+
+                if (action === 'see_posts')
+                    return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS]);
+
+
+                if (action === 'create_posts')
+                    return user.hasRole(roles.CREATE_POST);
+
+                return false;
             },
 
             //toast() {
