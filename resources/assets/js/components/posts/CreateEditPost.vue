@@ -14,7 +14,7 @@
 
     <form-group id="state" label="State" :errors="errors.state">
       <select2 id="state" :options="state.options" v-model="post.state" :search="false">
-        <option disabled value="0">Select one</option>
+        <option disabled selected value="">Select one</option>
       </select2>
     </form-group>
 
@@ -36,7 +36,9 @@
 
 <script>
     import Vue from 'vue'
+    import post from './../../api/posts'
     import * as lang from './../../lang'
+    import * as routes from './../../router/routes'
 
     import CKEditor from './../helpers/CKEditor.vue'
     import Panel from './../helpers/forms/Panel.vue'
@@ -85,8 +87,12 @@
         methods: {
 
             savePost() {
-
-            }
+                post.save(this.post)
+                    .then(
+                        () => this.$router.push(routes.home),
+                        errors => Vue.set(this, 'errors', errors)
+                    );
+            },
 
         },
 

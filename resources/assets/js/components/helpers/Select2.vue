@@ -8,8 +8,8 @@
     export default {
 
         props: {
+            value: {type: String},
             options: {type: Array, 'default': []},
-            value: {type: String, required: true},
             search: {type: Boolean, 'default': true}
         },
 
@@ -21,17 +21,21 @@
                 options.minimumResultsForSearch = -1;
             }
 
-            $(this.$el)
-                .val(this.value)
+            const $select = $(this.$el);
+
+            $select
                 .select2(options)
-                .on('change', () => this.$emit('input', this.value));
+                .val(this.value)
+                .on('change', () => {
+                    this.$emit('input', $select.val())
+                });
         },
 
         watch: {
 
             value(val) {
                 // update value
-                $(this.$el).select2('val', val);
+                $(this.$el).select2().val(val);
             },
 
             options (options) {

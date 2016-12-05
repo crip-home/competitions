@@ -36,6 +36,23 @@ export default {
                     response => settings.handleError(response, reject)
                 );
         })
+    },
+
+    /**
+     * Store post on the server
+     *
+     * @param {object} post
+     * @param {number} id
+     * @returns {Promise}
+     */
+    save(post, id = 0) {
+        return new Promise((resolve, reject) => {
+            http.post(settings.apiUrl('posts'), post)
+                .then(
+                    ({data}) => resolve(data),
+                    response => settings.handleError(response, reject)
+                );
+        });
     }
 
 };

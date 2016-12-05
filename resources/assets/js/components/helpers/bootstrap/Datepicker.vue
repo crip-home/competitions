@@ -10,9 +10,10 @@
         },
 
         mounted() {
-            $(this.$el).datepicker({
-                format: 'yyyy-mm-dd'
-            });
+            const $datepicker = $(this.$el);
+            $datepicker
+                .datepicker({ format: 'yyyy-mm-dd'})
+                .on('changeDate', () => this.$emit('input', $datepicker.val()));
         },
 
         destroyed() {

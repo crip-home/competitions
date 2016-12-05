@@ -42,7 +42,9 @@ class FormRequest extends LaravelFormRequest
         if (!\Auth::check())
             return false;
 
-        $this->roles = Auth::user()->roles;
+        $this->roles = Auth::user()->roles->map(function ($role) {
+            return $role->key;
+        })->toArray();
 
         return true;
     }
