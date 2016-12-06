@@ -8,7 +8,7 @@ use App\Role;
  * Class StorePost
  * @package App\Http\Requests\Posts
  */
-class StorePost extends FormRequest
+class AdminStorePost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,13 +17,7 @@ class StorePost extends FormRequest
      */
     public function authorize()
     {
-        if (!$this->checkAuth())
-            return false;
-
-        if ($this->hasAny([Role::SUPER_ADMIN, Role::CREATE_POST]))
-            return true;
-
-        return false;
+        return \Auth::check();
     }
 
     /**

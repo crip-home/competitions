@@ -49,4 +49,24 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')->withTimestamps();
     }
+
+    /**
+     * @param $role
+     * @return bool
+     */
+    public function hasRole($role)
+    {
+        $roles = $this->roles->map(function ($role) {
+            return $role->key;
+        })->toArray();
+
+        // Allow super admin do anything
+        if (in_array(Role::SUPER_ADMIN, $roles))
+            return true;
+
+        if (in_array($role, $roles))
+            return true;
+
+        return false;
+    }
 }

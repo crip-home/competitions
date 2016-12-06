@@ -10,12 +10,6 @@ use Illuminate\Foundation\Http\FormRequest as LaravelFormRequest;
  */
 class FormRequest extends LaravelFormRequest
 {
-
-    /**
-     * @var array
-     */
-    protected $roles;
-
     /**
      * Validate the class instance.
      *
@@ -32,45 +26,5 @@ class FormRequest extends LaravelFormRequest
         } elseif (!$instance->passes()) {
             $this->failedValidation($instance);
         }
-    }
-
-    /**
-     * @return bool
-     */
-    public function checkAuth()
-    {
-        if (!\Auth::check())
-            return false;
-
-        $this->roles = Auth::user()->roles->map(function ($role) {
-            return $role->key;
-        })->toArray();
-
-        return true;
-    }
-
-    /**
-     * @param array $roles
-     * @return bool
-     */
-    public function hasAny($roles = [])
-    {
-        foreach ($roles as $role)
-            if ($this->hasRole($role))
-                return true;
-
-        return false;
-    }
-
-    /**
-     * @param string $role
-     * @return bool
-     */
-    public function hasRole($role)
-    {
-        if (in_array($role, $this->roles))
-            return true;
-
-        return false;
     }
 }

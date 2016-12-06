@@ -73,6 +73,7 @@
                 },
 
                 state: {
+                    //TODO: this should come in from server api
                     options: [
                         {id: 'DRAFT', text: 'Draft'},
                         {id: 'PENDING', text: 'Pending'},

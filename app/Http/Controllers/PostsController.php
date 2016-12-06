@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Http\Requests\Posts\StorePost;
+use App\Http\Requests\Posts\AdminStorePost;
 use App\Post;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\JsonResponse;
@@ -24,7 +24,6 @@ class PostsController extends Controller
      */
     public function __construct(Post $post)
     {
-        $this->middleware('jwt.auth', ['except' => ['index', 'show']]);
         $this->post = $post;
     }
 
@@ -35,7 +34,7 @@ class PostsController extends Controller
      */
     public function index(Request $request)
     {
-        $post_query = $this->post->newQuery()->where('state', Post::STATE_PUBLISHED)->whereRaw('publish_at < CURDATE()')
+        $post_query = $this->post->newQuery()->where('state', Post::STATE_PUBLISHED)->whereRaw('publish_at <= CURDATE()')
             ->orderBy('publish_at', false);
 
         if ($request->locales) {
@@ -45,20 +44,6 @@ class PostsController extends Controller
         $posts = $post_query->paginate($request->per_page ?: 5, ['id', 'title', 'image', 'body', 'publish_at']);
 
         return new JsonResponse($posts);
-    }
-
-    /**
-     * POST    /api/posts
-     * @param StorePost $request
-     * @return JsonResponse
-     */
-    public function store(StorePost $request)
-    {
-        $details = $request->only(['title', 'body', 'image', 'state', 'publish_at', 'locale']);
-        $details['author_id'] = \Auth::user()->id;
-        $post = Post::create($details);
-
-        return new JsonResponse($post);
     }
 
     /**
@@ -74,24 +59,5 @@ class PostsController extends Controller
             }])->firstOrFail(['id', 'author_id', 'title', 'image', 'body', 'publish_at']);
 
         return new JsonResponse($post_model);
-    }
-
-    /**
-     * PUT/PATCH    /api/posts/{post}
-     * @param Request $request
-     * @param $post
-     */
-    public function update(Request $request, $post)
-    {
-
-    }
-
-    /**
-     * DELETE    /api/posts/{post}
-     * @param $post
-     */
-    public function destroy($post)
-    {
-
     }
 }
