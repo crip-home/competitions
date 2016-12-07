@@ -36,7 +36,7 @@
     import Vue from 'vue'
     import auth from './../../api/auth'
     import * as routes from './../../router/routes'
-    import * as types from './../../store/mutations'
+    import * as types from '../../store/types'
 
     export default {
 

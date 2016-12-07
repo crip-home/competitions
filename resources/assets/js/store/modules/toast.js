@@ -1,4 +1,4 @@
-import * as mTypes from './../mutations'
+import * as mTypes from '../types'
 
 const state = {
 

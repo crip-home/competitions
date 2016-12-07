@@ -36,16 +36,16 @@
 
 <script>
     import Vue from 'vue'
-    import post from './../../api/posts'
-    import * as lang from './../../lang'
-    import * as routes from './../../router/routes'
+    import post from './../../../api/posts/admin'
+    import * as lang from './../../../lang'
+    import * as routes from './../../../router/routes'
 
-    import CKEditor from './../helpers/CKEditor.vue'
-    import Panel from './../helpers/forms/Panel.vue'
-    import FormGroup from './../helpers/forms/FormGroup.vue'
-    import SubmitArea from './../helpers/forms/SubmitArea.vue'
-    import Datepicker from './../helpers/bootstrap/Datepicker.vue'
-    import Select2 from './../helpers/Select2.vue'
+    import CKEditor from './../../helpers/CKEditor.vue'
+    import Panel from './../../helpers/forms/Panel.vue'
+    import FormGroup from './../../helpers/forms/FormGroup.vue'
+    import SubmitArea from './../../helpers/forms/SubmitArea.vue'
+    import Datepicker from './../../helpers/bootstrap/Datepicker.vue'
+    import Select2 from './../../helpers/Select2.vue'
 
     export default {
 

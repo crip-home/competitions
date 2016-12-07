@@ -29,6 +29,10 @@
                 <li v-if="userCan('create_posts')">
                   <router-link :to="routes.create_post">Create</router-link>
                 </li>
+
+                <li v-if="userCan('list_posts')">
+                  <router-link :to="routes.list_posts">List</router-link>
+                </li>
               </ul>
             </li>
           </ul>
@@ -92,7 +96,7 @@
     import Toast from './helpers/Toast.vue'
     import auth from './../api/auth'
     import * as roles from './../api/auth/roles'
-    import * as types from './../store/mutations'
+    import * as types from '../store/types'
     import * as lang from './../lang'
     import * as routes from './../router/routes'
 
@@ -146,6 +150,9 @@
 
                 if (action === 'create_posts')
                     return user.hasRole(roles.CREATE_POST);
+
+                if (action === 'list_posts')
+                    return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS]);
 
                 return false;
             },

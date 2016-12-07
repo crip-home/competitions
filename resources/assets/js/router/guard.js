@@ -2,7 +2,7 @@ import {t} from 'vue'
 import router from './index'
 import auth from './../api/auth'
 import * as routes from './routes'
-import * as types from './../store/mutations'
+import * as types from '../store/types'
 import store from './../store'
 
 export default {
@@ -22,6 +22,15 @@ export default {
                         if (!middleware.hasAllRoles(to.meta.requiresRoles)) {
                             store.commit(types.TOAST_ADD, {
                                 message: t('app.permission_denied', {perm: to.meta.requiresRoles.join(', ')}),
+                                'class': 'toast-error'
+                            });
+                            next(routes.home.name);
+                        } else
+                            next();
+                    } else if (to.matched.some(r => r.meta.requiresAnyOfRoles)) {
+                        if (!middleware.hasAnyRole(to.meta.requiresAnyOfRoles)) {
+                            store.commit(types.TOAST_ADD, {
+                                message: t('app.permission_denied', {perm: to.meta.requiresAnyOfRoles.join(', ')}),
                                 'class': 'toast-error'
                             });
                             next(routes.home.name);

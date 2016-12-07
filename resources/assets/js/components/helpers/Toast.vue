@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import * as types from './../../store/mutations'
+    import * as types from '../../store/types'
 
     export default {
 
