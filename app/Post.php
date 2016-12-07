@@ -80,6 +80,9 @@ class Post extends Model
      */
     public function getShortBodyAttribute()
     {
-        return str_limit(strip_tags($this->attributes['body']), 500);
+        if (array_key_exists('body', $this->attributes))
+            return str_limit(strip_tags($this->attributes['body']), 500);
+
+        return '';
     }
 }

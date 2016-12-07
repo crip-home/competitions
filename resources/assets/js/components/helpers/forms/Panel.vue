@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit" class="v-form-panel">
+  <form @submit.prevent="submit" class="v-panel v-form-panel">
     <div class="panel panel-default">
 
       <div class="panel-heading">{{ title }}</div>

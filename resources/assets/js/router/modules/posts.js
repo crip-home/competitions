@@ -15,8 +15,12 @@ export const posts = {
             meta: {requiresAuth: true, requiresRoles: [roles.CREATE_POST]}
         },
         {
-            path: 'admin/list', name: routes.list_posts.name, component: ListPosts,
+            path: 'admin/list/:page?', name: routes.list_posts.name, component: ListPosts,
             meta: {requiresAuth: true, requiresAnyOfRoles: [roles.CREATE_POST, roles.MANAGE_POSTS]}
-        }
+        },
+        {
+            path: 'admin/edit/:id', name: routes.edit_post.name, component: CreateEditPost,
+            meta: {requiresAuth: true, requiresAnyOfRoles: [roles.CREATE_POST, roles.MANAGE_POSTS]}
+        },
     ]
 };

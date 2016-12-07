@@ -14,7 +14,7 @@
 
     <form-group id="state" label="State" :errors="errors.state">
       <select2 id="state" :options="state.options" v-model="post.state" :search="false">
-        <option disabled selected value="">Select one</option>
+        <option disabled value="">Select one</option>
       </select2>
     </form-group>
 
@@ -36,7 +36,7 @@
 
 <script>
     import Vue from 'vue'
-    import post from './../../../api/posts/admin'
+    import posts from './../../../api/posts/admin'
     import * as lang from './../../../lang'
     import * as routes from './../../../router/routes'
 
@@ -51,8 +51,16 @@
 
         mounted() {
             this.post.locale = Vue.config.lang;
-            Object.keys(lang.locales).forEach((locale) =>
-                this.locale.options.push({id: lang.locales[locale].key, text: lang.locales[locale].text}));
+            Object.keys(lang.locales)
+                .forEach((locale) =>
+                    this.locale.options.push({
+                        id: lang.locales[locale].key,
+                        text: lang.locales[locale].text
+                    }));
+
+            if (this.$route.name == routes.edit_post.name) {
+                this.fetchPost(this.$route.params.id);
+            }
         },
 
         data() {
@@ -88,11 +96,19 @@
         methods: {
 
             savePost() {
-                post.save(this.post)
+                posts.save(this.post)
                     .then(
-                        () => this.$router.push(routes.home),
+                        () => this.$router.push(routes.list_posts),
                         errors => Vue.set(this, 'errors', errors)
                     );
+            },
+
+            fetchPost(id) {
+                posts.find(id)
+                    .then(post => {
+                        this.post = post;
+                        this.author = post.author;
+                    });
             },
 
         },

@@ -38,8 +38,9 @@ class PostsController extends Controller
     {
         $this->authorize('viewList', Post::class);
 
-        $post_query = $this->post->newQuery()
-            ->orderBy('publish_at', false);
+        $post_query = $this->post->newQuery()->with(['author' => function ($query) {
+            $query->select(['id', 'name']);
+        }])->orderBy('publish_at', false);
 
         // If user has no permission to manage post, he can see only posts created by him
         if (!$request->user()->hasRole(Role::MANAGE_POSTS)) {
@@ -48,7 +49,8 @@ class PostsController extends Controller
 
         // TODO: add more filters here for admin
 
-        $posts = $post_query->paginate($request->per_page ?: 15, ['id', 'title', 'image', 'body', 'publish_at']);
+        $posts = $post_query->paginate($request->per_page ?: 15,
+            ['id', 'title', 'image', 'publish_at', 'author_id', 'state']);
 
         return new JsonResponse($posts);
     }
@@ -78,7 +80,7 @@ class PostsController extends Controller
     {
         $this->authorize('view', $post);
 
-        $post_model = $this->post->newQuery()->where('id', $post)->with(['author'])->firstOrFail();
+        $post_model = $this->post->newQuery()->where('id', $post->id)->with(['author'])->firstOrFail();
 
         return new JsonResponse($post_model);
     }
@@ -87,11 +89,16 @@ class PostsController extends Controller
      * PUT/PATCH    /api/admin/posts/{post}
      * @param Request $request
      * @param Post $post
+     * @return JsonResponse
      */
     public function update(Request $request, Post $post)
     {
         $this->authorize('update', $post);
 
+        $details = $request->only(['title', 'body', 'image', 'state', 'publish_at', 'locale']);
+        $post_model = $this->post->newQuery()->where('id', $post->id)->update($details);
+
+        return new JsonResponse($post_model);
     }
 
     /**
