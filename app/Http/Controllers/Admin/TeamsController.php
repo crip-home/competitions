@@ -41,11 +41,11 @@ class TeamsController extends Controller
 
         // If user is not a super admin, allow see only owned teams
         if (!$request->user()->hasRole(Role::SUPER_ADMIN)) {
-            $team_query = $team_query->join('team_owner', 'team_owner.team_id', '=', 'team.id')
+            $team_query = $team_query->join('team_owner', 'team_owner.team_id', '=', 'teams.id')
                 ->where('team_owner.user_id', $request->user()->id);
         }
 
-        $teams = $team_query->paginate($request->per_page ?: 15, ['team.id', 'name', 'short']);
+        $teams = $team_query->paginate($request->per_page ?: 15, ['teams.id', 'name', 'short']);
 
         return new JsonResponse($teams);
     }

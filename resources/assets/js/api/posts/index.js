@@ -17,7 +17,7 @@ export default {
             http.get(settings.apiUrl('posts', params))
                 .then(
                     ({data}) => resolve(data),
-                    response => settings.handleError(r, reject)
+                    response => settings.handleError(response, reject)
                 );
         });
     },

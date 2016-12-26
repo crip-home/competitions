@@ -4,7 +4,7 @@
     <article class="row" v-for="post in posts" :key="post.id">
       <hr>
       <div class="col-md-12">
-        <router-link :to="openPost(post)">
+        <router-link :to="postRoute(post)">
           <img :src="post.image" class="img-responsive">
         </router-link>
         <h3>

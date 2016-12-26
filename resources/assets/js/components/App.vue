@@ -20,19 +20,31 @@
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
           <!-- Left Side Of Navbar -->
           <ul class="nav navbar-nav">
-            <li class="dropdown" v-if="userCan('see_posts')">
+            <li class="dropdown" v-if="userCan('manage')">
               <a href class="dropdown-toggle" data-toggle="dropdown">
-                Posts <span class="caret"></span>
+                Manage <span class="caret"></span>
               </a>
 
               <ul class="dropdown-menu">
+
+                <li class="dropdown-header" v-if="userCan('manage_posts')">Posts</li>
                 <li v-if="userCan('create_posts')">
                   <router-link :to="routes.create_post">Create</router-link>
                 </li>
-
                 <li v-if="userCan('list_posts')">
                   <router-link :to="routes.list_posts">List</router-link>
                 </li>
+                <li class="divider" v-if="userCan('manage_posts')"></li>
+
+                <li class="dropdown-header" v-if="userCan('manage_teams')">Teams</li>
+                <li v-if="userCan('manage_teams')">
+                  <router-link :to="routes.create_team">Create</router-link>
+                </li>
+                <li v-if="userCan('manage_teams')">
+                  <router-link :to="routes.list_teams">List</router-link>
+                </li>
+                <li class="divider" v-if="userCan('manage_teams')"></li>
+
               </ul>
             </li>
           </ul>
@@ -144,15 +156,19 @@
                 let user = auth.middleware;
                 if (!user.isAuthenticated()) return false;
 
-                if (action === 'see_posts')
+                if(action === 'manage')
+                    return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS, roles.CREATE_TEAMS]);
+
+
+                if (action === 'manage_posts')
                     return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS]);
-
-
                 if (action === 'create_posts')
                     return user.hasRole(roles.CREATE_POST);
-
                 if (action === 'list_posts')
                     return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS]);
+
+                if(action === 'manage_teams')
+                    return user.hasRole(roles.CREATE_TEAMS);
 
                 return false;
             },
