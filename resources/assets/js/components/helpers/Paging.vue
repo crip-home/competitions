@@ -1,7 +1,7 @@
 <template>
   <ul class="pagination">
     <li v-for="page in pages" :class="{ active: page == currentPage }">
-      <a href @click.prevent="goTo(page)">{{ page }}</a>
+      <router-link :to="getRoute(page)">{{ page }}</router-link>
     </li>
   </ul>
 </template>
@@ -13,7 +13,7 @@
             currentPage: {type: Number, required: true},
             perPage: {type: Number, required: true},
             lastPage: {type: Number, required: true},
-            change: {type: Function, required: true}
+            route: {type: Object, required: true}
         },
 
         computed: {
@@ -29,10 +29,18 @@
         },
 
         methods: {
-            goTo(page) {
-                if (page !== this.currentPage)
-                    this.change(page);
-            }
+
+            getRoute(page) {
+                let route = JSON.parse(JSON.stringify(this.route));
+
+                if (!route.params)
+                    route.params = {page};
+                else
+                    route.params.page = page;
+
+                return route;
+            },
+
         },
 
     }

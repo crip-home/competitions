@@ -18,7 +18,7 @@
     <paging :current-page="current_page"
             :per-page="per_page"
             :last-page="last_page"
-            :change="openPage"></paging>
+            :route="pagingRoute"></paging>
   </section>
 </template>
 
@@ -38,7 +38,8 @@
                 current_page: 0,
                 last_page: 0,
                 per_page: 0,
-                posts: []
+                posts: [],
+                pagingRoute: {name: routes.home.name}
             }
         },
 
@@ -52,10 +53,6 @@
                     this.per_page = parseInt(data.per_page);
                     data.data.forEach(post => this.posts.push(post));
                 });
-            },
-
-            openPage(page) {
-                this.$router.push({name: routes.home.name, params: {page: page}});
             },
 
             openPost(post) {

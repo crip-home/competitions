@@ -26,7 +26,7 @@
     <paging :current-page="current_page"
             :per-page="per_page"
             :last-page="last_page"
-            :change="openPage"></paging>
+            :route="pagingRoute"></paging>
   </panel>
 </template>
 
@@ -49,7 +49,8 @@
                 current_page: 0,
                 last_page: 0,
                 per_page: 0,
-                isDataLoading: false
+                isDataLoading: false,
+                pagingRoute: {name: routes.list_posts.name}
             };
         },
 
@@ -66,10 +67,6 @@
                         data.data.forEach(post => this.posts.push(post));
                         this.isDataLoading = false;
                     });
-            },
-
-            openPage(page) {
-                this.$router.push({name: routes.list_posts.name, params: {page: page}});
             },
 
             openEdit(post) {
