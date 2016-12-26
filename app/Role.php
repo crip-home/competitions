@@ -16,6 +16,13 @@ class Role extends Model
     // Can manage other user posts
     const MANAGE_POSTS = 'MANAGE_POSTS';
 
+    // Can manage own team competitions
+    const EDIT_COMPETITIONS = 'EDIT_COMPETITIONS';
+    // Can create/manage own team competitions
+    const CREATE_COMPETITIONS = 'CREATE_COMPETITIONS';
+    // Can manage other teams competitions
+    const MANAGE_COMPETITIONS = 'MANAGE_COMPETITIONS';
+
     /**
      * The table associated with the model.
      *
@@ -28,6 +35,6 @@ class Role extends Model
      */
     public function users()
     {
-        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user-id')->withTimestamps();
+        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id')->withTimestamps();
     }
 }
