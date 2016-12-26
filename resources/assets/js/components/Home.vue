@@ -8,7 +8,7 @@
           <img :src="post.image" class="img-responsive">
         </router-link>
         <h3>
-          <router-link :to="openPost(post)">{{ post.title }}</router-link>
+          <router-link :to="postRoute(post)">{{ post.title }}</router-link>
           <small>{{ post.date_from_now }}</small>
         </h3>
         <p>{{ post.short_body }}</p>
@@ -55,7 +55,7 @@
                 });
             },
 
-            openPost(post) {
+            postRoute(post) {
                 return {
                     name: routes.read_post.name,
                     params: {

@@ -13,13 +13,13 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="post in posts" @click.prevent="openEdit(post)" class="pointer">
+      <router-link tag="tr" v-for="post in posts" class="pointer" :to="postRoute(post)">
         <td>{{ post.id }}</td>
         <td>{{ post.title }}</td>
         <td>{{ post.date_from_now }}</td>
         <td :class="stateClass(post)">{{ post.state }}</td>
         <td>{{ post.author.name }}</td>
-      </tr>
+      </router-link>
       </tbody>
     </table>
 
@@ -69,8 +69,13 @@
                     });
             },
 
-            openEdit(post) {
-                this.$router.push({name: routes.edit_post.name, params: {id: post.id}});
+            postRoute(post) {
+                return {
+                    name: routes.edit_post.name,
+                    params: {
+                        id: post.id
+                    }
+                };
             },
 
             stateClass(post) {
