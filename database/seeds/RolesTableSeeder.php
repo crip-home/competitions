@@ -19,9 +19,10 @@ class RolesTableSeeder extends Seeder
             Role::CREATE_POST,
             Role::MANAGE_POSTS,
 
+            Role::CREATE_TEAMS,
+
             Role::EDIT_COMPETITIONS,
             Role::CREATE_COMPETITIONS,
-            Role::MANAGE_COMPETITIONS,
         ];
 
         DB::table('role_user')->delete();

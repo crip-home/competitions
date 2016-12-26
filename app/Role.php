@@ -16,12 +16,13 @@ class Role extends Model
     // Can manage other user posts
     const MANAGE_POSTS = 'MANAGE_POSTS';
 
+    // Can create/manage teams
+    const CREATE_TEAMS = 'CREATE_TEAMS';
+
     // Can manage own team competitions
     const EDIT_COMPETITIONS = 'EDIT_COMPETITIONS';
     // Can create/manage own team competitions
     const CREATE_COMPETITIONS = 'CREATE_COMPETITIONS';
-    // Can manage other teams competitions
-    const MANAGE_COMPETITIONS = 'MANAGE_COMPETITIONS';
 
     /**
      * The table associated with the model.

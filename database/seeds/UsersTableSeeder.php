@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Database\Eloquent\Model;
+use App\Role;
 use Illuminate\Database\Seeder;
 
 /**
@@ -30,6 +30,8 @@ class UsersTableSeeder extends Seeder
         $this->createPostCreator();
         $this->createPostManager();
 
+        $this->createTeamManager();
+
         // Create extra 50 random users
         factory(App\User::class, 50)->create()->each(function ($user) {
             // Create random user posts
@@ -40,7 +42,7 @@ class UsersTableSeeder extends Seeder
     private function findRoleId($role_key)
     {
         if (!$this->roles) {
-            $role_table = app(\App\Role::class)->getTable();
+            $role_table = app(Role::class)->getTable();
             $this->roles = DB::table($role_table)->get();
         }
         $result = 0;
@@ -63,7 +65,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         // add super admin role for admin user
-        $admin->roles()->sync([$this->findRoleId(\App\Role::SUPER_ADMIN)]);
+        $admin->roles()->sync([$this->findRoleId(Role::SUPER_ADMIN)]);
 
         factory(App\Post::class, 5)->create(['author_id' => $admin->id]);
     }
@@ -76,8 +78,8 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
 
-        // add super admin role for admin user
-        $user->roles()->sync([$this->findRoleId(\App\Role::CREATE_POST)]);
+        // add create post role for user
+        $user->roles()->sync([$this->findRoleId(Role::CREATE_POST)]);
 
         factory(App\Post::class, 20)->create(['author_id' => $user->id]);
     }
@@ -90,7 +92,18 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
 
-        // add super admin role for admin user
-        $user->roles()->sync([$this->findRoleId(\App\Role::MANAGE_POSTS)]);
+        // add manage posts role for user
+        $user->roles()->sync([$this->findRoleId(Role::MANAGE_POSTS)]);
+    }
+
+    private function createTeamManager()
+    {
+        $user = App\User::create([
+            'name' => 'team.manager',
+            'email' => 'team.manager@crip.lv',
+            'password' => bcrypt('password')
+        ]);
+
+        $user->roles()->sync([$this->findRoleId(Role::CREATE_TEAMS)]);
     }
 }
