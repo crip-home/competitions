@@ -1,5 +1,5 @@
 <template>
-  <panel id="list-posts" class="col-md-12">
+  <panel id="list-posts" class="col-md-12" v-load="isDataLoading">
     <span slot="title">Manage posts</span>
 
     <table slot="pre" class="table table-striped table-hover">
@@ -33,6 +33,7 @@
 <script>
     import Panel from './../../helpers/Panel.vue'
     import Paging from './../../helpers/Paging.vue'
+    import Loading from '../../../directives/loading'
     import posts from './../../../api/posts/admin'
     import * as routes from './../../../router/routes'
 
@@ -47,21 +48,23 @@
                 posts: [],
                 current_page: 0,
                 last_page: 0,
-                per_page: 0
+                per_page: 0,
+                isDataLoading: false
             };
         },
 
         methods: {
 
             fetchPage(page = 1) {
-                this.posts = [];
-
+                this.isDataLoading = true;
                 posts.get(page, this.per_page)
                     .then(data => {
+                        this.posts = [];
                         this.current_page = parseInt(data.current_page);
                         this.last_page = parseInt(data.last_page);
                         this.per_page = parseInt(data.per_page);
                         data.data.forEach(post => this.posts.push(post));
+                        this.isDataLoading = false;
                     });
             },
 
@@ -97,7 +100,11 @@
 
         components: {
             panel: Panel,
-            paging: Paging,
+            paging: Paging
+        },
+
+        directives: {
+            load: Loading,
         },
     }
 </script>

@@ -32,6 +32,11 @@ module.exports = {
                 loader: 'babel-loader',
                 exclude: /node_modules/
             },
+            {
+                test: /\.css$/,
+                loader: 'style!css!autoprefixer',
+                exclude: /node_modules/
+            },
         ],
         noParse: /es6-promise\.js$/, // avoid webpack shimming process
     },
