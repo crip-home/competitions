@@ -1,64 +1,55 @@
 <template>
-  <div id="email-password" class="col-md-8 col-md-offset-2">
-    <div class="panel panel-default">
-      <div class="panel-heading">Reset Password</div>
-      <form class="panel-body form-horizontal" @submit.prevent="reset">
+  <panel :submit="reset" title="Reset Password" id="email-password" class="col-md-8 col-md-offset-2">
 
-        <div class="form-group" :class="{'has-error': errors.email}">
-          <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+    <form-group id="email" label="E-Mail Address" :errors="errors.email" :size="6">
+      <input id="email" type="email" class="form-control" name="email" required v-model="form.email">
+    </form-group>
 
-          <div class="col-md-6">
-            <input id="email"
-                   type="email"
-                   class="form-control"
-                   name="name"
-                   v-model="email"
-                   required>
+    <submit :size="6">
+      <button type="submit" class="btn btn-primary">Send Password Reset Link</button>
+    </submit>
 
-            <ul class="help-block" v-if="errors.email">
-              <li v-for="error in errors.email">{{ error }}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-md-6 col-md-offset-4">
-            <button type="submit" class="btn btn-primary">Send Password Reset Link</button>
-          </div>
-        </div>
-
-      </form>
-    </div>
-  </div>
+  </panel>
 </template>
 
 <script>
     import Vue from 'vue'
     import auth from './../../api/auth'
-    import * as routes from './../../router/routes'
+    import {home} from './../../router/routes'
     import * as types from '../../store/types'
+    import Panel from './../helpers/forms/Panel.vue'
+    import FormGroup from './../helpers/forms/FormGroup.vue'
+    import SubmitArea from './../helpers/forms/SubmitArea.vue'
 
     export default {
 
         data() {
             return {
-                email: '',
-                errors: {email: false}
+                form: {
+                    email: ''
+                },
+                errors: {}
             }
         },
 
         methods: {
 
             reset() {
-                auth.sendResetLink(this.email)
+                auth.sendResetLink(this.form.email)
                     .then(status => {
                             this.$store.commit(types.TOAST_ADD, {message: status});
-                            this.$router.push(routes.home);
+                            this.$router.push(home);
                         },
                         errors => Vue.set(this, 'errors', errors)
                     );
             },
 
         },
+
+        components: {
+            panel: Panel,
+            formGroup: FormGroup,
+            submit: SubmitArea
+        }
     }
 </script>
