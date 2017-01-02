@@ -11,24 +11,41 @@
 </template>
 
 <script>
+    import ColCalc from './ColCalc'
+
     export default {
 
         props: {
             label: {type: String, required: true},
             id: {type: String, required: true},
             errors: {type: Array, 'default': null},
-            sizeChange: {type: String, 'default': 'lg'},
             size: {type: Number, 'default': 8},
+            sizeMd: {type: Number, 'default': 8}
         },
 
         computed: {
 
             labelClass() {
-                return [`col-${this.sizeChange}-${((12 - this.size) / 2) + 1}`, 'control-label'];
+                let classes = [
+                    ColCalc.label(this.size, 'lg'),
+                    'control-label'
+                ];
+
+                if(this.sizeMd)
+                    classes.push(ColCalc.label(this.sizeMd, 'md'));
+
+                return classes;
             },
 
             controlClass() {
-                return [`col-${this.sizeChange}-${this.size}`]
+                let classes = [
+                    ColCalc.control(this.size, 'lg')
+                ];
+
+                if(this.sizeMd)
+                    classes.push(ColCalc.control(this.sizeMd, 'md'));
+
+                return classes;
             }
 
         }

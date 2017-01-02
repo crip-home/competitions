@@ -7,20 +7,24 @@
 </template>
 
 <script>
+    import ColCalc from './ColCalc'
+
     export default {
 
         props: {
-            sizeChange: {type: String, 'default': 'lg'},
             size: {type: Number, 'default': 8},
+            sizeMd: {type: Number, 'default': 8}
         },
 
         computed: {
 
             controlClass() {
-                return [
-                    `col-${this.sizeChange}-${this.size}`,
-                    `col-${this.sizeChange}-offset-${((12 - this.size) / 2) + 1}`
-                ];
+                let classes = [ColCalc.space(this.size, 'lg')];
+
+                if(this.sizeMd)
+                    classes.push(ColCalc.space(this.sizeMd, 'md'));
+
+                return classes;
             }
 
         }
