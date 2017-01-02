@@ -1,88 +1,39 @@
 <template>
-  <div id="signup-view" class="col-md-8 col-md-offset-2">
-    <div class="panel panel-default">
-      <div class="panel-heading">Register</div>
-      <form class="panel-body form-horizontal" @submit.prevent="register">
 
-        <div class="form-group" :class="{'has-error': errors.name}">
-          <label for="name" class="col-md-4 control-label">Name</label>
+  <panel :submit="register" title="Register" id="signup" class="col-md-8 col-md-offset-2">
 
-          <div class="col-md-6">
-            <input id="name"
-                   type="text"
-                   class="form-control"
-                   name="name"
-                   v-model="details.name"
-                   required autofocus>
+    <form-group id="name" label="Name" :errors="errors.name" :size="6">
+      <input id="name" type="text" class="form-control" name="name" required autofocus v-model="form.name">
+    </form-group>
 
-            <ul class="help-block" v-if="errors.name">
-              <li v-for="error in errors.name">{{ error }}</li>
-            </ul>
-          </div>
-        </div>
+    <form-group id="email" label="E-Mail Address" :errors="errors.email" :size="6">
+      <input id="email" type="email" class="form-control" name="email" required v-model="form.email">
+    </form-group>
 
-        <div class="form-group" :class="{'has-error': errors.email}">
-          <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+    <form-group id="password" label="Password" :errors="errors.password" :size="6">
+      <input id="password" type="password" class="form-control" name="password" required v-model="form.password">
+    </form-group>
 
-          <div class="col-md-6">
-            <input id="email"
-                   type="email"
-                   class="form-control"
-                   name="name"
-                   v-model="details.email"
-                   required>
+    <form-group id="password_confirmation" label="Confirm Password" :size="6">
+      <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required
+             v-model="form.password_confirmation">
+    </form-group>
 
-            <ul class="help-block" v-if="errors.email">
-              <li v-for="error in errors.email">{{ error }}</li>
-            </ul>
-          </div>
-        </div>
+    <submit :size="6">
+      <button type="submit" class="btn btn-primary">Register</button>
+    </submit>
 
-        <div class="form-group" :class="{'has-error': errors.password}">
-          <label for="password" class="col-md-4 control-label">Password</label>
-
-          <div class="col-md-6">
-            <input id="password"
-                   type="password"
-                   class="form-control"
-                   name="password"
-                   v-model="details.password"
-                   required>
-
-            <ul class="help-block" v-if="errors.password">
-              <li v-for="error in errors.password">{{ error }}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-          <div class="col-md-6">
-            <input id="password-confirm"
-                   type="password"
-                   class="form-control"
-                   name="password_confirmation"
-                   v-model="details.password_confirmation"
-                   required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-md-6 col-md-offset-4">
-            <button type="submit" class="btn btn-primary">Register</button>
-          </div>
-        </div>
-
-      </form>
-    </div>
-  </div>
+  </panel>
 </template>
 
 <script>
     import Vue from 'vue'
     import * as routes from './../../router/routes'
     import auth from './../../api/auth'
+
+    import Panel from './../helpers/forms/Panel.vue'
+    import FormGroup from './../helpers/forms/FormGroup.vue'
+    import SubmitArea from './../helpers/forms/SubmitArea.vue'
 
     export default {
 
@@ -93,8 +44,8 @@
 
         data() {
             return {
-                errors: {name: false, email: false, password: false},
-                details: {
+                errors: {},
+                form: {
                     name: '',
                     email: '',
                     password: '',
@@ -106,15 +57,20 @@
         methods: {
 
             register() {
-                auth.register(this.details)
-                    .then(() => {
-                        this.$router.push(routes.login)
-                    }, errors => {
-                        Vue.set(this, 'errors', errors);
-                    });
+                auth.register(this.form)
+                    .then(
+                        _ => this.$router.push(routes.login),
+                        errors => Vue.set(this, 'errors', errors)
+                    );
             },
 
         },
+
+        components: {
+            panel: Panel,
+            formGroup: FormGroup,
+            submit: SubmitArea
+        }
 
     }
 </script>
