@@ -1,6 +1,7 @@
 <template>
   <panel id="list-posts" class="col-md-12" v-load="isDataLoading">
     <span slot="title">Manage posts</span>
+    <router-link slot="actions" :to="createRoute" class="pull-right">Create New post</router-link>
 
     <table slot="pre" class="table table-striped table-hover">
       <thead>
@@ -50,7 +51,8 @@
                 last_page: 0,
                 per_page: 0,
                 isDataLoading: false,
-                pagingRoute: {name: routes.list_posts.name}
+                pagingRoute: routes.list_posts,
+                createRoute: routes.create_post
             };
         },
 
@@ -66,6 +68,11 @@
                         this.per_page = parseInt(data.per_page);
                         data.data.forEach(post => this.posts.push(post));
                         this.isDataLoading = false;
+
+                        // this will allow return to page where we last time left
+                        routes.list_posts.params ?
+                            (routes.list_posts.params.page = this.current_page) :
+                            (routes.list_posts.params = {page: this.current_page});
                     });
             },
 
