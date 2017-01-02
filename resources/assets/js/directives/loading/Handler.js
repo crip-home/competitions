@@ -1,4 +1,15 @@
+import {Attr, Node} from './../../ext/html'
+
+const show = Symbol('show');
+const hide = Symbol('hide');
+
 export default class {
+    /**
+     * Initialize Handler class object
+     *
+     * @param {Element} el
+     * @param {object} binding
+     */
     constructor(el, binding) {
         this.el = el;
         this.binding = binding;
@@ -6,53 +17,42 @@ export default class {
         this.static = false;
         this.loadingBox = null;
         this.first = true;
-        this.text = this.getAttrOrDefault(el, 'text', 'Loading ...');
-        this.bg = this.getAttrOrDefault(el, 'bg', 'rgba(230, 233, 236, 0.8)');
+        this.text = Attr.dataOrDefault(el, 'text', 'Loading ...');
+        this.bg = Attr.dataOrDefault(el, 'bg', 'rgba(230, 233, 236, 0.8)');
     }
 
+    /**
+     * Define method in binding and start listen dom events
+     */
     bind() {
         this.binding.def.onChange = value => {
             if (value) {
                 this.first = false;
-                this.show();
+                this[show]();
             } else {
                 if (this.first) {
                     this.first = false;
                     return;
                 }
-                this.hide();
+                this[hide]();
             }
         }
     }
 
-    getAttrOrDefault(el, dataAttr, defaultVal) {
-        return el.getAttribute(`data-${dataAttr}`) || defaultVal;
-    }
-
-    createNode(tag, className, bg = null, text = null) {
-        let node = document.createElement(tag);
-        node.className = className;
-
-        if (bg)
-            node.style.backgroundColor = bg;
-
-        if(text)
-            node.textContent = text;
-
-        return node;
-    }
-
-    show() {
+    /**
+     * Show loading box element
+     */
+    [show]() {
         let position = window.getComputedStyle(this.el).position;
         if (position === 'static' || position === '') {
             this.static = true;
             this.el.style.position = 'relative';
         }
 
-        let box = this.createNode('div', 'v-loading', this.bg);
+        let box = Node.create({className: 'v-loading', bg: this.bg});
         this.el.appendChild(box);
 
-        let msg = this.createNode('div', 'v-loading-msg', null, this.text);
+        let msg = Node.create({className: 'v-loading-msg', text: this.text});
         box.appendChild(msg);
 
         window.requestAnimationFrame(() => {
@@ -62,7 +62,10 @@ export default class {
         this.loadingBox = box;
     }
 
-    hide() {
+    /**
+     * Hide loading box element
+     */
+    [hide]() {
         this.loadingBox.addEventListener('transitionend', _ => {
             this.loadingBox.parentElement.removeChild(this.loadingBox);
 

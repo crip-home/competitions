@@ -9,7 +9,7 @@ export default {
     },
 
     // Called after the containing component has updated
-    update(el, binding) {
-        binding.def.onChange(binding.value);
+    update(el, {def, value}) {
+        def.onChange(value);
     },
 }
