@@ -3,7 +3,7 @@
   <panel :submit="register" title="Register" id="signup" class="col-md-8 col-md-offset-2">
 
     <form-group id="name" label="Name" :errors="errors.name" :col-lg="6" :col-md="8">
-      <input id="name" type="text" class="form-control" name="name" required autofocus v-model="form.name">
+      <input id="name" type="text" class="form-control" name="name" required v-focus="true" v-model="form.name">
     </form-group>
 
     <form-group id="email" label="E-Mail Address" :errors="errors.email" :col-lg="6" :col-md="8">

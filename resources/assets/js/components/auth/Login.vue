@@ -4,7 +4,7 @@
 
     <form-group id="email" label="E-Mail Address" :errors="error" :col-lg="6" :col-md="6" :col-sm="8">
       <input id="email" type="email" class="form-control" name="email" v-model="credentials.email"
-             placeholder="Enter Your E-Mail Address" required autofocus>
+             placeholder="Enter Your E-Mail Address" required v-focus="true">
     </form-group>
 
     <form-group id="password" label="Password" :errors="null" :col-lg="6" :col-md="6" :col-sm="8">

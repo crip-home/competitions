@@ -1,66 +1,24 @@
 <template>
-  <div id="reset-password" class="col-md-8 col-md-offset-2">
-    <div class="panel panel-default">
-      <div class="panel-heading">Reset Password</div>
+  <panel :submit="reset" title="Reset Password" class="col-md-8 col-md-offset-2">
 
-      <form class="panel-body form-horizontal" @submit.prevent="reset">
+    <form-group id="email" label="E-Mail Address" :errors="error" :col-lg="6" :col-md="8">
+      <input id="email" type="email" class="form-control" name="email" required v-model="form.email"
+             placeholder="Enter Your E-Mail Address" v-focus="true">
+    </form-group>
 
-        <div class="form-group" :class="{'has-error': errors.email}">
-          <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+    <form-group id="password" label="Password" :errors="errors.password" :col-lg="6" :col-md="8">
+      <input id="password" type="password" class="form-control" name="password" required v-model="form.password">
+    </form-group>
 
-          <div class="col-md-6">
-            <input id="email"
-                   type="email"
-                   class="form-control"
-                   name="name"
-                   v-model="details.email"
-                   required>
+    <form-group id="password_confirmation" label="Confirm Password" :col-lg="6" :col-md="8">
+      <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required
+             v-model="form.password_confirmation">
+    </form-group>
 
-            <ul class="help-block" v-if="errors.email">
-              <li>{{ errors.email }}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="form-group" :class="{'has-error': errors.password}">
-          <label for="password" class="col-md-4 control-label">Password</label>
-
-          <div class="col-md-6">
-            <input id="password"
-                   type="password"
-                   class="form-control"
-                   name="password"
-                   v-model="details.password"
-                   required>
-
-            <ul class="help-block" v-if="errors.password">
-              <li v-for="error in errors.password">{{ error }}</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-          <div class="col-md-6">
-            <input id="password-confirm"
-                   type="password"
-                   class="form-control"
-                   name="password_confirmation"
-                   v-model="details.password_confirmation"
-                   required>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="col-md-6 col-md-offset-4">
-            <button type="submit" class="btn btn-primary">Reset Password</button>
-          </div>
-        </div>
-
-      </form>
-    </div>
-  </div>
+    <submit :col-lg="6" :col-md="8">
+      <button type="submit" class="btn btn-primary">Reset</button>
+    </submit>
+  </panel>
 </template>
 
 <script>
@@ -69,37 +27,47 @@
     import * as types from '../../store/types'
     import * as routes from './../../router/routes'
 
+    import Panel from './../helpers/forms/Panel.vue'
+    import FormGroup from './../helpers/forms/FormGroup.vue'
+    import SubmitArea from './../helpers/forms/SubmitArea.vue'
+
     export default {
 
         mounted() {
-            this.details.token = this.$route.params.token;
+            this.form.token = this.$route.params.token;
         },
 
         data() {
             return {
-                errors: {email: false, password: false},
-                details: {
+                errors: {},
+                form: {
                     email: '',
                     password: '',
                     password_confirmation: '',
                     token: ''
-                },
+                }
             }
         },
 
         methods: {
 
             reset() {
-                auth.reset(this.details)
+                auth.reset(this.form)
                     .then(status => {
                         this.$store.commit(types.TOAST_ADD, {message: status});
                         this.$router.push(routes.login);
                     }, errors => {
                         Vue.set(this, 'errors', errors);
                     });
-            },
+            }
 
         },
+
+        components: {
+            panel: Panel,
+            submit: SubmitArea,
+            formGroup: FormGroup
+        }
 
     }
 </script>

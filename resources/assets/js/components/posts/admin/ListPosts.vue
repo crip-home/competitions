@@ -1,5 +1,5 @@
 <template>
-  <panel id="list-posts" class="col-md-12" v-load="isDataLoading">
+  <panel id="list-posts" class="col-md-12" v-loading="isDataLoading">
     <span slot="title">Manage posts</span>
     <router-link slot="actions" :to="createRoute" class="pull-right">Create New post</router-link>
 
@@ -34,7 +34,6 @@
 <script>
     import Panel from './../../helpers/Panel.vue'
     import Paging from './../../helpers/Paging.vue'
-    import Loading from '../../../directives/loading'
     import posts from './../../../api/posts/admin'
     import * as routes from './../../../router/routes'
 
@@ -110,11 +109,7 @@
         components: {
             panel: Panel,
             paging: Paging
-        },
-
-        directives: {
-            load: Loading,
-        },
+        }
     }
 </script>
 

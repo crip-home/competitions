@@ -1,5 +1,5 @@
 <template>
-  <panel id="list-teams" class="col-md-12" v-load="isDataLoading">
+  <panel id="list-teams" class="col-md-12" v-loading="isDataLoading">
     <span slot="title">Manage teams</span>
     <router-link slot="actions" :to="createRoute" class="pull-right">Create New Team</router-link>
 
@@ -31,7 +31,6 @@
 <script>
     import Panel from './../../helpers/Panel.vue'
     import Paging from './../../helpers/Paging.vue'
-    import Loading from '../../../directives/loading'
     import teams from './../../../api/teams/admin'
     import * as routes from './../../../router/routes'
 
@@ -90,10 +89,6 @@
         components: {
             panel: Panel,
             paging: Paging
-        },
-
-        directives: {
-            load: Loading,
         },
 
     }

@@ -21,6 +21,13 @@ Vue.http.interceptors.push((request, next) => {
     next();
 });
 
+import focusDirective from './directives/focus'
+import loadingDirective from './directives/loading'
+
+Vue.directive('focus', focusDirective);
+Vue.directive('loading', loadingDirective);
+
+
 let app = new Vue(Vue.util.extend({
     router,
     store

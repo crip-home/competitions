@@ -4,7 +4,7 @@
     <router-link slot="actions" :to="backRoute">Back to list</router-link>
 
     <form-group id="title" label="Title" :errors="errors.title">
-      <input id="title" type="text" class="form-control" name="title" required v-model="form.title">
+      <input id="title" type="text" class="form-control" name="title" required v-focus="true" v-model="form.title">
     </form-group>
 
     <form-group id="image" label="Image" :errors="errors.image">
