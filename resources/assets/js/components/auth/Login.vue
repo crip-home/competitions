@@ -1,17 +1,18 @@
 <template>
-  <panel :submit="login" title="Login" class="col-md-8 col-md-offset-2">
+  <panel :submit="login" title="Login"
+         class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
-    <form-group id="email" label="E-Mail Address" :errors="error" size-change="md" :size="6">
+    <form-group id="email" label="E-Mail Address" :errors="error" :col-lg="6" :col-md="6" :col-sm="8">
       <input id="email" type="email" class="form-control" name="email" v-model="credentials.email"
              placeholder="Enter Your E-Mail Address" required autofocus>
     </form-group>
 
-    <form-group id="password" label="Password" :errors="null" size-change="md" :size="6">
+    <form-group id="password" label="Password" :errors="null" :col-lg="6" :col-md="6" :col-sm="8">
       <input id="password" type="password" class="form-control" name="password" v-model="credentials.password"
              placeholder="Enter Your Password" required>
     </form-group>
 
-    <submit size-change="md" :size="6">
+    <submit :col-lg="6" :col-md="6" :col-sm="8">
       <button type="submit" class="btn btn-primary">Login</button>
       <router-link class="btn btn-link" :to="password_reset">Forgot Your Password?</router-link>
     </submit>

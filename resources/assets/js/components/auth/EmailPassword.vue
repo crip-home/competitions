@@ -1,11 +1,11 @@
 <template>
   <panel :submit="reset" title="Reset Password" id="email-password" class="col-md-8 col-md-offset-2">
 
-    <form-group id="email" label="E-Mail Address" :errors="errors.email" :size="6">
+    <form-group id="email" label="E-Mail Address" :errors="errors.email" :col-lg="6" :col-md="8">
       <input id="email" type="email" class="form-control" name="email" required v-model="form.email">
     </form-group>
 
-    <submit :size="6">
+    <submit :col-lg="6" :col-md="8">
       <button type="submit" class="btn btn-primary">Send Password Reset Link</button>
     </submit>
 

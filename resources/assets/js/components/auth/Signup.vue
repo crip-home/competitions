@@ -2,24 +2,24 @@
 
   <panel :submit="register" title="Register" id="signup" class="col-md-8 col-md-offset-2">
 
-    <form-group id="name" label="Name" :errors="errors.name" :size="6">
+    <form-group id="name" label="Name" :errors="errors.name" :col-lg="6" :col-md="8">
       <input id="name" type="text" class="form-control" name="name" required autofocus v-model="form.name">
     </form-group>
 
-    <form-group id="email" label="E-Mail Address" :errors="errors.email" :size="6">
+    <form-group id="email" label="E-Mail Address" :errors="errors.email" :col-lg="6" :col-md="8">
       <input id="email" type="email" class="form-control" name="email" required v-model="form.email">
     </form-group>
 
-    <form-group id="password" label="Password" :errors="errors.password" :size="6">
+    <form-group id="password" label="Password" :errors="errors.password" :col-lg="6" :col-md="8">
       <input id="password" type="password" class="form-control" name="password" required v-model="form.password">
     </form-group>
 
-    <form-group id="password_confirmation" label="Confirm Password" :size="6">
+    <form-group id="password_confirmation" label="Confirm Password" :col-lg="6" :col-md="8">
       <input id="password_confirmation" type="password" class="form-control" name="password_confirmation" required
              v-model="form.password_confirmation">
     </form-group>
 
-    <submit :size="6">
+    <submit :col-lg="6" :col-md="8">
       <button type="submit" class="btn btn-primary">Register</button>
     </submit>
 

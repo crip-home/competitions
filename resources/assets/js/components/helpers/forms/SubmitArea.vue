@@ -12,17 +12,24 @@
     export default {
 
         props: {
-            size: {type: Number, 'default': 8},
-            sizeMd: {type: Number, 'default': 8}
+            colLg: {type: Number, 'default': 8},
+            colMd: {type: Number, 'default': 0},
+            colSm: {type: Number, 'default': 0}
         },
 
         computed: {
 
             controlClass() {
-                let classes = [ColCalc.space(this.size, 'lg')];
+                let classes = [];
 
-                if(this.sizeMd)
-                    classes.push(ColCalc.space(this.sizeMd, 'md'));
+                if(this.colLg)
+                    classes.push(ColCalc.space(this.colLg, 'lg'));
+
+                if(this.colMd)
+                    classes.push(ColCalc.space(this.colMd, 'md'));
+
+                if(this.colSm)
+                    classes.push(ColCalc.space(this.colSm, 'sm'));
 
                 return classes;
             }

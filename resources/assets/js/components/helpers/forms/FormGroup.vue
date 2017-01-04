@@ -19,33 +19,41 @@
             label: {type: String, required: true},
             id: {type: String, required: true},
             errors: {type: Array, 'default': null},
-            size: {type: Number, 'default': 8},
-            sizeMd: {type: Number, 'default': 8}
+            colLg: {type: Number, 'default': 8},
+            colMd: {type: Number, 'default': 0},
+            colSm: {type: Number, 'default': 0}
         },
 
         computed: {
 
             labelClass() {
-                let classes = [
-                    ColCalc.label(this.size, 'lg'),
-                    'control-label'
-                ];
-
-                if(this.sizeMd)
-                    classes.push(ColCalc.label(this.sizeMd, 'md'));
-
-                return classes;
+                return this.resolveSizes('label', ['control-label']);
             },
 
             controlClass() {
-                let classes = [
-                    ColCalc.control(this.size, 'lg')
-                ];
+                return this.resolveSizes('control', []);
+            }
 
-                if(this.sizeMd)
-                    classes.push(ColCalc.control(this.sizeMd, 'md'));
+        },
 
-                return classes;
+        methods: {
+            /**
+             *
+             * @param {String} method
+             * @param {Array} [initialClasses]
+             * @returns {Array}
+             */
+            resolveSizes(method, initialClasses = []) {
+                if (this.colLg)
+                    initialClasses.push(ColCalc[method](this.colLg, 'lg'));
+
+                if (this.colMd)
+                    initialClasses.push(ColCalc[method](this.colMd, 'md'));
+
+                if (this.colSm)
+                    initialClasses.push(ColCalc[method](this.colSm, 'sm'));
+
+                return initialClasses;
             }
 
         }
