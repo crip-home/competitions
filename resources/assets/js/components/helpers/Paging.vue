@@ -1,5 +1,5 @@
 <template>
-  <ul class="pagination">
+  <ul class="pagination" v-if="hasMoreThanOnePage">
     <li v-for="page in pages" :class="{ active: page == currentPage }">
       <router-link :to="getRoute(page)">{{ page }}</router-link>
     </li>
@@ -26,6 +26,9 @@
                 return pages;
             },
 
+            hasMoreThanOnePage() {
+                return this.pages.length > 1;
+            }
         },
 
         methods: {
