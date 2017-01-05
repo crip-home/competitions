@@ -11,4 +11,4 @@ Route::resource('posts', 'PostsController',
     ['only' => ['index', 'show']]);
 
 Route::resource('admin/posts', 'Admin\\PostsController', ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
-Route::resource('admin/teams', 'Admin\\TeamsController', ['only' => ['index', 'store']]);
+Route::resource('admin/teams', 'Admin\\TeamsController', ['only' => ['index', 'store', 'show', 'update']]);

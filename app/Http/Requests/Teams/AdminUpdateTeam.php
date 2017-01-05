@@ -4,10 +4,10 @@ use App\Http\Requests\FormRequest;
 use Illuminate\Validation\Rule;
 
 /**
- * Class AdminStoreTeam
+ * Class AdminUpdateTeam
  * @package App\Http\Requests\Teams
  */
-class AdminStoreTeam extends FormRequest
+class AdminUpdateTeam extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -30,12 +30,12 @@ class AdminStoreTeam extends FormRequest
             'name' => [
                 'required',
                 'max:255',
-                Rule::unique('teams', 'name')
+                Rule::unique('teams', 'name')->ignore($this->get('id'))
             ],
             'short' => [
                 'required',
                 'max:15',
-                Rule::unique('teams', 'short')
+                Rule::unique('teams', 'short')->ignore($this->get('id'))
             ]
         ];
     }

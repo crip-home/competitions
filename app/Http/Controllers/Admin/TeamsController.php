@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\AdminStoreTeam;
+use App\Http\Requests\Teams\AdminUpdateTeam;
 use App\Role;
 use App\Team;
 use DB;
@@ -79,6 +80,36 @@ class TeamsController extends Controller
         DB::commit();
 
         return new JsonResponse($team);
+    }
+
+    /**
+     * GET     /api/admin/teams/{team}
+     * @param  Team $team
+     * @return JsonResponse
+     */
+    public function show(Team $team)
+    {
+        $this->authorize('view', $team);
+
+        $post_model = $this->team->newQuery()->where('id', $team->id)->firstOrFail();
+
+        return new JsonResponse($post_model);
+    }
+
+    /**
+     * PUT/PATCH /api/admin/teams/{team}
+     * @param    AdminUpdateTeam $request
+     * @param    Team $team
+     * @return   JsonResponse
+     */
+    public function update(AdminUpdateTeam $request, Team $team)
+    {
+        $this->authorize('update', $team);
+
+        $details = $request->only(['name', 'short']);
+        $this->team->newQuery()->where('id', $team->id)->update($details);
+
+        return new JsonResponse($details);
     }
 
 }
