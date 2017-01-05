@@ -2,7 +2,6 @@
 
 use App\Http\Requests\FormRequest;
 use App\Post;
-use App\Role;
 
 /**
  * Class StorePost

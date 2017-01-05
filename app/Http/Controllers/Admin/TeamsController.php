@@ -1,8 +1,11 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Teams\AdminStoreTeam;
 use App\Role;
 use App\Team;
+use DB;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -29,8 +32,8 @@ class TeamsController extends Controller
     }
 
     /**
-     * GET    /api/admin/teams
-     * @param Request $request
+     * GET     /api/admin/teams
+     * @param  Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -48,6 +51,34 @@ class TeamsController extends Controller
         $teams = $team_query->paginate($request->per_page ?: 15, ['teams.id', 'name', 'short']);
 
         return new JsonResponse($teams);
+    }
+
+    /**
+     * POST    /api/admin/teams
+     * @param  AdminStoreTeam $request
+     * @return JsonResponse
+     */
+    public function store(AdminStoreTeam $request)
+    {
+        $this->authorize('create', Team::class);
+        $auth_user_id = $request->user()->id;
+        $details = $request->only(['name', 'short']);
+
+        DB::beginTransaction();
+        try {
+
+            $team = Team::create($details);
+            $team->owners()->attach($auth_user_id);
+
+        } catch (Exception $exception) {
+            DB::rollBack();
+            \Log::critical("User '$auth_user_id' was unavailable store team.", [$exception, $details]);
+            return new JsonResponse('Internal database transaction error occurred.', 507);
+        }
+
+        DB::commit();
+
+        return new JsonResponse($team);
     }
 
 }

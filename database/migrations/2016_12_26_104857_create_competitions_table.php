@@ -37,7 +37,7 @@ class CreateCompetitionsTable extends Migration
             $table->foreign('created_by')->references('id')->on('users')->onDelete('no action');
 
             $table->unsignedInteger('updated_by')->nullable();
-            $table->string('updated_by_name');
+            $table->string('updated_by_name')->default('');
             $table->foreign('updated_by')->references('id')->on('users')->onDelete('no action');
 
             $table->unsignedInteger('judge_id')->nullable();
