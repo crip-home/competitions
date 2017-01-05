@@ -1,21 +1,23 @@
 <template>
-  <panel :submit="saveTeam" :title="panelTitle" id="create-edit-team" class="col-md-12">
+  <form-panel :submit="saveTeam" :title="panelTitle" id="create-edit-team" class="col-md-12">
 
     <router-link slot="actions" :to="backRoute">Back to list</router-link>
 
     <form-group id="name" label="Name" :errors="errors.name">
-      <input id="name" type="text" class="form-control" name="name" required v-model="form.name">
+      <input id="name" type="text" class="form-control" name="name" required title="Name"
+             v-model="form.name" v-focus="true">
     </form-group>
 
     <form-group id="short" label="Short Name" :errors="errors.short">
-      <input id="short" type="text" class="form-control" name="short" required v-model="form.short">
+      <input id="short" type="text" class="form-control" name="short" required title="Short Name"
+             v-model="form.short">
     </form-group>
 
     <submit>
       <button type="submit" class="btn btn-primary">Save</button>
     </submit>
 
-  </panel>
+  </form-panel>
 </template>
 
 <script>
@@ -23,14 +25,10 @@
     import * as routes from './../../../router/routes'
     import teams from './../../../api/teams/admin'
 
-    import Panel from './../../helpers/forms/Panel.vue'
-    import FormGroup from './../../helpers/forms/FormGroup.vue'
-    import SubmitArea from './../../helpers/forms/SubmitArea.vue'
-
     export default {
 
         mounted() {
-            if (this.$route.name == routes.edit_team.name) {
+            if (this.$route.name === routes.edit_team.name) {
                 this.panelTitle = 'Edit team';
                 this.fetchTeam(this.$route.params.id);
             }
@@ -63,13 +61,7 @@
                     .then(team => this.form = team);
             },
 
-        },
-
-        components: {
-            panel: Panel,
-            formGroup: FormGroup,
-            submit: SubmitArea,
-        },
+        }
 
     }
 </script>

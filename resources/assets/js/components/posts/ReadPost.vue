@@ -1,14 +1,13 @@
 <template>
-  <div id="read_post" class="col-md-12">
+  <div id="read-post" class="col-md-12">
     <div class="row">
       <div class="col-md-12">
         <h2>{{ post.title }}</h2>
-        <img :src="post.image" class="img-responsive">
+        <img :src="post.image" class="img-responsive" src="">
         <h3>Posted by {{ author.name }} <small>{{ post.date_from_now }}</small></h3>
         <div v-html="post.body"></div>
       </div>
     </div>
-
   </div>
 </template>
 

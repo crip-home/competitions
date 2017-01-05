@@ -1,5 +1,5 @@
 <template>
-  <panel :submit="login" title="Login"
+  <form-panel :submit="login" title="Login"
          class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
     <form-group id="email" label="E-Mail Address" :errors="error" :col-lg="6" :col-md="6" :col-sm="8">
@@ -17,15 +17,12 @@
       <router-link class="btn btn-link" :to="password_reset">Forgot Your Password?</router-link>
     </submit>
 
-  </panel>
+  </form-panel>
 </template>
 
 <script>
     import auth from './../../api/auth'
     import * as routes from './../../router/routes'
-    import Panel from './../helpers/forms/Panel.vue'
-    import FormGroup from './../helpers/forms/FormGroup.vue'
-    import SubmitArea from './../helpers/forms/SubmitArea.vue'
 
     export default {
 
@@ -82,12 +79,6 @@
                 }
             },
 
-        },
-
-        components: {
-            panel: Panel,
-            formGroup: FormGroup,
-            submit: SubmitArea
         }
 
     }

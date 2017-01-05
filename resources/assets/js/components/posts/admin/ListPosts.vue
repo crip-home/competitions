@@ -32,8 +32,6 @@
 </template>
 
 <script>
-    import Panel from './../../helpers/Panel.vue'
-    import Paging from './../../helpers/Paging.vue'
     import posts from './../../../api/posts/admin'
     import * as routes from './../../../router/routes'
 
@@ -104,11 +102,6 @@
             '$route' (to, from) {
                 this.fetchPage(to.params.page || 1);
             }
-        },
-
-        components: {
-            panel: Panel,
-            paging: Paging
         }
     }
 </script>

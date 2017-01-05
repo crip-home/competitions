@@ -5,7 +5,7 @@
       <hr>
       <div class="col-md-12">
         <router-link :to="postRoute(post)">
-          <img :src="post.image" class="img-responsive">
+          <img :src="post.image" class="img-responsive" src="">
         </router-link>
         <h3>
           <router-link :to="postRoute(post)">{{ post.title }}</router-link>
@@ -25,7 +25,6 @@
 <script>
     import posts from './../api/posts'
     import * as routes from './../router/routes'
-    import Paging from './helpers/Paging.vue'
 
     export default {
 
@@ -70,11 +69,7 @@
             '$route' (to, from) {
                 this.fetchPage(to.params.page || 1);
             }
-        },
-
-        components: {
-            paging: Paging
-        },
+        }
 
     }
 </script>

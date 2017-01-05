@@ -1,14 +1,16 @@
 <template>
-  <panel :submit="savePost" :title="panelTitle" id="create-edit-post" class="col-md-12">
+  <form-panel :submit="savePost" :title="panelTitle" id="create-edit-post" class="col-md-12">
 
     <router-link slot="actions" :to="backRoute">Back to list</router-link>
 
     <form-group id="title" label="Title" :errors="errors.title">
-      <input id="title" type="text" class="form-control" name="title" required v-focus="true" v-model="form.title">
+      <input id="title" type="text" class="form-control" name="title" required title="Title"
+             v-focus="true" v-model="form.title">
     </form-group>
 
     <form-group id="image" label="Image" :errors="errors.image">
-      <input id="image" type="url" class="form-control" name="image" required v-model="form.image">
+      <input id="image" type="url" class="form-control" name="image" required title="Image" placeholder="http://image"
+             v-model="form.image">
     </form-group>
 
     <form-group id="body" label="Body" :errors="errors.body">
@@ -22,7 +24,7 @@
     </form-group>
 
     <form-group id="publish-at" label="Published At" :errors="errors.publish_at">
-      <date v-model="form.publish_at"></date>
+      <date-picker v-model="form.publish_at"></date-picker>
       <span class="help-block">If state is 'published' but date is greater than now, post will become available for
         users after date become actual.</span>
     </form-group>
@@ -34,7 +36,7 @@
     <submit>
       <button type="submit" class="btn btn-primary">Save</button>
     </submit>
-  </panel>
+  </form-panel>
 </template>
 
 <script>
@@ -42,13 +44,6 @@
     import posts from './../../../api/posts/admin'
     import * as lang from './../../../lang'
     import * as routes from './../../../router/routes'
-
-    import CKEditor from './../../helpers/CKEditor.vue'
-    import Panel from './../../helpers/forms/Panel.vue'
-    import FormGroup from './../../helpers/forms/FormGroup.vue'
-    import SubmitArea from './../../helpers/forms/SubmitArea.vue'
-    import Datepicker from './../../helpers/bootstrap/Datepicker.vue'
-    import Select2 from './../../helpers/Select2.vue'
 
     export default {
 
@@ -61,14 +56,13 @@
                         text: lang.locales[locale].text
                     }));
 
-            if (this.$route.name == routes.edit_post.name) {
+            if (this.$route.name === routes.edit_post.name) {
                 this.panelTitle = 'Edit post';
                 this.fetchPost(this.$route.params.id);
             }
         },
 
         data() {
-            console.log(routes.list_posts);
             return {
                 panelTitle: 'Create post',
                 backRoute: routes.list_posts,
@@ -116,18 +110,9 @@
                         this.form = post;
                         this.author = form.author;
                     });
-            },
+            }
 
-        },
-
-        components: {
-            ckeditor: CKEditor,
-            panel: Panel,
-            formGroup: FormGroup,
-            submit: SubmitArea,
-            date: Datepicker,
-            select2: Select2
-        },
+        }
 
     }
 </script>

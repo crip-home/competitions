@@ -29,8 +29,6 @@
 </template>
 
 <script>
-    import Panel from './../../helpers/Panel.vue'
-    import Paging from './../../helpers/Paging.vue'
     import teams from './../../../api/teams/admin'
     import * as routes from './../../../router/routes'
 
@@ -84,12 +82,7 @@
                 };
             },
 
-        },
-
-        components: {
-            panel: Panel,
-            paging: Paging
-        },
+        }
 
     }
 </script>
