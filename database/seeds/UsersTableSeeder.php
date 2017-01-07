@@ -13,6 +13,9 @@ class UsersTableSeeder extends Seeder
      */
     private $roles;
 
+    const POST_MANAGER_EMAIL = 'post.manager@crip.lv';
+    const TEAM_MANAGER_EMAIL = 'team.manager@crip.lv';
+
     /**
      * Run the database seeds.
      *
@@ -20,16 +23,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        $posts_table = app(\App\Post::class)->getTable();
-        $users_table = app(\App\User::class)->getTable();
-
-        DB::table($posts_table)->delete();
-        DB::table($users_table)->delete();
-
         $this->createAdmin();
         $this->createPostCreator();
         $this->createPostManager();
-
         $this->createTeamManager();
 
         // Create extra 50 random users
@@ -37,23 +33,6 @@ class UsersTableSeeder extends Seeder
             // Create random user posts
             factory(\App\Post::class, 3)->create(['author_id' => $user->id]);
         });
-    }
-
-    private function findRoleId($role_key)
-    {
-        if (!$this->roles) {
-            $role_table = app(Role::class)->getTable();
-            $this->roles = DB::table($role_table)->get();
-        }
-        $result = 0;
-        $this->roles->filter(function ($role) use ($role_key) {
-            return $role->key == $role_key;
-        })->map(function ($role) use (&$result) {
-            $result = $role->id;
-            return $role->id;
-        });
-
-        return $result;
     }
 
     private function createAdmin()
@@ -88,7 +67,7 @@ class UsersTableSeeder extends Seeder
     {
         $user = App\User::create([
             'name' => 'post.manager',
-            'email' => 'post.manager@crip.lv',
+            'email' => static::POST_MANAGER_EMAIL,
             'password' => bcrypt('password')
         ]);
 
@@ -100,10 +79,27 @@ class UsersTableSeeder extends Seeder
     {
         $user = App\User::create([
             'name' => 'team.manager',
-            'email' => 'team.manager@crip.lv',
+            'email' => static::TEAM_MANAGER_EMAIL,
             'password' => bcrypt('password')
         ]);
 
         $user->roles()->sync([$this->findRoleId(Role::CREATE_TEAMS)]);
+    }
+
+    private function findRoleId($role_key)
+    {
+        if (!$this->roles) {
+            $role_table = app(Role::class)->getTable();
+            $this->roles = DB::table($role_table)->get();
+        }
+        $result = 0;
+        $this->roles->filter(function ($role) use ($role_key) {
+            return $role->key == $role_key;
+        })->map(function ($role) use (&$result) {
+            $result = $role->id;
+            return $role->id;
+        });
+
+        return $result;
     }
 }

@@ -12,7 +12,6 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $role_table = app(Role::class)->getTable();
         $roles = [
             Role::SUPER_ADMIN,
 
@@ -24,9 +23,6 @@ class RolesTableSeeder extends Seeder
             Role::EDIT_COMPETITIONS,
             Role::CREATE_COMPETITIONS,
         ];
-
-        DB::table('role_user')->delete();
-        DB::table($role_table)->delete();
 
         foreach ($roles as $role) {
             Role::create(['key' => $role]);
