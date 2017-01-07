@@ -30,7 +30,7 @@ import FormGroup from './components/helpers/forms/FormGroup.vue'
 import SubmitArea from './components/helpers/forms/SubmitArea.vue'
 import Datepicker from './components/helpers/bootstrap/Datepicker.vue'
 import Select2 from './components/helpers/Select2.vue'
-import Paging from './components/helpers/Paging.vue'
+import Paging from './components/helpers/paging/Paging.vue'
 
 Vue.directive('focus', focusDirective);
 Vue.directive('loading', loadingDirective);
