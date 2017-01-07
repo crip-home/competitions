@@ -1,0 +1,14 @@
+.with-hidden-actions {
+
+  .actions {
+    visibility: hidden;
+  }
+
+  &.active {
+    background-color: $btn-info-color;
+  }
+
+  &:hover .actions, &.active .actions {
+    visibility: visible;
+  }
+}
