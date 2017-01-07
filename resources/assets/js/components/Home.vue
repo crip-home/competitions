@@ -5,7 +5,7 @@
       <hr>
       <div class="col-md-12">
         <router-link :to="postRoute(post)">
-          <img :src="post.image" class="img-responsive" src="">
+          <img :src="post.image" class="img-responsive">
         </router-link>
         <h3>
           <router-link :to="postRoute(post)">{{ post.title }}</router-link>

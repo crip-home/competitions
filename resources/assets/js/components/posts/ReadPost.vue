@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12">
         <h2>{{ post.title }}</h2>
-        <img :src="post.image" class="img-responsive" src="">
+        <img :src="post.image" class="img-responsive">
         <h3>Posted by {{ author.name }} <small>{{ post.date_from_now }}</small></h3>
         <div v-html="post.body"></div>
       </div>
