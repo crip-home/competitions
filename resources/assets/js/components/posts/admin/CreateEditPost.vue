@@ -18,7 +18,7 @@
     </form-group>
 
     <form-group id="state" label="State" :errors="errors.state">
-      <select2 id="state" :options="state.options" v-model="form.state" :search="false">
+      <select2 id="state" :options="states" v-model="form.state" :search="false">
         <option disabled value="">Select one</option>
       </select2>
     </form-group>
@@ -30,7 +30,7 @@
     </form-group>
 
     <form-group id="locale" label="Locale" :errors="errors.locale">
-      <select2 id="locale" :options="locale.options" v-model="form.locale" :search="false"></select2>
+      <select2 id="locale" :options="locales" v-model="form.locale" :search="false"></select2>
     </form-group>
 
     <submit>
@@ -41,6 +41,7 @@
 
 <script>
     import Vue from 'vue'
+    import Post from './../../../api/posts/Post'
     import posts from './../../../api/posts/admin'
     import * as lang from './../../../lang'
     import * as routes from './../../../router/routes'
@@ -48,14 +49,6 @@
     export default {
 
         mounted() {
-            this.form.locale = Vue.config.lang;
-            Object.keys(lang.locales)
-                .forEach((locale) =>
-                    this.locale.options.push({
-                        id: lang.locales[locale].key,
-                        text: lang.locales[locale].text
-                    }));
-
             if (this.$route.name === routes.edit_post.name) {
                 this.panelTitle = 'Edit post';
                 this.fetchPost(this.$route.params.id);
@@ -72,25 +65,11 @@
                     body: '',
                     state: '',
                     publish_at: '',
-                    locale: '',
+                    locale: Vue.config.lang,
                 },
-
                 errors: {},
-
-                locale: {
-                    options: []
-                },
-
-                state: {
-                    //TODO: this should come in from server api
-                    options: [
-                        {id: 'DRAFT', text: 'Draft'},
-                        {id: 'PENDING', text: 'Pending'},
-                        {id: 'PRIVATE', text: 'Private'},
-                        {id: 'PUBLISHED', text: 'Published'},
-                        {id: 'TRASH', text: 'Trash'},
-                    ]
-                }
+                locales: lang.select(),
+                states: Post.stateSelectOptions(this.$t.bind(this))
             }
         },
 
@@ -108,7 +87,7 @@
                 posts.find(id)
                     .then(post => {
                         this.form = post;
-                        this.author = form.author;
+                        this.author = post.author;
                     });
             }
 

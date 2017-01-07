@@ -1,8 +1,13 @@
 import {AdminRepository} from './../Repositories'
+import Post from './Post'
 
 class PostsAdminRepository extends AdminRepository {
     constructor() {
         super('admin/posts');
+    }
+
+    entityResolver(data) {
+        return new Post(data);
     }
 }
 

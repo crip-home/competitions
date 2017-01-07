@@ -14,8 +14,9 @@
       <tr v-for="team in teams" @click="select(team)" :class="{active: selected.id == team.id}"
           class="pointer with-hidden-actions">
         <td>{{ team.name }}
-          <router-link :to="teamRoute(team)" class="label label-info actions">Edit</router-link>&nbsp;
-          <router-link :to="teamMembersRoute(team)" class="label label-info actions">Members</router-link>
+          <router-link :to="team.editRoute()" class="label label-info actions">Edit</router-link>
+          &nbsp;
+          <router-link :to="team.membersListRoute()" class="label label-info actions">Members</router-link>
         </td>
         <td>{{ team.short }}</td>
       </tr>
@@ -59,14 +60,10 @@
                 this.isDataLoading = true;
                 teams.get(page, this.per_page)
                     .then(data => {
-                        const page = parseInt(data.current_page);
-
-                        this.teams = [];
-                        this.current_page = page;
-                        this.last_page = parseInt(data.last_page);
-                        this.per_page = parseInt(data.per_page);
-
-                        data.data.forEach(team => this.teams.push(team));
+                        this.current_page = data.current_page;
+                        this.last_page = data.last_page;
+                        this.per_page = data.per_page;
+                        this.teams = data.items;
                         this.isDataLoading = false;
 
                         // this will allow return to page where we last time left
@@ -76,27 +73,12 @@
                     });
             },
 
+            /**
+             * @param {Team} team
+             */
             select(team) {
                 this.selected = team;
             },
-
-            teamRoute(team) {
-                return {
-                    name: routes.edit_team.name,
-                    params: {
-                        id: team.id
-                    }
-                };
-            },
-
-            teamMembersRoute(team) {
-                return {
-                    name: routes.list_team_members.name,
-                    params: {
-                        team: team.id
-                    }
-                }
-            }
 
         }
 

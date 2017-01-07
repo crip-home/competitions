@@ -1,5 +1,7 @@
 import {http} from 'vue'
 import settings from './../../store/settings'
+import PagingResult from './../PagingResult'
+import Post from './Post'
 
 export default {
 
@@ -14,9 +16,10 @@ export default {
         per_page = parseInt(per_page < 1 ? 5 : per_page);
         return new Promise((resolve, reject) => {
             const params = {page, per_page, locales: locales ? locales.join(',') : ''};
+            const resolver = item => new Post(item);
             http.get(settings.apiUrl('posts', params))
                 .then(
-                    ({data}) => resolve(data),
+                    ({data}) => resolve(PagingResult.handle(data, resolver)),
                     response => settings.handleError(response, reject)
                 );
         });
@@ -32,7 +35,7 @@ export default {
         return new Promise((resolve, reject) => {
             http.get(settings.apiUrl(`posts/${id}`))
                 .then(
-                    ({data}) => resolve(data),
+                    ({data}) => resolve(new Post(data)),
                     response => settings.handleError(response, reject)
                 );
         })

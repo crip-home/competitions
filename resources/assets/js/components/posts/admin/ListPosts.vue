@@ -59,11 +59,10 @@
                 this.isDataLoading = true;
                 posts.get(page, this.per_page)
                     .then(data => {
-                        this.posts = [];
-                        this.current_page = parseInt(data.current_page);
-                        this.last_page = parseInt(data.last_page);
-                        this.per_page = parseInt(data.per_page);
-                        data.data.forEach(post => this.posts.push(post));
+                        this.current_page = data.current_page;
+                        this.last_page = data.last_page;
+                        this.per_page = data.per_page;
+                        this.posts = data.items;
                         this.isDataLoading = false;
 
                         // this will allow return to page where we last time left

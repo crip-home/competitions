@@ -15,6 +15,17 @@ export const locales = {
     en: {key: 'en', text: translations.en.locale},
 };
 
+export const select = () => {
+    let options = [];
+    Object.keys(locales)
+        .forEach((locale) => options.push({
+            id: locales[locale].key,
+            text: locales[locale].text
+        }));
+
+    return options;
+};
+
 export function checkLocale() {
     const locale = localStorage.getItem('locale');
     if (locale) {
