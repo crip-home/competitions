@@ -1,5 +1,5 @@
-import Entity from './../Entity'
-import User from './../auth/User'
+import Entity from './Entity'
+import User from './User'
 
 const states = Symbol('states');
 

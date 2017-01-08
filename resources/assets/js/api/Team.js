@@ -1,5 +1,5 @@
-import Entity from './../Entity'
-import {list_team_members, edit_team} from './../../router/routes'
+import Entity from './Entity'
+import {list_team_members, edit_team} from '../router/routes'
 
 /**
  * @property {String} name
