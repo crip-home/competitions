@@ -32,7 +32,8 @@ export default class Team extends Entity {
         return {
             name: list_team_members.name,
             params: {
-                team: id
+                team: id,
+                page: list_team_members.page ? list_team_members.page : 1
             }
         };
     }
