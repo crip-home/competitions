@@ -76,7 +76,7 @@
         methods: {
 
             savePost() {
-                posts.save(this.post)
+                posts.save(this.form)
                     .then(
                         _ => this.$router.push(routes.list_posts),
                         errors => Vue.set(this, 'errors', errors)

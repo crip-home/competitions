@@ -9,6 +9,7 @@ import User from './../auth/User'
  * @property {String}          publish_at
  * @property {String}          date_from_now
  * @property {Number}          author_id
+ * @property {String}          locale
  * @property {Array.<String>}  states
  * @property {User}           [author]
  */
@@ -24,6 +25,7 @@ export default class Post extends Entity {
         this.publish_at = data.publish_at;
         this.date_from_now = data.date_from_now;
         this.author_id = data.author_id;
+        this.locale = data.locale;
         if (data.author)
             this.author = new User(data.author);
 
