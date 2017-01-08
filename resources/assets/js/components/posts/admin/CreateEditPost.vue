@@ -79,16 +79,13 @@
                 posts.save(this.form)
                     .then(
                         _ => this.$router.push(routes.list_posts),
-                        errors => Vue.set(this, 'errors', errors)
+                        errors => this.errors = errors
                     );
             },
 
             fetchPost(id) {
                 posts.find(id)
-                    .then(post => {
-                        this.form = post;
-                        this.author = post.author;
-                    });
+                    .then(post => this.form = post);
             }
 
         }

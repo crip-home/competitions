@@ -2,6 +2,21 @@ export default {
     apiRoot: '/api/',
 
     /**
+     * 'console' - logs all to the browser console
+     */
+    logs: 'console',
+
+    /**
+     * To disable logs for some section, remove it from this list
+     * To disable all logs, change logs property value to false
+     * or make logSections list empty
+     */
+    logSections: [
+        'global',
+        //// 'select2', // Uncomment this line to see all changes in select2 helper
+    ],
+
+    /**
      * @param {string} path Request path
      * @param {object} [params] Parameters to be included in URL
      * @returns {string} Absolute API url

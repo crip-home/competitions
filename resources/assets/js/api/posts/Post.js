@@ -1,6 +1,8 @@
 import Entity from './../Entity'
 import User from './../auth/User'
 
+const states = Symbol('states');
+
 /**
  * @property {String}          title
  * @property {String}          body
@@ -10,7 +12,6 @@ import User from './../auth/User'
  * @property {String}          date_from_now
  * @property {Number}          author_id
  * @property {String}          locale
- * @property {Array.<String>}  states
  * @property {User}           [author]
  */
 export default class Post extends Entity {
@@ -29,7 +30,7 @@ export default class Post extends Entity {
         if (data.author)
             this.author = new User(data.author);
 
-        this.states = [
+        this[states] = [
             'DRAFT',
             'PENDING',
             'PRIVATE',
@@ -41,7 +42,7 @@ export default class Post extends Entity {
     static stateSelectOptions($t) {
         let post = new Post({});
         let options = [];
-        post.states.forEach(state => {
+        post[states].forEach(state => {
             options.push({id: state, text: $t(`entities.post.states.${state}`)})
         });
 

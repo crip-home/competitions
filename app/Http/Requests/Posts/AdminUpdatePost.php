@@ -1,13 +1,12 @@
 <?php namespace App\Http\Requests\Posts;
 
 use App\Http\Requests\FormRequest;
-use App\Post;
 
 /**
- * Class StorePost
+ * Class AdminUpdatePost
  * @package App\Http\Requests\Posts
  */
-class AdminStorePost extends FormRequest
+class AdminUpdatePost extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +25,6 @@ class AdminStorePost extends FormRequest
      */
     public function rules()
     {
-        return [
-            'title' => 'required|min:3|max:255',
-            'body' => 'required',
-            'image' => 'required|url|max:1000',
-            'state' => 'required|in:' . join(',', Post::STATES),
-            'publish_at' => 'required|date',
-            'locale' => 'required|max:2|min:2'
-        ];
+        return app(AdminStorePost::class)->rules();
     }
 }

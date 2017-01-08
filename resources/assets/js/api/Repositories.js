@@ -1,5 +1,5 @@
 import {http} from 'vue'
-import settings from './../store/settings'
+import settings from '../settings'
 import PagingResult from './PagingResult'
 
 // All child classes should have methods:

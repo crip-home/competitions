@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Posts\AdminStorePost;
+use App\Http\Requests\Posts\AdminUpdatePost;
 use App\Post;
 use App\Role;
 use Illuminate\Http\JsonResponse;
@@ -21,6 +22,7 @@ class PostsController extends Controller
 
     /**
      * PostsController constructor.
+     *
      * @param Post $post
      */
     public function __construct(Post $post)
@@ -30,8 +32,9 @@ class PostsController extends Controller
     }
 
     /**
-     * GET    /api/admin/posts
-     * @param Request $request
+     * GET  /api/admin/posts
+     *
+     * @param  Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -56,14 +59,14 @@ class PostsController extends Controller
     }
 
     /**
-     * POST    /api/admin/posts
-     * @param AdminStorePost $request
+     * POST  /api/admin/posts
+     *
+     * @param  AdminStorePost $request
      * @return JsonResponse
      */
     public function store(AdminStorePost $request)
     {
         $this->authorize('create', Post::class);
-
         $details = $request->only(['title', 'body', 'image', 'state', 'publish_at', 'locale']);
         $details['author_id'] = $request->user()->id;
         $post = Post::create($details);
@@ -72,8 +75,9 @@ class PostsController extends Controller
     }
 
     /**
-     * GET    /api/posts/{post}
-     * @param Post $post
+     * GET  /api/posts/{post}
+     *
+     * @param  Post $post
      * @return JsonResponse
      */
     public function show(Post $post)
@@ -86,12 +90,13 @@ class PostsController extends Controller
     }
 
     /**
-     * PUT/PATCH    /api/admin/posts/{post}
-     * @param Request $request
-     * @param Post $post
+     * PUT/PATCH  /api/admin/posts/{post}
+     *
+     * @param  AdminUpdatePost $request
+     * @param  Post            $post
      * @return JsonResponse
      */
-    public function update(Request $request, Post $post)
+    public function update(AdminUpdatePost $request, Post $post)
     {
         $this->authorize('update', $post);
 
@@ -102,7 +107,8 @@ class PostsController extends Controller
     }
 
     /**
-     * DELETE    /api/admin/posts/{post}
+     * DELETE  /api/admin/posts/{post}
+     *
      * @param Post $post
      */
     public function destroy(Post $post)
