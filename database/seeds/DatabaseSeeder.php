@@ -24,27 +24,19 @@ class DatabaseSeeder extends Seeder
 
     private function cleanDatabase()
     {
-        $tables = [
-            'areas',
-            'category_groups',
-            'categories',
-            'disciplines',
-            'competitions',
-            'role_user',
-            'roles',
-            'posts',
-            'team_members',
-            'team_owner',
-            'teams',
-            'users',
-        ];
+        // Get list of all tables in our database
+        $tables = DB::table('information_schema.TABLES')
+            ->where('TABLE_SCHEMA', env('DB_DATABASE'))
+            ->get(['TABLE_NAME']);
 
+        // Disable FOREIGN_KEY_CHECKS to be able truncate tables with relationships
         DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
 
-        foreach ($tables as $table) {
-            DB::table($table)->truncate();
-        }
+        // Truncate database tables
+        foreach ($tables as $table)
+            DB::table($table->TABLE_NAME)->truncate();
 
+        // Return back FOREIGN_KEY_CHECKS to avoid future issues with missing data
         DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
     }
 }
