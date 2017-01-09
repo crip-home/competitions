@@ -1,13 +1,12 @@
 <?php
+use App\Team;
+use App\User;
 
 /**
  * Class TeamsTableSeeder
  */
 class TeamsTableSeeder extends \Illuminate\Database\Seeder
 {
-    const INSERT = 'INSERT INTO teams 
-          (name, short, created_by, created_by_name) 
-          VALUES (?,?,?,?)';
 
     /**
      * Run the database seeds.
@@ -16,18 +15,15 @@ class TeamsTableSeeder extends \Illuminate\Database\Seeder
      */
     public function run()
     {
-        $manager = \App\User::where('email', UsersTableSeeder::TEAM_MANAGER_EMAIL)->firstOrFail();
+        $manager = User::where('email', UsersTableSeeder::TEAM_MANAGER_EMAIL)->firstOrFail();
 
-        $name = 'Team Manager Team 1';
-        DB::insert(static::INSERT, [
-            $name,
-            'TMT1',
-            $manager->id,
-            $manager->name
+        $team = Team::create([
+            'name' => 'Team Manager Team 1',
+            'short' => 'TMT1',
+            'created_by' => $manager->id,
+            'created_by_name' => $manager->name
         ]);
 
-        /** @var \App\Team $team */
-        $team = \App\Team::whereName($name)->firstOrFail();
         $team->owners()->sync([$manager->id]);
     }
 }

@@ -29,9 +29,9 @@ class TeamMember extends Model
         'membership_type', // varchar(255)
         'name',            // varchar(255)
         'team_id',         // int(10) UNSIGNED
-        'updated_by',      // int(10) UNSIGNED
-        'updated_by_name', // varchar(255)
-        'user_id',         // int(10) UNSIGNED
+        'updated_by',      // int(10) UNSIGNED NULL
+        'updated_by_name', // varchar(255) ''
+        'user_id',         // int(10) UNSIGNED NULL
     ];
 
     /**

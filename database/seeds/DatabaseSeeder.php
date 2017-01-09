@@ -25,6 +25,11 @@ class DatabaseSeeder extends Seeder
     private function cleanDatabase()
     {
         $tables = [
+            'areas',
+            'category_groups',
+            'categories',
+            'disciplines',
+            'competitions',
             'role_user',
             'roles',
             'posts',
@@ -34,7 +39,12 @@ class DatabaseSeeder extends Seeder
             'users',
         ];
 
-        foreach ($tables as $table)
-            DB::table($table)->delete();
+        DB::statement('SET FOREIGN_KEY_CHECKS = 0;');
+
+        foreach ($tables as $table) {
+            DB::table($table)->truncate();
+        }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS = 1;');
     }
 }

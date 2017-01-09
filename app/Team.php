@@ -44,28 +44,6 @@ class Team extends Model
     ];
 
     /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    public static function boot()
-    {
-        parent::boot();
-
-        // Register a creating model event with the dispatcher.
-        static::creating(function ($table) {
-            $table->created_by = Auth::user()->id;
-            $table->created_by_name = Auth::user()->name;
-        });
-
-        // Register an updating model event with the dispatcher.
-        static::updating(function ($table) {
-            $table->updated_by = Auth::user()->id;
-            $table->updated_by_name = Auth::user()->name;
-        });
-    }
-
-    /**
      * @return HasMany
      */
     public function members()
