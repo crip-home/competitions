@@ -33,7 +33,7 @@
 
 <script>
     import posts from './../../../api/posts/admin'
-    import * as routes from './../../../router/routes'
+    import {create_post, list_posts, edit_post} from './../../../router/routes'
 
     export default {
 
@@ -48,8 +48,8 @@
                 last_page: 0,
                 per_page: 0,
                 isDataLoading: false,
-                pagingRoute: routes.list_posts,
-                createRoute: routes.create_post
+                pagingRoute: list_posts,
+                createRoute: create_post
             };
         },
 
@@ -66,15 +66,15 @@
                         this.isDataLoading = false;
 
                         // this will allow return to page where we last time left
-                        routes.list_posts.params ?
-                            (routes.list_posts.params.page = this.current_page) :
-                            (routes.list_posts.params = {page: this.current_page});
+                        list_posts.params ?
+                            (list_posts.params.page = this.current_page) :
+                            (list_posts.params = {page: this.current_page});
                     });
             },
 
             postRoute(post) {
                 return {
-                    name: routes.edit_post.name,
+                    name: edit_post.name,
                     params: {
                         id: post.id
                     }

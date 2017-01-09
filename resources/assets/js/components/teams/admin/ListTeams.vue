@@ -14,6 +14,7 @@
       <tr v-for="team in teams" @click="select(team)" :class="{active: selected.id == team.id}"
           class="pointer with-hidden-actions">
         <td>{{ team.name }}
+          &nbsp;
           <router-link :to="team.editRoute()" class="label label-info actions">Edit</router-link>
           &nbsp;
           <router-link :to="team.membersListRoute()" class="label label-info actions">Members</router-link>
@@ -33,7 +34,7 @@
 
 <script>
     import teams from './../../../api/teams/admin'
-    import * as routes from './../../../router/routes'
+    import {list_teams, create_team} from './../../../router/routes'
 
     export default {
 
@@ -49,8 +50,8 @@
                 last_page: 0,
                 per_page: 0,
                 isDataLoading: false,
-                pagingRoute: routes.list_teams,
-                createRoute: routes.create_team
+                pagingRoute: list_teams,
+                createRoute: create_team
             };
         },
 
@@ -67,9 +68,9 @@
                         this.isDataLoading = false;
 
                         // this will allow return to page where we last time left
-                        routes.list_teams.params ?
-                            (routes.list_teams.params.page = this.current_page) :
-                            (routes.list_teams.params = {page: this.current_page});
+                        list_teams.params ?
+                            (list_teams.params.page = this.current_page) :
+                            (list_teams.params = {page: this.current_page});
                     });
             },
 
