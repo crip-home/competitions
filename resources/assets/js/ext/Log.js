@@ -29,7 +29,7 @@ const _consoleLog = (type, args) => {
 /**
  * Log arguments
  *
- * @param {*} args
+ * @param {...*} args
  */
 export const log = (...args) => {
     _log('log', args);
@@ -38,17 +38,26 @@ export const log = (...args) => {
 /**
  * Log informational arguments
  *
- * @param {*} args
+ * @param {...*} args
  */
 export const info = (...args) => {
     _log('info', args);
 };
 
 /**
+ * Log error arguments
+ *
+ * @param {...*} args
+ */
+export const error = (...args) => {
+    _log('error', args);
+};
+
+/**
  * Section log allows to log messages to sections
  *
  * @param {String} section
- * @returns {log}
+ * @returns {function}
  */
 export function sLog(section) {
     return function (...args) {

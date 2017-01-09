@@ -1,3 +1,5 @@
+import {error} from './ext/Log'
+
 export default {
     apiRoot: '/api/',
 
@@ -40,13 +42,12 @@ export default {
      * @param {object} errorResponse
      * @param {function} [reject]
      */
-    handleError(errorResponse, reject = false) {
+    handleError(errorResponse, reject = _ => _) {
         if (reject && typeof reject === 'function') {
             reject(errorResponse.data);
         }
 
-        if (window.conole && console.log)
-            console.log('settings.handleError', errorResponse);
+        error('settings.handleError', errorResponse);
     },
 
     addParameter(url, param, value) {

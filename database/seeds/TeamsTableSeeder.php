@@ -1,4 +1,5 @@
 <?php
+
 use App\Team;
 use App\User;
 

@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RolesTableSeeder::class);
         $this->call(UsersTableSeeder::class);
         $this->call(TeamsTableSeeder::class);
+        $this->call(TeamMembersTableSeeder::class);
 
         Eloquent::unguard(false);
     }
@@ -27,6 +28,7 @@ class DatabaseSeeder extends Seeder
         // Get list of all tables in our database
         $tables = DB::table('information_schema.TABLES')
             ->where('TABLE_SCHEMA', env('DB_DATABASE'))
+            ->where('TABLE_NAME', '<>', 'migrations')
             ->get(['TABLE_NAME']);
 
         // Disable FOREIGN_KEY_CHECKS to be able truncate tables with relationships

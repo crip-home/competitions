@@ -32,3 +32,10 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'locale' => $faker->randomElement(['lv', 'en']),
     ];
 });
+
+$factory->define(\App\TeamMember::class, function(Faker\Generator $faker){
+    return [
+        'membership_type' => 'member',
+        'name' => $faker->name,
+    ];
+});
