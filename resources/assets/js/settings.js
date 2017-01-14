@@ -19,13 +19,15 @@ export default {
     ],
 
     /**
-     * @param {string} path Request path
-     * @param {object} [params] Parameters to be included in URL
+     * @param {string} path         Request path
+     * @param {object} [params]     Parameters to be included in URL
+     * @param {object} [urlReplace] Url placeholders should be replaced with variable values
      * @returns {string} Absolute API url
      */
-    apiUrl(path, params = {}) {
+    apiUrl(path, params = {}, urlReplace = {}) {
         let url = path.replace(new RegExp("^[\\/]+"), '');
         url = `${this.apiRoot}${url}`;
+        url = url.supplant(urlReplace);
 
         Object.keys(params).forEach(index => {
             let val = params[index];

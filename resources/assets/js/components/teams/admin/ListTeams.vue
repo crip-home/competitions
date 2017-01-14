@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import teams from './../../../api/teams/admin'
+    import {teams} from './../../../api/teams/admin'
     import {list_teams, create_team} from './../../../router/routes'
 
     export default {

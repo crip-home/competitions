@@ -23,7 +23,7 @@
 <script>
     import Vue from 'vue'
     import * as routes from './../../../router/routes'
-    import teams from './../../../api/teams/admin'
+    import {teams} from './../../../api/teams/admin'
 
     export default {
 

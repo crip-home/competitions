@@ -3,6 +3,7 @@ $.fn.select2.defaults.set('theme', 'bootstrap');
 
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import string from './ext/String'
 import * as Lang from './lang'
 
 Lang.checkLocale();

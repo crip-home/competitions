@@ -15,13 +15,14 @@ export class AdminRepository {
      *
      * @param {Number} [page]
      * @param {Number} [per_page]
+     * @param {*}      [urlReplace]
      * @returns {Promise.<PagingResult>}
      */
-    get(page = 1, per_page = 15) {
+    get(page = 1, per_page = 15, urlReplace = {}) {
         per_page = parseInt(per_page < 1 ? 15 : per_page);
         return new Promise((resolve, reject) => {
             const params = {page, per_page};
-            http.get(settings.apiUrl(this.path, params))
+            http.get(settings.apiUrl(this.path, params, urlReplace))
                 .then(
                     ({data}) => resolve(PagingResult.handle(data, this.entityResolver)),
                     response => settings.handleError(response, reject)
