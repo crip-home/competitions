@@ -1,13 +1,20 @@
-if (!String.prototype.supplant) {
-    String.prototype.supplant = function (o) {
-        return this.replace(
-            /\{([^{}]*)\}/g,
-            (a, b) => {
-                let r = o[b];
-                return typeof r === 'string' || typeof r === 'number' ? r : a;
-            }
-        );
-    };
+class Initializer {
+    constructor() {
+    }
+
+    init() {
+        if (!String.prototype.supplant) {
+            String.prototype.supplant = function (o) {
+                return this.replace(
+                    /\{([^{}]*)\}/g,
+                    (a, b) => {
+                        let r = o[b];
+                        return typeof r === 'string' || typeof r === 'number' ? r : a;
+                    }
+                );
+            };
+        }
+    }
 }
 
-export const string = String;
+export default new Initializer();

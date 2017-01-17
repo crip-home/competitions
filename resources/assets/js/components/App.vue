@@ -1,25 +1,11 @@
 <template>
   <div id="app-view">
-    <nav class="navbar navbar-default navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
+    <navbar :left-menu="leftNavbarItems" :right-menu="rightNavbarItems">
+      <router-link :to="routes.home" class="navbar-brand">{{ $t('app.title') }}</router-link>
+    </navbar>
 
-          <!-- Collapsed Hamburger -->
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                  data-target="#app-navbar-collapse">
-            <span class="sr-only">{{ $t('app.toggle_nav') }}</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-
-          <!-- Branding Image -->
-          <router-link :to="routes.home" class="navbar-brand">{{ $t('app.title') }}</router-link>
-        </div>
-
-        <div class="collapse navbar-collapse" id="app-navbar-collapse">
-          <!-- Left Side Of Navbar -->
-          <ul class="nav navbar-nav">
+    <!--
+    <ul class="nav navbar-nav">
             <li class="dropdown" v-if="userCan('manage')">
               <a href class="dropdown-toggle" data-toggle="dropdown">
                 Manage <span class="caret"></span>
@@ -48,46 +34,7 @@
               </ul>
             </li>
           </ul>
-
-          <!-- Right Side Of Navbar -->
-          <ul class="nav navbar-nav navbar-right">
-
-            <li v-if="!user.authenticated">
-              <router-link :to="{ name: 'login' }">{{ $t('app.login') }}</router-link>
-            </li>
-
-            <li v-if="!user.authenticated">
-              <router-link :to="{ name: 'signup' }">{{ $t('app.signup') }}</router-link>
-            </li>
-
-            <li class="dropdown" v-if="user.authenticated">
-              <a href class="dropdown-toggle" data-toggle="dropdown">
-                {{ user_name }} <span class="caret"></span>
-              </a>
-
-              <ul class="dropdown-menu">
-                <li>
-                  <a href @click.prevent="logout">{{ $t('app.logout') }}</a>
-                </li>
-                <!--<li>
-                  <a href @click.prevent="toast">Toast</a>
-                </li>-->
-              </ul>
-            </li>
-
-            <li class="dropdown">
-              <a href class="dropdown-toggle" data-toggle="dropdown">
-                {{ $t('locale') }} <span class="caret"></span>
-              </a>
-
-              <ul class="dropdown-menu">
-                <li v-for="locale in locales"><a @click.prevent="setLocale(locale.key)" href>{{ locale.text }}</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    -->
 
     <div class="container">
 
@@ -106,6 +53,7 @@
 <script>
     import Vue from 'vue'
     import Toast from './helpers/Toast.vue'
+    import Navbar from './helpers/bootstrap/nav/Navbar.vue'
     import auth from './../api/auth'
     import * as roles from './../api/auth/roles'
     import * as types from '../store/types'
@@ -137,6 +85,41 @@
                 return this.$store.state.auth.user.name;
             },
 
+            leftNavbarItems() {
+                return [];
+            },
+
+            rightNavbarItems() {
+                let user = this.$store.state.auth.user;
+                let nav = [];
+                let locales = [];
+
+                Object.keys(lang.locales)
+                    .forEach(locale => locales.push({
+                        click: () => lang.setLocale(lang.locales[locale].key),
+                        text: lang.locales[locale].text
+                    }));
+
+                if (!user.authenticated) {
+                    nav.push({text: this.$t('app.login'), route: routes.login});
+                    nav.push({text: this.$t('app.signup'), route: routes.signup});
+                } else {
+                    nav.push({
+                        parent: {text: user.name},
+                        items: [
+                            {text: this.$t('app.logout'), click: this.logout}
+                        ]
+                    });
+                }
+
+                nav.push({
+                    parent: {text: this.$t('locale')},
+                    items: locales
+                });
+
+                return nav;
+            }
+
         },
 
         methods: {
@@ -156,7 +139,7 @@
                 let user = auth.middleware;
                 if (!user.isAuthenticated()) return false;
 
-                if(action === 'manage')
+                if (action === 'manage')
                     return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS, roles.CREATE_TEAMS]);
 
 
@@ -167,7 +150,7 @@
                 if (action === 'list_posts')
                     return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS]);
 
-                if(action === 'manage_teams')
+                if (action === 'manage_teams')
                     return user.hasRole(roles.CREATE_TEAMS);
 
                 return false;
@@ -180,7 +163,8 @@
         },
 
         components: {
-            toast: Toast
+            toast: Toast,
+            [Navbar.name]: Navbar
         },
 
     }

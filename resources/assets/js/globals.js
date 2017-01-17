@@ -10,6 +10,7 @@ import SubmitArea from './components/helpers/forms/SubmitArea.vue'
 import Datepicker from './components/helpers/bootstrap/Datepicker.vue'
 import Select2 from './components/helpers/Select2.vue'
 import Paging from './components/helpers/paging/Paging.vue'
+import NavbarItems from './components/helpers/bootstrap/nav/NavbarItems.vue'
 
 export default {
     init() {
@@ -23,5 +24,6 @@ export default {
         Vue.component('date-picker', Datepicker);
         Vue.component('select2', Select2);
         Vue.component('paging', Paging);
+        Vue.component('navbar-items', NavbarItems);
     }
 }
