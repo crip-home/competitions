@@ -4,38 +4,6 @@
       <router-link :to="routes.home" class="navbar-brand">{{ $t('app.title') }}</router-link>
     </navbar>
 
-    <!--
-    <ul class="nav navbar-nav">
-            <li class="dropdown" v-if="userCan('manage')">
-              <a href class="dropdown-toggle" data-toggle="dropdown">
-                Manage <span class="caret"></span>
-              </a>
-
-              <ul class="dropdown-menu">
-
-                <li class="dropdown-header" v-if="userCan('manage_posts')">Posts</li>
-                <li v-if="userCan('create_posts')">
-                  <router-link :to="routes.create_post">Create</router-link>
-                </li>
-                <li v-if="userCan('list_posts')">
-                  <router-link :to="routes.list_posts">List</router-link>
-                </li>
-                <li class="divider" v-if="userCan('manage_posts')"></li>
-
-                <li class="dropdown-header" v-if="userCan('manage_teams')">Teams</li>
-                <li v-if="userCan('manage_teams')">
-                  <router-link :to="routes.create_team">Create</router-link>
-                </li>
-                <li v-if="userCan('manage_teams')">
-                  <router-link :to="routes.list_teams">List</router-link>
-                </li>
-                <li class="divider" v-if="userCan('manage_teams')"></li>
-
-              </ul>
-            </li>
-          </ul>
-    -->
-
     <div class="container">
 
       <transition name="fade-horizontal" mode="out-in"
@@ -54,6 +22,7 @@
     import Vue from 'vue'
     import Toast from './helpers/Toast.vue'
     import Navbar from './helpers/bootstrap/nav/Navbar.vue'
+    import {NavbarItem, NavbarGroup, NavbarItems} from './helpers/bootstrap/nav'
     import auth from './../api/auth'
     import * as roles from './../api/auth/roles'
     import * as types from '../store/types'
@@ -86,36 +55,73 @@
             },
 
             leftNavbarItems() {
-                return [];
+                let user = auth.middleware;
+                let can_manage = user.hasAnyRole([
+                    roles.CREATE_POST,
+                    roles.MANAGE_POSTS,
+                    roles.CREATE_TEAMS
+                ]);
+
+                // if user is not authenticated, this menu is unavailable for him
+                if (!user.isAuthenticated() || !can_manage) {
+                    return [];
+                }
+
+                let manageNav = new NavbarGroup('Manage');
+                let can_manage_posts = user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS]);
+                let divider = new NavbarItem(true);
+
+                if (can_manage_posts) {
+                    // TODO: add dropdown header class="dropdown-header" Posts
+                    manageNav.add('Posts');
+                }
+
+                if (user.hasRole(roles.CREATE_POST)) {
+                    manageNav.add('Create', routes.create_post);
+                }
+
+                if (can_manage_posts) {
+                    manageNav.add('List', routes.list_posts);
+                    manageNav.add(divider);
+                }
+
+                if (user.hasRole(roles.CREATE_TEAMS)) {
+                    manageNav.add('Teams');
+                    manageNav.add('Create', routes.create_team);
+                    manageNav.add('List', routes.list_teams);
+                    manageNav.add(divider);
+                }
+
+                // delete last divider from manage nav
+                manageNav.items.splice(-1, 1);
+
+                return [manageNav];
             },
 
             rightNavbarItems() {
                 let user = this.$store.state.auth.user;
-                let nav = [];
-                let locales = [];
+                let nav = new NavbarItems();
+                let locales = new NavbarGroup(this.$t('locale'));
 
                 Object.keys(lang.locales)
-                    .forEach(locale => locales.push({
-                        click: () => lang.setLocale(lang.locales[locale].key),
-                        text: lang.locales[locale].text
-                    }));
+                    .forEach(locale => locales.add(
+                        lang.locales[locale].text,
+                        _ => lang.setLocale(lang.locales[locale].key)
+                    ));
 
                 if (!user.authenticated) {
-                    nav.push({text: this.$t('app.login'), route: routes.login});
-                    nav.push({text: this.$t('app.signup'), route: routes.signup});
+                    nav.add(new NavbarItem(this.$t('app.login'), routes.login));
+                    nav.add(new NavbarItem(this.$t('app.signup'), routes.signup));
                 } else {
-                    nav.push({
-                        parent: {text: user.name},
-                        items: [
-                            {text: this.$t('app.logout'), click: this.logout}
-                        ]
-                    });
+                    nav.add(new NavbarGroup(
+                        user.name,
+                        new NavbarItems(
+                            new NavbarItem(this.$t('app.logout'), this.logout)
+                        )
+                    ));
                 }
 
-                nav.push({
-                    parent: {text: this.$t('locale')},
-                    items: locales
-                });
+                nav.add(locales);
 
                 return nav;
             }
@@ -129,31 +135,6 @@
                 this.$store.commit(types.TOAST_ADD, {message: this.$t('app.logout_toast_msg')});
                 // Redirect user to homepage after logout
                 this.$router.push(routes.home);
-            },
-
-            setLocale(locale) {
-                lang.setLocale(locale);
-            },
-
-            userCan(action) {
-                let user = auth.middleware;
-                if (!user.isAuthenticated()) return false;
-
-                if (action === 'manage')
-                    return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS, roles.CREATE_TEAMS]);
-
-
-                if (action === 'manage_posts')
-                    return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS]);
-                if (action === 'create_posts')
-                    return user.hasRole(roles.CREATE_POST);
-                if (action === 'list_posts')
-                    return user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS]);
-
-                if (action === 'manage_teams')
-                    return user.hasRole(roles.CREATE_TEAMS);
-
-                return false;
             },
 
             //toast() {
