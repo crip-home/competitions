@@ -14,13 +14,17 @@
       </tr>
       </thead>
       <tbody>
-      <router-link tag="tr" v-for="post in posts" class="pointer" :to="postRoute(post)">
-        <td>{{ post.id }}</td>
-        <td>{{ post.title }}</td>
-        <td>{{ post.date_from_now }}</td>
-        <td :class="stateClass(post)">{{ post.state }}</td>
-        <td>{{ post.author.name }}</td>
-      </router-link>
+      <template v-for="post in posts">
+        <tr class="pointer with-hidden-actions" :class="{active: selected.id == post.id}" @click="select(post)">
+          <td>{{ post.id }}</td>
+          <td>{{ post.title }}&nbsp;
+            <router-link :to="postRoute(post)" class="label label-info actions">Edit</router-link>
+          </td>
+          <td>{{ post.date_from_now }}</td>
+          <td :class="stateClass(post)">{{ post.state }}</td>
+          <td>{{ post.author.name }}</td>
+        </tr>
+      </template>
       </tbody>
     </table>
 
@@ -44,6 +48,7 @@
         data() {
             return {
                 posts: [],
+                selected: {},
                 current_page: 0,
                 last_page: 0,
                 per_page: 0,
@@ -70,6 +75,13 @@
                             (list_posts.params.page = this.current_page) :
                             (list_posts.params = {page: this.current_page});
                     });
+            },
+
+            /**
+             * @param {Post} post
+             */
+            select(post) {
+                this.selected = post;
             },
 
             postRoute(post) {

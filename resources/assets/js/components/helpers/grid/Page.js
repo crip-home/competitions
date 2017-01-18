@@ -1,6 +1,6 @@
 export default class Page {
     /**
-     * @param {any} [text]
+     * @param {*} [text]
      * @param {Number} [nr]
      */
     constructor(text = '', nr = 1) {
