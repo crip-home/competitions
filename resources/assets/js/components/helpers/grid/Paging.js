@@ -11,7 +11,6 @@ export default class Paging {
 
     rowClasses(item) {
         return {
-            'pointer': true,
             'with-hidden-actions': true,
             'active': this.selected.id === item.id
         }
