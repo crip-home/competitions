@@ -5,7 +5,7 @@
 </template>
 
 <script>
-    import {sLog, info} from './../../ext/Log'
+    import {sLog, info} from '../../../ext/Log'
 
     export default {
 

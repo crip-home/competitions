@@ -1,7 +1,7 @@
 <template>
   <grid id="list-posts" :paging="paging">
     <span slot="title">Manage posts</span>
-    <router-link slot="actions" :to="createRoute">Create New post</router-link>
+    <panel-action slot="actions" :to="createRoute">Create New post</panel-action>
 
     <table class="table table-striped table-hover">
       <thead>

@@ -1,7 +1,7 @@
 <template>
   <grid id="list-teams" :paging="paging">
     <span slot="title">Manage teams</span>
-    <router-link slot="actions" :to="createRoute" class="pull-right">Create New Team</router-link>
+    <panel-action slot="actions" :to="createRoute">Create New Team</panel-action>
 
     <table class="table table-striped table-hover">
       <thead>
@@ -13,11 +13,14 @@
       <tbody>
       <template v-for="team in paging.items">
         <tr @click="paging.select(team)" :class="paging.rowClasses(team)">
-          <td>{{ team.name }}
+          <td>{{ team.name }}&nbsp;
+            <router-link :to="team.editRoute()"
+                         class="label label-info actions">Edit
+            </router-link>
             &nbsp;
-            <router-link :to="team.editRoute()" class="label label-info actions">Edit</router-link>
-            &nbsp;
-            <router-link :to="team.membersListRoute()" class="label label-info actions">Members</router-link>
+            <router-link :to="team.membersListRoute()"
+                         class="label label-info actions">Members
+            </router-link>
           </td>
           <td>{{ team.short }}</td>
         </tr>

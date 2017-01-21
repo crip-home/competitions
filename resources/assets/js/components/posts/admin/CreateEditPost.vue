@@ -1,7 +1,7 @@
 <template>
   <form-panel :submit="savePost" :title="panelTitle" id="create-edit-post" class="col-md-12">
 
-    <router-link slot="actions" :to="backRoute">Back to list</router-link>
+    <panel-action slot="actions" :to="backRoute">Back to list</panel-action>
 
     <form-group id="title" label="Title" :errors="errors.title">
       <input id="title" type="text" class="form-control" name="title" required title="Title"

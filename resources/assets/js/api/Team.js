@@ -1,5 +1,5 @@
 import Entity from './Entity'
-import {list_team_members, edit_team} from '../router/routes'
+import {list_team_members, edit_team, create_team_member} from '../router/routes'
 
 /**
  * @property {String} name
@@ -25,16 +25,26 @@ export default class Team extends Entity {
     }
 
     /**
+     * Generates route to list current team members
      * @returns {{name: string, params: {team: Number}}}
      */
     membersListRoute() {
         const id = this.id;
         return {
-            name: list_team_members.name,
-            params: {
-                team: id,
-                page: list_team_members.page ? list_team_members.page : 1
-            }
+            ...list_team_members,
+            params: {team: id, ...list_team_members}
         };
+    }
+
+    /**
+     * Generates route to create new current team member
+     * @returns {{name: string, params: {team: Number}}}
+     */
+    newMemberRoute() {
+        const team = this.id;
+        return {
+            ...create_team_member,
+            params: {team}
+        }
     }
 }

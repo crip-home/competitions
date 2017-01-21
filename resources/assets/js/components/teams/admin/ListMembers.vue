@@ -2,7 +2,8 @@
   <grid id="list-team-members" :paging="paging">
     <span slot="title">Manage members</span>
     <span slot="actions" v-if="team.id">
-      <router-link :to="team.editRoute()" class="pull-right">Back to team</router-link>
+      <panel-action :to="team.editRoute()">Back to team</panel-action>
+      <panel-action :to="team.newMemberRoute()">Create New Member</panel-action>
     </span>
     <table class="table table-striped table-hover">
       <thead>
@@ -15,7 +16,11 @@
       <template v-for="member in paging.items">
         <tr @click="paging.select(member)" :class="paging.rowClasses(member)">
           <td>{{ member.id }}</td>
-          <td>{{ member.name }}</td>
+          <td>{{ member.name }}&nbsp;
+            <router-link :to="member.editRoute()"
+                         class="label label-info actions">Edit
+            </router-link>
+          </td>
         </tr>
       </template>
       </tbody>
@@ -45,6 +50,7 @@
 
             /**
              * Fetch team from the server
+             * @param {Number} team_id
              */
             fetchData(team_id) {
                 this.paging.loading = true;
