@@ -3,11 +3,11 @@
 // Variables
 @import "variables";
 // Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-@import "node_modules/animate.css/animate";
-@import "node_modules/bootstrap-datepicker/dist/css/bootstrap-datepicker";
-@import "node_modules/select2/dist/css/select2";
-@import "node_modules/select2-bootstrap-theme/src/select2-bootstrap";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "~animate.css/animate";
+@import "~bootstrap-datepicker/dist/css/bootstrap-datepicker";
+@import "~select2/dist/css/select2";
+@import "~select2-bootstrap-theme/src/select2-bootstrap";
 
 // Custom
 @import "components/tables";

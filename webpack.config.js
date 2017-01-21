@@ -37,6 +37,14 @@ module.exports = {
                 loader: 'style!css!autoprefixer',
                 exclude: /node_modules/
             },
+            {
+                test: /\.scss$/,
+                loaders: ["style-loader", "css-loader", "sass-loader"]
+            },
+            {
+                test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+                loader: 'url-loader'
+            },
         ],
         noParse: /es6-promise\.js$/, // avoid webpack shimming process
     },

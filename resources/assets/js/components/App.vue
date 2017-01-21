@@ -150,3 +150,7 @@
 
     }
 </script>
+
+<style lang="sass">
+  @import "../../sass/app.scss";
+</style>
