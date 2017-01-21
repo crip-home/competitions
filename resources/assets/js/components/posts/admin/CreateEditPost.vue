@@ -18,7 +18,7 @@
     </form-group>
 
     <form-group id="state" label="State" :errors="errors.state">
-      <select2 id="state" :options="states" v-model="form.state" :search="false">
+      <select2 id="state" :options="states" v-model="form.state">
         <option disabled value="">Select one</option>
       </select2>
     </form-group>
@@ -30,7 +30,7 @@
     </form-group>
 
     <form-group id="locale" label="Locale" :errors="errors.locale">
-      <select2 id="locale" :options="locales" v-model="form.locale" :search="false"></select2>
+      <select2 id="locale" :options="locales" v-model="form.locale"></select2>
     </form-group>
 
     <submit>

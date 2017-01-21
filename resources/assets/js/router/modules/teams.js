@@ -16,8 +16,8 @@ export default {
         {path: 'admin/create', ...create_team, component: CreateEditTeam, meta},
         {path: 'admin/edit/:id', ...edit_team, component: CreateEditTeam, meta},
         {path: 'admin/list/:page?', ...list_teams, component: ListTeams, meta},
-        {path: 'admin/:team/members/:page?', ...list_team_members, component: ListTeamMembers, meta},
         {path: 'admin/:team/members/create', ...create_team_member, component: CreateEditTeamMember, meta},
         {path: 'admin/:team/members/edit/:id', ...edit_team_member, component: CreateEditTeamMember, meta},
+        {path: 'admin/:team/members/:page?', ...list_team_members, component: ListTeamMembers, meta},
     ]
 };

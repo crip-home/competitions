@@ -11,15 +11,15 @@ Route::resource('posts', 'PostsController',
     ['only' => ['index', 'show']]);
 
 Route::group(['prefix' => 'admin'], function () {
-    Route::resource('posts',
-        'Admin\\PostsController',
+    Route::get('users/search', 'Admin\\UsersController@search')->name('users.search');
+
+    Route::resource('posts', 'Admin\\PostsController',
         ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
-    Route::resource('teams',
-        'Admin\\TeamsController',
+    Route::resource('teams.members', 'Admin\\TeamMembersController',
+        ['only' => ['index']]);
+
+    Route::resource('teams', 'Admin\\TeamsController',
         ['only' => ['index', 'store', 'show', 'update']]);
 
-    Route::resource('teams.members',
-        'Admin\\TeamMembersController',
-        ['only' => ['index']]);
 });

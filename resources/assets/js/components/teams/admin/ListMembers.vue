@@ -2,14 +2,14 @@
   <grid id="list-team-members" :paging="paging">
     <span slot="title">Manage members</span>
     <span slot="actions" v-if="team.id">
-      <panel-action :to="team.editRoute()">Back to team</panel-action>
+      <panel-action :to="team.editRoute()">Edit team</panel-action>
       <panel-action :to="team.newMemberRoute()">Create New Member</panel-action>
     </span>
     <table class="table table-striped table-hover">
       <thead>
       <tr>
-        <td>#</td>
-        <td>Name</td>
+        <th>#</th>
+        <th>Name</th>
       </tr>
       </thead>
       <tbody>

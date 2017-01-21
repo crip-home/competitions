@@ -5,29 +5,23 @@
 </template>
 
 <script>
-    import {sLog, info} from '../../../ext/Log'
+    import {sLog, info} from '../../../../ext/Log'
+    import Select2Options from './index'
 
     export default {
 
         props: {
             value: {type: String},
-            options: {type: Array, 'default': []},
-            search: {type: Boolean, 'default': true}
+            options: {type: Select2Options, 'default': _ => []}
         },
 
         mounted() {
             this.log('mounted');
-            let options = {data: this.options};
-
-            // Allow disable search input
-            if (!this.search) {
-                options.minimumResultsForSearch = -1;
-            }
 
             const $select = $(this.$el);
 
             $select
-                .select2(options)
+                .select2(this.options)
                 .val(this.value)
                 .on('change', () => {
                     this.$emit('input', $select.val())
@@ -42,6 +36,7 @@
                     value: this.value,
                     options: this.options,
                     search: this.search,
+                    settings: this.settings,
                     ...extend
                 }, this.$el);
             }
@@ -59,7 +54,7 @@
             },
 
             options (options) {
-                this.log('options updated', {newValue: val});
+                this.log('options updated', {options});
                 // update options
                 $(this.$el).select2({data: options});
             },

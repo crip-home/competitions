@@ -1,5 +1,6 @@
 import Entity from './Entity'
 import User from './User'
+import Select2Options from './../components/helpers/forms/select2'
 
 const states = Symbol('states');
 
@@ -46,6 +47,6 @@ export default class Post extends Entity {
             options.push({id: state, text: $t(`entities.post.states.${state}`)})
         });
 
-        return options;
+        return (new Select2Options(options)).asSerchable(false);
     }
 }

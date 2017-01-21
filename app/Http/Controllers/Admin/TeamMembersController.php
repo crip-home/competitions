@@ -3,6 +3,7 @@
 use App\Http\Controllers\Controller;
 use App\Team;
 use App\TeamMember;
+use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
