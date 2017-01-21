@@ -1,3 +1,5 @@
+import ext from './../index'
+
 export default {
 
     /**
@@ -13,7 +15,7 @@ export default {
             return defaultValue;
 
         const value = el.getAttribute(attrKey);
-        if (typeof value !== 'undefined')
+        if (ext.hasValue(value))
             return value;
 
         return defaultValue;

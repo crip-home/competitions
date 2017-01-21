@@ -54,6 +54,12 @@
                     .then(data => this.paging.update(data));
             },
 
+        },
+
+        watch: {
+            '$route'(to) {
+                this.fetchPage(to.params.page || 1);
+            }
         }
 
     }

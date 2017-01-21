@@ -95,7 +95,8 @@ return [
          * Package aliases...
          */
 
-        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class
+        'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
     ],
 
 ];
