@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Post extends Model
 {
+    use HasAuditTrait;
 
     const STATE_DRAFT = 'DRAFT';
     const STATE_PENDING = 'PENDING';
@@ -35,7 +36,11 @@ class Post extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'body', 'image', 'state', 'publish_at', 'author_id', 'locale'
+        'title', 'body', 'image', 'state', 'publish_at', 'author_id', 'locale',
+        'created_by',           // int(10) UNSIGNED
+        'created_by_name',      // varchar(255)
+        'updated_by',           // int(10) UNSIGNED
+        'updated_by_name',      // varchar(255)
     ];
 
     /**

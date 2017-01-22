@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePostsTable extends Migration
+class CreatePostsTable extends BaseMigration
 {
     /**
      * Run the migrations.
@@ -24,6 +24,7 @@ class CreatePostsTable extends Migration
             $table->integer('author_id')->unsigned();
             $table->foreign('author_id')->references('id')->on('users');
 
+            $this->audit($table);
             $table->timestamps();
         });
     }

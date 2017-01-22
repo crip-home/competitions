@@ -7,7 +7,7 @@ use Illuminate\Database\Migrations\Migration;
 /**
  * Class CreateDisciplinesTable
  */
-class CreateDisciplinesTable extends Migration
+class CreateDisciplinesTable extends BaseMigration
 {
     /**
      * Run the migrations.
@@ -28,14 +28,7 @@ class CreateDisciplinesTable extends Migration
             $table->text('game_type');
             $table->text('description');
 
-            $table->unsignedInteger('created_by')->index();
-            $table->string('created_by_name');
-            $table->foreign('created_by')->references('id')->on('users')->onDelete('no action');
-
-            $table->unsignedInteger('updated_by')->nullable();
-            $table->string('updated_by_name')->default('');
-            $table->foreign('updated_by')->references('id')->on('users')->onDelete('no action');
-
+            $this->audit($table);
             $table->timestamps();
         });
     }

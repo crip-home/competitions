@@ -21,7 +21,6 @@
         let next = Page.next(this.paging.currentPage, this.paging.lastPage)
 
         let pages = [prev]
-        console.log({...this.paging})
 
         // if page count greater than showable, calculate where place ...
         if (this.paging.lastPage > this.paging.show) {

@@ -3,7 +3,7 @@ import TeamMember          from './../../TeamMember'
 
 class TeamMembersAdminRepository extends AdminRepository {
   constructor () {
-    super('admin/teams/{team_id}/members')
+    super('admin/teams/{teamId}/members')
   }
 
   entityResolver (data) {

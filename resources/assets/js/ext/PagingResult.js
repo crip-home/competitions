@@ -22,8 +22,6 @@ export default class PagingResult {
     this.prevPageUrl = response.prev_page_url
 
     this.items = []
-
-    console.log({...this, name: 'PagingResult'})
   }
 
   /**
