@@ -23,14 +23,29 @@ module.exports = {
     },
     module: {
         loaders: [
+            // only lint local *.vue files
+            {
+                enforce: 'pre',
+                test: /.vue$/,
+                loader: 'eslint-loader',
+                exclude: /node_modules/
+            },
+            // but use vue-loader for all *.vue files
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
             },
+            // only lint local *.js files
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loader: 'eslint-loader',
+                exclude: /node_modules/
+            },
+            // but use babel-loader for all *.js files
             {
                 test: /\.js$/,
-                loader: 'babel-loader',
-                exclude: /node_modules/
+                loader: 'babel-loader'
             },
             {
                 test: /\.css$/,
@@ -39,7 +54,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                loaders: ["style-loader", "css-loader", "sass-loader"]
+                loaders: ['style-loader', 'css-loader', 'sass-loader']
             },
             {
                 test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,

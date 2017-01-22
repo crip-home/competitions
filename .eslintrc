@@ -1,0 +1,9 @@
+{
+  "plugins": [
+    "html"
+  ],
+  "env": {
+    "browser": true
+  },
+  "extends": "standard"
+}
