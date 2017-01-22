@@ -1,7 +1,7 @@
 <template>
   <section id="home" class="col-md-12">
 
-    <article class="row" v-for="post in posts" :key="post.id">
+    <article class="row" v-for="post in paging.items" :key="post.id">
       <hr>
       <div class="col-md-12">
         <router-link :to="postRoute(post)">
@@ -15,16 +15,15 @@
       </div>
     </article>
 
-    <paging :current-page="current_page"
-            :per-page="per_page"
-            :last-page="last_page"
-            :route="pagingRoute"></paging>
+    <paging :paging="paging"></paging>
+
   </section>
 </template>
 
 <script>
   import posts       from './../api/posts'
   import * as routes from './../router/routes'
+  import Paging      from './helpers/grid/Paging'
 
   export default {
     mounted () {
@@ -33,24 +32,14 @@
 
     data () {
       return {
-        current_page: 0,
-        last_page: 0,
-        per_page: 0,
-        posts: [],
-        pagingRoute: {name: routes.home.name}
+        paging: new Paging({route: routes.home})
       }
     },
 
     methods: {
       fetchPage (page) {
-        this.posts = []
-        posts.get(page, this.per_page)
-          .then(data => {
-            this.current_page = data.current_page
-            this.last_page = data.last_page
-            this.per_page = data.per_page
-            this.posts = data.items
-          })
+        posts.get(page, this.paging.perPage)
+          .then(data => this.paging.update(data))
       },
 
       postRoute (post) {

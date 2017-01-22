@@ -8,14 +8,12 @@
 </template>
 
 <script>
-  import NavbarItems from './NavbarItems.vue'
-
   export default {
     name: 'navbar-group',
 
     props: {
       item: {type: Object},
-      items: {type: Array, 'default': () => []},
+      items: {type: Array, 'default': () => []}
     }
   }
 </script>

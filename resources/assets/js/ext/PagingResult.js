@@ -11,17 +11,19 @@
  */
 export default class PagingResult {
   constructor (response) {
-    this.current_page = response.current_page | 0
+    this.currentPage = response.current_page | 0
     this.from = response.from | 0
     this.to = response.to | 0
     this.total = response.total | 0
-    this.last_page = response.last_page | 0
-    this.per_page = response.per_page | 0
+    this.lastPage = response.last_page | 0
+    this.perPage = response.per_page | 0
 
-    this.next_page_url = response.next_page_url
-    this.prev_page_url = response.prev_page_url
+    this.nextPageUrl = response.next_page_url
+    this.prevPageUrl = response.prev_page_url
 
     this.items = []
+
+    console.log({...this, name: 'PagingResult'})
   }
 
   /**

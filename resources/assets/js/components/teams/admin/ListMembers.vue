@@ -41,7 +41,7 @@
 
     data () {
       return {
-        paging: new Paging(listTeamMembers),
+        paging: new Paging({route: listTeamMembers}),
         team: {}
       }
     },
@@ -69,7 +69,7 @@
        */
       fetchPage (teamId, page = 1) {
         this.paging.loading = true
-        members.get(page, this.per_page || 15, {teamId})
+        members.get(page, this.perPage || 15, {teamId})
           .then(data => this.paging.update(data))
       }
     },

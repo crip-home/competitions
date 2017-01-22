@@ -12,7 +12,7 @@
 
   export default {
     computed: {
-      toastClass() {
+      toastClass () {
         // class should be configurable
         return ['toast-top-left']
       },

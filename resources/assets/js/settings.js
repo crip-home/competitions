@@ -1,6 +1,9 @@
-import { error }     from './ext/Log'
-import store         from './store'
-import { TOAST_ADD } from './store/types'
+import { error } from './ext/Log'
+import store     from './store'
+import {
+  TOAST_ADD,
+  AUTH_LOGOUT
+}                    from './store/types'
 import router        from './router'
 import { login }     from './router/routes'
 
@@ -63,6 +66,7 @@ export default {
     switch (errorResponse.status) {
       case 401:
         error('settings.handleError -> unauthorized', errorResponse.data)
+        store.commit(AUTH_LOGOUT)
         router.push({...login, query: {redirect: router.path}})
         break
       case 422:

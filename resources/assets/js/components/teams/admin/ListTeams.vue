@@ -43,7 +43,7 @@
 
     data () {
       return {
-        paging: new Paging(listTeams),
+        paging: new Paging({route: listTeams}),
         createRoute: createTeam
       }
     },
@@ -51,7 +51,7 @@
     methods: {
       fetchPage (page = 1) {
         this.paging.loading = true
-        teams.get(page, this.paging.per_page)
+        teams.get(page, this.paging.perPage)
           .then(data => { this.paging.update(data) })
       }
     },

@@ -1,18 +1,21 @@
 export default class Paging {
-  constructor (route) {
-    this.current_page = 0
-    this.last_page = 0
-    this.per_page = 0
+  constructor ({route, activeClass = 'active', disabledClass = 'disabled', show = 5}) {
+    this.currentPage = 0
+    this.lastPage = 0
+    this.perPage = 0
     this.items = []
     this.loading = true
     this.route = route
+    this.activeClass = activeClass
+    this.disabledClass = disabledClass
+    this.show = show
     this.selected = {}
   }
 
   rowClasses (item, extra = {}) {
     return {
       'with-hidden-actions': true,
-      'active': this.selected.id === item.id,
+      [this.activeClass]: this.selected.id === item.id,
       ...extra
     }
   }
@@ -21,14 +24,14 @@ export default class Paging {
     this.selected = item
   }
 
-  update ({current_page = 0, last_page = 0, per_page = 0, items = [], loading = false}) {
-    this.current_page = current_page
-    this.last_page = last_page
-    this.per_page = per_page
+  update ({currentPage = 0, lastPage = 0, perPage = 0, items = [], loading = false}) {
+    this.currentPage = currentPage
+    this.lastPage = lastPage
+    this.perPage = perPage
     this.items = items
     this.loading = loading
 
     // this will allow return to page where we last time left
-    this.route.params ? (this.route.params.page = this.current_page) : (this.route.params = {page: this.current_page})
+    this.route.params ? (this.route.params.page = this.currentPage) : (this.route.params = {page: this.currentPage})
   }
 }

@@ -14,14 +14,14 @@ export class AdminRepository {
    * Get list of entities from the server
    *
    * @param {Number} [page]
-   * @param {Number} [per_page]
+   * @param {Number} [perPage]
    * @param {*}      [urlReplace]
    * @returns {Promise.<PagingResult>}
    */
-  get (page = 1, per_page = 15, urlReplace = {}) {
-    per_page = parseInt(per_page < 1 ? 15 : per_page)
+  get (page = 1, perPage = 15, urlReplace = {}) {
+    perPage = parseInt(perPage < 1 ? 15 : perPage)
     return new Promise((resolve, reject) => {
-      const params = {page, per_page}
+      const params = {page, per_page: perPage}
       http.get(settings.apiUrl(this.path, params, urlReplace))
         .then(
           ({data}) => resolve(PagingResult.handle(data, this.entityResolver)),

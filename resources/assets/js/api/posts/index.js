@@ -13,9 +13,9 @@ export default {
    * @param {array}  [locales]
    */
   get (page = 1, perPage = 5, locales = null) {
-    let per_page = parseInt(perPage < 1 ? 5 : perPage)
+    perPage = parseInt(perPage < 1 ? 5 : perPage)
     return new Promise((resolve, reject) => {
-      const params = {page, per_page, locales: locales ? locales.join(',') : ''}
+      const params = {page, per_page: perPage, locales: locales ? locales.join(',') : ''}
       const resolver = item => new Post(item)
       http.get(settings.apiUrl('posts', params))
         .then(

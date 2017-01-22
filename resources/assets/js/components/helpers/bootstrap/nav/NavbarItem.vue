@@ -20,11 +20,11 @@
     computed: {
       classes () {
         /** @type {NavbarItem} */
-        let item = this.item;
+        let item = this.item
         return {
           'divider': item.divider === true,
           'dropdown-header': !item.route && !item.href && !item.click && !item.divider
-        };
+        }
       }
     }
   }

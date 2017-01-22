@@ -43,7 +43,7 @@
 
     data () {
       return {
-        paging: new Paging(listPosts),
+        paging: new Paging({route: listPosts}),
         createRoute: createPost
       }
     },
@@ -51,7 +51,7 @@
     methods: {
       fetchPage (page = 1) {
         this.paging.loading = true
-        posts.get(page, this.paging.per_page)
+        posts.get(page, this.paging.perPage)
           .then(data => { this.paging.update(data) })
       },
 
