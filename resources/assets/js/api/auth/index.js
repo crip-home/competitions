@@ -21,7 +21,7 @@ export default {
   checkAuth () {
     if (localStorage.getItem('token')) {
       store.commit(types.AUTH_LOGIN)
-      this.getAuthUserDetails(window.noop)
+      this.getAuthUserDetails(_ => _)
     }
   },
 

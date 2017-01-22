@@ -3,12 +3,14 @@ const offset = Symbol('offset')
 export default {
   [offset] (size, mediaSize) {
     const space = 12 - size
-    if (space === 0)
+    if (space === 0) {
       return 12
+    }
 
     let col = (space / 2) + 1
-    if ((col + size) >= 12)
+    if ((col + size) >= 12) {
       col -= 1
+    }
     return col
   },
 

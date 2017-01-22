@@ -72,10 +72,11 @@ export class NavbarGroup {
    * @param {NavbarGroup|NavbarItem} item
    */
   add (item) {
-    if (item instanceof NavbarItem || item instanceof NavbarGroup)
+    if (item instanceof NavbarItem || item instanceof NavbarGroup) {
       this.items.add(item)
-    else
+    } else {
       this.items.add(new NavbarItem(...arguments))
+    }
   }
 }
 /**

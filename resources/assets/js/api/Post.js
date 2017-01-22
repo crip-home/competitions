@@ -28,15 +28,16 @@ export default class Post extends Entity {
     this.date_from_now = data.date_from_now
     this.author_id = data.author_id
     this.locale = data.locale
-    if (data.author)
+    if (data.author) {
       this.author = new User(data.author)
+    }
 
     this[states] = [
       'DRAFT',
       'PENDING',
       'PRIVATE',
       'PUBLISHED',
-      'TRASH',
+      'TRASH'
     ]
   }
 

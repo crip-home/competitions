@@ -12,7 +12,7 @@ export default {
    * @param {number} [perPage]
    * @param {array}  [locales]
    */
-  get(page = 1, perPage = 5, locales = null) {
+  get (page = 1, perPage = 5, locales = null) {
     let per_page = parseInt(perPage < 1 ? 5 : perPage)
     return new Promise((resolve, reject) => {
       const params = {page, per_page, locales: locales ? locales.join(',') : ''}
@@ -31,7 +31,7 @@ export default {
    * @param {number} id
    * @returns {Promise}
    */
-  find(id) {
+  find (id) {
     return new Promise((resolve, reject) => {
       http.get(settings.apiUrl(`posts/${id}`))
         .then(
@@ -39,6 +39,6 @@ export default {
           response => settings.handleError(response, reject)
         )
     })
-  },
+  }
 
 }

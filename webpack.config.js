@@ -23,11 +23,10 @@ module.exports = {
   },
   module: {
     preLoaders: [
-      {test: /.vue$/, loaders: ['vue-loader', 'eslint-loader'], exclude: /node_modules/},
       {test: /\.js$/, loader: 'eslint-loader', exclude: /node_modules/},
     ],
     loaders: [
-      {test: /\.vue$/, loader: 'vue-loader'},
+      {test: /\.vue$/, loaders: ['vue-loader', 'eslint-loader']},
       {test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/},
       {test: /\.css$/, loader: 'style!css!autoprefixer', exclude: /node_modules/},
       {test: /\.scss$/, loaders: ['style-loader', 'css-loader', 'sass-loader']},

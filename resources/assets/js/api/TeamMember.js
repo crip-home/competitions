@@ -16,12 +16,14 @@ export default class TeamMember extends Entity {
     super(data)
 
     this.user_id = data.user_id
-    if (data.user)
+    if (data.user) {
       this.user = new User(data.user)
+    }
 
     this.team_id = data.team_id
-    if (data.team)
+    if (data.team) {
       this.team = new Team(data.team)
+    }
 
     this.name = data.name
     this.membership_type = data.membership_type
