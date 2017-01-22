@@ -3,7 +3,7 @@
     <span slot="title">Manage teams</span>
     <panel-action slot="actions" :to="createRoute">Create New Team</panel-action>
 
-    <table class="table table-striped table-hover">
+    <table class="table table-hover">
       <thead>
       <tr>
         <th>Name</th>

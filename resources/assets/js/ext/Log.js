@@ -9,7 +9,7 @@ import settings from './../settings'
 const _log = (type, args, section = 'global') => {
     const logType = settings.logs;
 
-    if(!~settings.logSections.indexOf(section))
+    if (!~settings.logSections.indexOf(section))
         return;
 
     if (logType === 'console')
@@ -41,7 +41,7 @@ export const log = (...args) => {
  * @param {...*} args
  */
 export const info = (...args) => {
-    _log('info', args);
+    _log('info', args, 'info');
 };
 
 /**
@@ -50,7 +50,7 @@ export const info = (...args) => {
  * @param {...*} args
  */
 export const error = (...args) => {
-    _log('error', args);
+    _log('error', args, 'error');
 };
 
 /**

@@ -1,11 +1,9 @@
 <template>
   <div class="form-group v-form-group" :class="{'has-error': !!errors}">
-    <label :for="id" :class="labelClass">{{ label }}</label>
+    <label :for="id" :id="id + '-label'" :class="labelClass">{{ label }}</label>
     <div :class="controlClass">
       <slot></slot>
-      <ul class="help-block" v-if="errors">
-        <li v-for="error in errors">{{ error }}</li>
-      </ul>
+      <form-errors :errors="errors"></form-errors>
     </div>
   </div>
 </template>

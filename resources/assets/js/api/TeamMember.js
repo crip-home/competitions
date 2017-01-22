@@ -29,6 +29,15 @@ export default class TeamMember extends Entity {
     }
 
     /**
+     * Determines is the member already active
+     *
+     * @returns {boolean}
+     */
+    isActive() {
+        return this.membership_type === 'member';
+    }
+
+    /**
      * Generates route to edit current member
      * @returns {{name: string, params: {id: Number}}}
      */

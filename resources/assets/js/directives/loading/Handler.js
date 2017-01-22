@@ -66,14 +66,16 @@ export default class {
      * Hide loading box element
      */
     [hide]() {
-        this.loadingBox.addEventListener('transitionend', _ => {
-            this.loadingBox.parentElement.removeChild(this.loadingBox);
+        if (this.loadingBox) {
+            this.loadingBox.addEventListener('transitionend', _ => {
+                this.loadingBox.parentElement.removeChild(this.loadingBox);
 
-            if (this.static) {
-                this.el.style.removeProperty('position');
-            }
-        });
+                if (this.static) {
+                    this.el.style.removeProperty('position');
+                }
+            });
 
-        this.loadingBox.style.opacity = 0.01;
+            this.loadingBox.style.opacity = 0.01;
+        }
     }
 }

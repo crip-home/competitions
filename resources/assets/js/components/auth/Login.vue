@@ -1,6 +1,6 @@
 <template>
   <form-panel :submit="login" title="Login"
-         class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
+              class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
     <form-group id="email" label="E-Mail Address" :errors="error" :col-lg="6" :col-md="6" :col-sm="8">
       <input id="email" type="email" class="form-control" name="email" v-model="credentials.email"
@@ -27,8 +27,9 @@
     export default {
 
         mounted() {
-            if (this.$store.state.auth.user.authenticated)
-                this.$router.push(routes.home)
+            if (this.$store.state.auth.user.authenticated) {
+                this.redirectAuthenticated();
+            }
         },
 
         data() {
@@ -48,12 +49,12 @@
                 this.error = null;
 
                 let credentials = Object.assign({}, this.credentials);
+                // Authorization will be handled by watch, so here is
+                // no need to listen success response.
+                // Watch will be triggered by vuex store events from
+                // auth.login method itself
                 auth.login(credentials)
-                    .then(() => {
-                        this.redirectAuthenticated();
-                    }, error => {
-                        this.error = [error];
-                    });
+                    .catch(error => this.error = [error]);
             },
 
             redirectAuthenticated() {

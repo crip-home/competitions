@@ -3,7 +3,9 @@
     <span slot="title"><slot name="title"></slot></span>
     <span slot="actions"><slot name="actions"></slot></span>
 
-    <slot></slot>
+    <div slot="pre" class="grid-placeholder">
+      <slot></slot>
+    </div>
 
     <paging :current-page="paging.current_page"
             :per-page="paging.per_page"
@@ -13,11 +15,18 @@
 </template>
 
 <script>
-  import Paging from './Paging'
+    import Paging from './Paging'
 
-  export default {
-      props: {
-          paging: {type: Paging}
-      }
-  }
+    export default {
+        props: {
+            paging: {type: Paging}
+        }
+    }
 </script>
+
+<style>
+  .panel-body .pagination,
+  .grid-placeholder .table {
+    margin: 0;
+  }
+</style>

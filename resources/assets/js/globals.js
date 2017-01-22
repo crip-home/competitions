@@ -7,6 +7,7 @@ import Panel from './components/helpers/panel/Panel.vue'
 import PanelAction from  './components/helpers/panel/PanelAction.vue'
 import FormPanel from './components/helpers/forms/FormPanel.vue'
 import FormGroup from './components/helpers/forms/FormGroup.vue'
+import FormErrors from './components/helpers/forms/FormErrors.vue'
 import SubmitArea from './components/helpers/forms/SubmitArea.vue'
 import Datepicker from './components/helpers/bootstrap/Datepicker.vue'
 import Select2 from './components/helpers/forms/select2/Select2.vue'
@@ -23,6 +24,7 @@ export default {
         Vue.component('panel-action', PanelAction);
         Vue.component('form-panel', FormPanel);
         Vue.component('form-group', FormGroup);
+        Vue.component('form-errors', FormErrors);
         Vue.component('submit', SubmitArea);
         Vue.component('date-picker', Datepicker);
         Vue.component('select2', Select2);

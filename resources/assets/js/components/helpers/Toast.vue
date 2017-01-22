@@ -1,7 +1,7 @@
 <template>
   <transition-group tag="div" id="toast-container" name="toast" :class="toast_class">
     <div v-for="(toast, index) in toasts" class="toast" :class="toast.class" :key="index">
-      <button type="button" class="toast-close-button" @click.prevent="remove(index, toast)">×</button>
+      <button type="button" class="toast-close-button" @click.prevent="remove(index)">×</button>
       <div class="toast-message">{{ toast.message }}</div>
     </div>
   </transition-group>
@@ -28,7 +28,7 @@
 
         methods: {
 
-            remove(index, toast) {
+            remove(index) {
                 this.$store.commit(types.TOAST_REMOVE, {index});
             }
 

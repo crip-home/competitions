@@ -35,7 +35,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
 
 $factory->define(\App\TeamMember::class, function(Faker\Generator $faker){
     return [
-        'membership_type' => 'member',
+        'membership_type' => \App\TeamMember::MEMBER,
         'name' => $faker->name,
     ];
 });

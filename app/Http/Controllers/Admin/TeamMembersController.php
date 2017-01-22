@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Teams\AdminStoreMember;
 use App\Team;
 use App\TeamMember;
 use App\User;
@@ -37,19 +38,43 @@ class TeamMembersController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $team_id
+     * GET     /api/admin/teams/{team}/members
+     *
+     * @param  Request $request
+     * @param Team $team
      * @return JsonResponse
      */
-    public function index(Request $request, $team_id)
+    public function index(Request $request, Team $team)
     {
-        $team_id = intval($team_id);
-        $team = $this->team->newQuery()->where('id', $team_id)->firstOrFail();
         $this->authorize('viewList', [TeamMember::class, $team]);
 
-        $members = $this->member->newQuery()->where('team_id', $team_id)
+        $members = $this->member->newQuery()->where('team_id', $team->id)
             ->paginate($request->per_page ?: 15);
 
         return new JsonResponse($members);
+    }
+
+    /**
+     * POST  /api/admin/teams/{team}/members
+     *
+     * @param  AdminStoreMember $request
+     * @param  Team $team
+     * @return JsonResponse
+     */
+    public function store(AdminStoreMember $request, Team $team)
+    {
+        $this->authorize('create', [TeamMember::class, $team]);
+        $details = $request->only(['user_id', 'name']);
+
+        if ($details['user_id']) {
+            $details['membership_type'] = TeamMember::INVITED;
+            // TODO: send an invitation message to user
+        } else {
+            $details['membership_type'] = TeamMember::MEMBER;
+        }
+
+        $member = $team->members()->create($details);
+
+        return new JsonResponse($member);
     }
 }

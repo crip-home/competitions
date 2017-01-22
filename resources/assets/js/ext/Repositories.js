@@ -33,12 +33,13 @@ export class AdminRepository {
     /**
      * Get single entity from the server
      *
-     * @param {number} id
+     * @param {number}  id
+     * @param {*}      [urlReplace]
      * @returns {Promise}
      */
-    find(id) {
+    find(id, urlReplace = {}) {
         return new Promise((resolve, reject) => {
-            http.get(settings.apiUrl(`${this.path}/${id}`))
+            http.get(settings.apiUrl(`${this.path}/${id}`, {}, urlReplace))
                 .then(
                     ({data}) => resolve(this.entityResolver(data)),
                     response => settings.handleError(response, reject)
@@ -50,9 +51,10 @@ export class AdminRepository {
      * Store entity on the server
      *
      * @param {object} entity
+     * @param {*}      [urlReplace]
      * @returns {Promise}
      */
-    save(entity) {
+    save(entity, urlReplace = {}) {
         let method = 'post';
         let url = this.path;
 
@@ -62,7 +64,7 @@ export class AdminRepository {
         }
 
         return new Promise((resolve, reject) => {
-            http[method](settings.apiUrl(url), entity)
+            http[method](settings.apiUrl(url, {},urlReplace), entity)
                 .then(
                     ({data}) => resolve(this.entityResolver(data)),
                     response => settings.handleError(response, reject)

@@ -3,7 +3,7 @@
     <span slot="title">Manage posts</span>
     <panel-action slot="actions" :to="createRoute">Create New post</panel-action>
 
-    <table class="table table-striped table-hover">
+    <table class="table table-hover">
       <thead>
       <tr>
         <th>#</th>

@@ -25,6 +25,14 @@ export default class Select2Options {
 
     asTagable(value = true) {
         this.tags = value;
+        this.createTag = tag => {
+            return {
+                id: tag.term,
+                text: tag.term,
+                // add indicator:
+                isNew: true
+            };
+        };
 
         return this;
     }

@@ -11,6 +11,9 @@ class TeamMember extends Model
 {
     use HasAuditTrait;
 
+    const INVITED = 'invited';
+    const MEMBER = 'member';
+
     /**
      * The table associated with the model.
      *

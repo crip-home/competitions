@@ -20,11 +20,25 @@
 
             const $select = $(this.$el);
 
+            let oldTagVal = '';
+
             $select
                 .select2(this.options)
                 .val(this.value)
-                .on('change', () => {
-                    this.$emit('input', $select.val())
+                .on('change', _ => {
+                    let isNew = $select.find('[data-select2-tag="true"]');
+                    let newVal = {val: _ => _};
+
+                    if (isNew.length > 0) {
+                        newVal = $(isNew[isNew.length - 1]);
+                    }
+
+                    if (isNew.length > 0 && oldTagVal !== newVal.val()) {
+                        oldTagVal = newVal.val();
+                        this.$emit('new', oldTagVal);
+                    } else {
+                        this.$emit('input', $select.val());
+                    }
                 })
                 .trigger('change');
         },
@@ -47,8 +61,13 @@
 
             value(val) {
                 this.log('value updated', {newValue: val});
+                let $select = $(this.$el);
+
+                if ($select.val() === val)
+                    return;
+
                 // update value
-                $(this.$el)
+                $select
                     .val(val)
                     .trigger('change');
             },

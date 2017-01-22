@@ -9,10 +9,11 @@ export default class Paging {
         this.selected = {};
     }
 
-    rowClasses(item) {
+    rowClasses(item, extra = {}) {
         return {
             'with-hidden-actions': true,
-            'active': this.selected.id === item.id
+            'active': this.selected.id === item.id,
+            ...extra
         }
     }
 

@@ -27,7 +27,8 @@ class UsersController extends Controller
     }
 
     /**
-     * @param Request $request
+     * GET     /api/admin/users/search
+     * @param  Request $request
      * @return JsonResponse
      */
     public function search(Request $request)
@@ -36,5 +37,15 @@ class UsersController extends Controller
             ->paginate($request->per_page ?: 15, ['id', 'name']);
 
         return new JsonResponse($users);
+    }
+
+    /**
+     * GET     /api/admin/users/{user}
+     * @param  User $user
+     * @return JsonResponse
+     */
+    public function show(User $user)
+    {
+        return new JsonResponse($user);
     }
 }
