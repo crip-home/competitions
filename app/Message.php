@@ -27,7 +27,7 @@ class Message extends Model
         'body',             // text
         'created_by',       // int(10) UNSIGNED
         'created_by_name',  // varchar(255)
-        'from_id',          // int(10) UNSIGNED NULL
+        'from_id',          // int(10) UNSIGNED
         'from_name',        // varchar(255)
         'importance_level', // smallint(5) 10
         'is_read',          // tinyint(1) 0

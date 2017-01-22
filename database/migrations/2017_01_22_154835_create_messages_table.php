@@ -24,11 +24,11 @@ class CreateMessagesTable extends BaseMigration
             $table->smallInteger('importance_level')->unsigned()->default(10);
             $table->string('type', 20);
 
-            $table->unsignedInteger('from_id')->nullable();
+            $table->unsignedInteger('from_id');
             $table->foreign('from_id')->references('id')->on('users')->onDelete('no action');
             $table->string('from_name');
 
-            $table->unsignedInteger('to_id')->nullable();
+            $table->unsignedInteger('to_id');
             $table->foreign('to_id')->references('id')->on('users')->onDelete('no action');
             $table->string('to_name');
 
