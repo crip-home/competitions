@@ -1,6 +1,6 @@
 export default {
-    locale: 'LV',
-    app: {
-        title: 'CRIP LV Title'
-    }
+  locale: 'LV',
+  app: {
+    title: 'CRIP LV Title'
+  }
 }

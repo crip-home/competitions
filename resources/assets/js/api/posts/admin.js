@@ -1,14 +1,14 @@
-import {AdminRepository} from '../../ext/Repositories'
-import Post from '../Post'
+import { AdminRepository } from '../../ext/Repositories'
+import Post                from '../Post'
 
 class PostsAdminRepository extends AdminRepository {
-    constructor() {
-        super('admin/posts');
-    }
+  constructor () {
+    super('admin/posts')
+  }
 
-    entityResolver(data) {
-        return new Post(data);
-    }
+  entityResolver (data) {
+    return new Post(data)
+  }
 }
 
-export default new PostsAdminRepository();
+export default new PostsAdminRepository()

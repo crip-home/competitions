@@ -7,14 +7,12 @@ import settings from './../settings'
  * @private
  */
 const _log = (type, args, section = 'global') => {
-    const logType = settings.logs;
+  const logType = settings.logs
 
-    if (!~settings.logSections.indexOf(section))
-        return;
+  if (!~settings.logSections.indexOf(section)) { return }
 
-    if (logType === 'console')
-        return _consoleLog(type, args);
-};
+  if (logType === 'console') { return _consoleLog(type, args) }
+}
 
 /**
  * @param {String} type
@@ -22,9 +20,8 @@ const _log = (type, args, section = 'global') => {
  * @private
  */
 const _consoleLog = (type, args) => {
-    if (console && console[type])
-        console[type].apply(console, args);
-};
+  if (console && console[type]) { console[type].apply(console, args) }
+}
 
 /**
  * Log arguments
@@ -32,8 +29,8 @@ const _consoleLog = (type, args) => {
  * @param {...*} args
  */
 export const log = (...args) => {
-    _log('log', args);
-};
+  _log('log', args)
+}
 
 /**
  * Log informational arguments
@@ -41,8 +38,8 @@ export const log = (...args) => {
  * @param {...*} args
  */
 export const info = (...args) => {
-    _log('info', args, 'info');
-};
+  _log('info', args, 'info')
+}
 
 /**
  * Log error arguments
@@ -50,8 +47,8 @@ export const info = (...args) => {
  * @param {...*} args
  */
 export const error = (...args) => {
-    _log('error', args, 'error');
-};
+  _log('error', args, 'error')
+}
 
 /**
  * Section log allows to log messages to sections
@@ -59,9 +56,9 @@ export const error = (...args) => {
  * @param {String} section
  * @returns {function}
  */
-export function sLog(section) {
-    return function (...args) {
-        args.unshift(section);
-        _log('log', args, section);
-    };
+export function sLog (section) {
+  return function (...args) {
+    args.unshift(section)
+    _log('log', args, section)
+  }
 }

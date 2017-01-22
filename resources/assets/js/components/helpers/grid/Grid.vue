@@ -15,13 +15,13 @@
 </template>
 
 <script>
-    import Paging from './Paging'
+  import Paging from './Paging'
 
-    export default {
-        props: {
-            paging: {type: Paging}
-        }
+  export default {
+    props: {
+      paging: {type: Paging}
     }
+  }
 </script>
 
 <style>

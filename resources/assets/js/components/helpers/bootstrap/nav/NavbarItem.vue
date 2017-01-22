@@ -8,24 +8,24 @@
 </template>
 
 <script>
-    import {NavbarItem} from './index'
+  import { NavbarItem } from './index'
 
-    export default {
-        name: 'navbar-item',
+  export default {
+    name: 'navbar-item',
 
-        props: {
-            item: {type: NavbarItem}
-        },
+    props: {
+      item: {type: NavbarItem}
+    },
 
-        computed: {
-            classes() {
-                /** @type {NavbarItem} */
-                let item = this.item;
-                return {
-                    'divider': item.divider === true,
-                    'dropdown-header': !item.route && !item.href && !item.click && !item.divider
-                };
-            }
-        }
+    computed: {
+      classes () {
+        /** @type {NavbarItem} */
+        let item = this.item;
+        return {
+          'divider': item.divider === true,
+          'dropdown-header': !item.route && !item.href && !item.click && !item.divider
+        };
+      }
     }
+  }
 </script>

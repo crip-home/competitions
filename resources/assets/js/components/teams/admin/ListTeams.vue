@@ -32,38 +32,34 @@
 </template>
 
 <script>
-    import {teams} from './../../../api/teams/admin'
-    import {list_teams, create_team} from './../../../router/routes'
-    import Paging from './../../helpers/grid/Paging'
+  import { teams }                 from './../../../api/teams/admin'
+  import { listTeams, createTeam } from './../../../router/routes'
+  import Paging                    from './../../helpers/grid/Paging'
 
-    export default {
+  export default {
+    mounted () {
+      this.fetchPage(this.$route.params.page || 1)
+    },
 
-        mounted() {
-            this.fetchPage(this.$route.params.page || 1);
-        },
+    data () {
+      return {
+        paging: new Paging(listTeams),
+        createRoute: createTeam
+      }
+    },
 
-        data() {
-            return {
-                paging: new Paging(list_teams),
-                createRoute: create_team
-            };
-        },
+    methods: {
+      fetchPage (page = 1) {
+        this.paging.loading = true
+        teams.get(page, this.paging.per_page)
+          .then(data => { this.paging.update(data) })
+      }
+    },
 
-        methods: {
-
-            fetchPage(page = 1) {
-                this.paging.loading = true;
-                teams.get(page, this.per_page)
-                    .then(data => this.paging.update(data));
-            },
-
-        },
-
-        watch: {
-            '$route'(to) {
-                this.fetchPage(to.params.page || 1);
-            }
-        }
-
+    watch: {
+      '$route' (to) {
+        this.fetchPage(to.params.page || 1)
+      }
     }
+  }
 </script>

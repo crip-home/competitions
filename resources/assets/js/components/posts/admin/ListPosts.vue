@@ -32,60 +32,57 @@
 </template>
 
 <script>
-    import posts from './../../../api/posts/admin'
-    import {create_post, list_posts, edit_post} from './../../../router/routes'
-    import Paging from './../../helpers/grid/Paging'
+  import posts                               from './../../../api/posts/admin'
+  import { createPost, listPosts, editPost } from './../../../router/routes'
+  import Paging                              from './../../helpers/grid/Paging'
 
-    export default {
+  export default {
+    mounted () {
+      this.fetchPage(this.$route.params.page || 1)
+    },
 
-        mounted() {
-            this.fetchPage(this.$route.params.page || 1);
-        },
+    data () {
+      return {
+        paging: new Paging(listPosts),
+        createRoute: createPost
+      }
+    },
 
-        data() {
-            return {
-                paging: new Paging(list_posts),
-                createRoute: create_post
-            };
-        },
+    methods: {
+      fetchPage (page = 1) {
+        this.paging.loading = true
+        posts.get(page, this.paging.per_page)
+          .then(data => { this.paging.update(data) })
+      },
 
-        methods: {
-
-            fetchPage(page = 1) {
-                this.paging.loading = true;
-                posts.get(page, this.paging.per_page)
-                    .then(data => this.paging.update(data));
-            },
-
-            postRoute(post) {
-                return {
-                    name: edit_post.name,
-                    params: {
-                        id: post.id
-                    }
-                };
-            },
-
-            stateClass(post) {
-                switch (post.state) {
-                    case 'DRAFT':
-                    case 'PENDING':
-                        return ['info'];
-                    case 'TRASH':
-                        return ['danger'];
-                    case 'PRIVATE':
-                        return ['warning'];
-                    default:
-                        return [];
-                }
-            },
-
-        },
-
-        watch: {
-            '$route'(to) {
-                this.fetchPage(to.params.page || 1);
-            }
+      postRoute (post) {
+        return {
+          name: editPost.name,
+          params: {
+            id: post.id
+          }
         }
+      },
+
+      stateClass (post) {
+        switch (post.state) {
+          case 'DRAFT':
+          case 'PENDING':
+            return ['info']
+          case 'TRASH':
+            return ['danger']
+          case 'PRIVATE':
+            return ['warning']
+          default:
+            return []
+        }
+      }
+    },
+
+    watch: {
+      '$route' (to) {
+        this.fetchPage(to.params.page || 1)
+      }
     }
+  }
 </script>

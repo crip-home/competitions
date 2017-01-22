@@ -3,8 +3,12 @@
     <div class="panel panel-default">
 
       <div class="panel-heading clearfix">
-        <div class="v-panel-title pull-left"><slot name="title"></slot></div>
-        <div class="v-panel-title pull-right"><slot name="actions"></slot></div>
+        <div class="v-panel-title pull-left">
+          <slot name="title"></slot>
+        </div>
+        <div class="v-panel-title pull-right">
+          <slot name="actions"></slot>
+        </div>
       </div>
 
       <slot name="pre"></slot>

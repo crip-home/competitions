@@ -23,54 +23,50 @@
 </template>
 
 <script>
-    import posts from './../api/posts'
-    import * as routes from './../router/routes'
+  import posts       from './../api/posts'
+  import * as routes from './../router/routes'
 
-    export default {
+  export default {
+    mounted () {
+      this.fetchPage(this.$route.params.page || 1)
+    },
 
-        mounted() {
-            this.fetchPage(this.$route.params.page || 1);
-        },
+    data () {
+      return {
+        current_page: 0,
+        last_page: 0,
+        per_page: 0,
+        posts: [],
+        pagingRoute: {name: routes.home.name}
+      }
+    },
 
-        data() {
-            return {
-                current_page: 0,
-                last_page: 0,
-                per_page: 0,
-                posts: [],
-                pagingRoute: {name: routes.home.name}
-            }
-        },
+    methods: {
+      fetchPage (page) {
+        this.posts = []
+        posts.get(page, this.per_page)
+          .then(data => {
+            this.current_page = data.current_page
+            this.last_page = data.last_page
+            this.per_page = data.per_page
+            this.posts = data.items
+          })
+      },
 
-        methods: {
-
-            fetchPage(page) {
-                this.posts = [];
-                posts.get(page, this.per_page)
-                    .then(data => {
-                        this.current_page = data.current_page;
-                        this.last_page = data.last_page;
-                        this.per_page = data.per_page;
-                        this.posts =data.items;
-                    });
-            },
-
-            postRoute(post) {
-                return {
-                    name: routes.read_post.name,
-                    params: {
-                        id: post.id
-                    }
-                };
-            },
-
-        },
-
-        watch: {
-            '$route' (to, from) {
-                this.fetchPage(to.params.page || 1);
-            }
+      postRoute (post) {
+        return {
+          name: routes.readPost.name,
+          params: {
+            id: post.id
+          }
         }
+      }
+    },
 
+    watch: {
+      '$route' (to) {
+        this.fetchPage(to.params.page || 1)
+      }
     }
+  }
 </script>

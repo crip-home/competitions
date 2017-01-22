@@ -21,47 +21,43 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import * as routes from './../../../router/routes'
-    import {teams} from './../../../api/teams/admin'
+  import Vue         from 'vue'
+  import { teams }   from './../../../api/teams/admin'
+  import * as routes from './../../../router/routes'
 
-    export default {
+  export default {
+    mounted () {
+      if (this.$route.name === routes.editTeam.name) {
+        this.panelTitle = 'Edit team'
+        this.fetchTeam(this.$route.params.id)
+      }
+    },
 
-        mounted() {
-            if (this.$route.name === routes.edit_team.name) {
-                this.panelTitle = 'Edit team';
-                this.fetchTeam(this.$route.params.id);
-            }
+    data () {
+      return {
+        panelTitle: 'Create team',
+        backRoute: routes.listTeams,
+        form: {
+          name: '',
+          short: ''
         },
+        errors: {}
+      }
+    },
 
-        data() {
-            return {
-                panelTitle: 'Create team',
-                backRoute: routes.list_teams,
-                form: {
-                    name: '',
-                    short: ''
-                },
-                errors: {}
-            }
-        },
+    methods: {
+      saveTeam () {
+        teams.save(this.form)
+          .then(
+            _ => this.$router.push(routes.listTeams),
+            errors => Vue.set(this, 'errors', errors)
+          )
+      },
 
-        methods: {
-
-            saveTeam() {
-                teams.save(this.form)
-                    .then(
-                        _ => this.$router.push(routes.list_teams),
-                        errors => Vue.set(this, 'errors', errors)
-                    );
-            },
-
-            fetchTeam(teamId) {
-                teams.find(teamId)
-                    .then(team => this.form = team);
-            },
-
-        }
-
+      fetchTeam (teamId) {
+        teams.find(teamId)
+          .then(team => { this.form = team })
+      }
     }
+  }
 </script>

@@ -40,55 +40,51 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import Post from '../../../api/Post'
-    import posts from './../../../api/posts/admin'
-    import * as lang from './../../../lang'
-    import * as routes from './../../../router/routes'
+  import Vue         from 'vue'
+  import Post        from '../../../api/Post'
+  import posts       from './../../../api/posts/admin'
+  import * as lang   from './../../../lang'
+  import * as routes from './../../../router/routes'
 
-    export default {
+  export default {
+    mounted () {
+      if (this.$route.name === routes.editPost.name) {
+        this.panelTitle = 'Edit post'
+        this.fetchPost(this.$route.params.id)
+      }
+    },
 
-        mounted() {
-            if (this.$route.name === routes.edit_post.name) {
-                this.panelTitle = 'Edit post';
-                this.fetchPost(this.$route.params.id);
-            }
+    data () {
+      return {
+        panelTitle: 'Create post',
+        backRoute: routes.listPosts,
+        form: {
+          title: '',
+          image: '',
+          body: '',
+          state: '',
+          publish_at: '',
+          locale: Vue.config.lang
         },
+        errors: {},
+        locales: lang.select(),
+        states: Post.stateSelectOptions(this.$t.bind(this))
+      }
+    },
 
-        data() {
-            return {
-                panelTitle: 'Create post',
-                backRoute: routes.list_posts,
-                form: {
-                    title: '',
-                    image: '',
-                    body: '',
-                    state: '',
-                    publish_at: '',
-                    locale: Vue.config.lang,
-                },
-                errors: {},
-                locales: lang.select(),
-                states: Post.stateSelectOptions(this.$t.bind(this))
-            }
-        },
+    methods: {
+      savePost () {
+        posts.save(this.form)
+          .then(
+            _ => { this.$router.push(routes.listPosts) },
+            errors => { this.errors = errors }
+          )
+      },
 
-        methods: {
-
-            savePost() {
-                posts.save(this.form)
-                    .then(
-                        _ => this.$router.push(routes.list_posts),
-                        errors => this.errors = errors
-                    );
-            },
-
-            fetchPost(id) {
-                posts.find(id)
-                    .then(post => this.form = post);
-            }
-
-        }
-
+      fetchPost (id) {
+        posts.find(id)
+          .then(post => { this.form = post })
+      }
     }
+  }
 </script>

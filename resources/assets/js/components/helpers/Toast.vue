@@ -1,5 +1,5 @@
 <template>
-  <transition-group tag="div" id="toast-container" name="toast" :class="toast_class">
+  <transition-group tag="div" id="toast-container" name="toast" :class="toastClass">
     <div v-for="(toast, index) in toasts" class="toast" :class="toast.class" :key="index">
       <button type="button" class="toast-close-button" @click.prevent="remove(index)">×</button>
       <div class="toast-message">{{ toast.message }}</div>
@@ -8,33 +8,26 @@
 </template>
 
 <script>
-    import * as types from '../../store/types'
+  import * as types from '../../store/types'
 
-    export default {
+  export default {
+    computed: {
+      toastClass() {
+        // class should be configurable
+        return ['toast-top-left']
+      },
 
-        computed: {
+      toasts () {
+        return this.$store.state.toast.toasts
+      }
+    },
 
-            toast_class() {
-                // class should be configurable
-                return ['toast-top-left'];
-            },
-
-            toasts() {
-                return this.$store.state.toast.toasts;
-            },
-
-        },
-
-
-        methods: {
-
-            remove(index) {
-                this.$store.commit(types.TOAST_REMOVE, {index});
-            }
-
-        }
-
+    methods: {
+      remove (index) {
+        this.$store.commit(types.TOAST_REMOVE, {index})
+      }
     }
+  }
 </script>
 
 <style>
@@ -95,8 +88,8 @@
   }
 
   .toast-info {
-     background-color: #2f96b4;
-   }
+    background-color: #2f96b4;
+  }
 
   .toast-close-button {
     outline: none !important;
@@ -117,10 +110,12 @@
   .toast-enter-active, .toast-leave-active {
     transition: all .3s ease;
   }
+
   .toast-enter, .toast-leave-active {
     opacity: 0;
     transform: translateY(-60px);
   }
+
   .toast-leave-active {
     opacity: 0;
   }

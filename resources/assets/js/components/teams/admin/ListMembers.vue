@@ -30,54 +30,54 @@
 </template>
 
 <script>
-    import {teams, members} from './../../../api/teams/admin'
-    import {list_team_members} from './../../../router/routes'
-    import Paging from './../../helpers/grid/Paging'
+  import { teams, members }  from './../../../api/teams/admin'
+  import { listTeamMembers } from './../../../router/routes'
+  import Paging              from './../../helpers/grid/Paging'
 
-    export default {
+  export default {
+    mounted () {
+      this.fetchData(this.$route.params.team)
+    },
 
-        mounted() {
-            this.fetchData(this.$route.params.team);
-        },
+    data () {
+      return {
+        paging: new Paging(listTeamMembers),
+        team: {}
+      }
+    },
 
-        data() {
-            return {
-                paging: new Paging(list_team_members),
-                team: {}
-            }
-        },
+    methods: {
+      /**
+       * Fetch team from the server
+       *
+       * @param {Number} teamId
+       */
+      fetchData (teamId) {
+        this.paging.loading = true
+        teams.find(teamId)
+          .then(team => {
+            this.team = team
+            this.fetchPage(team.id, this.$route.params.page)
+          })
+      },
 
-        methods: {
+      /**
+       * Fetch paging data from server
+       *
+       * @param {Number}  teamId
+       * @param {Number} [page]
+       */
+      fetchPage (teamId, page = 1) {
+        this.paging.loading = true
+        members.get(page, this.per_page || 15, {teamId})
+          .then(data => this.paging.update(data))
+      }
+    },
 
-            /**
-             * Fetch team from the server
-             * @param {Number} team_id
-             */
-            fetchData(team_id) {
-                this.paging.loading = true;
-                teams.find(team_id)
-                    .then(team => {
-                        this.team = team;
-                        this.fetchPage(team.id, this.$route.params.page);
-                    });
-            },
-
-            /**
-             * Fetch paging data from server
-             * @param {Number}  team_id
-             * @param {Number} [page]
-             */
-            fetchPage(team_id, page = 1) {
-                this.paging.loading = true;
-                members.get(page, this.per_page || 15, {team_id})
-                    .then(data => this.paging.update(data));
-            }
-        },
-
-        watch: {
-            '$route'({params}) {
-                this.fetchPage(this.team.id, params.page || 1);
-            }
-        }
+    watch: {
+      '$route' ({params}) {
+        this.fetchPage(this.team.id, params.page || 1)
+      }
     }
+  }
 </script>

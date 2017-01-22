@@ -14,34 +14,32 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import auth from './../../api/auth'
-    import {home} from './../../router/routes'
-    import * as types from '../../store/types'
+  import Vue        from 'vue'
+  import auth       from './../../api/auth'
+  import { home }   from './../../router/routes'
+  import * as types from '../../store/types'
 
-    export default {
-
-        data() {
-            return {
-                form: {
-                    email: ''
-                },
-                errors: {}
-            }
+  export default {
+    data () {
+      return {
+        form: {
+          email: ''
         },
+        errors: {}
+      }
+    },
 
-        methods: {
-
-            reset() {
-                auth.sendResetLink(this.form.email)
-                    .then(status => {
-                            this.$store.commit(types.TOAST_ADD, {message: status});
-                            this.$router.push(home);
-                        },
-                        errors => Vue.set(this, 'errors', errors)
-                    );
-            }
-
-        }
+    methods: {
+      reset () {
+        auth.sendResetLink(this.form.email)
+          .then(
+            status => {
+              this.$store.commit(types.TOAST_ADD, {message: status})
+              this.$router.push(home)
+            },
+            errors => { Vue.set(this, 'errors', errors) }
+          )
+      }
     }
+  }
 </script>

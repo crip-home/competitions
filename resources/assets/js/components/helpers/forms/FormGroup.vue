@@ -9,51 +9,50 @@
 </template>
 
 <script>
-    import ColCalc from './ColCalc'
+  import ColCalc from './ColCalc'
 
-    export default {
+  export default {
+    props: {
+      label: {type: String, required: true},
+      id: {type: String, required: true},
+      errors: {type: Array, 'default': null},
+      colLg: {type: Number, 'default': 8},
+      colMd: {type: Number, 'default': 0},
+      colSm: {type: Number, 'default': 0}
+    },
 
-        props: {
-            label: {type: String, required: true},
-            id: {type: String, required: true},
-            errors: {type: Array, 'default': null},
-            colLg: {type: Number, 'default': 8},
-            colMd: {type: Number, 'default': 0},
-            colSm: {type: Number, 'default': 0}
-        },
+    computed: {
+      labelClass () {
+        return this.resolveSizes('label', ['control-label'])
+      },
 
-        computed: {
+      controlClass () {
+        return this.resolveSizes('control', [])
+      }
+    },
 
-            labelClass() {
-                return this.resolveSizes('label', ['control-label']);
-            },
-
-            controlClass() {
-                return this.resolveSizes('control', []);
-            }
-
-        },
-
-        methods: {
-            /**
-             *
-             * @param {String} method
-             * @param {Array} [initialClasses]
-             * @returns {Array}
-             */
-            resolveSizes(method, initialClasses = []) {
-                if (this.colLg)
-                    initialClasses.push(ColCalc[method](this.colLg, 'lg'));
-
-                if (this.colMd)
-                    initialClasses.push(ColCalc[method](this.colMd, 'md'));
-
-                if (this.colSm)
-                    initialClasses.push(ColCalc[method](this.colSm, 'sm'));
-
-                return initialClasses;
-            }
-
+    methods: {
+      /**
+       *
+       * @param {String} method
+       * @param {Array} [initialClasses]
+       * @returns {Array}
+       */
+      resolveSizes (method, initialClasses = []) {
+        if (this.colLg) {
+          initialClasses.push(ColCalc[method](this.colLg, 'lg'))
         }
+
+        if (this.colMd) {
+          initialClasses.push(ColCalc[method](this.colMd, 'md'))
+        }
+
+        if (this.colSm) {
+          initialClasses.push(ColCalc[method](this.colSm, 'sm'))
+        }
+
+        return initialClasses
+      }
     }
+  }
 </script>

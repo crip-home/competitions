@@ -30,12 +30,12 @@
 </template>
 
 <script>
-    export default {
-        name: 'navbar',
+  export default {
+    name: 'navbar',
 
-        props: {
-            leftMenu: {type: Array, 'default': () => []},
-            rightMenu: {type: Array, 'default': () => []}
-        }
+    props: {
+      leftMenu: {type: Array, 'default': () => []},
+      rightMenu: {type: Array, 'default': () => []}
     }
+  }
 </script>

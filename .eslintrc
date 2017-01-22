@@ -1,9 +1,21 @@
 {
+  "parser": "babel-eslint",
   "plugins": [
     "html"
   ],
   "env": {
     "browser": true
   },
-  "extends": "standard"
+  "globals": {
+    "$": true,
+    "Laravel": true,
+    "CKEDITOR": true
+  },
+  "extends": "standard",
+  "rules": {
+    "no-unused-vars": "warn",
+    "no-self-compare": "off",
+    "no-multi-spaces": "off",
+    "no-extend-native": "warn"
+  }
 }

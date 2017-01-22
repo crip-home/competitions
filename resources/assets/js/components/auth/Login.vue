@@ -21,66 +21,60 @@
 </template>
 
 <script>
-    import auth from './../../api/auth'
-    import * as routes from './../../router/routes'
+  import auth        from './../../api/auth'
+  import * as routes from './../../router/routes'
 
-    export default {
+  export default {
+    mounted () {
+      if (this.$store.state.auth.user.authenticated) {
+        this.redirectAuthenticated()
+      }
+    },
 
-        mounted() {
-            if (this.$store.state.auth.user.authenticated) {
-                this.redirectAuthenticated();
-            }
+    data () {
+      return {
+        credentials: {
+          email: '',
+          password: ''
         },
+        password_reset: routes.emailPassword,
+        error: null
+      }
+    },
 
-        data() {
-            return {
-                credentials: {
-                    email: '',
-                    password: ''
-                },
-                password_reset: routes.email_password,
-                error: null
-            }
-        },
+    methods: {
+      login () {
+        this.error = null
 
-        methods: {
+        let credentials = Object.assign({}, this.credentials)
+        // Authorization will be handled by watch, so here is
+        // no need to listen success response.
+        // Watch will be triggered by vuex store events from
+        // auth.login method itself
+        auth.login(credentials)
+          .catch(error => { this.error = [error] })
+      },
 
-            login() {
-                this.error = null;
-
-                let credentials = Object.assign({}, this.credentials);
-                // Authorization will be handled by watch, so here is
-                // no need to listen success response.
-                // Watch will be triggered by vuex store events from
-                // auth.login method itself
-                auth.login(credentials)
-                    .catch(error => this.error = [error]);
-            },
-
-            redirectAuthenticated() {
-                if (this.$route.query && this.$route.query.redirect) {
-                    // if user has redirected here by guard, redirect him back
-                    // to guarded route instead of home
-                    this.$router.push(this.$route.query.redirect);
-                }
-                else
-                    this.$router.push(routes.home);
-            },
-
-        },
-
-        watch: {
-
-            '$store.state.auth.user.details'(newVal) {
-                // Watching user details, because they arrives later than route
-                // guard redirects to login and in case we receive them, we can
-                // redirect him to requested route
-                if (newVal === true) {
-                    this.redirectAuthenticated();
-                }
-            },
-
+      redirectAuthenticated () {
+        if (this.$route.query && this.$route.query.redirect) {
+          // if user has redirected here by guard, redirect him back
+          // to guarded route instead of home
+          this.$router.push(this.$route.query.redirect)
+        } else {
+          this.$router.push(routes.home)
         }
+      }
+    },
 
+    watch: {
+      '$store.state.auth.user.details' (newVal) {
+        // Watching user details, because they arrives later than route
+        // guard redirects to login and in case we receive them, we can
+        // redirect him to requested route
+        if (newVal === true) {
+          this.redirectAuthenticated()
+        }
+      }
     }
+  }
 </script>

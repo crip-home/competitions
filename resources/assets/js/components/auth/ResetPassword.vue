@@ -8,7 +8,7 @@
 
     <form-group id="password" label="Password" :errors="errors.password" :col-lg="6" :col-md="8">
       <input id="password" type="password" class="form-control" name="password" required title="Password"
-             v-model="form.password" >
+             v-model="form.password">
     </form-group>
 
     <form-group id="password_confirmation" label="Confirm Password" :col-lg="6" :col-md="8">
@@ -23,42 +23,38 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import auth from './../../api/auth'
-    import * as types from '../../store/types'
-    import * as routes from './../../router/routes'
+  import Vue         from 'vue'
+  import auth        from './../../api/auth'
+  import * as routes from './../../router/routes'
+  import * as types  from '../../store/types'
 
-    export default {
+  export default {
+    mounted () {
+      this.form.token = this.$route.params.token
+    },
 
-        mounted() {
-            this.form.token = this.$route.params.token;
-        },
-
-        data() {
-            return {
-                errors: {},
-                form: {
-                    email: '',
-                    password: '',
-                    password_confirmation: '',
-                    token: ''
-                }
-            }
-        },
-
-        methods: {
-
-            reset() {
-                auth.reset(this.form)
-                    .then(status => {
-                        this.$store.commit(types.TOAST_ADD, {message: status});
-                        this.$router.push(routes.login);
-                    }, errors => {
-                        Vue.set(this, 'errors', errors);
-                    });
-            }
-
+    data () {
+      return {
+        errors: {},
+        form: {
+          email: '',
+          password: '',
+          password_confirmation: '',
+          token: ''
         }
+      }
+    },
 
+    methods: {
+      reset () {
+        auth.reset(this.form)
+          .then(status => {
+            this.$store.commit(types.TOAST_ADD, {message: status})
+            this.$router.push(routes.login)
+          }, errors => {
+            Vue.set(this, 'errors', errors)
+          })
+      }
     }
+  }
 </script>

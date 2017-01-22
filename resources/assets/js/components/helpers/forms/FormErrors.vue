@@ -5,9 +5,9 @@
 </template>
 
 <script>
-    export default {
-        props: {
-            errors: {type: Array, 'default': _ => []}
-        }
+  export default {
+    props: {
+      errors: {type: Array, 'default': _ => []}
     }
+  }
 </script>

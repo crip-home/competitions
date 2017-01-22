@@ -29,40 +29,37 @@
 </template>
 
 <script>
-    import Vue from 'vue'
-    import * as routes from './../../router/routes'
-    import auth from './../../api/auth'
+  import Vue from         'vue'
+  import * as routes from './../../router/routes'
+  import auth from        './../../api/auth'
 
-    export default {
+  export default {
+    mounted () {
+      if (this.$store.state.auth.user.authenticated) {
+        this.$router.push(routes.home)
+      }
+    },
 
-        mounted() {
-            if (this.$store.state.auth.user.authenticated)
-                this.$router.push(routes.home)
-        },
-
-        data() {
-            return {
-                errors: {},
-                form: {
-                    name: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: ''
-                },
-            }
-        },
-
-        methods: {
-
-            register() {
-                auth.register(this.form)
-                    .then(
-                        _ => this.$router.push(routes.login),
-                        errors => Vue.set(this, 'errors', errors)
-                    );
-            },
-
+    data () {
+      return {
+        errors: {},
+        form: {
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: ''
         }
+      }
+    },
 
+    methods: {
+      register () {
+        auth.register(this.form)
+          .then(
+            _ => { this.$router.push(routes.login) },
+            errors => { Vue.set(this, 'errors', errors) }
+          )
+      }
     }
+  }
 </script>

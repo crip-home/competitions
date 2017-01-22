@@ -28,105 +28,104 @@
 </template>
 
 <script>
-    import Select2Options   from './../../helpers/forms/select2'
-    import users            from './../../../api/users/admin/users'
-    import {teams, members} from './../../../api/teams/admin'
-    import settings         from './../../../settings'
+  import Select2Options     from './../../helpers/forms/select2'
+  import users              from './../../../api/users/admin/users'
+  import { teams, members } from './../../../api/teams/admin'
+  import settings           from './../../../settings'
 
-    export default {
-        mounted() {
-            this.fetchTeam(this.$route.params.team);
-        },
+  export default {
+    mounted () {
+      this.fetchTeam(this.$route.params.team)
+    },
 
-        data() {
-            let searchUser = new Select2Options();
-            // adds option to create new element in selection
-            searchUser.asTagable();
-            // results search in server side
-            searchUser.asAjax({
-                url: settings.apiUrl('admin/users/search'),
-                resultMap({id, name}) {
-                    return {id, text: name};
-                }
-            });
-
-            return {
-                title: 'Add team member',
-                team: {},
-                form: {
-                    user_id: '',
-                    name: ''
-                },
-                errors: {},
-                searchUser,
-            }
-        },
-
-        computed: {
-            /**
-             * Concat all server errors in to single array
-             */
-            concatErrors() {
-                let errors = [];
-                Object.keys(this.errors).forEach(key => {
-                    errors = errors.concat(this.errors[key]);
-                });
-                return errors;
-            }
-        },
-
-        methods: {
-            /**
-             * Fetch team details from the server
-             * @param {Number} team_id
-             */
-            fetchTeam(team_id) {
-                teams.find(team_id)
-                    .then(team => this.team = team);
-            },
-
-            /**
-             * Save new member
-             */
-            saveMember() {
-                members.save(this.form, {team_id: this.team.id})
-                    .then(
-                        _ => this.$router.push(this.team.membersListRoute()),
-                        errors => this.errors = errors
-                    );
-            },
-
-            /**
-             * Create new member without user reference
-             * @param {String} name
-             */
-            createNewMember(name) {
-                this.form.name = name;
-                this.form.user_id = '';
-            },
-
-            /**
-             * Create new member with user id reference
-             * @param {Number} user_id
-             */
-            createRelatedMember(user_id) {
-                if (user_id) {
-                    this.form.user_id = user_id;
-                    users.find(user_id)
-                        .then(user => {
-                            this.form.name = user.name;
-                        });
-                }
-            },
-
-            /**
-             * Dismiss invitation for selected user
-             */
-            dismissInvitation() {
-                this.form.user_id = '';
-            }
+    data () {
+      let searchUser = new Select2Options()
+      // adds option to create new element in selection
+      searchUser.asTagable()
+      // results search in server side
+      searchUser.asAjax({
+        url: settings.apiUrl('admin/users/search'),
+        resultMap ({id, name}) {
+          return {id, text: name}
         }
+      })
+
+      return {
+        title: 'Add team member',
+        team: {},
+        form: {
+          user_id: '',
+          name: ''
+        },
+        errors: {},
+        searchUser
+      }
+    },
+
+    computed: {
+      /**
+       * Concat all server errors in to single array
+       */
+      concatErrors () {
+        let errors = []
+        Object.keys(this.errors).forEach(key => {
+          errors = errors.concat(this.errors[key])
+        })
+
+        return errors
+      }
+    },
+
+    methods: {
+      /**
+       * Fetch team details from the server
+       * @param {Number} teamId
+       */
+      fetchTeam (teamId) {
+        teams.find(teamId)
+          .then(team => { this.team = team })
+      },
+
+      /**
+       * Save new member
+       */
+      saveMember () {
+        members.save(this.form, {team_id: this.team.id})
+          .then(
+            _ => { this.$router.push(this.team.membersListRoute()) },
+            errors => { this.errors = errors }
+          )
+      },
+
+      /**
+       * Create new member without user reference
+       * @param {String} name
+       */
+      createNewMember (name) {
+        this.form.name = name
+        this.form.user_id = ''
+      },
+
+      /**
+       * Create new member with user id reference
+       * @param {Number} userId
+       */
+      createRelatedMember (userId) {
+        if (userId) {
+          this.form.user_id = userId
+          users.find(userId)
+            .then(user => { this.form.name = user.name })
+        }
+      },
+
+      /**
+       * Dismiss invitation for selected user
+       */
+      dismissInvitation () {
+        this.form.user_id = ''
+      }
     }
+  }
 </script>
 
 <style>

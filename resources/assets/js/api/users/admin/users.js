@@ -1,14 +1,14 @@
-import {AdminRepository} from '../../../ext/Repositories'
-import User from './../../User'
+import { AdminRepository } from './../../../ext/Repositories'
+import User                from './../../User'
 
 class UserAdminRepository extends AdminRepository {
-    constructor() {
-        super('admin/users');
-    }
+  constructor () {
+    super('admin/users')
+  }
 
-    entityResolver(data) {
-        return new User(data);
-    }
+  entityResolver (data) {
+    return new User(data)
+  }
 }
 
-export default new UserAdminRepository();
+export default new UserAdminRepository()
