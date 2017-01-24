@@ -20,6 +20,20 @@ export default {
   },
 
   /**
+   * Determines is value defined as javascript function
+   *
+   * @param {*} func
+   * @returns {Boolean}
+   */
+  isFunction (func) {
+    const getType = {}
+    return (
+      this.isDefined(func) &&
+      getType.toString.call(func) === '[object Function]'
+    )
+  },
+
+  /**
    * Determines is value empty
    *
    * @param value

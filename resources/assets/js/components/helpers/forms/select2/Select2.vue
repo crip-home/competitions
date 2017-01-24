@@ -6,6 +6,7 @@
 
 <script>
   import { sLog }       from '../../../../ext/Log'
+  import ext            from '../../../../ext'
   import Select2Options from './index'
 
   export default {
@@ -16,30 +17,14 @@
 
     mounted () {
       this.log('mounted')
-
       const $select = $(this.$el)
+      this.compile($select)
+    },
 
-      let oldTagVal = ''
-
-      $select
-        .select2(this.options)
-        .val(this.value)
-        .on('change', _ => {
-          let isNew = $select.find('[data-select2-tag="true"]')
-          let newVal = {val: _ => _}
-
-          if (isNew.length > 0) {
-            newVal = $(isNew[isNew.length - 1])
-          }
-
-          if (isNew.length > 0 && oldTagVal !== newVal.val()) {
-            oldTagVal = newVal.val()
-            this.$emit('new', oldTagVal)
-          } else {
-            this.$emit('input', $select.val())
-          }
-        })
-        .trigger('change')
+    data () {
+      return {
+        oldTagVal: ''
+      }
     },
 
     methods: {
@@ -51,6 +36,53 @@
           settings: this.settings,
           ...extend
         }, this.$el)
+      },
+
+      compile ($select) {
+        $select
+          .select2(this.options)
+          .val(this.value)
+          .on('change', this.onChange.bind(this, $select))
+          .trigger('change')
+
+        this.compiled($select)
+      },
+
+      /**
+       * Do post actions after select2 is binded in dom
+       *
+       * @param $select
+       */
+      compiled ($select) {
+        if (this.options.initialSelection && ext.isFunction(this.options.initialSelection)) {
+          this.options.initialSelection((text, value, defaultSelected = true, selected = true) => {
+            let option = new Option(text, value, defaultSelected, selected)
+            $select.append(option)
+          })
+
+          $select.trigger('change')
+        }
+      },
+
+      /**
+       * Actions to be done an select2 change event
+       *
+       * @param $select
+       */
+      onChange ($select) {
+        const isNew = $select.find('[data-select2-tag="true"]')
+        let newVal = {val: _ => _}
+
+        if (isNew.length > 0) {
+          newVal = $(isNew[isNew.length - 1])
+        }
+
+        if (isNew.length > 0 && this.oldTagVal !== newVal.val()) {
+          this.oldTagVal = newVal.val()
+          this.$emit('new', this.oldTagVal)
+        } else {
+          this.$emit('input', $select.val())
+        }
       }
     },
 

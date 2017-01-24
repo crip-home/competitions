@@ -20,7 +20,7 @@ Route::group(['prefix' => 'admin'], function () {
         ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
     Route::resource('teams.members', 'Admin\\TeamMembersController',
-        ['only' => ['index', 'store']]);
+        ['only' => ['index', 'store', 'show', 'update']]);
 
     Route::resource('teams', 'Admin\\TeamsController',
         ['only' => ['index', 'store', 'show', 'update']]);

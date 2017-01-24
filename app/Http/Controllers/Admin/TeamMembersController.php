@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\AdminStoreMember;
+use App\Http\Requests\Teams\AdminUpdateMember;
 use App\Team;
 use App\TeamMember;
-use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -55,6 +55,19 @@ class TeamMembersController extends Controller
     }
 
     /**
+     * GET     /api/admin/teams/{team}/members/{member}
+     * @param  Team $team
+     * @param TeamMember $member
+     * @return JsonResponse
+     */
+    public function show(Team $team, TeamMember $member)
+    {
+        $this->authorize('show', [$member, $team]);
+
+        return new JsonResponse($member);
+    }
+
+    /**
      * POST  /api/admin/teams/{team}/members
      *
      * @param  AdminStoreMember $request
@@ -76,5 +89,27 @@ class TeamMembersController extends Controller
         $member = $team->members()->create($details);
 
         return new JsonResponse($member);
+    }
+
+    /**
+     * PUT/PATCH /api/admin/teams/{team}/members/{member}
+     * @param    AdminUpdateMember $request
+     * @param    Team $team
+     * @param    TeamMember $member
+     * @return JsonResponse
+     */
+    public function update(AdminUpdateMember $request, Team $team, TeamMember $member)
+    {
+        $this->authorize('update', [$member, $team]);
+
+        $details = $request->only(['name', 'user_id']);
+        if ($details['user_id'] && $member->user_id != $details['user_id']) {
+            $details['membership_type'] = TeamMember::INVITED;
+            // TODO: send an invitation message to user
+        }
+
+        $member->update($details);
+
+        return new JsonResponse($details);
     }
 }

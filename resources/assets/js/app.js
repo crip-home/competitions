@@ -7,12 +7,14 @@ import * as Lang   from './lang'
 Lang.checkLocale()
 Vue.use(VueResource)
 
-import string from './ext/String'
-import router from './router'
-import guard  from './router/guard'
-import store  from './store'
-import App    from './components/App.vue'
+import { sync } from 'vuex-router-sync'
+import string   from './ext/String'
+import router   from './router'
+import guard    from './router/guard'
+import store    from './store'
+import App      from './components/App.vue'
 
+sync(store, router)
 guard.start()
 string.init()
 

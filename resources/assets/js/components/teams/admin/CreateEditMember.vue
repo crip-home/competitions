@@ -13,7 +13,7 @@
                :options="searchUser"></select2>
     </form-group>
 
-    <submit v-if="form.user_id">
+    <submit v-if="form.user_id && form.user_id != user_id">
       <span>
         <button type="button" @click="dismissInvitation" class="close text-danger">&times;</button>
         {{form.name}} will receive invitation to join {{ team.short }} team
@@ -32,6 +32,7 @@
   import users              from './../../../api/users/admin/users'
   import { teams, members } from './../../../api/teams/admin'
   import settings           from './../../../settings'
+  import { editTeamMember } from './../../../router/routes'
 
   export default {
     mounted () {
@@ -40,9 +41,20 @@
 
     data () {
       let searchUser = new Select2Options()
-      // adds option to create new element in selection
+      if (this.$route.name === editTeamMember.name) {
+        // Fetch team member details from server and
+        // pass this promise data to select2 initial selection
+        searchUser = new Select2Options([], select => {
+          this.fetchTeamMember(this.$route.params.id)
+            .then(data => {
+              select(data.name, data.user_id)
+            })
+        })
+      }
+      // configure option to make available creation of
+      // new element in existing selection
       searchUser.asTagable()
-      // results search in server side
+      // configure to search results on server side
       searchUser.asAjax({
         url: settings.apiUrl('admin/users/search'),
         resultMap ({id, name}) {
@@ -55,8 +67,10 @@
         team: {},
         form: {
           user_id: '',
-          name: ''
+          name: '',
+          id: 0
         },
+        user_id: false,
         errors: {},
         searchUser
       }
@@ -87,10 +101,26 @@
       },
 
       /**
+       * Fetch team member details from the server
+       * @param {Number} memberId
+       */
+      fetchTeamMember (memberId) {
+        return members.find(memberId, {teamId: this.$route.params.team})
+          .then(member => {
+            this.form.name = member.name
+            this.form.user_id = member.user_id
+            this.form.id = member.id
+            this.user_id = member.user_id
+
+            return member
+          })
+      },
+
+      /**
        * Save new member
        */
       saveMember () {
-        members.save(this.form, {team_id: this.team.id})
+        members.save(this.form, {teamId: this.$route.params.team})
           .then(
             _ => { this.$router.push(this.team.membersListRoute()) },
             errors => { this.errors = errors }
