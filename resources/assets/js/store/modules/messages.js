@@ -3,7 +3,7 @@ import { MESSAGES_CHECK, MESSAGES_UPD } from '../types'
 import messages from './../../api/users/messages'
 
 const state = {
-  count: 0
+  unread: 0
 }
 
 const actions = {
@@ -17,7 +17,7 @@ const actions = {
 
 const mutations = {
   [MESSAGES_UPD] (state, count) {
-    state.count = count
+    state.unread = count
   }
 }
 

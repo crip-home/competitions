@@ -9,13 +9,15 @@ export class NavbarItem {
   /**
    * @param {Boolean|String}         [text]
    * @param {Object|String|Function} [action]
+   * @param {Boolean} isActive
    */
-  constructor (text = '', action = false) {
+  constructor (text = '', action = false, isActive = false) {
     this.route = false
     this.href = false
     this.click = false
     this.divider = false
     this.text = text
+    this.isActive = isActive
 
     if (typeof text === 'boolean') {
       this.divider = text

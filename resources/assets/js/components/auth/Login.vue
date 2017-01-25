@@ -67,7 +67,7 @@
     },
 
     watch: {
-      '$store.state.auth.user.details' (newVal) {
+      '$store.state.auth.user.authenticated' (newVal) {
         // Watching user details, because they arrives later than route
         // guard redirects to login and in case we receive them, we can
         // redirect him to requested route

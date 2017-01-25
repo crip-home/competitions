@@ -99,10 +99,14 @@
         let locales = new NavbarGroup(this.$t('locale'))
 
         Object.keys(lang.locales)
-          .forEach(locale => locales.add(
-            lang.locales[locale].text,
-            _ => lang.setLocale(lang.locales[locale].key)
-          ))
+          .forEach(key => {
+            const locale = lang.locales[key]
+            locales.add(
+              locale.text,
+              _ => lang.setLocale(locale.key),
+              this.$t('locale') === locale.text
+            )
+          })
 
         if (!this.isAuthenticated) {
           nav.add(new NavbarItem(this.$t('app.login'), routes.login))
@@ -112,7 +116,7 @@
             user.name,
             new NavbarItems(
               new NavbarItem(
-                this.$t('app.messages', {count: this.$store.state.messages.count}),
+                this.$t('app.messages', {count: this.$store.state.messages.unread}),
                 routes.messages
               ),
               new NavbarItem(this.$t('app.logout'), this.logout)
@@ -134,6 +138,10 @@
         this.$router.push(routes.home)
       },
 
+      /**
+       * Force vuex store to update message count
+       * @param store
+       */
       checkMessageCount (store) {
         store.dispatch(types.MESSAGES_CHECK)
       }
@@ -145,11 +153,14 @@
     watch: {
       isAuthenticated (val) {
         if (val) {
+          // clear interval if it is already set
           clearInterval(this.messageTimer)
+          // create initial message check
           this.checkMessageCount(this.$store)
-          // Check message count each 15 seconds
+          // Check message count each 15 seconds to be up to date for user
           this.messageTimer = setInterval(this.checkMessageCount, 15000, this.$store)
         } else {
+          // clear interval if user log outs
           clearInterval(this.messageTimer)
         }
       }
@@ -164,4 +175,8 @@
 
 <style lang="sass">
   @import "../../sass/app.scss";
+
+  .router-link-active {
+    font-weight: bolder !important;
+  }
 </style>
