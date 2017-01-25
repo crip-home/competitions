@@ -36,6 +36,7 @@
     data () {
       return {
         locales: lang.locales,
+        messageTimer: null,
         routes
       }
     },
@@ -45,8 +46,8 @@
         return this.$store.state.auth.user
       },
 
-      user_name () {
-        return this.$store.state.auth.user.name
+      isAuthenticated () {
+        return auth.middleware.isAuthenticated()
       },
 
       leftNavbarItems () {
@@ -58,7 +59,7 @@
         ])
 
         // if user is not authenticated, this menu is unavailable for him
-        if (!user.isAuthenticated() || !canManage) {
+        if (!this.isAuthenticated || !canManage) {
           return []
         }
 
@@ -67,7 +68,6 @@
         let divider = new NavbarItem(true)
 
         if (canManagePosts) {
-          // TODO: add dropdown header class="dropdown-header" Posts
           manageNav.add('Posts')
         }
 
@@ -94,7 +94,7 @@
       },
 
       rightNavbarItems () {
-        let user = this.$store.state.auth.user
+        let user = this.user
         let nav = new NavbarItems()
         let locales = new NavbarGroup(this.$t('locale'))
 
@@ -104,13 +104,17 @@
             _ => lang.setLocale(lang.locales[locale].key)
           ))
 
-        if (!user.authenticated) {
+        if (!this.isAuthenticated) {
           nav.add(new NavbarItem(this.$t('app.login'), routes.login))
           nav.add(new NavbarItem(this.$t('app.signup'), routes.signup))
         } else {
           nav.add(new NavbarGroup(
             user.name,
             new NavbarItems(
+              new NavbarItem(
+                this.$t('app.messages', {count: this.$store.state.messages.count}),
+                routes.messages
+              ),
               new NavbarItem(this.$t('app.logout'), this.logout)
             )
           ))
@@ -128,10 +132,27 @@
         this.$store.commit(types.TOAST_ADD, {message: this.$t('app.logout_toast_msg')})
         // Redirect user to homepage after logout
         this.$router.push(routes.home)
+      },
+
+      checkMessageCount (store) {
+        store.dispatch(types.MESSAGES_CHECK)
       }
       // toast() {
       //    this.$store.commit(types.TOAST_ADD, {message: 'Hello World!'});
       // }
+    },
+
+    watch: {
+      isAuthenticated (val) {
+        if (val) {
+          clearInterval(this.messageTimer)
+          this.checkMessageCount(this.$store)
+          // Check message count each 15 seconds
+          this.messageTimer = setInterval(this.checkMessageCount, 15000, this.$store)
+        } else {
+          clearInterval(this.messageTimer)
+        }
+      }
     },
 
     components: {

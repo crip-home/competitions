@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Routing\Router;
+
 $this->post('authenticate', 'Auth\\AuthenticateController@authenticate');
 $this->resource('authenticate', 'Auth\\AuthenticateController', ['only' => ['index']]);
 
@@ -7,21 +9,26 @@ $this->post('register', 'Auth\\RegisterController@register');
 $this->post('password/email', 'Auth\\ForgotPasswordController@sendResetLinkEmail');
 $this->post('password/reset', 'Auth\\ResetPasswordController@reset');
 
-Route::resource('posts', 'PostsController',
+$this->resource('posts', 'PostsController',
     ['only' => ['index', 'show']]);
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('users/search', 'Admin\\UsersController@search')->name('users.search');
+$this->group(['prefix' => 'user'], function (Router $route) {
+    $route->get('messages/count/unread', 'User\\MessagesController@countUnread');
+    $route->resource('messages', 'User\\MessagesController',
+        ['only' => ['index', 'store']]);
+});
 
-    Route::resource('users', 'Admin\\UsersController',
+$this->group(['prefix' => 'admin'], function (Router $route) {
+    $route->get('users/search', 'Admin\\UsersController@search')->name('users.search');
+    $route->resource('users', 'Admin\\UsersController',
         ['only' => ['show']]);
 
-    Route::resource('posts', 'Admin\\PostsController',
+    $route->resource('posts', 'Admin\\PostsController',
         ['only' => ['index', 'store', 'show', 'update', 'destroy']]);
 
-    Route::resource('teams.members', 'Admin\\TeamMembersController',
+    $route->resource('teams.members', 'Admin\\TeamMembersController',
         ['only' => ['index', 'store', 'show', 'update']]);
 
-    Route::resource('teams', 'Admin\\TeamsController',
+    $route->resource('teams', 'Admin\\TeamsController',
         ['only' => ['index', 'store', 'show', 'update']]);
 });

@@ -1,6 +1,7 @@
 export default {
   'login': 'Login',
   'logout': 'Logout',
+  'messages': 'Messages <span class="badge">{count}</span>',
   'signup': 'Sign Up',
   'title': 'CRIP Competitions',
   'toggle_nav': 'Toggle Navigation',

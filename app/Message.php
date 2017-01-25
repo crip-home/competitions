@@ -11,6 +11,8 @@ class Message extends Model
 {
     use HasAuditTrait;
 
+    const USER_MESSAGE = 'USER_MESSAGE';
+
     /**
      * The table associated with the model.
      *
@@ -40,6 +42,25 @@ class Message extends Model
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'date_from_now'
+    ];
+
+    /**
      * @return BelongsTo
      */
     public function sender()
@@ -53,5 +74,13 @@ class Message extends Model
     public function recipient()
     {
         return $this->belongsTo(User::class, 'to_id', 'id');
+    }
+
+    /**
+     * @return string
+     */
+    public function getDateFromNowAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }
