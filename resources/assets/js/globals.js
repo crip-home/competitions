@@ -4,6 +4,7 @@ import focusDirective   from './directives/focus'
 import loadingDirective from './directives/loading'
 import Datepicker       from './components/helpers/bootstrap/Datepicker.vue'
 import NavbarItems      from './components/helpers/bootstrap/nav/NavbarItems.vue'
+import Modal            from './components/helpers/bootstrap/Modal.vue'
 import Panel            from './components/helpers/panel/Panel.vue'
 import PanelAction      from './components/helpers/panel/PanelAction.vue'
 import FormPanel        from './components/helpers/forms/FormPanel.vue'
@@ -21,6 +22,7 @@ export default {
     Vue.directive('loading', loadingDirective)
     Vue.component('date-picker', Datepicker)
     Vue.component('navbar-items', NavbarItems)
+    Vue.component('modal', Modal)
     Vue.component('panel', Panel)
     Vue.component('panel-action', PanelAction)
     Vue.component('form-panel', FormPanel)

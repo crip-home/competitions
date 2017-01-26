@@ -13,6 +13,7 @@ $this->resource('posts', 'PostsController',
     ['only' => ['index', 'show']]);
 
 $this->group(['prefix' => 'user'], function (Router $route) {
+    $route->get('messages/read/{message}', 'User\\MessagesController@read');
     $route->get('messages/count/unread', 'User\\MessagesController@countUnread');
     $route->resource('messages', 'User\\MessagesController',
         ['only' => ['index', 'store']]);

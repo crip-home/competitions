@@ -45,9 +45,24 @@ class MessagesController extends Controller
     {
         $messages = $this->message->newQuery()->where('to_id', $request->user()->id)
             ->select(['id', 'subject', 'body', 'is_read', 'importance_level', 'type', 'from_name', 'created_at'])
+            ->orderBy('created_at', 'desc')
             ->paginate($request->per_page ?: 15);
 
         return new JsonResponse($messages);
+    }
+
+    /**
+     * GET     /api/user/messages/read/{message}
+     *
+     * @param  Request $request
+     * @param  Message $message
+     * @return JsonResponse
+     */
+    public function read(Request $request, Message $message)
+    {
+        $message->update(['is_read' => true]);
+
+        return new JsonResponse($message);
     }
 
     /**

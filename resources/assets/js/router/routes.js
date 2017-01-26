@@ -6,6 +6,7 @@ export const emailPassword = {name: 'emailPassword'}
 export const resetPassword = {name: 'resetPassword'}
 
 export const messages = {name: 'messages'}
+export const message = {name: 'message'}
 
 export const readPost = {name: 'readPost'}
 export const createPost = {name: 'createPost'}

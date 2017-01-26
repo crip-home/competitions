@@ -36,5 +36,20 @@ export default {
           response => settings.handleError(response, reject)
         )
     })
+  },
+
+  /**
+   * Mark message as read
+   *
+   * @param {Number} id
+   */
+  markAsRead (id) {
+    return new Promise((resolve, reject) => {
+      http.get(settings.apiUrl(`user/messages/read/${id}`))
+        .then(
+          ({data}) => resolve(data),
+          response => settings.handleError(response, reject)
+        )
+    })
   }
 }
