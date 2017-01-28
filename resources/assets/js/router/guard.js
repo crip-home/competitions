@@ -1,9 +1,9 @@
-import { t }       from 'vue'
-import router      from './index'
-import auth        from './../api/auth'
+import { t } from 'vue'
+import router from './index'
+import auth from './../api/auth'
 import * as routes from './routes'
-import * as types  from '../store/types'
-import store       from './../store'
+import * as types from '../store/types'
+import store from '../store'
 
 export default {
   start () {

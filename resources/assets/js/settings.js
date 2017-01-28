@@ -1,11 +1,11 @@
 import { error } from './ext/Log'
-import store     from './store'
+import store from './store'
 import {
   TOAST_ADD,
   AUTH_LOGOUT
-}                    from './store/types'
-import router        from './router'
-import { login }     from './router/routes'
+} from './store/types'
+import router from './router'
+import { login } from './router/routes'
 
 export default {
   apiRoot: '/api/',

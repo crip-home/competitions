@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import en from './en'
 import lv from './lv'
-import Select2Options from './../components/helpers/forms/select2'
+import Select2Options from '../components/helpers/forms/select2'
 
 Vue.use(VueI18n)
 

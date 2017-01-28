@@ -21,9 +21,9 @@
 </template>
 
 <script>
-  import posts       from './../api/posts'
-  import * as routes from './../router/routes'
-  import Paging      from './helpers/grid/Paging'
+  import posts from '../api/posts'
+  import * as routes from '../router/routes'
+  import Paging from './helpers/grid/Paging'
 
   export default {
     mounted () {

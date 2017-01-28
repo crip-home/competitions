@@ -32,9 +32,9 @@
 </template>
 
 <script>
-  import { teams }                 from './../../../api/teams/admin'
-  import { listTeams, createTeam } from './../../../router/routes'
-  import Paging                    from './../../helpers/grid/Paging'
+  import { teams } from '../../../api/teams/admin'
+  import { listTeams, createTeam } from '../../../router/routes'
+  import Paging from '../../helpers/grid/Paging'
 
   export default {
     mounted () {

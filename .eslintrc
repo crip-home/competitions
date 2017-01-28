@@ -15,7 +15,6 @@
   "rules": {
     "no-unused-vars": "warn",
     "no-self-compare": "off",
-    "no-multi-spaces": "off",
     "no-extend-native": "off"
   }
 }

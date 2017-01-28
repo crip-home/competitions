@@ -1,4 +1,4 @@
-import ext from './../index'
+import ext from '../index'
 
 export default {
   /**

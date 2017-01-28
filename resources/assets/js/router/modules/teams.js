@@ -1,14 +1,14 @@
 import {
   listTeams, createTeam, editTeam,
   listTeamMembers, createTeamMember, editTeamMember
-}                 from './../routes'
-import * as roles from './../../api/auth/roles'
+} from '../routes'
+import * as roles from '../../api/auth/roles'
 
-import ChildHolder          from './../../components/ChildHolder.vue'
-import CreateEditTeam       from './../../components/teams/admin/CreateEditTeam.vue'
-import ListTeams            from './../../components/teams/admin/ListTeams.vue'
-import ListTeamMembers      from './../../components/teams/admin/ListMembers.vue'
-import CreateEditTeamMember from './../../components/teams/admin/CreateEditMember.vue'
+import ChildHolder from '../../components/ChildHolder.vue'
+import CreateEditTeam from '../../components/teams/admin/CreateEditTeam.vue'
+import ListTeams from '../../components/teams/admin/ListTeams.vue'
+import ListTeamMembers from '../../components/teams/admin/ListMembers.vue'
+import CreateEditTeamMember from '../../components/teams/admin/CreateEditMember.vue'
 
 const meta = {requiresAuth: true, requiresRoles: [roles.CREATE_TEAMS]}
 export default {

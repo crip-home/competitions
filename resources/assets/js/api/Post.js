@@ -1,6 +1,6 @@
-import Entity         from './Entity'
-import User           from './User'
-import Select2Options from './../components/helpers/forms/select2'
+import Entity from './Entity'
+import User from './User'
+import Select2Options from '../components/helpers/forms/select2'
 
 const states = Symbol('states')
 

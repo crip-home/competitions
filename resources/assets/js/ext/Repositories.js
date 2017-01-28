@@ -1,6 +1,4 @@
-import { http }     from 'vue'
-import settings     from '../settings'
-import PagingResult from './PagingResult'
+import api from '../api'
 
 // All child classes should have methods:
 // - entityResolver(data)
@@ -19,15 +17,7 @@ export class AdminRepository {
    * @returns {Promise.<PagingResult>}
    */
   get (page = 1, perPage = 15, urlReplace = {}) {
-    perPage = parseInt(perPage < 1 ? 15 : perPage)
-    return new Promise((resolve, reject) => {
-      const params = {page, per_page: perPage}
-      http.get(settings.apiUrl(this.path, params, urlReplace))
-        .then(
-          ({data}) => resolve(PagingResult.handle(data, this.entityResolver)),
-          response => settings.handleError(response, reject)
-        )
-    })
+    return api.get(this.path, this.entityResolver, page, perPage, urlReplace)
   }
 
   /**
@@ -38,13 +28,7 @@ export class AdminRepository {
    * @returns {Promise}
    */
   find (id, urlReplace = {}) {
-    return new Promise((resolve, reject) => {
-      http.get(settings.apiUrl(`${this.path}/${id}`, {}, urlReplace))
-        .then(
-          ({data}) => resolve(this.entityResolver(data)),
-          response => settings.handleError(response, reject)
-        )
-    })
+    return api.find(this.path, this.entityResolver, id, urlReplace)
   }
 
   /**
@@ -55,20 +39,6 @@ export class AdminRepository {
    * @returns {Promise}
    */
   save (entity, urlReplace = {}) {
-    let method = 'post'
-    let url = this.path
-
-    if (entity.id > 0) {
-      method = 'put'
-      url = `${this.path}/${entity.id}`
-    }
-
-    return new Promise((resolve, reject) => {
-      http[method](settings.apiUrl(url, {}, urlReplace), entity)
-        .then(
-          ({data}) => resolve(this.entityResolver(data)),
-          response => settings.handleError(response, reject)
-        )
-    })
+    return api.save(this.path, this.entityResolver, entity, urlReplace)
   }
 }

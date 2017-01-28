@@ -14,9 +14,9 @@
 </template>
 
 <script>
-  import Vue        from 'vue'
-  import auth       from './../../api/auth'
-  import { home }   from './../../router/routes'
+  import Vue from 'vue'
+  import auth from '../../api/auth'
+  import { home } from '../../router/routes'
   import * as types from '../../store/types'
 
   export default {

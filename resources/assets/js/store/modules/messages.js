@@ -1,6 +1,6 @@
 import { MESSAGES_CHECK, MESSAGES_UPD } from '../types'
 
-import messages from './../../api/users/messages'
+import messages from '../../api/users/messages'
 
 const state = {
   unread: 0

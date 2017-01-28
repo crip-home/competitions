@@ -1,6 +1,6 @@
-import Entity             from './Entity'
-import User               from './User'
-import Team               from './Team'
+import Entity from './Entity'
+import User from './User'
+import Team from './Team'
 import { editTeamMember } from '../router/routes'
 
 /**

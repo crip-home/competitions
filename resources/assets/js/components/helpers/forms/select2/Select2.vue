@@ -5,8 +5,8 @@
 </template>
 
 <script>
-  import { sLog }       from '../../../../ext/Log'
-  import ext            from '../../../../ext'
+  import { sLog } from '../../../../ext/Log'
+  import ext from '../../../../ext'
   import Select2Options from './index'
 
   export default {

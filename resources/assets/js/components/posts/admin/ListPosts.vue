@@ -32,9 +32,9 @@
 </template>
 
 <script>
-  import posts                               from './../../../api/posts/admin'
-  import { createPost, listPosts, editPost } from './../../../router/routes'
-  import Paging                              from './../../helpers/grid/Paging'
+  import posts from '../../../api/posts/admin'
+  import { createPost, listPosts, editPost } from '../../../router/routes'
+  import Paging from '../../helpers/grid/Paging'
 
   export default {
     mounted () {

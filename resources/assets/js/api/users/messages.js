@@ -1,7 +1,5 @@
-import { http }     from 'vue'
-import settings     from '../../settings'
-import PagingResult from '../../ext/PagingResult'
-import Message      from '../Message'
+import api from '../../api'
+import Message from '../Message'
 
 export default {
   /**
@@ -9,47 +7,39 @@ export default {
    *
    * @param {number} [page]
    * @param {number} [perPage]
+   * @returns {Promise.<PagingResult>}
    */
   get (page = 1, perPage = 25) {
-    perPage = parseInt(perPage < 1 ? 5 : perPage)
-    return new Promise((resolve, reject) => {
-      const params = {page, per_page: perPage}
-      const resolver = item => new Message(item)
-      http.get(settings.apiUrl('user/messages', params))
-        .then(
-          ({data}) => resolve(PagingResult.handle(data, resolver)),
-          response => settings.handleError(response, reject)
-        )
-    })
+    return api.get('user/messages', item => new Message(item), page, perPage)
   },
 
   /**
    * Get unread message count
    *
-   * @returns {Promise}
+   * @returns {Promise.<Number>}
    */
   countUnread () {
-    return new Promise((resolve, reject) => {
-      http.get(settings.apiUrl('user/messages/count/unread'))
-        .then(
-          ({data}) => resolve(data),
-          response => settings.handleError(response, reject)
-        )
-    })
+    return api.find('user/messages/count/unread', _ => _)
   },
 
   /**
    * Mark message as read
    *
    * @param {Number} id
+   * @returns {Promise.<Message>}
    */
   markAsRead (id) {
-    return new Promise((resolve, reject) => {
-      http.get(settings.apiUrl(`user/messages/read/${id}`))
-        .then(
-          ({data}) => resolve(data),
-          response => settings.handleError(response, reject)
-        )
-    })
+    return api.find('user/messages/read', item => new Message(item), id)
+  },
+
+  /**
+   * Make reply on message
+   *
+   * @param {Number} onId
+   * @param {String} subject
+   * @param {String} body
+   */
+  reply (onId, {subject, body}) {
+    return api.save(`user/messages/reply/${onId}`, _ => _, {subject, body, id: 0})
   }
 }

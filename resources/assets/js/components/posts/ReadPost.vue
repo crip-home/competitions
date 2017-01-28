@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import posts from './../../api/posts'
+  import posts from '../../api/posts'
 
   export default {
     mounted () {

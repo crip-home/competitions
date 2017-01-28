@@ -1,10 +1,10 @@
-import * as routes from './../routes'
+import * as routes from '../routes'
 
-import ChildHolder from './../../components/ChildHolder.vue'
-import Login from './../../components/auth/Login.vue'
-import Signup from './../../components/auth/Signup.vue'
-import EmailPassword from './../../components/auth/EmailPassword.vue'
-import ResetPassword from './../../components/auth/ResetPassword.vue'
+import ChildHolder from '../../components/ChildHolder.vue'
+import Login from '../../components/auth/Login.vue'
+import Signup from '../../components/auth/Signup.vue'
+import EmailPassword from '../../components/auth/EmailPassword.vue'
+import ResetPassword from '../../components/auth/ResetPassword.vue'
 
 export default {
   path: '/auth',

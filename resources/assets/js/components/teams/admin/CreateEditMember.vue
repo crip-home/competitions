@@ -28,11 +28,11 @@
 </template>
 
 <script>
-  import Select2Options     from './../../helpers/forms/select2'
-  import users              from './../../../api/users/admin/users'
-  import { teams, members } from './../../../api/teams/admin'
-  import settings           from './../../../settings'
-  import { editTeamMember } from './../../../router/routes'
+  import Select2Options from '../../helpers/forms/select2'
+  import users from '../../../api/users/admin/users'
+  import { teams, members } from '../../../api/teams/admin'
+  import settings from '../../../settings'
+  import { editTeamMember } from '../../../router/routes'
 
   export default {
     mounted () {

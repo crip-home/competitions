@@ -18,14 +18,14 @@
 </template>
 
 <script>
-  import Toast                                    from './helpers/Toast.vue'
-  import Navbar                                   from './helpers/bootstrap/nav/Navbar.vue'
+  import Toast from './helpers/Toast.vue'
+  import Navbar from './helpers/bootstrap/nav/Navbar.vue'
   import { NavbarItem, NavbarGroup, NavbarItems } from './helpers/bootstrap/nav'
-  import auth                                     from './../api/auth'
-  import * as roles                               from './../api/auth/roles'
-  import * as types                               from '../store/types'
-  import * as lang                                from './../lang'
-  import * as routes                              from './../router/routes'
+  import auth from '../api/auth'
+  import * as roles from '../api/auth/roles'
+  import * as types from '../store/types'
+  import * as lang from '../lang'
+  import * as routes from '../router/routes'
 
   export default {
     mounted () {

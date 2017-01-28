@@ -31,7 +31,7 @@
 <script>
   import { messages, message } from '../../router/routes'
 
-  import msg    from '../../api/users/messages'
+  import msg from '../../api/users/messages'
   import Paging from '../helpers/grid/Paging'
 
   export default {
@@ -99,11 +99,6 @@
     watch: {
       '$route.params.page' (page) {
         this.fetchMessages(page || messages.params.page)
-      },
-
-      '$route' () {
-        // ensure that there is no backdrops when entering this route
-        $('.modal-backdrop').remove()
       }
     }
   }

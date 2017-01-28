@@ -13,7 +13,8 @@
       height: {type: String, 'default': '200px'},
       toolbar: {type: Array, 'default': () => [['Format'], ['Bold', 'Italic'], ['Undo', 'Redo']]},
       language: {type: String, 'default': 'en'},
-      extraplugins: {type: String, 'default': ''}
+      extraplugins: {type: String, 'default': ''},
+      focus: {type: Boolean, 'default': _ => false}
     },
 
     beforeUpdate () {
@@ -29,7 +30,8 @@
         toolbar: this.toolbar,
         language: this.language,
         height: this.height,
-        extraPlugins: this.extraplugins
+        extraPlugins: this.extraplugins,
+        startupFocus: this.focus
       }
       CKEDITOR.replace(ckeditorId, ckeditorConfig)
       CKEDITOR.instances[ckeditorId].setData(this.value)

@@ -1,6 +1,6 @@
 <template>
   <div class="form-group v-form-group" :class="{'has-error': !!errors}">
-    <label :for="id" :id="id + '-label'" :class="labelClass">{{ label }}</label>
+    <label v-if="label" :for="id" :id="`${id}-label`" :class="labelClass">{{ label }}</label>
     <div :class="controlClass">
       <slot></slot>
       <form-errors :errors="errors"></form-errors>
@@ -13,9 +13,9 @@
 
   export default {
     props: {
-      label: {type: String, required: true},
       id: {type: String, required: true},
-      errors: {type: Array, 'default': null},
+      label: {type: String, 'default': _ => ''},
+      errors: {type: Array, 'default': _ => null},
       colLg: {type: Number, 'default': 8},
       colMd: {type: Number, 'default': 0},
       colSm: {type: Number, 'default': 0}

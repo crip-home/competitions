@@ -21,8 +21,8 @@
 </template>
 
 <script>
-  import auth        from './../../api/auth'
-  import * as routes from './../../router/routes'
+  import auth from '../../api/auth'
+  import * as routes from '../../router/routes'
 
   export default {
     mounted () {

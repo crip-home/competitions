@@ -9,7 +9,7 @@
 
 <script>
   import NavbarGroup from './NavbarGroup.vue'
-  import NavbarItem  from './NavbarItem.vue'
+  import NavbarItem from './NavbarItem.vue'
 
   export default {
     name: 'navbar-items',

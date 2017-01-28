@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import Page   from './Page'
+  import Page from './Page'
   import Paging from './Paging'
 
   export default {

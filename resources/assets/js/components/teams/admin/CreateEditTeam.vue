@@ -21,9 +21,9 @@
 </template>
 
 <script>
-  import Vue         from 'vue'
-  import { teams }   from './../../../api/teams/admin'
-  import * as routes from './../../../router/routes'
+  import Vue from 'vue'
+  import { teams } from '../../../api/teams/admin'
+  import * as routes from '../../../router/routes'
 
   export default {
     mounted () {

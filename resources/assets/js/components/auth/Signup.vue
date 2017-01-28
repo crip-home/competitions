@@ -29,9 +29,9 @@
 </template>
 
 <script>
-  import Vue from         'vue'
-  import * as routes from './../../router/routes'
-  import auth from        './../../api/auth'
+  import Vue from 'vue'
+  import * as routes from '../../router/routes'
+  import auth from '../../api/auth'
 
   export default {
     mounted () {
