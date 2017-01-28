@@ -1,5 +1,5 @@
 <template>
-  <modal :on-hide="onHide" size="lg">
+  <modal :id="modalId" :on-hide="onHide" size="lg">
     <span slot="title">{{ message.subject }}</span>
 
     <form @submit.prevent="reply" class="modal-body">
@@ -32,6 +32,7 @@
 <script>
   import { messages } from '../../router/routes'
   import msg from '../../api/users/messages'
+  import { MODAL_CLOSE } from '../../store/types'
 
   export default {
     mounted () {
@@ -50,7 +51,8 @@
         },
         errors: {},
         message: {},
-        replyIsVisible: false
+        replyIsVisible: false,
+        modalId: 'message-modal'
       }
     },
 
@@ -62,9 +64,11 @@
         this.$router.push(messages)
       },
 
+      /**
+       * Close modal
+       */
       close () {
-        // TODO: we need more elegant way to close modals
-        $(this.$el).find('button.close').trigger('click')
+        this.$store.commit(MODAL_CLOSE, this.modalId)
       },
 
       /**
@@ -80,11 +84,6 @@
       reply () {
         msg.reply(this.$route.params.id, this.form)
       }
-    },
-
-    destroyed () {
-      // ensure that there is no backdrops when leaving this component
-      $('.modal-backdrop').remove()
     }
   }
 </script>

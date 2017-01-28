@@ -7,3 +7,6 @@ export const TOAST_REMOVE = 'TOAST_REMOVE'
 
 export const MESSAGES_CHECK = 'MESSAGE_CHECK'
 export const MESSAGES_UPD = 'MESSAGES_UPD'
+
+export const MODAL_OPENED = 'MODAL_OPENED'
+export const MODAL_CLOSE = 'MODAL_CLOSE'

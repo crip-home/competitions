@@ -20,15 +20,38 @@
 
 <script>
   import { info } from '../../../ext/Log'
+  import { MODAL_OPENED } from '../../../store/types'
 
   export default {
     props: {
       onHide: {type: Function, required: true},
       onShow: {type: Function, required: false, 'default': _ => _},
-      size: {type: String, 'default': _ => ''}
+      size: {type: String, 'default': _ => ''},
+      id: {type: String, 'default': _ => `modal-${Date.now() * Math.random()}`}
+    },
+
+    mounted () {
+      info('modal:mounted', {el: this.$el})
+
+      // Register current modal as opened
+      this.$store.commit(MODAL_OPENED, this.id)
+
+      let $el = $(this.$el)
+      $el.modal('show')
+
+      $el.on('hidden.bs.modal', e => {
+        this.onHide(e)
+      })
+
+      $el.on('shown.bs.modal', () => {
+        this.onShow()
+      })
     },
 
     computed: {
+      /**
+       * Calculate modal size class
+       */
       sizeClass () {
         if (this.size) {
           return {
@@ -40,18 +63,27 @@
       }
     },
 
-    mounted () {
-      info('modal:mounted', {el: this.$el})
-      let $el = $(this.$el)
-      $el.modal('show')
+    methods: {
+      /**
+       * Hide modal
+       */
+      close () {
+        $(this.$el).find('button.close').trigger('click')
+      }
+    },
 
-      $el.on('hidden.bs.modal', e => {
-        this.onHide(e)
-      })
+    destroyed () {
+      // ensure that there is no backdrops when leaving this component
+      $('.modal-backdrop').remove()
+    },
 
-      $el.on('shown.bs.modal', () => {
-        this.onShow()
-      })
+    watch: {
+      '$store.state.modal.modals' (modals) {
+        if (modals.indexOf(this.id) === -1) {
+          // if modal is not registered in collection, close this instance
+          this.close()
+        }
+      }
     }
   }
 </script>
