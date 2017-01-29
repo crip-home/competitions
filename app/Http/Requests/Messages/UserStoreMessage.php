@@ -30,7 +30,7 @@ class UserStoreMessage extends FormRequest
             'subject' => ['required'],
             'body' => ['required'],
             'importance_level' => [Rule::in(range(1, 10))],
-            'to_id' => ['required', Rule::exists('users', 'id')]
+            'to' => ['required', Rule::exists('users', 'id')]
         ];
     }
 }

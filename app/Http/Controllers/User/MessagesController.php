@@ -46,7 +46,7 @@ class MessagesController extends Controller
     {
         $query = $this->message->newQuery()->orderBy('created_at', 'desc')
             ->select(['id', 'subject', 'body', 'is_read', 'importance_level', 'type', 'from_name', 'created_at',
-                'reply', 'reply_count']);
+                'reply', 'reply_count', 'to_name']);
 
         if ($request->type == 'outbox') {
             $query = $query->where('from_id', $request->user()->id);
@@ -130,9 +130,10 @@ class MessagesController extends Controller
      */
     public function store(UserStoreMessage $request)
     {
-        $details = $request->only(['subject', 'body', 'importance_level', 'to_id']);
+        $details = $request->only(['subject', 'body', 'importance_level']);
+        $details['to_id'] = $request->to;
 
-        $recipient = $this->user->newQuery()->where('id', $request->to_id)->firstOrFail();
+        $recipient = $this->user->newQuery()->where('id', $request->to)->firstOrFail();
 
         $details['from_id'] = $request->user()->id;
         $details['from_name'] = $request->user()->name;

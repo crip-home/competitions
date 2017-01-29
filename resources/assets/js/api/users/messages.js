@@ -42,5 +42,17 @@ export default {
    */
   reply (onId, {subject, body}) {
     return api.save(`user/messages/${onId}/reply`, _ => _, {subject, body, id: 0})
+  },
+
+  /**
+   * Send new message
+   *
+   * @param {Number} to
+   * @param {String} subject
+   * @param {String} body
+   * @returns {Promise.<Message>}
+   */
+  send ({to, subject, body}) {
+    return api.save('user/messages', item => new Message(item), {to, subject, body, id: 0})
   }
 }

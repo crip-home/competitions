@@ -7,6 +7,7 @@ export const resetPassword = {name: 'resetPassword'}
 
 export const messagesRoute = {name: 'messagesRoute'}
 export const messageRoute = {name: 'messageRoute'}
+export const newMessageRoute = {name: 'newMessageRoute'}
 
 export const readPost = {name: 'readPost'}
 export const createPost = {name: 'createPost'}

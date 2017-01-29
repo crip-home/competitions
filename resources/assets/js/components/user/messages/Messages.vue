@@ -2,7 +2,9 @@
   <div class="row">
     <div class="col-md-2 col-sm-3">
       <div class="list-group">
-        <a class="list-group-item list-group-item-info" href="#" @click.prevent="newMessage">New Message</a>
+        <router-link :to="newMessageRoute" class="list-group-item list-group-item-info" active-class="active">
+          New Message
+        </router-link>
 
         <router-link :to="inboxRoute" active-class="active" class="list-group-item">
           Inbox <span class="badge">{{ unreadMessages }}</span>
@@ -21,19 +23,26 @@
             <thead>
             <tr>
               <th>#</th>
-              <th>Sender</th>
+              <th>
+                <span v-if="isInboxActive">Sender</span>
+                <span v-else>Recipient</span>
+              </th>
               <th>Subject</th>
               <th>When</th>
             </tr>
             </thead>
             <tbody>
             <template v-for="message in paging.items">
-              <tr @click="openMessage(message)" :class="paging.rowClasses(message, {active: !message.is_read})">
+              <router-link tag="tr" :to="message.readRoute()" class="pointer"
+                           :class="paging.rowClasses(message, {active: !message.is_read})"
+              >
                 <td><i class="fa" :class="messageClass(message)"></i></td>
-                <td>{{ message.from_name }} <span v-if="message.reply_count">( {{ message.reply_count }} )</span></td>
+                <td><span v-if="isInboxActive">{{ message.from_name }}</span>
+                  <span v-else>{{ message.to_name }}</span>&nbsp;
+                  <span v-if="message.reply_count">( {{ message.reply_count }} )</span></td>
                 <td>{{ message.subject }}</td>
                 <td>{{ message.date_from_now }}</td>
-              </tr>
+              </router-link>
             </template>
             </tbody>
           </table>
@@ -46,30 +55,13 @@
 </template>
 
 <script>
-  import { messagesRoute, messageRoute } from '../../../router/routes'
-
+  import { messagesRoute, newMessageRoute } from '../../../router/routes'
   import msg from '../../../api/users/messages'
   import Paging from '../../helpers/grid/Paging'
 
   export default {
     mounted () {
-      if (!messagesRoute.params) {
-        messagesRoute.params = {
-          page: this.$route.params.page || 1,
-          type: this.$route.params.type
-        }
-      }
-
-      if (!messagesRoute.params.page) {
-        messagesRoute.params.page = this.$route.params.page
-      }
-
-      if (!messagesRoute.params.type) {
-        messagesRoute.params.type = this.$route.params.type
-      }
-
-      let {page, type} = messagesRoute.params
-      this.fetchMessages(page, type)
+      this.fetchMessages(this.$route.params.page || 1, this.$route.params.type)
     },
 
     data () {
@@ -79,16 +71,24 @@
     },
 
     computed: {
+      isInboxActive () {
+        return this.routeType === 'inbox'
+      },
+
+      routeType () {
+        return this.$route.params.type
+      },
+
       inboxRoute () {
-        return {
-          ...messagesRoute, params: {type: 'inbox'}
-        }
+        return {...messagesRoute, params: {type: 'inbox'}}
       },
 
       outboxRoute () {
-        return {
-          ...messagesRoute, params: {type: 'outbox'}
-        }
+        return {...messagesRoute, params: {type: 'outbox'}}
+      },
+
+      newMessageRoute () {
+        return {...newMessageRoute, params: {type: this.routeType}}
       },
 
       unreadMessages () {
@@ -115,40 +115,27 @@
        * @param {Message} message
        */
       messageClass (message) {
-        let colors = {
-          10: 'not-important',
-          9: 'semi-not-important',
-          8: 'middle-important',
-          7: 'semi-important'
-        }
-        let color = colors[message.importance_level] || 'important'
-        color = 'text-' + color
-
         return {
           'fa-envelope-open': message.is_read,
           'fa-envelope': !message.is_read,
-          [color]: true
+          [message.colorClass()]: true
         }
-      },
-
-      /**
-       * Open message modal
-       * @param {Message} currMessage
-       */
-      openMessage (currMessage) {
-        this.$router.push({...messageRoute, params: {id: currMessage.id}})
-      },
-
-      newMessage () {
-        console.log('newMessage')
       }
     },
 
     watch: {
-      '$route.params' ({page, type}) {
-        messagesRoute.params.type = type
-        this.fetchMessages(page || 1, type)
+      '$route' (to) {
+        if (to.name === messagesRoute.name) {
+          messagesRoute.params.type = to.params.type
+          this.fetchMessages(to.params.page || 1, to.params.type)
+        }
       }
     }
   }
 </script>
+
+<style>
+  .pointer {
+    cursor: pointer;
+  }
+</style>
