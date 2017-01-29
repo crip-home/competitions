@@ -44,11 +44,18 @@ class MessagesController extends Controller
      */
     public function index(Request $request)
     {
-        $messages = $this->message->newQuery()->where('to_id', $request->user()->id)
+        $query = $this->message->newQuery()->orderBy('created_at', 'desc')
             ->select(['id', 'subject', 'body', 'is_read', 'importance_level', 'type', 'from_name', 'created_at',
-                'reply', 'reply_count'])
-            ->orderBy('created_at', 'desc')
-            ->paginate($request->per_page ?: 15);
+                'reply', 'reply_count']);
+
+        if ($request->type == 'outbox') {
+            $query = $query->where('from_id', $request->user()->id);
+        } else {
+            // inbox
+            $query = $query->where('to_id', $request->user()->id);
+        }
+
+        $messages = $query->paginate($request->per_page ?: 15);
 
         return new JsonResponse($messages);
     }
@@ -62,7 +69,8 @@ class MessagesController extends Controller
      */
     public function read(Request $request, Message $message)
     {
-        if (!$message->is_read) {
+        // mark message as read if recipient requests its details
+        if (!$message->is_read && $message->to_id == $request->user()->id) {
             $message->update(['is_read' => true]);
         }
 

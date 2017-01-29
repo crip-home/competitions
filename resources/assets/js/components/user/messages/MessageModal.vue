@@ -33,8 +33,8 @@
       </div>
     </form>
     <div class="modal-footer">
-      <button @click="showReply" v-if="!replyIsVisible" class="btn btn-primary">Reply</button>
-      <button @click="reply" v-if="replyIsVisible" class="btn btn-primary">Send reply</button>
+      <button @click="showReply" v-if="!replyIsVisible && canReply" class="btn btn-primary">Reply</button>
+      <button @click="reply" v-if="replyIsVisible && canReply" class="btn btn-primary">Send reply</button>
       <button @click="close" class="btn btn-default">Close</button>
     </div>
   </modal>
@@ -48,6 +48,9 @@
   export default {
     mounted () {
       this.getData(this.$route.params.id)
+      // reply is available only if user is opened message
+      // from inbox grid
+      this.canReply = this.$route.params.type === 'inbox'
     },
 
     data () {
@@ -60,6 +63,7 @@
         message: {},
         messages: [],
         replyIsVisible: false,
+        canReply: false,
         modalId: 'message-modal',
         complete: false
       }

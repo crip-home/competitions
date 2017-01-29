@@ -3,8 +3,14 @@
     <div class="col-md-2 col-sm-3">
       <div class="list-group">
         <a class="list-group-item list-group-item-info" href="#" @click.prevent="newMessage">New Message</a>
-        <a class="list-group-item" href="#" @click.prevent="showInbox">Inbox <span class="badge">{{ 1 }}</span></a>
-        <a class="list-group-item" href="#" @click.prevent="showOutbox">Outbox</a>
+
+        <router-link :to="inboxRoute" active-class="active" class="list-group-item">
+          Inbox <span class="badge">{{ unreadMessages }}</span>
+        </router-link>
+
+        <router-link :to="outboxRoute" active-class="active" class="list-group-item">
+          Outbox
+        </router-link>
       </div>
     </div>
     <div class="col-md-10 col-sm-9">
@@ -48,18 +54,22 @@
   export default {
     mounted () {
       if (!messagesRoute.params) {
-        messagesRoute.params = {page: 1, type: 'inbox'}
+        messagesRoute.params = {
+          page: this.$route.params.page || 1,
+          type: this.$route.params.type
+        }
       }
 
       if (!messagesRoute.params.page) {
-        messagesRoute.params.page = 1
+        messagesRoute.params.page = this.$route.params.page
       }
 
       if (!messagesRoute.params.type) {
-        messagesRoute.params.type = 'inbox'
+        messagesRoute.params.type = this.$route.params.type
       }
 
-      this.fetchMessages(messagesRoute.params.page)
+      let {page, type} = messagesRoute.params
+      this.fetchMessages(page, type)
     },
 
     data () {
@@ -68,15 +78,34 @@
       }
     },
 
+    computed: {
+      inboxRoute () {
+        return {
+          ...messagesRoute, params: {type: 'inbox'}
+        }
+      },
+
+      outboxRoute () {
+        return {
+          ...messagesRoute, params: {type: 'outbox'}
+        }
+      },
+
+      unreadMessages () {
+        return this.$store.state.messages.unread
+      }
+    },
+
     methods: {
       /**
        * Fetch messages from api
        *
        * @param {Number} page
+       * @param {String} messageType
        */
-      fetchMessages (page) {
+      fetchMessages (page, messageType) {
         this.paging.loading = true
-        msg.get(page, this.paging.perPage || 25)
+        msg.get(messageType, page, this.paging.perPage || 25)
           .then(messages => this.paging.update(messages))
       },
 
@@ -112,20 +141,13 @@
 
       newMessage () {
         console.log('newMessage')
-      },
-
-      showInbox () {
-        console.log('showInbox')
-      },
-
-      showOutbox () {
-        console.log('showOutbox')
       }
     },
 
     watch: {
-      '$route.params.page' (page) {
-        this.fetchMessages(page || messagesRoute.params.page)
+      '$route.params' ({page, type}) {
+        messagesRoute.params.type = type
+        this.fetchMessages(page || 1, type)
       }
     }
   }

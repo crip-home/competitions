@@ -11,12 +11,13 @@ export default {
    * @param {Number}   [page]
    * @param {Number}   [perPage]
    * @param {*}        [urlReplace]
+   * @param {*}        [params]
    * @returns {Promise.<PagingResult>}
    */
-  get (path, entityResolver, page = 1, perPage = 15, urlReplace = {}) {
+  get (path, entityResolver, page = 1, perPage = 15, urlReplace = {}, params = {}) {
     perPage = parseInt(perPage < 1 ? 15 : perPage)
     return new Promise((resolve, reject) => {
-      const params = {page, per_page: perPage}
+      params = {page, per_page: perPage, ...params}
       http.get(settings.apiUrl(path, params, urlReplace))
         .then(
           ({data}) => resolve(PagingResult.handle(data, entityResolver)),
