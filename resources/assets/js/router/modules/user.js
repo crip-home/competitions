@@ -1,8 +1,8 @@
-import { messages, message } from '../routes'
+import { messagesRoute, messageRoute } from '../routes'
 
 import ChildHolder from '../../components/ChildHolder.vue'
-import Messages from '../../components/user/Messages.vue'
-import Message from '../../components/user/MessageModal.vue'
+import Messages from '../../components/user/messages/Messages.vue'
+import Message from '../../components/user/messages/MessageModal.vue'
 
 const meta = {requiresAuth: true}
 export default {
@@ -10,12 +10,12 @@ export default {
   component: ChildHolder,
   children: [
     {
-      path: 'messages/:page?',
-      ...messages,
+      path: 'messages/:type/:page?',
+      ...messagesRoute,
       component: Messages,
       meta,
       children: [
-        {path: 'read/:id', ...message, component: Message, meta}
+        {path: 'read/:id', ...messageRoute, component: Message, meta}
       ]
     }
   ]

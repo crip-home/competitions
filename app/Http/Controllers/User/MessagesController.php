@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Messages\UserReplyMessage;
 use App\Http\Requests\Messages\UserStoreMessage;
 use App\Message;
 use App\User;
@@ -44,7 +45,8 @@ class MessagesController extends Controller
     public function index(Request $request)
     {
         $messages = $this->message->newQuery()->where('to_id', $request->user()->id)
-            ->select(['id', 'subject', 'body', 'is_read', 'importance_level', 'type', 'from_name', 'created_at'])
+            ->select(['id', 'subject', 'body', 'is_read', 'importance_level', 'type', 'from_name', 'created_at',
+                'reply', 'reply_count'])
             ->orderBy('created_at', 'desc')
             ->paginate($request->per_page ?: 15);
 
@@ -60,9 +62,14 @@ class MessagesController extends Controller
      */
     public function read(Request $request, Message $message)
     {
-        $message->update(['is_read' => true]);
+        if (!$message->is_read) {
+            $message->update(['is_read' => true]);
+        }
 
-        return new JsonResponse($message);
+        $with = join('.', array_fill(0, 10, 'replyOn'));
+        $response = $this->message->newQuery()->with($with)->find($message->id);
+
+        return new JsonResponse($response);
     }
 
     /**
@@ -78,6 +85,33 @@ class MessagesController extends Controller
             ->where('is_read', false)->count('id');
 
         return new JsonResponse($count);
+    }
+
+    /**
+     * POST    /api/user/messages/{message}/reply
+     *
+     * @param  UserReplyMessage $request
+     * @param  Message $message
+     * @return JsonResponse
+     */
+    public function reply(UserReplyMessage $request, Message $message)
+    {
+        $details = $request->only(['subject', 'body', 'importance_level']);
+
+        $details['from_id'] = $request->user()->id;
+        $details['from_name'] = $request->user()->name;
+
+        $details['to_name'] = $message->from_name;
+        $details['to_id'] = $message->from_id;
+        $details['reply'] = $message->id;
+        $details['reply_count'] = $message->reply_count + 1;
+
+        $details['type'] = Message::USER_MESSAGE;
+        $details['importance_level'] = $details['importance_level'] ?: 10;
+
+        $newMessage = Message::create($details);
+
+        return new JsonResponse($newMessage);
     }
 
     /**

@@ -1,7 +1,16 @@
 import Entity from './Entity'
 
 /**
- * @property {String} subject
+ * @property {String}  subject
+ * @property {String}  body
+ * @property {Boolean} is_read
+ * @property {Number}  importance_level
+ * @property {String}  type
+ * @property {String}  from_name
+ * @property {String}  created_at
+ * @property {String}  date_from_now
+ * @property {Number}  reply
+ * @property {Number}  reply_count
  */
 export default class Message extends Entity {
   constructor (data) {
@@ -15,5 +24,12 @@ export default class Message extends Entity {
     this.from_name = data.from_name
     this.created_at = data.created_at
     this.date_from_now = data.date_from_now
+    this.reply = data.reply
+    this.reply_count = data.reply_count
+    if (data.reply_on) {
+      this.reply_on = new Message(data.reply_on)
+    }
+
+    this.isOpen = false
   }
 }

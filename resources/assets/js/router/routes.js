@@ -5,8 +5,8 @@ export const signup = {name: 'signup'}
 export const emailPassword = {name: 'emailPassword'}
 export const resetPassword = {name: 'resetPassword'}
 
-export const messages = {name: 'messages'}
-export const message = {name: 'message'}
+export const messagesRoute = {name: 'messagesRoute'}
+export const messageRoute = {name: 'messageRoute'}
 
 export const readPost = {name: 'readPost'}
 export const createPost = {name: 'createPost'}

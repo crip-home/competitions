@@ -116,7 +116,7 @@
             new NavbarItems(
               new NavbarItem(
                 this.$t('app.messages', {count: this.$store.state.messages.unread}),
-                routes.messages
+                {...routes.messagesRoute, params: {type: 'inbox'}}
               ),
               new NavbarItem(this.$t('app.logout'), this.logout)
             )

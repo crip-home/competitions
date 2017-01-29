@@ -33,6 +33,8 @@ class Message extends Model
         'from_name',        // varchar(255)
         'importance_level', // smallint(5) 10
         'is_read',          // tinyint(1) 0
+        'reply',            // int(10) UNSIGNED
+        'reply_count',      // smallint(5) UNSIGNED
         'subject',          // varchar(255)
         'to_id',            // int(10) UNSIGNED
         'to_name',          // varchar(255)
@@ -74,6 +76,14 @@ class Message extends Model
     public function recipient()
     {
         return $this->belongsTo(User::class, 'to_id', 'id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function replyOn()
+    {
+        return $this->belongsTo(Message::class, 'reply', 'id');
     }
 
     /**

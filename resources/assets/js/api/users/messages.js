@@ -40,6 +40,6 @@ export default {
    * @param {String} body
    */
   reply (onId, {subject, body}) {
-    return api.save(`user/messages/reply/${onId}`, _ => _, {subject, body, id: 0})
+    return api.save(`user/messages/${onId}/reply`, _ => _, {subject, body, id: 0})
   }
 }
