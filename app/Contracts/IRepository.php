@@ -38,10 +38,12 @@ interface IRepository
      * Set repository querable ordering from a request
      *
      * @param Request $request
+     * @param string $defaultOrder
+     * @param string $defaultDirection
      *
      * @return $this
      */
-    public function requestOrder(Request $request);
+    public function requestOrdered(Request $request, $defaultOrder = 'id', $defaultDirection = 'asc');
 
     /**
      * Find single instance of model

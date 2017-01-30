@@ -65,13 +65,15 @@ abstract class Repository implements IRepository
      * Set repository querable ordering from a request
      *
      * @param Request $request
+     * @param string $defaultOrder
+     * @param string $defaultDirection
      *
      * @return $this
      */
-    public function requestOrder(Request $request)
+    public function requestOrdered(Request $request, $defaultOrder = 'id', $defaultDirection = 'asc')
     {
-        $order = $request->sort_order ?: 'id';
-        $direction = $request->sort_direction ?: 'asc';
+        $order = $request->sort_order ?: $defaultOrder;
+        $direction = $request->sort_direction ?: $defaultDirection;
 
         $this->order($order, $direction);
 
@@ -167,9 +169,9 @@ abstract class Repository implements IRepository
             $model = $this->find($id);
         }
 
-        $this->resetQuery();
-
         $model->update($input);
+
+        $this->resetQuery();
 
         return $model;
     }

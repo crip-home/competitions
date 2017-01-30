@@ -4,6 +4,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Messages\UserReplyMessage;
 use App\Http\Requests\Messages\UserStoreMessage;
 use App\Message;
+use App\Repositories\MessageRepository;
+use App\Repositories\UserRepository;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -15,95 +17,101 @@ use Illuminate\Http\Request;
 class MessagesController extends Controller
 {
     /**
-     * @var Message
+     * @var MessageRepository
      */
-    private $message;
+    private $messages;
 
     /**
-     * @var User
+     * @var UserRepository
      */
-    private $user;
+    private $users;
 
     /**
      * MessagesController constructor.
-     * @param Message $message
-     * @param User $user
+     *
+     * @param MessageRepository $messages
+     * @param UserRepository $users
      */
-    public function __construct(Message $message, User $user)
+    public function __construct($user, MessageRepository $messages, UserRepository $users)
     {
         $this->middleware('jwt.auth');
-        $this->message = $message;
-        $this->user = $user;
+        $this->messages = $messages;
+        $this->users = $users;
     }
 
     /**
-     * GET     /api/user/messages
+     * GET    /api/user/messages
      *
-     * @param  Request $request
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function index(Request $request)
     {
-        $query = $this->message->newQuery()->orderBy('created_at', 'desc')
-            ->select(['id', 'subject', 'body', 'is_read', 'importance_level', 'type', 'from_name', 'created_at',
-                'reply', 'reply_count', 'to_name']);
+        $this->messages->requestOrdered($request, 'created_at', 'desc');
 
         if ($request->type == 'outbox') {
-            $query = $query->where('from_id', $request->user()->id);
+            $this->messages->filterOutbox($request);
         } else {
-            // inbox
-            $query = $query->where('to_id', $request->user()->id);
+            $this->messages->filterInbox($request);
         }
 
-        $messages = $query->paginate($request->per_page ?: 15);
+        $messages = $this->messages->paginate($request->per_page ?: 15, [], ['id', 'subject', 'body',
+            'is_read', 'importance_level', 'type', 'from_name', 'created_at', 'reply', 'reply_count', 'to_name']);
 
         return new JsonResponse($messages);
     }
 
     /**
-     * GET     /api/user/messages/read/{message}
+     * GET    /api/user/messages/read/{message}
      *
-     * @param  Request $request
-     * @param  Message $message
+     * @param Request $request
+     * @param int $id
+     *
      * @return JsonResponse
      */
-    public function read(Request $request, Message $message)
+    public function read(Request $request, $id)
     {
+        $message = $this->messages->find($id);
+
         // mark message as read if recipient requests its details
         if (!$message->is_read && $message->to_id == $request->user()->id) {
-            $message->update(['is_read' => true]);
+            $this->messages->update(['is_read' => true], $id, $message);
         }
 
-        $with = join('.', array_fill(0, 10, 'replyOn'));
-        $response = $this->message->newQuery()->with($with)->find($message->id);
+        $messages = $this->messages
+            ->withReplays(10)
+            ->find($message->id);
 
-        return new JsonResponse($response);
+        return new JsonResponse($messages);
     }
 
     /**
-     * GET     /api/user/messages/count/unread
+     * GET    /api/user/messages/count/unread
      *
-     * @param  Request $request
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function countUnread(Request $request)
     {
-        $count = $this->message->newQuery()
-            ->where('to_id', $request->user()->id)
-            ->where('is_read', false)->count('id');
+        $count = $this->messages->countUnread($request);
 
         return new JsonResponse($count);
     }
 
     /**
-     * POST    /api/user/messages/{message}/reply
+     * POST   /api/user/messages/{message}/reply
      *
-     * @param  UserReplyMessage $request
-     * @param  Message $message
+     * @param UserReplyMessage $request
+     * @param int $id
+     *
      * @return JsonResponse
      */
-    public function reply(UserReplyMessage $request, Message $message)
+    public function reply(UserReplyMessage $request, $id)
     {
+        $message = $this->messages->find($id);
+
         $details = $request->only(['subject', 'body', 'importance_level']);
 
         $details['from_id'] = $request->user()->id;
@@ -117,15 +125,16 @@ class MessagesController extends Controller
         $details['type'] = Message::USER_MESSAGE;
         $details['importance_level'] = $details['importance_level'] ?: 10;
 
-        $newMessage = Message::create($details);
+        $newMessage = $this->messages->create($details);
 
         return new JsonResponse($newMessage);
     }
 
     /**
-     * POST    /api/user/messages
+     * POST   /api/user/messages
      *
-     * @param  UserStoreMessage $request
+     * @param UserStoreMessage $request
+     *
      * @return JsonResponse
      */
     public function store(UserStoreMessage $request)
@@ -133,7 +142,7 @@ class MessagesController extends Controller
         $details = $request->only(['subject', 'body', 'importance_level']);
         $details['to_id'] = $request->to;
 
-        $recipient = $this->user->newQuery()->where('id', $request->to)->firstOrFail();
+        $recipient = $this->users->find($request->to);
 
         $details['from_id'] = $request->user()->id;
         $details['from_name'] = $request->user()->name;
@@ -142,7 +151,7 @@ class MessagesController extends Controller
 
         $details['importance_level'] = $details['importance_level'] ?: 10;
 
-        $message = Message::create($details);
+        $message = $this->messages->create($details);
 
         return new JsonResponse($message);
     }
