@@ -27,7 +27,7 @@ class PostsController extends Controller
 
     /**
      * GET    /api/posts
-     * 
+     *
      * @param Request $request
      *
      * @return JsonResponse
