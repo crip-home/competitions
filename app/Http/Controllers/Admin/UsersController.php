@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use App\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -12,40 +12,47 @@ use Illuminate\Http\Request;
 class UsersController extends Controller
 {
     /**
-     * @var User
+     * @var UserRepository
      */
-    private $user;
+    private $users;
 
     /**
      * UsersController constructor.
-     * @param User $user
+     *
+     * @param UserRepository $users
      */
-    public function __construct(User $user)
+    public function __construct(UserRepository $users)
     {
         $this->middleware('jwt.auth');
-        $this->user = $user;
+        $this->users = $users;
     }
 
     /**
      * GET     /api/admin/users/search
+     *
      * @param  Request $request
      * @return JsonResponse
      */
     public function search(Request $request)
     {
-        $users = $this->user->newQuery()->where('name', 'LIKE', '%' . $request->term . '%')
-            ->paginate($request->per_page ?: 15, ['id', 'name']);
+        $users = $this->users
+            ->searchByName($request->term)
+            ->paginate($request->per_page ?: 15, [], ['id', 'name']);
 
         return new JsonResponse($users);
     }
 
     /**
      * GET     /api/admin/users/{user}
-     * @param  User $user
+     *
+     * @param  int $id
      * @return JsonResponse
      */
-    public function show(User $user)
+    public function show($id)
     {
+        // !TODO: add policy to see user details
+        $user = $this->users->find($id);
+
         return new JsonResponse($user);
     }
 }
