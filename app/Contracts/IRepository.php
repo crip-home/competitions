@@ -44,16 +44,6 @@ interface IRepository
     public function requestOrder(Request $request);
 
     /**
-     * Set filter params to querable
-     *
-     * @param array $filters
-     *
-     * @return $this
-     * @throws \Exception
-     */
-    public function filter($filters = []);
-
-    /**
      * Find single instance of model
      *
      * @param * $id

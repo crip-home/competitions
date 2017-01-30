@@ -86,7 +86,7 @@ abstract class Repository implements IRepository
      * @return $this
      * @throws \Exception
      */
-    public function filter($filters = [])
+    protected function filter($filters = [])
     {
         foreach ($filters as $filter => $index) {
             if (is_array($filter)) {
