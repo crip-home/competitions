@@ -32,7 +32,7 @@ class MessagesController extends Controller
      * @param MessageRepository $messages
      * @param UserRepository $users
      */
-    public function __construct($user, MessageRepository $messages, UserRepository $users)
+    public function __construct(MessageRepository $messages, UserRepository $users)
     {
         $this->middleware('jwt.auth');
         $this->messages = $messages;
