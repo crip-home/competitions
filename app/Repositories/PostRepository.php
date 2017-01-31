@@ -1,5 +1,6 @@
 <?php namespace App\Repositories;
 
+use App\Contracts\IPostRepository;
 use App\Post;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -7,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Class PostRepository
  * @package App\Repositories
  */
-class PostRepository extends PaginationRepository
+class PostRepository extends PaginationRepository implements IPostRepository
 {
     /**
      * Get current repository full model class name

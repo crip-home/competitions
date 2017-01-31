@@ -1,6 +1,6 @@
 <?php namespace App\Http\Controllers;
 
-use App\Repositories\PostRepository;
+use App\Contracts\IPostRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -11,16 +11,16 @@ use Illuminate\Http\Request;
 class PostsController extends Controller
 {
     /**
-     * @var PostRepository
+     * @var IPostRepository
      */
     private $posts;
 
     /**
      * PostsController constructor.
      *
-     * @param PostRepository $posts
+     * @param IPostRepository $posts
      */
-    public function __construct(PostRepository $posts)
+    public function __construct(IPostRepository $posts)
     {
         $this->posts = $posts;
     }

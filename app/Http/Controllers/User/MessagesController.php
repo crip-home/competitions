@@ -1,12 +1,11 @@
 <?php namespace App\Http\Controllers\User;
 
+use App\Contracts\IMessageRepository;
+use App\Contracts\IUserRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Messages\UserReplyMessage;
 use App\Http\Requests\Messages\UserStoreMessage;
 use App\Message;
-use App\Repositories\MessageRepository;
-use App\Repositories\UserRepository;
-use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -17,22 +16,22 @@ use Illuminate\Http\Request;
 class MessagesController extends Controller
 {
     /**
-     * @var MessageRepository
+     * @var IMessageRepository
      */
     private $messages;
 
     /**
-     * @var UserRepository
+     * @var IUserRepository
      */
     private $users;
 
     /**
      * MessagesController constructor.
      *
-     * @param MessageRepository $messages
-     * @param UserRepository $users
+     * @param IMessageRepository $messages
+     * @param IUserRepository $users
      */
-    public function __construct(MessageRepository $messages, UserRepository $users)
+    public function __construct(IMessageRepository $messages, IUserRepository $users)
     {
         $this->middleware('jwt.auth');
         $this->messages = $messages;

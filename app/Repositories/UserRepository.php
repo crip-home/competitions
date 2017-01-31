@@ -1,12 +1,13 @@
 <?php namespace App\Repositories;
 
+use App\Contracts\IUserRepository;
 use App\User;
 
 /**
  * Class UserRepository
  * @package App\Repositories
  */
-class UserRepository extends PaginationRepository
+class UserRepository extends PaginationRepository implements IUserRepository
 {
     /**
      * Get current repository full model class name

@@ -1,11 +1,11 @@
 <?php namespace App\Providers;
 
-use App\Post;
-use App\Repositories\IPostRepository;
-use App\Repositories\IUserRepository;
+use App\Contracts\IMessageRepository;
+use App\Contracts\IPostRepository;
+use App\Contracts\IUserRepository;
+use App\Repositories\MessageRepository;
 use App\Repositories\PostRepository;
 use App\Repositories\UserRepository;
-use App\User;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -31,6 +31,8 @@ class BindingServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(IMessageRepository::class, MessageRepository::class);
+        $this->app->bind(IPostRepository::class, PostRepository::class);
+        $this->app->bind(IUserRepository::class, UserRepository::class);
     }
 }

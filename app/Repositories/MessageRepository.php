@@ -1,5 +1,6 @@
 <?php namespace App\Repositories;
 
+use App\Contracts\IMessageRepository;
 use App\Message;
 use Illuminate\Http\Request;
 
@@ -7,7 +8,7 @@ use Illuminate\Http\Request;
  * Class MessageRepository
  * @package App\Repositories
  */
-class MessageRepository extends PaginationRepository
+class MessageRepository extends PaginationRepository implements IMessageRepository
 {
     /**
      * Get current repository full model class name

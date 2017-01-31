@@ -1,7 +1,7 @@
 <?php namespace App\Http\Controllers\Admin;
 
+use App\Contracts\IUserRepository;
 use App\Http\Controllers\Controller;
-use App\Repositories\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -12,16 +12,16 @@ use Illuminate\Http\Request;
 class UsersController extends Controller
 {
     /**
-     * @var UserRepository
+     * @var IUserRepository
      */
     private $users;
 
     /**
      * UsersController constructor.
      *
-     * @param UserRepository $users
+     * @param IUserRepository $users
      */
-    public function __construct(UserRepository $users)
+    public function __construct(IUserRepository $users)
     {
         $this->middleware('jwt.auth');
         $this->users = $users;
