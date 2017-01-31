@@ -59,11 +59,11 @@ interface IRepository
      * Get collection of models
      *
      * @param array $filters
-     * @param array $column
+     * @param array $columns
      *
      * @return Collection
      */
-    public function get(array $filters = [], $column = ['*']);
+    public function get(array $filters = [], $columns = ['*']);
 
     /**
      * Create new instance in of model in database

@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers\Auth;
 
+use App\Contracts\IUserRepository;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\JsonResponse;
@@ -12,32 +13,39 @@ use Tymon\JWTAuth\Exceptions\JWTException;
  */
 class AuthenticateController extends Controller
 {
-
     /**
      * @var User
      */
     private $user;
 
     /**
+     * @var IUserRepository
+     */
+    private $users;
+
+    /**
      * AuthenticateController constructor.
      *
      * @param User $user
+     * @param IUserRepository $users
      */
-    public function __construct(User $user)
+    public function __construct(User $user, IUserRepository $users)
     {
         $this->middleware('jwt.auth', ['except' => ['authenticate']]);
         $this->user = $user;
+        $this->users = $users;
     }
 
     /**
      * Get Authenticated user details and roles
      *
      * @param Request $request
+     *
      * @return JsonResponse
      */
     public function index(Request $request)
     {
-        $user = $this->user->newQuery()->where('id', $request->user()->id)->with('roles')->firstOrFail();
+        $user = $this->users->withRoles()->find($request->user()->id);
 
         return new JsonResponse($user);
     }

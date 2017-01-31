@@ -32,4 +32,16 @@ class UserRepository extends PaginationRepository implements IUserRepository
 
         return $this;
     }
+
+    /**
+     * Join user roles to the request response
+     *
+     * @return $this
+     */
+    public function withRoles()
+    {
+        $this->query = $this->getQuery()->with('roles');
+
+        return $this;
+    }
 }

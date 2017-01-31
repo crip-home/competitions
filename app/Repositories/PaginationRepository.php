@@ -11,17 +11,17 @@ abstract class PaginationRepository extends Repository implements IPaginateRepos
     /**
      * Paginate collection of models
      *
-     * @param int $per_page
+     * @param int $perPage
      * @param array $filters
      * @param array $columns
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate($per_page = 15, array $filters = [], array $columns = ['*'])
+    public function paginate($perPage = 15, array $filters = [], array $columns = ['*'])
     {
         $this->filter($filters);
 
-        $result = $this->getQuery()->paginate($per_page, $columns);
+        $result = $this->getQuery()->paginate($perPage, $columns);
 
         $this->resetQuery();
 

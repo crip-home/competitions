@@ -1,11 +1,11 @@
 <?php namespace App\Http\Controllers\Admin;
 
+use App\Contracts\ITeamRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\AdminStoreTeam;
 use App\Http\Requests\Teams\AdminUpdateTeam;
 use App\Role;
 use App\Team;
-use DB;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,100 +16,99 @@ use Illuminate\Http\Request;
  */
 class TeamsController extends Controller
 {
-
     /**
-     * @var Team
+     * @var ITeamRepository
      */
-    private $team;
+    private $teams;
 
     /**
      * TeamsController constructor.
-     * @param Team $team
+     *
+     * @param ITeamRepository $teams
      */
-    public function __construct(Team $team)
+    public function __construct(ITeamRepository $teams)
     {
         $this->middleware('jwt.auth');
-        $this->team = $team;
+        $this->teams = $teams;
     }
 
     /**
-     * GET     /api/admin/teams
-     * @param  Request $request
+     * GET    /api/admin/teams
+     *
+     * @param Request $request
+     *
      * @return JsonResponse
      */
     public function index(Request $request)
     {
         $this->authorize('viewList', Team::class);
 
-        $team_query = $this->team->newQuery();
-
         // If user is not a super admin, allow see only owned teams
         if (!$request->user()->hasRole(Role::SUPER_ADMIN)) {
-            $team_query = $team_query->join('team_owner', 'team_owner.team_id', '=', 'teams.id')
-                ->where('team_owner.user_id', $request->user()->id);
+            $this->teams->whereOwnerIs($request->user()->id);
         }
 
-        $teams = $team_query->paginate($request->per_page ?: 15, ['teams.id', 'name', 'short']);
+        $teams = $this->teams->paginate($request->per_page ?: 15, [], ['teams.id', 'name', 'short']);
 
         return new JsonResponse($teams);
     }
 
     /**
-     * POST    /api/admin/teams
-     * @param  AdminStoreTeam $request
+     * POST   /api/admin/teams
+     *
+     * @param AdminStoreTeam $request
+     *
      * @return JsonResponse
      */
     public function store(AdminStoreTeam $request)
     {
         $this->authorize('create', Team::class);
-        $auth_user_id = $request->user()->id;
+        $authUserId = $request->user()->id;
         $details = $request->only(['name', 'short']);
 
-        DB::beginTransaction();
         try {
-
-            $team = Team::create($details);
-            $team->owners()->attach($auth_user_id);
-
+            $team = $this->teams->createAndAttachOwner($details, $authUserId);
         } catch (Exception $exception) {
-            DB::rollBack();
-            \Log::critical("User '$auth_user_id' was unavailable store team.", [$exception, $details]);
-            return new JsonResponse('Internal database transaction error occurred.', 507);
+            return new JsonResponse($exception->getMessage(), 507);
         }
-
-        DB::commit();
 
         return new JsonResponse($team);
     }
 
     /**
      * GET     /api/admin/teams/{team}
-     * @param  Team $team
+     *
+     * @param  int $teamId
+     *
      * @return JsonResponse
      */
-    public function show(Team $team)
+    public function show($teamId)
     {
+        $team = $this->teams->find($teamId);
+
         $this->authorize('view', $team);
 
-        $post_model = $this->team->newQuery()->where('id', $team->id)->firstOrFail();
-
-        return new JsonResponse($post_model);
+        return new JsonResponse($team);
     }
 
     /**
      * PUT/PATCH /api/admin/teams/{team}
-     * @param    AdminUpdateTeam $request
-     * @param    Team $team
+     *
+     * @param AdminUpdateTeam $request
+     * @param int $teamId
+     *
      * @return   JsonResponse
      */
-    public function update(AdminUpdateTeam $request, Team $team)
+    public function update(AdminUpdateTeam $request, $teamId)
     {
+        $team = $this->teams->find($teamId);
+
         $this->authorize('update', $team);
 
         $details = $request->only(['name', 'short']);
-        $this->team->newQuery()->where('id', $team->id)->update($details);
 
-        return new JsonResponse($details);
+        $this->teams->update($details, $teamId, $team);
+
+        return new JsonResponse($team);
     }
-
 }

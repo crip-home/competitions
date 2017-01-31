@@ -14,4 +14,11 @@ interface IUserRepository extends IPaginateRepository
      * @return $this
      */
     public function searchByName($name);
+
+    /**
+     * Join user roles to the request response
+     *
+     * @return $this
+     */
+    public function withRoles();
 }

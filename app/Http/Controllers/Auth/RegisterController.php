@@ -1,14 +1,16 @@
-<?php
+<?php namespace App\Http\Controllers\Auth;
 
-namespace App\Http\Controllers\Auth;
-
-use App\User;
+use App\Contracts\IUserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+/**
+ * Class RegisterController
+ * @package App\Http\Controllers\Auth
+ */
 class RegisterController extends Controller
 {
     use RegistersUsers;
@@ -21,11 +23,20 @@ class RegisterController extends Controller
     protected $redirectTo = '/home';
 
     /**
-     * Create a new controller instance.
+     * @var IUserRepository
      */
-    public function __construct()
+    private $users;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @param IUserRepository $users
+     */
+    public function __construct(IUserRepository $users)
     {
         $this->middleware('guest');
+
+        $this->users = $users;
     }
 
     /**
@@ -47,11 +58,12 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array $data
-     * @return User
+     *
+     * @return \Illuminate\Database\Eloquent\Model
      */
     protected function create(array $data)
     {
-        return User::create([
+        return $this->users->create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
