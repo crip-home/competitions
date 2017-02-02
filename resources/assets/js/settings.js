@@ -61,7 +61,11 @@ export default {
    */
   handleError (errorResponse, reject = _ => _) {
     if (reject && typeof reject === 'function') {
-      if (errorResponse.status === 422) { reject(errorResponse.data) } else { reject({error: ['Unknown error']}) }
+      if (errorResponse.status === 422) {
+        reject(errorResponse.data)
+      } else {
+        reject({error: ['Unknown error']})
+      }
     }
 
     switch (errorResponse.status) {
@@ -142,11 +146,17 @@ export default {
 
   /**
    * Determine storage token existence
+   * If exists - reset to make sure it is in interceptors
    *
    * @returns {boolean}
    */
   hasToken () {
-    return !!localStorage.getItem('token')
+    let result = !!localStorage.getItem('token')
+    if (result) {
+      this.setToken(localStorage.getItem('token'))
+    }
+
+    return result
   },
 
   /**

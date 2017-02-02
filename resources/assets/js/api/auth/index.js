@@ -10,7 +10,6 @@ export default {
       http.post(settings.apiUrl('authenticate'), credentials)
         .then(({data}) => {
           settings.setToken(data.token)
-          store.commit(types.AUTH_LOGIN)
           this.getAuthUserDetails(resolve)
         }, ({data}) => {
           reject(data.error)
@@ -27,6 +26,8 @@ export default {
   getAuthUserDetails (onResolved) {
     http.get(settings.apiUrl('authenticate'))
       .then(({data}) => {
+        // update data before auth to make sure guard does
+        // not redirect us as unauthorized users
         store.commit(types.AUTH_DATA_UPD, data)
         store.commit(types.AUTH_LOGIN)
         onResolved(data)
