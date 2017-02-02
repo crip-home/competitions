@@ -64,4 +64,19 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
 
         return $team;
     }
+
+    /**
+     * Crate team member for team
+     *
+     * @param mixed $team
+     * @param array $details
+     *
+     * @return mixed
+     */
+    public function createMember($team, array $details)
+    {
+        $member = $team->members()->create($details);
+
+        return $member;
+    }
 }

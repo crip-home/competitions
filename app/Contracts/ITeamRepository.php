@@ -26,4 +26,14 @@ interface ITeamRepository extends IPaginateRepository
      * @throws \Exception
      */
     function createAndAttachOwner(array $input, $ownerId);
+
+    /**
+     * Crate team member for team
+     *
+     * @param mixed $team Team model
+     * @param array $details
+     *
+     * @return mixed Member model
+     */
+    public function createMember($team, array $details);
 }

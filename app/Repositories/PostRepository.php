@@ -63,4 +63,18 @@ class PostRepository extends PaginationRepository implements IPostRepository
 
         return $this;
     }
+
+    /**
+     * Filter query by author id
+     *
+     * @param int $id Author identifier
+     *
+     * @return $this
+     */
+    public function filterByAuthor($id)
+    {
+        $this->query = $this->getQuery()->where('author_id', $id);
+
+        return $this;
+    }
 }

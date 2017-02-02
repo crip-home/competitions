@@ -28,4 +28,13 @@ interface IPostRepository extends IPaginateRepository
      * @return $this
      */
     public function withAuthor();
+
+    /**
+     * Filter query by author id
+     *
+     * @param int $id Author identifier
+     *
+     * @return $this
+     */
+    public function filterByAuthor($id);
 }

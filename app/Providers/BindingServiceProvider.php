@@ -2,10 +2,12 @@
 
 use App\Contracts\IMessageRepository;
 use App\Contracts\IPostRepository;
+use App\Contracts\ITeamMemberRepository;
 use App\Contracts\ITeamRepository;
 use App\Contracts\IUserRepository;
 use App\Repositories\MessageRepository;
 use App\Repositories\PostRepository;
+use App\Repositories\TeamMemberRepository;
 use App\Repositories\TeamRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -37,5 +39,6 @@ class BindingServiceProvider extends ServiceProvider
         $this->app->bind(IPostRepository::class, PostRepository::class);
         $this->app->bind(IUserRepository::class, UserRepository::class);
         $this->app->bind(ITeamRepository::class, TeamRepository::class);
+        $this->app->bind(ITeamMemberRepository::class, TeamMemberRepository::class);
     }
 }
