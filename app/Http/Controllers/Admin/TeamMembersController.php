@@ -92,6 +92,7 @@ class TeamMembersController extends Controller
             $details['membership_type'] = TeamMember::INVITED;
             // TODO: send an invitation message to user
         } else {
+            $details['user_id'] = null;
             $details['membership_type'] = TeamMember::MEMBER;
         }
 

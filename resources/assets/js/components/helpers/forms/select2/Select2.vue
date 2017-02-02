@@ -43,6 +43,8 @@
           .select2(this.options)
           .val(this.value)
           .on('change', this.onChange.bind(this, $select))
+          .on('select2:open', this.onOpen.bind(this, $select))
+          .on('select2:close', this.onClose.bind(this, $select))
           .trigger('change')
 
         this.compiled($select)
@@ -65,24 +67,52 @@
       },
 
       /**
-       * Actions to be done an select2 change event
+       * Actions to be done on select2 change event
        *
        * @param $select
        */
       onChange ($select) {
-        const isNew = $select.find('[data-select2-tag="true"]')
-        let newVal = {val: _ => _}
+        let tagVal = this.getTagVal($select)
 
-        if (isNew.length > 0) {
-          newVal = $(isNew[isNew.length - 1])
-        }
-
-        if (isNew.length > 0 && this.oldTagVal !== newVal.val()) {
-          this.oldTagVal = newVal.val()
-          this.$emit('new', this.oldTagVal)
+        if (tagVal !== -1 && this.oldTagVal !== tagVal && $select.val() === tagVal) {
+          this.oldTagVal = tagVal
+          this.$emit('new', tagVal)
         } else {
           this.$emit('input', $select.val())
         }
+      },
+
+      /**
+       * Actions to be done on select2 open event
+       */
+      onOpen ($select) {
+        this.oldTagVal = ''
+      },
+
+      /**
+       * Actions to be done on select2 close event
+       */
+      onClose ($select) {
+        let tagVal = this.getTagVal($select)
+        if (tagVal !== -1 && this.oldTagVal !== tagVal) {
+          this.oldTagVal = tagVal
+          this.$emit('new', tagVal)
+        }
+      },
+
+      /**
+       * Get taggable value or -1 if does not have any
+       *
+       * @param $select
+       * @returns string Current tag value
+       */
+      getTagVal ($select) {
+        const tagVal = $select.find('[data-select2-tag="true"]')
+        if (tagVal.length === 0) {
+          return -1
+        }
+
+        return $(tagVal[tagVal.length - 1]).val()
       }
     },
 

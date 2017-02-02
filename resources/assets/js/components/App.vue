@@ -156,8 +156,8 @@
           clearInterval(this.messageTimer)
           // create initial message check
           this.checkMessageCount(this.$store)
-          // Check message count each 15 seconds to be up to date for user
-          this.messageTimer = setInterval(this.checkMessageCount, 15000, this.$store)
+          // Check message count each 60 seconds to be up to date for user
+          this.messageTimer = setInterval(this.checkMessageCount, 60000, this.$store)
         } else {
           // clear interval if user log outs
           clearInterval(this.messageTimer)

@@ -6,7 +6,7 @@
 
     <form-errors :errors="concatErrors"></form-errors>
 
-    <form-group id="name" label="Name">
+    <form-group id="name" label="Name" :errors="errors.name">
       <select2 id="name"
                @new="createNewMember"
                @input="createRelatedMember"
@@ -83,7 +83,9 @@
       concatErrors () {
         let errors = []
         Object.keys(this.errors).forEach(key => {
-          errors = errors.concat(this.errors[key])
+          if (key !== 'name') {
+            errors = errors.concat(this.errors[key])
+          }
         })
 
         return errors
