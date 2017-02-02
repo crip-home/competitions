@@ -72,8 +72,7 @@ export default {
       case 401:
         error('settings.handleError -> unauthorized', errorResponse.data)
         store.commit(AUTH_LOGOUT)
-        console.log({AUTH_LOGOUT, redirect: router.path})
-        router.push({...login, query: {redirect: router.path}})
+        router.push({...login, query: {redirect: router.currentRoute.fullPath}})
         break
       case 422:
         error('settings.handleError -> validation failed', errorResponse.data)

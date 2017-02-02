@@ -5,6 +5,7 @@ use App\Contracts\ITeamRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Teams\AdminStoreMember;
 use App\Http\Requests\Teams\AdminUpdateMember;
+use App\Services\MessagingService;
 use App\TeamMember;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -27,16 +28,23 @@ class TeamMembersController extends Controller
     private $members;
 
     /**
+     * @var MessagingService
+     */
+    private $messaging;
+
+    /**
      * TeamMembersController constructor.
      *
      * @param ITeamMemberRepository $members
      * @param ITeamRepository $teams
+     * @param MessagingService $messaging
      */
-    public function __construct(ITeamMemberRepository $members, ITeamRepository $teams)
+    public function __construct(ITeamMemberRepository $members, ITeamRepository $teams, MessagingService $messaging)
     {
         $this->middleware('jwt.auth');
         $this->teams = $teams;
         $this->members = $members;
+        $this->messaging = $messaging;
     }
 
     /**
@@ -90,13 +98,14 @@ class TeamMembersController extends Controller
 
         if ($details['user_id']) {
             $details['membership_type'] = TeamMember::INVITED;
-            // TODO: send an invitation message to user
+            $member = $this->teams->createMember($team, $details);
+            $this->messaging->sendTeamMemberInvitation($request->user()->id,
+                $details['user_id'], $team->name, $member->id);
         } else {
             $details['user_id'] = null;
             $details['membership_type'] = TeamMember::MEMBER;
+            $member = $this->teams->createMember($team, $details);
         }
-
-        $member = $this->teams->createMember($team, $details);
 
         return new JsonResponse($member);
     }
@@ -119,7 +128,8 @@ class TeamMembersController extends Controller
         $details = $request->only(['name', 'user_id']);
         if ($details['user_id'] && $member->user_id != $details['user_id']) {
             $details['membership_type'] = TeamMember::INVITED;
-            // TODO: send an invitation message to user
+            $this->messaging->sendTeamMemberInvitation($request->user()->id,
+                $details['user_id'], $team->name, $member->id);
         }
 
         $this->members->update($details, $memberId, $member);
