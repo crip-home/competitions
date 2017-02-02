@@ -29,7 +29,7 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
      *
      * @return $this
      */
-    function whereOwnerIs($ownerId)
+    function filterByOwner($ownerId)
     {
         $this->query = $this->getQuery()
             ->join('team_owner', 'team_owner.team_id', '=', 'teams.id')
@@ -69,13 +69,13 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
      * Crate team member for team
      *
      * @param mixed $team
-     * @param array $details
+     * @param array $memberDetails
      *
      * @return mixed
      */
-    public function createMember($team, array $details)
+    public function createMember($team, array $memberDetails)
     {
-        $member = $team->members()->create($details);
+        $member = $team->members()->create($memberDetails);
 
         return $member;
     }

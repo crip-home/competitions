@@ -13,7 +13,7 @@ interface ITeamRepository extends IPaginateRepository
      *
      * @return $this
      */
-    function whereOwnerIs($ownerId);
+    function filterByOwner($ownerId);
 
     /**
      * Create new team and attach owner in single transaction
@@ -31,9 +31,9 @@ interface ITeamRepository extends IPaginateRepository
      * Crate team member for team
      *
      * @param mixed $team Team model
-     * @param array $details
+     * @param array $memberDetails
      *
      * @return mixed Member model
      */
-    public function createMember($team, array $details);
+    public function createMember($team, array $memberDetails);
 }

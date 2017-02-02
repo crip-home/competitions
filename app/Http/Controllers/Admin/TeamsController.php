@@ -45,7 +45,7 @@ class TeamsController extends Controller
 
         // If user is not a super admin, allow see only owned teams
         if (!$request->user()->hasRole(Role::SUPER_ADMIN)) {
-            $this->teams->whereOwnerIs($request->user()->id);
+            $this->teams->filterByOwner($request->user()->id);
         }
 
         $teams = $this->teams->paginate($request->per_page ?: 15, [], ['teams.id', 'name', 'short']);

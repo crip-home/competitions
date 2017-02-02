@@ -32,7 +32,7 @@ interface IRepository
      *
      * @return $this
      */
-    public function order($by = 'id', $direction = 'desc');
+    public function orderBy($by = 'id', $direction = 'desc');
 
     /**
      * Set repository querable ordering from a request

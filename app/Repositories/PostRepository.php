@@ -25,7 +25,7 @@ class PostRepository extends PaginationRepository implements IPostRepository
      *
      * @return $this
      */
-    public function onlyPublished()
+    public function filterPublished()
     {
         $this->query = $this->getQuery()
             ->where('state', Post::STATE_PUBLISHED)
@@ -41,7 +41,7 @@ class PostRepository extends PaginationRepository implements IPostRepository
      *
      * @return $this
      */
-    public function scopeLocales(array $locales = [])
+    public function filterLocales(array $locales = [])
     {
         if (count($locales) > 0) {
             $this->query = $this->getQuery()->whereIn('locale', $locales);

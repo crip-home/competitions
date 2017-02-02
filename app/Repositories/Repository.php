@@ -54,7 +54,7 @@ abstract class Repository implements IRepository
      *
      * @return $this
      */
-    public function order($by = 'id', $direction = 'asc')
+    public function orderBy($by = 'id', $direction = 'asc')
     {
         $this->query = $this->getQuery()->orderBy($by, $direction);
 
@@ -75,7 +75,7 @@ abstract class Repository implements IRepository
         $order = $request->sort_order ?: $defaultOrder;
         $direction = $request->sort_direction ?: $defaultDirection;
 
-        $this->order($order, $direction);
+        $this->orderBy($order, $direction);
 
         return $this;
     }

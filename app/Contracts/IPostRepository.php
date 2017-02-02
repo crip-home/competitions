@@ -11,7 +11,7 @@ interface IPostRepository extends IPaginateRepository
      *
      * @return $this
      */
-    public function onlyPublished();
+    public function filterPublished();
 
     /**
      * Filter only where in list of locales
@@ -20,14 +20,7 @@ interface IPostRepository extends IPaginateRepository
      *
      * @return $this
      */
-    public function scopeLocales(array $locales = []);
-
-    /**
-     * Join author entity ro querable
-     *
-     * @return $this
-     */
-    public function withAuthor();
+    public function filterLocales(array $locales = []);
 
     /**
      * Filter query by author id
@@ -37,4 +30,11 @@ interface IPostRepository extends IPaginateRepository
      * @return $this
      */
     public function filterByAuthor($id);
+
+    /**
+     * Join author entity ro querable
+     *
+     * @return $this
+     */
+    public function withAuthor();
 }

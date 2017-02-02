@@ -36,9 +36,9 @@ class PostsController extends Controller
     {
         $locales = $request->locales ? explode(',', $request->locales) : [];
         $posts = $this->posts
-            ->onlyPublished()
-            ->order('publish_at', 'desc')
-            ->scopeLocales($locales)
+            ->filterPublished()
+            ->orderBy('publish_at', 'desc')
+            ->filterLocales($locales)
             ->paginate($request->per_page ?: 5, [], ['id', 'title', 'image', 'body', 'publish_at']);
 
         return new JsonResponse($posts);
@@ -54,7 +54,7 @@ class PostsController extends Controller
     public function show($id)
     {
         $post = $this->posts
-            ->onlyPublished()
+            ->filterPublished()
             ->withAuthor()
             ->find($id, ['id', 'author_id', 'title', 'image', 'body', 'publish_at']);
 

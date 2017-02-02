@@ -43,7 +43,7 @@ class PostsController extends Controller
     {
         $this->authorize('viewList', Post::class);
 
-        $this->posts->withAuthor()->order('publish_at');
+        $this->posts->withAuthor()->orderBy('publish_at');
 
         // If user has no permission to manage post, he can see only posts created by him
         if (!$request->user()->hasRole(Role::MANAGE_POSTS)) {
