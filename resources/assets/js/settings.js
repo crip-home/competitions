@@ -1,11 +1,12 @@
-import { error } from './ext/Log'
-import store from './store'
 import {
   TOAST_ADD,
   AUTH_LOGOUT
 } from './store/types'
-import router from './router'
 import { login } from './router/routes'
+import { error } from './ext/Log'
+import router from './router'
+import store from './store'
+import Vue from 'vue'
 
 export default {
   apiRoot: '/api/',
@@ -67,6 +68,7 @@ export default {
       case 401:
         error('settings.handleError -> unauthorized', errorResponse.data)
         store.commit(AUTH_LOGOUT)
+        console.log({AUTH_LOGOUT, redirect: router.path})
         router.push({...login, query: {redirect: router.path}})
         break
       case 422:
@@ -122,5 +124,61 @@ export default {
     if (hash) { newURL += '#' + hash }
 
     return newURL
+  },
+
+  /**
+   * Set user auth token in storage for later usage
+   *
+   * @param token
+   */
+  setToken (token) {
+    localStorage.setItem('token', token)
+
+    Vue.http.interceptors.push((request, next) => {
+      request.headers.set('Authorization', this.getAuthToken())
+      next()
+    })
+  },
+
+  /**
+   * Determine storage token existence
+   *
+   * @returns {boolean}
+   */
+  hasToken () {
+    return !!localStorage.getItem('token')
+  },
+
+  /**
+   * Get auth header token value
+   *
+   * @returns {string}
+   */
+  getAuthToken () {
+    return `Bearer ${localStorage.getItem('token')}`
+  },
+
+  /**
+   * Delete token from storage
+   */
+  removeToken () {
+    localStorage.removeItem('token')
+  },
+
+  /**
+   * Get last user used locale from storage
+   *
+   * @returns {string}
+   */
+  getLocale () {
+    return localStorage.getItem('locale')
+  },
+
+  /**
+   * Set user locale to storage
+   * @param locale
+   */
+  setLocale (locale) {
+    localStorage.setItem('locale', locale)
   }
 }

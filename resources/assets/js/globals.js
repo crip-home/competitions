@@ -33,5 +33,11 @@ export default {
     Vue.component('select2', Select2)
     Vue.component('paging', Paging)
     Vue.component('grid', Grid)
+
+    Vue.http.interceptors.push((request, next) => {
+      request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken)
+
+      next()
+    })
   }
 }

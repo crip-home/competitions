@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import * as mTypes from '../types'
+import * as types from '../types'
+import settings from '../../settings'
 
 const state = {
 
@@ -15,23 +15,17 @@ const state = {
 }
 
 const mutations = {
-  [mTypes.AUTH_LOGIN] (state) {
+  [types.AUTH_LOGIN] (state) {
     state.user.authenticated = true
-
-    Vue.http.interceptors.push((request, next) => {
-      request.headers.set('Authorization', `Bearer ${localStorage.getItem('token')}`)
-
-      next()
-    })
   },
 
-  [mTypes.AUTH_LOGOUT] (state) {
-    localStorage.removeItem('token')
+  [types.AUTH_LOGOUT] (state) {
+    settings.removeToken()
     state.user.authenticated = false
     state.details = false
   },
 
-  [mTypes.AUTH_DATA_UPD] (state, payload) {
+  [types.AUTH_DATA_UPD] (state, payload) {
     state.user.name = payload.name
     state.user.email = payload.email
     state.roles = []

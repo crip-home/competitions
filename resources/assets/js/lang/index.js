@@ -1,8 +1,9 @@
-import Vue from 'vue'
+import Select2Options from '../components/helpers/forms/select2'
+import settings from '../settings'
 import VueI18n from 'vue-i18n'
+import Vue from 'vue'
 import en from './en'
 import lv from './lv'
-import Select2Options from '../components/helpers/forms/select2'
 
 Vue.use(VueI18n)
 
@@ -27,8 +28,8 @@ export const select = () => {
   return (new Select2Options(options)).asSerchable(false)
 }
 
-export function checkLocale () {
-  const locale = localStorage.getItem('locale')
+export function init () {
+  const locale = settings.getLocale()
   if (locale) {
     setLocale(locale)
   }
@@ -37,7 +38,7 @@ export function checkLocale () {
 export function setLocale (locale = 'lv') {
   // set locale only if it is in set of defined locales
   if (~Object.keys(locales).indexOf(locale)) {
-    localStorage.setItem('locale', locale)
+    settings.setLocale(locale)
     Vue.config.lang = locale
   }
 }

@@ -1,3 +1,5 @@
+import settings from '../../../../settings'
+
 export default class Select2Options {
   constructor (options = [], initialSelection = false) {
     this.initialSelection = initialSelection
@@ -22,7 +24,7 @@ export default class Select2Options {
       url,
       delay,
       headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
+        Authorization: settings.getAuthToken()
       },
       processResults ({data}) {
         return {

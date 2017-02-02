@@ -9,7 +9,7 @@ export default {
     return new Promise((resolve, reject) => {
       http.post(settings.apiUrl('authenticate'), credentials)
         .then(({data}) => {
-          localStorage.setItem('token', data.token)
+          settings.setToken(data.token)
           store.commit(types.AUTH_LOGIN)
           this.getAuthUserDetails(resolve)
         }, ({data}) => {
@@ -19,8 +19,7 @@ export default {
   },
 
   checkAuth () {
-    if (localStorage.getItem('token')) {
-      store.commit(types.AUTH_LOGIN)
+    if (settings.hasToken()) {
       this.getAuthUserDetails(_ => _)
     }
   },
@@ -29,6 +28,7 @@ export default {
     http.get(settings.apiUrl('authenticate'))
       .then(({data}) => {
         store.commit(types.AUTH_DATA_UPD, data)
+        store.commit(types.AUTH_LOGIN)
         onResolved(data)
       }, r => {
         if (r.status === 401) {
@@ -42,9 +42,11 @@ export default {
     return new Promise((resolve, reject) => {
       http.post(settings.apiUrl('register'), details)
         .then(({data}) => {
-          localStorage.setItem('token', data.token)
-          store.commit(types.AUTH_LOGIN)
+          settings.setToken(data.token)
+          // update data before auth to make sure guard does
+          // not redirect us as unauthorized users
           store.commit(types.AUTH_DATA_UPD, data)
+          store.commit(types.AUTH_LOGIN)
           resolve(data)
         }, ({data}) => {
           reject(data)
@@ -125,10 +127,14 @@ export default {
      * @returns {boolean}
      */
     hasAllRoles (roles) {
-      if (!this.isAuthenticated()) { return false }
+      if (!this.isAuthenticated()) {
+        return false
+      }
 
       for (let key in roles) {
-        if (roles.hasOwnProperty(key) && !this.hasRole(roles[key])) { return false }
+        if (roles.hasOwnProperty(key) && !this.hasRole(roles[key])) {
+          return false
+        }
       }
 
       return true
