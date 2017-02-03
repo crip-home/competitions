@@ -18,6 +18,9 @@ $this->group(['prefix' => 'user'], function (Router $route) {
     $route->post('messages/{message}/reply', 'User\\MessagesController@reply');
     $route->resource('messages', 'User\\MessagesController',
         ['only' => ['index', 'store']]);
+
+    $route->get('teams/members/invitations/{id}/confirm', 'User\\TeamInvitationController@confirm');
+    $route->get('teams/members/invitations/{id}/decline', 'User\\TeamInvitationController@decline');
 });
 
 $this->group(['prefix' => 'admin'], function (Router $route) {

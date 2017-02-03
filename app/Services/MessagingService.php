@@ -34,10 +34,10 @@ class MessagingService
     }
 
     /**
-     * @param int  $fromUserId
-     * @param int  $toUserId
+     * @param int $fromUserId
+     * @param int $toUserId
      * @param Team $fromTeamName
-     * @param int  $forMemberId
+     * @param int $forMemberId
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
@@ -46,12 +46,14 @@ class MessagingService
         $fromUser = $this->users->find($fromUserId, ['id', 'name']);
         $toUser = $this->users->find($toUserId, ['id', 'name']);
 
-        $confirmUrl = '/invitations/team-members/accept/' . $forMemberId;
-        $declineUrl = '/invitations/team-members/decline/' . $forMemberId;
+        $confirmUrl = '/teams/invitations/confirm/' . $forMemberId;
+        $declineUrl = '/teams/invitations/decline/' . $forMemberId;
 
-        $subject = sprintf('%s has invited you to join %s team', $fromUser->name, $fromTeamName);
-        $body = sprintf('To join %s team, <a href="%s">click here</a><br>
-          To decline invitation - <a href="%s">click here</a>', $fromTeamName, $confirmUrl, $declineUrl);
+        $subject = __(':user has invited you to join :team team',
+            ['user' => $fromUser->name, 'team' => $fromTeamName]);
+
+        $body = __('To join :fromTeamName team, :confirmUrl or :declineUrl',
+            compact('fromTeamName', 'confirmUrl', 'declineUrl'));
 
         $message = [
             'subject' => $subject,
