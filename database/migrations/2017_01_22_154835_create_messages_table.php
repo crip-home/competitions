@@ -22,7 +22,7 @@ class CreateMessagesTable extends BaseMigration
             $table->text('body');
             $table->boolean('is_read')->default(false);
             $table->smallInteger('importance_level')->unsigned()->default(10);
-            $table->string('type', 20);
+            $table->string('type', 50);
 
             $table->unsignedInteger('from_id');
             $table->foreign('from_id')->references('id')->on('users')->onDelete('no action');

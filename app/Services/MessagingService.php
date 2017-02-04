@@ -46,24 +46,23 @@ class MessagingService
         $fromUser = $this->users->find($fromUserId, ['id', 'name']);
         $toUser = $this->users->find($toUserId, ['id', 'name']);
 
-        $confirmUrl = '/teams/invitations/confirm/' . $forMemberId;
-        $declineUrl = '/teams/invitations/decline/' . $forMemberId;
-
         $subject = __(':user has invited you to join :team team',
             ['user' => $fromUser->name, 'team' => $fromTeamName]);
 
-        $body = __('To join :fromTeamName team, :confirmUrl or :declineUrl',
-            compact('fromTeamName', 'confirmUrl', 'declineUrl'));
-
         $message = [
             'subject' => $subject,
-            'body' => $body,
+            'body' => Message::TEAM_MEMBER_INVITATION,
             'importance_level' => 7,
             'to_id' => $toUser->id,
             'to_name' => $toUser->name,
             'from_id' => $fromUser->id,
             'from_name' => $fromUser->name,
-            'type' => Message::USER_MESSAGE
+            'type' => Message::TEAM_MEMBER_INVITATION,
+            'payload' => [
+                'from_team_name' => $fromTeamName,
+                'from_user_name' => $fromUser->name,
+                'member_id' => $forMemberId
+            ]
         ];
 
         return $this->messages->create($message);

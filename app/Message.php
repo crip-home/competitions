@@ -12,6 +12,7 @@ class Message extends Model
     use HasAuditTrait;
 
     const USER_MESSAGE = 'USER_MESSAGE';
+    const TEAM_MEMBER_INVITATION = 'TEAM_MEMBER_INVITATION';
 
     /**
      * The table associated with the model.
@@ -38,9 +39,10 @@ class Message extends Model
         'subject',          // varchar(255)
         'to_id',            // int(10) UNSIGNED
         'to_name',          // varchar(255)
-        'type',             // varchar(20)
+        'type',             // varchar(50)
         'updated_by',       // int(10) UNSIGNED NULL
         'updated_by_name',  // varchar(255) ''
+        'payload',          // text
     ];
 
     /**
@@ -60,6 +62,15 @@ class Message extends Model
      */
     protected $appends = [
         'date_from_now'
+    ];
+
+    /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'payload' => 'array',
     ];
 
     /**
