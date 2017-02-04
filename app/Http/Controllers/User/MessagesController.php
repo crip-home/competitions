@@ -120,6 +120,7 @@ class MessagesController extends Controller
         $details['to_id'] = $message->from_id;
         $details['reply'] = $message->id;
         $details['reply_count'] = $message->reply_count + 1;
+        $details['payload'] = [];
 
         $details['type'] = Message::USER_MESSAGE;
         $details['importance_level'] = $details['importance_level'] ?: 10;
@@ -147,6 +148,7 @@ class MessagesController extends Controller
         $details['from_name'] = $request->user()->name;
         $details['to_name'] = $recipient->name;
         $details['type'] = Message::USER_MESSAGE;
+        $details['payload'] = [];
 
         $details['importance_level'] = $details['importance_level'] ?: 10;
 

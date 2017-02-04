@@ -20,4 +20,3 @@ export const createTeam = {name: 'createTeam'}
 export const createTeamMember = {name: 'createTeamMember'}
 export const editTeam = {name: 'editTeam'}
 export const editTeamMember = {name: 'editTeamMember'}
-export const teamInvitationRoute = {name: 'teamInvitationRoute'}

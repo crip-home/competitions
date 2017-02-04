@@ -21,6 +21,8 @@ $this->group(['prefix' => 'user'], function (Router $route) {
 
     $route->get('teams/members/invitations/{id}/confirm', 'User\\TeamInvitationController@confirm');
     $route->get('teams/members/invitations/{id}/decline', 'User\\TeamInvitationController@decline');
+    $route->resource('team-members', 'User\\TeamMembersController',
+        ['only' => ['show']]);
 });
 
 $this->group(['prefix' => 'admin'], function (Router $route) {

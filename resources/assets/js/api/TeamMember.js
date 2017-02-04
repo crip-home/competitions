@@ -29,21 +29,25 @@ export default class TeamMember extends Entity {
     this.membership_type = data.membership_type
   }
 
+  static get activeMemberType () { return 'member' }
+
+  static get invitedMemberType () { return 'invited' }
+
   /**
-   * Determines is the member already active
-   *
+   * Determines is the member in active state
    * @returns {boolean}
    */
-  isActive () {
-    return this.membership_type === 'member'
-  }
+  get isActive () { return this.membership_type === TeamMember.activeMemberType }
+
+  /**
+   * Determines is the member in invited state
+   * @returns {boolean}
+   */
+  get isInvited () { return this.membership_type === TeamMember.invitedMemberType }
 
   /**
    * Generates route to edit current member
    * @returns {{name: string, params: {id: Number}}}
    */
-  editRoute () {
-    const id = this.id
-    return {...editTeamMember, params: {id}}
-  }
+  get editRoute () { return {...editTeamMember, params: {id: this.id}} }
 }

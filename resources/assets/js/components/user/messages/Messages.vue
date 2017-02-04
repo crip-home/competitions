@@ -33,7 +33,7 @@
             </thead>
             <tbody>
             <template v-for="message in paging.items">
-              <router-link tag="tr" :to="message.readRoute()" class="pointer"
+              <router-link tag="tr" :to="message.readRoute" class="pointer"
                            :class="paging.rowClasses(message, {active: !message.is_read})"
               >
                 <td><i class="fa" :class="messageClass(message)"></i></td>
@@ -118,7 +118,7 @@
         return {
           'fa-envelope-open': message.is_read,
           'fa-envelope': !message.is_read,
-          [message.colorClass()]: true
+          [message.colorClass]: true
         }
       }
     },

@@ -13,7 +13,11 @@
         </tr>
         <tr v-if="message.isOpen">
           <td>
-            <blockquote v-html="message.body" class="message-body"></blockquote>
+            <blockquote class="message-body">
+              <div v-if="message.isUserMessage" v-html="message.body"></div>
+              <team-member-invitation v-else-if="message.isTeamMemberInvitation"
+                                      :message="message" :on-close="close"></team-member-invitation>
+            </blockquote>
           </td>
         </tr>
       </template>
@@ -43,6 +47,7 @@
 </template>
 
 <script>
+  import TeamMemberInvitation from './types/TeamMemberInvitation.vue'
   import { messagesRoute } from '../../../router/routes'
   import { MODAL_CLOSE } from '../../../store/types'
   import msg from '../../../api/users/messages'
@@ -159,6 +164,10 @@
             errors => { this.errors = errors }
           )
       }
+    },
+
+    components: {
+      TeamMemberInvitation
     }
   }
 </script>

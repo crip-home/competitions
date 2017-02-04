@@ -1,6 +1,5 @@
 {
   ":user has invited you to join :team team": ":user has invited you to join :team team",
-  "To join :fromTeamName team, :confirmUrl or :declineUrl": "<h3>Hello.</h3><p>You have been invited in to team <strong>:fromTeamName</strong></p><p>If you agree to join this team, click this button: <a href=\":confirmUrl\" class=\"btn btn-success btn-sm\">Confirm invitation</a></p><p>To decline invitation and send message to user, discard invitation: <a href=\":declineUrl\" class=\"btn btn-danger btn-sm\">Decline</a></p>",
   " ": "",
   "": ""
 }
