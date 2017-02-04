@@ -55,7 +55,7 @@ class MessagesController extends Controller
             $this->messages->filterInbox($request);
         }
 
-        $messages = $this->messages->paginate($request->per_page ?: 15, [], ['id', 'subject', 'body',
+        $messages = $this->messages->paginate($request->per_page ?: 15, [], ['id', 'subject', 'body', 'to_id',
             'is_read', 'importance_level', 'type', 'from_name', 'created_at', 'reply', 'reply_count', 'to_name']);
 
         return new JsonResponse($messages);

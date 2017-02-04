@@ -25,6 +25,7 @@ export default class Message extends Entity {
     this.importance_level = data.importance_level
     this.type = data.type
     this.from_name = data.from_name
+    this.to_id = data.to_id
     this.to_name = data.to_name
     this.created_at = data.created_at
     this.date_from_now = data.date_from_now

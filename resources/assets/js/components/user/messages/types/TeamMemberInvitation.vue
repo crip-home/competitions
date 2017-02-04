@@ -40,7 +40,7 @@
       team () { return this.message.payload.from_team_name },
       user () { return this.message.payload.from_user_name },
       id () { return this.message.payload.member_id },
-      isCurrentUserInvitation () { return this.id === this.authUserId },
+      isCurrentUserInvitation () { return this.message.to_id === this.authUserId },
       disabled () { return !this.isCurrentUserInvitation || this.checkFailed }
     },
 
