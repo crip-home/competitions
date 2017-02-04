@@ -1,4 +1,5 @@
 import * as types from '../types'
+import { authUserId, isAuth, authUser } from '../getters'
 import settings from '../../settings'
 
 const state = {
@@ -7,7 +8,8 @@ const state = {
     authenticated: false,
     details: false,
     name: '',
-    email: ''
+    email: '',
+    id: 0
   },
 
   roles: []
@@ -15,19 +17,20 @@ const state = {
 }
 
 const mutations = {
-  [types.AUTH_LOGIN] (state) {
+  [types.authenticate] (state) {
     state.user.authenticated = true
   },
 
-  [types.AUTH_LOGOUT] (state) {
+  [types.logout] (state) {
     settings.removeToken()
     state.user.authenticated = false
     state.details = false
   },
 
-  [types.AUTH_DATA_UPD] (state, payload) {
+  [types.authDetailsUpdate] (state, payload) {
     state.user.name = payload.name
     state.user.email = payload.email
+    state.user.id = payload.id
     state.roles = []
     payload.roles.forEach((role) => state.roles.push(role.key))
 
@@ -36,4 +39,10 @@ const mutations = {
   }
 }
 
-export default {state, mutations}
+const getters = {
+  [authUserId]: (store, getters) => getters[authUser].id,
+  [isAuth]: (store, getters) => getters[authUser].authenticated,
+  [authUser]: store => store.user
+}
+
+export default {state, mutations, getters}

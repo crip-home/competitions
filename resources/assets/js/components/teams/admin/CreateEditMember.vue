@@ -1,6 +1,6 @@
 <template>
   <form-panel id="create-edit-team-member" :submit="saveMember" :title="title">
-    <panel-action slot="actions" v-if="team.id" :to="team.membersListRoute()">
+    <panel-action slot="actions" v-if="team.id" :to="team.membersListRoute">
       Back to {{ team.short }} members
     </panel-action>
 
@@ -124,7 +124,7 @@
       saveMember () {
         members.save(this.form, {teamId: this.$route.params.team})
           .then(
-            _ => { this.$router.push(this.team.membersListRoute()) },
+            _ => { this.$router.push(this.team.membersListRoute) },
             errors => { this.errors = errors }
           )
       },

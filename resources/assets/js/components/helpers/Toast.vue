@@ -24,7 +24,7 @@
 
     methods: {
       remove (index) {
-        this.$store.commit(types.TOAST_REMOVE, {index})
+        this.$store.commit(types.removeToast, {index})
       }
     }
   }

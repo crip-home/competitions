@@ -20,7 +20,7 @@ export default {
           // if not, redirect to home page and notify.
           if (to.matched.some(record => record.meta.requiresRoles)) {
             if (!middleware.hasAllRoles(to.meta.requiresRoles)) {
-              store.commit(types.TOAST_ADD, {
+              store.commit(types.addToast, {
                 message: t('app.permission_denied', {perm: to.meta.requiresRoles.join(', ')}),
                 'class': 'toast-error'
               })
@@ -28,7 +28,7 @@ export default {
             } else { next() }
           } else if (to.matched.some(r => r.meta.requiresAnyOfRoles)) {
             if (!middleware.hasAnyRole(to.meta.requiresAnyOfRoles)) {
-              store.commit(types.TOAST_ADD, {
+              store.commit(types.addToast, {
                 message: t('app.permission_denied', {perm: to.meta.requiresAnyOfRoles.join(', ')}),
                 'class': 'toast-error'
               })

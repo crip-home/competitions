@@ -11,11 +11,16 @@
          @click.prevent="declineInvitation">Decline</a>
     </p>
 
-    <div v-if="error" class="alert alert-danger text-center">{{ error }}</div>
+    <p v-if="error" class="alert alert-danger text-center">{{ error }}</p>
+    <p v-if="!isCurrentUserInvitation" class="alert alert-warning text-center">
+      This invitation is sent to {{message.to_name}}
+    </p>
   </div>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+  import { authUserId } from '../../../../store/getters'
   import teams from '../../../../api/teams'
   import members from '../../../../api/teams/members'
   import Message from '../../../../api/Message'
@@ -31,15 +36,18 @@
     },
 
     computed: {
+      ...mapGetters([authUserId]),
       team () { return this.message.payload.from_team_name },
       user () { return this.message.payload.from_user_name },
-      id () { return this.message.payload.member_id }
+      id () { return this.message.payload.member_id },
+      isCurrentUserInvitation () { return this.id === this.authUserId },
+      disabled () { return !this.isCurrentUserInvitation || this.checkFailed }
     },
 
     data () {
       return {
         error: '',
-        disabled: false
+        checkFailed: false
       }
     },
 
@@ -74,7 +82,7 @@
             member => {
               if (!member.isInvited) {
                 this.error = 'Invitation is already accepted or declined.'
-                this.disabled = true
+                this.checkFailed = true
               }
             },
             error => { this.error = error }

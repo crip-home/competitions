@@ -28,13 +28,13 @@ export default {
       .then(({data}) => {
         // update data before auth to make sure guard does
         // not redirect us as unauthorized users
-        store.commit(types.AUTH_DATA_UPD, data)
-        store.commit(types.AUTH_LOGIN)
+        store.commit(types.authDetailsUpdate, data)
+        store.commit(types.authenticate)
         onResolved(data)
       }, r => {
         if (r.status === 401) {
-          store.commit(types.TOAST_ADD, {message: t('auth.token_expired'), class: 'toast-info'})
-          store.commit(types.AUTH_LOGOUT)
+          store.commit(types.addToast, {message: t('auth.token_expired'), class: 'toast-info'})
+          store.commit(types.logout)
         } else { settings.handleError(r) }
       })
   },
@@ -46,8 +46,8 @@ export default {
           settings.setToken(data.token)
           // update data before auth to make sure guard does
           // not redirect us as unauthorized users
-          store.commit(types.AUTH_DATA_UPD, data)
-          store.commit(types.AUTH_LOGIN)
+          store.commit(types.authDetailsUpdate, data)
+          store.commit(types.authenticate)
           resolve(data)
         }, ({data}) => {
           reject(data)

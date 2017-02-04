@@ -20,7 +20,7 @@
 
 <script>
   import { info } from '../../../ext/Log'
-  import { MODAL_OPENED } from '../../../store/types'
+  import { modalOpened } from '../../../store/types'
 
   export default {
     props: {
@@ -34,7 +34,7 @@
       info('modal:mounted', {el: this.$el})
 
       // Register current modal as opened
-      this.$store.commit(MODAL_OPENED, this.id)
+      this.$store.commit(modalOpened, this.id)
 
       let $el = $(this.$el)
       $el.modal('show')

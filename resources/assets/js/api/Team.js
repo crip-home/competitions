@@ -14,37 +14,20 @@ export default class Team extends Entity {
   }
 
   /**
+   * Gets route to open current team edit route
    * @returns {{name: string, params: {id: Number}}}
    */
-  editRoute () {
-    const id = this.id
-    return {
-      name: editTeam.name,
-      params: {id}
-    }
-  }
+  get editRoute () { return {...editTeam, params: {id: this.id}} }
 
   /**
-   * Generates route to list current team members
+   * Gets route to list current team members
    * @returns {{name: string, params: {team: Number}}}
    */
-  membersListRoute () {
-    const id = this.id
-    return {
-      ...listTeamMembers,
-      params: {team: id, ...listTeamMembers}
-    }
-  }
+  get membersListRoute () { return {...listTeamMembers, params: {team: this.id}} }
 
   /**
-   * Generates route to create new current team member
+   * Gets route to create new current team member
    * @returns {{name: string, params: {team: Number}}}
    */
-  newMemberRoute () {
-    const team = this.id
-    return {
-      ...createTeamMember,
-      params: {team}
-    }
-  }
+  get newMemberRoute () { return {...createTeamMember, params: {team: this.id}} }
 }

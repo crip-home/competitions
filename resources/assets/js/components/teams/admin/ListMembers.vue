@@ -2,8 +2,8 @@
   <grid id="list-team-members" :paging="paging">
     <span slot="title">Manage members</span>
     <span slot="actions" v-if="team.id">
-      <panel-action :to="team.editRoute()">Edit team</panel-action>
-      <panel-action :to="team.newMemberRoute()">Create New Member</panel-action>
+      <panel-action :to="team.editRoute">Edit team</panel-action>
+      <panel-action :to="team.newMemberRoute">Create New Member</panel-action>
     </span>
     <table class="table table-hover">
       <thead>
@@ -14,11 +14,11 @@
       </thead>
       <tbody>
       <template v-for="member in paging.items">
-        <tr @click="paging.select(member)" :class="paging.rowClasses(member, {danger: !member.isActive()})">
+        <tr @click="paging.select(member)" :class="paging.rowClasses(member, {danger: !member.isActive})">
           <td>{{ member.id }}</td>
           <td>{{ member.name }}&nbsp;
-            <span v-if="!member.isActive()" class="actions">(member is not active)</span>
-            <router-link :to="member.editRoute()"
+            <span v-if="!member.isActive" class="actions">(member is not active)</span>
+            <router-link :to="member.editRoute"
                          class="label label-info actions">Edit
             </router-link>
           </td>

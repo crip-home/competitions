@@ -49,7 +49,7 @@
 <script>
   import TeamMemberInvitation from './types/TeamMemberInvitation.vue'
   import { messagesRoute } from '../../../router/routes'
-  import { MODAL_CLOSE } from '../../../store/types'
+  import { closeModal } from '../../../store/types'
   import msg from '../../../api/users/messages'
 
   export default {
@@ -90,7 +90,7 @@
        */
       close () {
         // commit to vuex for current modal close
-        this.$store.commit(MODAL_CLOSE, this.modalId)
+        this.$store.commit(closeModal, this.modalId)
       },
 
       /**

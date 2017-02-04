@@ -49,7 +49,7 @@
       reset () {
         auth.reset(this.form)
           .then(status => {
-            this.$store.commit(types.TOAST_ADD, {message: status})
+            this.$store.commit(types.addToast, {message: status})
             this.$router.push(routes.login)
           }, errors => {
             Vue.set(this, 'errors', errors)

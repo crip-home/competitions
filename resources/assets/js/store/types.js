@@ -1,12 +1,12 @@
-export const AUTH_LOGIN = 'AUTH_LOGIN'
-export const AUTH_LOGOUT = 'AUTH_LOGOUT'
-export const AUTH_DATA_UPD = 'AUTH_DATA_UPD'
+export const authenticate = 'authenticate'
+export const logout = 'logout'
+export const authDetailsUpdate = 'authDetailsUpdate'
 
-export const TOAST_ADD = 'TOAST_ADD'
-export const TOAST_REMOVE = 'TOAST_REMOVE'
+export const addToast = 'addToast'
+export const removeToast = 'removeToast'
 
-export const MESSAGES_CHECK = 'MESSAGE_CHECK'
-export const MESSAGES_UPD = 'MESSAGES_UPD'
+export const checkMessageCount = 'checkMessageCount'
+export const messagesCountUpdated = 'messagesCountUpdated'
 
-export const MODAL_OPENED = 'MODAL_OPENED'
-export const MODAL_CLOSE = 'MODAL_CLOSE'
+export const modalOpened = 'modalOpened'
+export const closeModal = 'closeModal'

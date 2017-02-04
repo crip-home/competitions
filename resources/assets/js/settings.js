@@ -1,6 +1,6 @@
 import {
-  TOAST_ADD,
-  AUTH_LOGOUT
+  addToast,
+  logout
 } from './store/types'
 import { login } from './router/routes'
 import { error } from './ext/Log'
@@ -71,7 +71,7 @@ export default {
     switch (errorResponse.status) {
       case 401:
         error('settings.handleError -> unauthorized', errorResponse.data)
-        store.commit(AUTH_LOGOUT)
+        store.commit(logout)
         router.push({...login, query: {redirect: router.currentRoute.fullPath}})
         break
       case 422:
@@ -80,7 +80,7 @@ export default {
       case 403:
       case 405:
         error('settings.handleError -> method not allowed', errorResponse)
-        store.commit(TOAST_ADD, {message: 'Action is not allowed', class: 'toast-error'})
+        store.commit(addToast, {message: 'Action is not allowed', class: 'toast-error'})
         // TODO: send this as email to admin to be able detect users who is trying hack app
         //   or some places has not enough protection and simple user can open it and
         //   create not allowed requests

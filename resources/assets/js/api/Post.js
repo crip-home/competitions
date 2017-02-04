@@ -2,8 +2,6 @@ import Entity from './Entity'
 import User from './User'
 import Select2Options from '../components/helpers/forms/select2'
 
-const states = Symbol('states')
-
 /**
  * @property {String}          title
  * @property {String}          body
@@ -31,8 +29,10 @@ export default class Post extends Entity {
     if (data.author) {
       this.author = new User(data.author)
     }
+  }
 
-    this[states] = [
+  static get states () {
+    return [
       'DRAFT',
       'PENDING',
       'PRIVATE',
@@ -42,9 +42,8 @@ export default class Post extends Entity {
   }
 
   static stateSelectOptions ($t) {
-    let post = new Post({})
     let options = []
-    post[states].forEach(state => {
+    Post.states.forEach(state => {
       options.push({id: state, text: $t(`entities.post.states.${state}`)})
     })
 

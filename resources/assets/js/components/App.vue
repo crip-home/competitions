@@ -18,12 +18,14 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
   import Toast from './helpers/Toast.vue'
   import Navbar from './helpers/bootstrap/nav/Navbar.vue'
   import { NavbarItem, NavbarGroup, NavbarItems } from './helpers/bootstrap/nav'
   import auth from '../api/auth'
   import * as roles from '../api/auth/roles'
   import * as types from '../store/types'
+  import * as getters from '../store/getters'
   import * as lang from '../lang'
   import * as routes from '../router/routes'
 
@@ -41,13 +43,7 @@
     },
 
     computed: {
-      user () {
-        return this.$store.state.auth.user
-      },
-
-      isAuthenticated () {
-        return auth.middleware.isAuthenticated()
-      },
+      ...mapGetters([getters.isAuth, getters.authUser]),
 
       leftNavbarItems () {
         let user = auth.middleware
@@ -58,7 +54,7 @@
         ])
 
         // if user is not authenticated, this menu is unavailable for him
-        if (!this.isAuthenticated || !canManage) {
+        if (!this.isAuth || !canManage) {
           return []
         }
 
@@ -93,7 +89,7 @@
       },
 
       rightNavbarItems () {
-        let user = this.user
+        let user = this.authUser
         let nav = new NavbarItems()
         let locales = new NavbarGroup(this.$t('locale'))
 
@@ -107,7 +103,7 @@
             )
           })
 
-        if (!this.isAuthenticated) {
+        if (!this.isAuth) {
           nav.add(new NavbarItem(this.$t('app.login'), routes.login))
           nav.add(new NavbarItem(this.$t('app.signup'), routes.signup))
         } else {
@@ -131,8 +127,8 @@
 
     methods: {
       logout () {
-        this.$store.commit(types.AUTH_LOGOUT)
-        this.$store.commit(types.TOAST_ADD, {message: this.$t('app.logout_toast_msg')})
+        this.$store.commit(types.logout)
+        this.$store.commit(types.addToast, {message: this.$t('app.logout_toast_msg')})
         // Redirect user to homepage after logout
         this.$router.push(routes.home)
       },
@@ -142,15 +138,15 @@
        * @param store
        */
       checkMessageCount (store) {
-        store.dispatch(types.MESSAGES_CHECK)
+        store.dispatch(types.checkMessageCount)
       }
       // toast() {
-      //    this.$store.commit(types.TOAST_ADD, {message: 'Hello World!'});
+      //    this.$store.commit(types.addToast, {message: 'Hello World!'});
       // }
     },
 
     watch: {
-      isAuthenticated (val) {
+      isAuth (val) {
         if (val) {
           // clear interval if it is already set
           clearInterval(this.messageTimer)

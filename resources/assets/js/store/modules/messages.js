@@ -1,4 +1,4 @@
-import { MESSAGES_CHECK, MESSAGES_UPD } from '../types'
+import { checkMessageCount, messagesCountUpdated } from '../types'
 
 import messages from '../../api/users/messages'
 
@@ -7,16 +7,16 @@ const state = {
 }
 
 const actions = {
-  [MESSAGES_CHECK] ({commit}) {
+  [checkMessageCount] ({commit}) {
     messages.countUnread()
       .then(count => {
-        commit(MESSAGES_UPD, count)
+        commit(messagesCountUpdated, count)
       })
   }
 }
 
 const mutations = {
-  [MESSAGES_UPD] (state, count) {
+  [messagesCountUpdated] (state, count) {
     state.unread = count
   }
 }
