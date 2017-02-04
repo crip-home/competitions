@@ -14,11 +14,11 @@
       <template v-for="team in paging.items">
         <tr @click="paging.select(team)" :class="paging.rowClasses(team)">
           <td>{{ team.name }}&nbsp;
-            <router-link :to="team.editRoute()"
+            <router-link :to="team.editRoute"
                          class="label label-info actions">Edit
             </router-link>
             &nbsp;
-            <router-link :to="team.membersListRoute()"
+            <router-link :to="team.membersListRoute"
                          class="label label-info actions">Members
             </router-link>
           </td>
