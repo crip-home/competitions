@@ -76,12 +76,16 @@
           )
       },
 
+      /**
+       * Determines current message invitation status
+       * In case of incorrect state, sets checkFailed property to true
+       */
       checkInvitationStatus () {
         members.find(this.id)
           .then(
             member => {
               if (!member.isInvited) {
-                this.error = 'Invitation is already accepted or declined.'
+                this.error = 'This invitation is actual anymore.'
                 this.checkFailed = true
               }
             },
