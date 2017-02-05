@@ -93,4 +93,11 @@ interface IRepository
      * @return boolean
      */
     public function delete($id);
+
+    /**
+     * Get count of querable records
+     *
+     * @return integer
+     */
+    public function count();
 }

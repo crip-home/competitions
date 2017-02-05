@@ -81,28 +81,6 @@ abstract class Repository implements IRepository
     }
 
     /**
-     * Set filter params to querable
-     *
-     * @param array $filters
-     *
-     * @return $this
-     * @throws \Exception
-     */
-    protected function filter($filters = [])
-    {
-        foreach ($filters as $filter => $index) {
-            if (is_array($filter)) {
-                $this->query = call_user_func_array([$this->getQuery(), 'where'], $filter);
-            } else {
-                $type = gettype($filter);
-                throw new \Exception("Filters property should be array with arrays, but got '$type' at position '$index'");
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * Find single instance of model
      *
      * @param * $id
@@ -186,6 +164,38 @@ abstract class Repository implements IRepository
     public function delete($id)
     {
         return $this->find($id)->delete();
+    }
+
+    /**
+     * Get count of querable records
+     *
+     * @return integer
+     */
+    public function count()
+    {
+        return $this->getQuery()->count();
+    }
+
+    /**
+     * Set filter params to querable
+     *
+     * @param array $filters
+     *
+     * @return $this
+     * @throws \Exception
+     */
+    protected function filter($filters = [])
+    {
+        foreach ($filters as $filter => $index) {
+            if (is_array($filter)) {
+                $this->query = call_user_func_array([$this->getQuery(), 'where'], $filter);
+            } else {
+                $type = gettype($filter);
+                throw new \Exception("Filters property should be array with arrays, but got '$type' at position '$index'");
+            }
+        }
+
+        return $this;
     }
 
     /**
