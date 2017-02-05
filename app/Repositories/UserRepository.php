@@ -49,12 +49,17 @@ class UserRepository extends PaginationRepository implements IUserRepository
     /**
      * Join user teams from membership to the query response
      *
+     * @param bool $includeLogo
+     *
      * @return $this
      */
-    public function withTeams()
+    public function withTeams($includeLogo = false)
     {
-        $this->query = $this->getQuery()->with(['teams' => function (BelongsToMany $query) {
-            $query->getQuery()->select('teams.id', 'teams.name', 'teams.short');
+        $this->query = $this->getQuery()->with(['teams' => function (BelongsToMany $query) use ($includeLogo) {
+            $query->getQuery()->select('teams.id', 'teams.name', 'teams.short', 'teams.logo_id');
+            if ($includeLogo) {
+                $query->getQuery()->with('logo');
+            }
         }]);
 
         return $this;

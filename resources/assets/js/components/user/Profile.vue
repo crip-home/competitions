@@ -10,10 +10,13 @@
         <div v-if="hasTeams">
           <hr>
           <h4>Teams</h4>
-          <div v-for="team in user.teams">
+          <template v-for="team in user.teams">
             <!-- TODO: router link to team page -->
-            <a href="#" :title="team.name">{{ team.short }}</a>
-          </div>
+            <a href="#" :title="team.name">
+              <img v-if="team.logo" :src="team.logo.xs" width="35" height="35">
+              <span v-else="">{{ team.short }}</span>
+            </a>&nbsp;
+          </template>
         </div>
       </div>
       <div class="col-md-9">

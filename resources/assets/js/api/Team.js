@@ -12,6 +12,7 @@ export default class Team extends Entity {
 
     this.name = data.name
     this.short = data.short
+    this.logo_id = data.logo_id
     if (data.logo) {
       this.logo = new File(data.logo)
     }

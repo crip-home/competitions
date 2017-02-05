@@ -48,7 +48,7 @@ class ProfileController extends Controller
      */
     public function show($userId)
     {
-        $user = $this->users->withTeams()->find($userId);
+        $user = $this->users->withTeams(true)->find($userId);
 
         return new JsonResponse($user);
     }

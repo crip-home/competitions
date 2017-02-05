@@ -25,7 +25,9 @@ interface IUserRepository extends IPaginateRepository
     /**
      * Join user teams from membership to the query response
      *
+     * @param bool $includeLogo
+     *
      * @return $this
      */
-    public function withTeams();
+    public function withTeams($includeLogo = false);
 }
