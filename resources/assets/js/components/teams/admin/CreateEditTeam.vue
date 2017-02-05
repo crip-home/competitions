@@ -67,7 +67,12 @@
 
       fetchTeam (teamId) {
         teams.find(teamId)
-          .then(team => { this.form = team })
+          .then(team => {
+            this.form = team
+            if (team.logo) {
+              this.thumb = team.logo.thumb
+            }
+          })
       },
 
       onLogoChange (event) {

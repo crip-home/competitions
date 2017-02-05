@@ -36,6 +36,9 @@ class AdminUpdateTeam extends FormRequest
                 'required',
                 'max:15',
                 Rule::unique('teams', 'short')->ignore($this->get('id'))
+            ],
+            'logo_id' => [
+                Rule::exists('files', 'id')
             ]
         ];
     }

@@ -2,6 +2,7 @@
 
 use Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -28,6 +29,7 @@ class Team extends Model
     protected $fillable = [
         'created_by',      // int(10) UNSIGNED
         'created_by_name', // varchar(255)
+        'logo_id',         // int(10) UNSIGNED
         'name',            // varchar(255)
         'short',           // varchar(15)
         'updated_by',      // int(10) UNSIGNED
@@ -59,4 +61,11 @@ class Team extends Model
         return $this->belongsToMany(User::class, 'team_owner', 'team_id', 'user_id')->withTimestamps();
     }
 
+    /**
+     * @return BelongsTo
+     */
+    public function logo()
+    {
+        return $this->belongsTo(File::class, 'logo_id', 'id');
+    }
 }

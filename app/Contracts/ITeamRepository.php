@@ -16,6 +16,13 @@ interface ITeamRepository extends IPaginateRepository
     function filterByOwner($ownerId);
 
     /**
+     * Join logo to query results
+     *
+     * @return $this
+     */
+    public function withLogo();
+
+    /**
      * Create new team and attach owner in single transaction
      *
      * @param array $input

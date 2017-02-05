@@ -64,7 +64,7 @@ class TeamsController extends Controller
     {
         $this->authorize('create', Team::class);
         $authUserId = $request->user()->id;
-        $details = $request->only(['name', 'short']);
+        $details = $request->only(['name', 'short', 'logo_id']);
 
         try {
             $team = $this->teams->createAndAttachOwner($details, $authUserId);
@@ -84,7 +84,7 @@ class TeamsController extends Controller
      */
     public function show($teamId)
     {
-        $team = $this->teams->find($teamId);
+        $team = $this->teams->withLogo()->find($teamId);
 
         $this->authorize('view', $team);
 
@@ -105,7 +105,7 @@ class TeamsController extends Controller
 
         $this->authorize('update', $team);
 
-        $details = $request->only(['name', 'short']);
+        $details = $request->only(['name', 'short', 'logo_id']);
 
         $this->teams->update($details, $teamId, $team);
 

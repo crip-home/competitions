@@ -39,6 +39,18 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
     }
 
     /**
+     * Join logo to query results
+     *
+     * @return $this
+     */
+    public function withLogo()
+    {
+        $this->query = $this->getQuery()->with('logo');
+
+        return $this;
+    }
+
+    /**
      * Create new team and attach owner in single transaction
      *
      * @param array $input
