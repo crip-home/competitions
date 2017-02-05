@@ -1,11 +1,12 @@
 import {
-  messagesRoute, messageRoute, newMessageRoute
+  messagesRoute, messageRoute, newMessageRoute, profileRoute
 } from '../routes'
 
 import ChildHolder from '../../components/ChildHolder.vue'
 import Messages from '../../components/user/messages/Messages.vue'
 import Message from '../../components/user/messages/MessageModal.vue'
 import NewMessage from '../../components/user/messages/NewMessageModal.vue'
+import Profile from '../../components/user/Profile.vue'
 
 const meta = {requiresAuth: true}
 export default {
@@ -21,6 +22,7 @@ export default {
         {path: 'read/:id', ...messageRoute, component: Message, meta},
         {path: 'new', ...newMessageRoute, component: NewMessage, meta}
       ]
-    }
+    },
+    {path: 'profile/:id?', ...profileRoute, component: Profile}
   ]
 }

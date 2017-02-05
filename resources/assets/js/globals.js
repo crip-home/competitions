@@ -15,6 +15,7 @@ import CKEditor from './components/helpers/forms/CKEditor.vue'
 import Select2 from './components/helpers/forms/select2/Select2.vue'
 import Paging from './components/helpers/grid/Paging.vue'
 import Grid from './components/helpers/grid/Grid.vue'
+import Gravatar from './components/user/Gravatar.vue'
 
 export default {
   init () {
@@ -33,6 +34,7 @@ export default {
     Vue.component('select2', Select2)
     Vue.component('paging', Paging)
     Vue.component('grid', Grid)
+    Vue.component('gravatar', Gravatar)
 
     Vue.http.interceptors.push((request, next) => {
       request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken)

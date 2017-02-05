@@ -16,9 +16,16 @@ interface IUserRepository extends IPaginateRepository
     public function searchByName($name);
 
     /**
-     * Join user roles to the request response
+     * Join user roles to the query response
      *
      * @return $this
      */
     public function withRoles();
+
+    /**
+     * Join user teams from membership to the query response
+     *
+     * @return $this
+     */
+    public function withTeams();
 }

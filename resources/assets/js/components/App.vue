@@ -110,6 +110,7 @@
           nav.add(new NavbarGroup(
             user.name,
             new NavbarItems(
+              new NavbarItem(this.$t('app.profile'), routes.profileRoute),
               new NavbarItem(
                 this.$t('app.messages', {count: this.$store.state.messages.unread}),
                 {...routes.messagesRoute, params: {type: 'inbox'}}

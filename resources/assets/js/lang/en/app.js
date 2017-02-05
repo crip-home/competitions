@@ -3,6 +3,7 @@ export default {
   'logout': 'Logout',
   'messages': 'Messages <span class="badge">{count}</span>',
   'signup': 'Sign Up',
+  'profile': 'Profile',
   'title': 'CRIP Competitions',
   'toggle_nav': 'Toggle Navigation',
   'logout_toast_msg': 'Successfully unauthorised.',

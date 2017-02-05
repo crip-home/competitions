@@ -13,6 +13,7 @@ class UsersTableSeeder extends Seeder
      */
     private $roles;
 
+    const SUPER_ADMIN_EMAIL = 'tahq69@gmail.com';
     const POST_MANAGER_EMAIL = 'post.manager@crip.lv';
     const TEAM_MANAGER_EMAIL = 'team.manager@crip.lv';
 
@@ -39,7 +40,7 @@ class UsersTableSeeder extends Seeder
     {
         $admin = App\User::create([
             'name' => 'TAHQ69',
-            'email' => 'admin@crip.lv',
+            'email' => static::SUPER_ADMIN_EMAIL ,
             'password' => bcrypt('password')
         ]);
 

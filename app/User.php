@@ -1,10 +1,12 @@
-<?php
-
-namespace App;
+<?php namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * Class User
+ * @package App
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -22,7 +24,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -31,7 +35,29 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'email',
+        'remember_token',
+    ];
+
+    /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'created_at',
+        'updated_at'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'md5',
+        'created_from_now'
     ];
 
     /**
@@ -47,7 +73,17 @@ class User extends Authenticatable
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')->withTimestamps();
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')
+            ->withTimestamps();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function teams()
+    {
+        return $this->belongsToMany(Team::class, 'team_members', 'user_id', 'team_id')
+            ->wherePivot('membership_type', TeamMember::MEMBER);
     }
 
     /**
@@ -68,5 +104,31 @@ class User extends Authenticatable
             return true;
 
         return false;
+    }
+
+    /**
+     * Encode user email in md5
+     *
+     * @return string
+     */
+    public function getMd5Attribute()
+    {
+        if (array_key_exists('email', $this->attributes)) {
+            return md5($this->attributes['email']);
+        }
+
+        return '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getCreatedFromNowAttribute()
+    {
+        if (array_key_exists('created_at', $this->attributes)) {
+            return $this->created_at->diffForHumans();
+        }
+
+        return '';
     }
 }

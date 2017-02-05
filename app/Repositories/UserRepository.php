@@ -2,6 +2,7 @@
 
 use App\Contracts\IUserRepository;
 use App\User;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class UserRepository
@@ -41,6 +42,20 @@ class UserRepository extends PaginationRepository implements IUserRepository
     public function withRoles()
     {
         $this->query = $this->getQuery()->with('roles');
+
+        return $this;
+    }
+
+    /**
+     * Join user teams from membership to the query response
+     *
+     * @return $this
+     */
+    public function withTeams()
+    {
+        $this->query = $this->getQuery()->with(['teams' => function (BelongsToMany $query) {
+            $query->getQuery()->select('teams.id', 'teams.name', 'teams.short');
+        }]);
 
         return $this;
     }

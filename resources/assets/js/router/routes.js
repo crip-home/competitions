@@ -1,4 +1,5 @@
 export const home = {name: 'home'}
+export const profileRoute = {name: 'profile'}
 
 export const login = {name: 'login'}
 export const signup = {name: 'signup'}
