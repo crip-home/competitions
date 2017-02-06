@@ -4,9 +4,7 @@
       Back to {{ team.short }} members
     </panel-action>
 
-    <form-errors :errors="concatErrors"></form-errors>
-
-    <form-group id="name" label="Name" :errors="errors.name">
+    <form-group id="name" label="Name" :errors="concatErrors">
       <select2 id="name"
                @new="createNewMember"
                @input="createRelatedMember"
@@ -83,12 +81,10 @@
       concatErrors () {
         let errors = []
         Object.keys(this.errors).forEach(key => {
-          if (key !== 'name') {
-            errors = errors.concat(this.errors[key])
-          }
+          errors = errors.concat(this.errors[key])
         })
 
-        return errors
+        return errors.length > 0 ? errors : null
       }
     },
 
