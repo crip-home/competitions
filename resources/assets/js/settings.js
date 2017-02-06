@@ -25,6 +25,7 @@ export default {
    */
   logSections: [
     'global',
+    'component',
     'error',
     'info'
     // // 'select2', // Uncomment this line to see all changes in select2 helper

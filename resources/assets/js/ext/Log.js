@@ -25,7 +25,6 @@ const _consoleLog = (type, args) => {
 
 /**
  * Log arguments
- *
  * @param {...*} args
  */
 export const log = (...args) => {
@@ -34,7 +33,6 @@ export const log = (...args) => {
 
 /**
  * Log informational arguments
- *
  * @param {...*} args
  */
 export const info = (...args) => {
@@ -43,7 +41,6 @@ export const info = (...args) => {
 
 /**
  * Log error arguments
- *
  * @param {...*} args
  */
 export const error = (...args) => {
@@ -52,7 +49,6 @@ export const error = (...args) => {
 
 /**
  * Section log allows to log messages to sections
- *
  * @param {String} section
  * @returns {function}
  */
@@ -61,4 +57,13 @@ export function sLog (section) {
     args.unshift(section)
     _log('log', args, section)
   }
+}
+/**
+ * Log all major values of component
+ * @param vm   Component view model instance
+ * @param args Additional arguments to be logged
+ */
+export function logComponent (vm, ...args) {
+  let route = {...vm.$route.params, path: vm.$route.fullPath}
+  _log('debug', [`component ${vm.$options.name}`, {route}, ...args], 'component')
 }

@@ -37,7 +37,6 @@ export class NavbarItem {
   }
 }
 /**
- *
  * @param {...*} args
  * @returns {Array}
  * @private

@@ -1,6 +1,9 @@
 import Entity from './Entity'
 import File from './File'
-import { listTeamMembers, editTeam, createTeamMember } from '../router/routes'
+import {
+  listTeamMembers, editTeam, createTeamMember,
+  publicTeamDetailsRoute
+} from '../router/routes'
 
 /**
  * @property {String} name
@@ -35,4 +38,10 @@ export default class Team extends Entity {
    * @returns {{name: string, params: {team: Number}}}
    */
   get newMemberRoute () { return {...createTeamMember, params: {team: this.id}} }
+
+  /**
+   * Gets route to public team details screen
+   * @returns {{params: {team: Number}}}
+   */
+  get pDetailsRoute () { return {...publicTeamDetailsRoute, params: {team: this.id}} }
 }
