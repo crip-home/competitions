@@ -4,7 +4,6 @@ import Message from '../Message'
 export default {
   /**
    * Get messages from the server
-   *
    * @param {String} type
    * @param {Number} [page]
    * @param {Number} [perPage]
@@ -16,7 +15,6 @@ export default {
 
   /**
    * Get unread message count
-   *
    * @returns {Promise.<Number>}
    */
   countUnread () {
@@ -25,7 +23,6 @@ export default {
 
   /**
    * Mark message as read
-   *
    * @param {Number} id
    * @returns {Promise.<Message>}
    */
@@ -35,7 +32,6 @@ export default {
 
   /**
    * Make reply on message
-   *
    * @param {Number} onId
    * @param {String} subject
    * @param {String} body
@@ -46,7 +42,6 @@ export default {
 
   /**
    * Send new message
-   *
    * @param {Number} to
    * @param {String} subject
    * @param {String} body

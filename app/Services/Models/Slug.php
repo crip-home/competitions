@@ -88,11 +88,9 @@ class Slug
     );
     /**
      * Converts string from special characters to URL friendly string
-     *
      * @param string $string String co covert
      * @param string $separator Separator to replace spaces
      * @param null $emptyValue Return value if target result is empty
-     *
      * @return string URL friendly string
      */
     public static function make($string, $separator = '-', $emptyValue = null)
@@ -119,9 +117,7 @@ class Slug
     }
     /**
      * Replace special characters with english chars
-     *
      * @param string $string String co covert
-     *
      * @return string English char string
      */
     public static function translateByArray($string)

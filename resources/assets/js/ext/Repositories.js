@@ -10,7 +10,6 @@ export class AdminRepository {
 
   /**
    * Get list of entities from the server
-   *
    * @param {Number} [page]
    * @param {Number} [perPage]
    * @param {*}      [urlReplace]
@@ -22,7 +21,6 @@ export class AdminRepository {
 
   /**
    * Get single entity from the server
-   *
    * @param {number}  id
    * @param {*}      [urlReplace]
    * @returns {Promise}
@@ -33,7 +31,6 @@ export class AdminRepository {
 
   /**
    * Store entity on the server
-   *
    * @param {object} entity
    * @param {*}      [urlReplace]
    * @returns {Promise}

@@ -18,7 +18,6 @@ class UsersController extends Controller
 
     /**
      * UsersController constructor.
-     *
      * @param IUserRepository $users
      */
     public function __construct(IUserRepository $users)
@@ -29,7 +28,6 @@ class UsersController extends Controller
 
     /**
      * GET     /api/admin/users/search
-     *
      * @param  Request $request
      * @return JsonResponse
      */
@@ -44,7 +42,6 @@ class UsersController extends Controller
 
     /**
      * GET     /api/admin/users/{user}
-     *
      * @param  int $id
      * @return JsonResponse
      */

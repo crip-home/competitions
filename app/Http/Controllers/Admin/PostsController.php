@@ -22,7 +22,6 @@ class PostsController extends Controller
 
     /**
      * PostsController constructor.
-     *
      * @param Post $post
      * @param IPostRepository $posts
      */
@@ -34,9 +33,7 @@ class PostsController extends Controller
 
     /**
      * GET    /api/admin/posts
-     *
      * @param Request $request
-     *
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -58,9 +55,7 @@ class PostsController extends Controller
 
     /**
      * POST  /api/admin/posts
-     *
      * @param AdminStorePost $request
-     *
      * @return JsonResponse
      */
     public function store(AdminStorePost $request)
@@ -77,9 +72,7 @@ class PostsController extends Controller
 
     /**
      * GET    /api/posts/{post}
-     *
      * @param int $postId
-     *
      * @return JsonResponse
      */
     public function show($postId)
@@ -92,10 +85,8 @@ class PostsController extends Controller
 
     /**
      * PUT/PATCH  /api/admin/posts/{post}
-     *
      * @param AdminUpdatePost $request
      * @param int $postId
-     *
      * @return JsonResponse
      */
     public function update(AdminUpdatePost $request, $postId)

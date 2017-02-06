@@ -23,7 +23,6 @@ class TeamsController extends Controller
 
     /**
      * TeamsController constructor.
-     *
      * @param ITeamRepository $teams
      */
     public function __construct(ITeamRepository $teams)
@@ -34,9 +33,7 @@ class TeamsController extends Controller
 
     /**
      * GET    /api/admin/teams
-     *
      * @param Request $request
-     *
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -55,9 +52,7 @@ class TeamsController extends Controller
 
     /**
      * POST   /api/admin/teams
-     *
      * @param AdminStoreTeam $request
-     *
      * @return JsonResponse
      */
     public function store(AdminStoreTeam $request)
@@ -77,9 +72,7 @@ class TeamsController extends Controller
 
     /**
      * GET     /api/admin/teams/{team}
-     *
      * @param  int $teamId
-     *
      * @return JsonResponse
      */
     public function show($teamId)
@@ -93,10 +86,8 @@ class TeamsController extends Controller
 
     /**
      * PUT/PATCH /api/admin/teams/{team}
-     *
      * @param AdminUpdateTeam $request
      * @param int $teamId
-     *
      * @return   JsonResponse
      */
     public function update(AdminUpdateTeam $request, $teamId)

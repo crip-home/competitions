@@ -26,7 +26,6 @@ class Post extends Model
 
     /**
      * The table associated with the model.
-     *
      * @var string
      */
     protected $table = 'posts';
@@ -45,7 +44,6 @@ class Post extends Model
 
     /**
      * The attributes that should be mutated to dates.
-     *
      * @var array
      */
     protected $dates = [
@@ -56,7 +54,6 @@ class Post extends Model
 
     /**
      * The accessors to append to the model's array form.
-     *
      * @var array
      */
     protected $appends = [

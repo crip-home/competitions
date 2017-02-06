@@ -12,7 +12,6 @@ class UserRepository extends PaginationRepository implements IUserRepository
 {
     /**
      * Get current repository full model class name
-     *
      * @return string
      */
     function modelClass()
@@ -22,9 +21,7 @@ class UserRepository extends PaginationRepository implements IUserRepository
 
     /**
      * Set query to search by name column
-     *
      * @param string $name
-     *
      * @return $this
      */
     public function searchByName($name)
@@ -36,7 +33,6 @@ class UserRepository extends PaginationRepository implements IUserRepository
 
     /**
      * Join user roles to the request response
-     *
      * @return $this
      */
     public function withRoles()
@@ -48,9 +44,7 @@ class UserRepository extends PaginationRepository implements IUserRepository
 
     /**
      * Join user teams from membership to the query response
-     *
      * @param bool $includeLogo
-     *
      * @return $this
      */
     public function withTeams($includeLogo = false)

@@ -7,7 +7,6 @@ export default {
 
   /**
    * Get posts from the server
-   *
    * @param {number} [page]
    * @param {number} [perPage]
    * @param {array}  [locales]
@@ -27,7 +26,6 @@ export default {
 
   /**
    * Get single post from the server
-   *
    * @param {number} id
    * @returns {Promise}
    */

@@ -12,7 +12,6 @@ class MessageRepository extends PaginationRepository implements IMessageReposito
 {
     /**
      * Get current repository full model class name
-     *
      * @return string
      */
     function modelClass()
@@ -22,9 +21,7 @@ class MessageRepository extends PaginationRepository implements IMessageReposito
 
     /**
      * Filter only incoming messages
-     *
      * @param Request $request
-     *
      * @return $this
      */
     function filterInbox(Request $request)
@@ -36,9 +33,7 @@ class MessageRepository extends PaginationRepository implements IMessageReposito
 
     /**
      * Filter only outgoing messages
-     *
      * @param Request $request
-     *
      * @return $this
      */
     function filterOutbox(Request $request)
@@ -50,9 +45,7 @@ class MessageRepository extends PaginationRepository implements IMessageReposito
 
     /**
      * Join replays to the current querable
-     *
      * @param int $replyCount
-     *
      * @return $this
      */
     function withReplays($replyCount = 10)
@@ -65,9 +58,7 @@ class MessageRepository extends PaginationRepository implements IMessageReposito
 
     /**
      * Count unread message count in inbox
-     *
      * @param Request $request
-     *
      * @return int
      */
     function countUnread(Request $request) {

@@ -11,7 +11,6 @@ trait HandlesUserRoles
 {
     /**
      * Get user roles key array
-     *
      * @param User $user
      * @return array
      */

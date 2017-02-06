@@ -3,7 +3,6 @@ import Ext from '../index'
 export default {
   /**
    * Create new Element object
-   *
    * @param {string} [options.tag ] Created element tag name
    * @param {string} [options.bg] Background color
    * @param {string} [options.text] Element text content

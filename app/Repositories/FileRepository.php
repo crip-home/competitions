@@ -11,7 +11,6 @@ class FileRepository extends Repository implements IFileRepository
 {
     /**
      * Get current repository full model class name
-     *
      * @return string
      */
     function modelClass()
@@ -21,9 +20,7 @@ class FileRepository extends Repository implements IFileRepository
 
     /**
      * Filter files where name starts with passed name
-     *
      * @param string $name
-     *
      * @return $this
      */
     public function whereNameStartsWith($name)

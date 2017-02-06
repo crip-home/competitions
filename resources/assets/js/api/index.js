@@ -5,7 +5,6 @@ import PagingResult from '../ext/PagingResult'
 export default {
   /**
    * Get list of entities from the server
-   *
    * @param {String}   path
    * @param {Function} entityResolver
    * @param {Number}   [page]
@@ -28,7 +27,6 @@ export default {
 
   /**
    * Find single entity from the server
-   *
    * @param {String}        path
    * @param {Function}      entityResolver
    * @param {Number|String} id
@@ -49,7 +47,6 @@ export default {
 
   /**
    * Store entity on the server
-   *
    * @param {String}   path
    * @param {Function} entityResolver
    * @param {object}   entity

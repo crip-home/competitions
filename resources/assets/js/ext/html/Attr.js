@@ -3,7 +3,6 @@ import ext from '../index'
 export default {
   /**
    * Get attribute value from DOM Node or default value
-   *
    * @param {Element} el Element where allocate value
    * @param {string} attrKey Attribute key
    * @param {string|object|number} [defaultValue]
@@ -20,7 +19,6 @@ export default {
 
   /**
    * Get data attribute value from DOM Node or default value
-   *
    * @param {Element} el Element where allocate value
    * @param {string} dataAttrKey data attribute key
    * @param {string|object|number} [defaultValue]

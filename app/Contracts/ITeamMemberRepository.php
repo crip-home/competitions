@@ -8,9 +8,7 @@ interface ITeamMemberRepository extends IPaginateRepository
 {
     /**
      * Set team id filter on querable
-     *
      * @param int $id
-     *
      * @return $this
      */
     public function filterByTeam($id);

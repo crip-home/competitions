@@ -34,7 +34,6 @@ class TeamMembersController extends Controller
 
     /**
      * TeamMembersController constructor.
-     *
      * @param ITeamMemberRepository $members
      * @param ITeamRepository $teams
      * @param MessagingService $messaging
@@ -49,10 +48,8 @@ class TeamMembersController extends Controller
 
     /**
      * GET     /api/admin/teams/{team}/members
-     *
      * @param Request $request
      * @param int $teamId
-     *
      * @return JsonResponse
      */
     public function index(Request $request, $teamId)
@@ -67,10 +64,8 @@ class TeamMembersController extends Controller
 
     /**
      * GET    /api/admin/teams/{team}/members/{member}
-     *
      * @param int $teamId
      * @param int $memberId
-     *
      * @return JsonResponse
      */
     public function show($teamId, $memberId)
@@ -84,10 +79,8 @@ class TeamMembersController extends Controller
 
     /**
      * POST   /api/admin/teams/{team}/members
-     *
      * @param AdminStoreMember $request
      * @param int $teamId
-     *
      * @return JsonResponse
      */
     public function store(AdminStoreMember $request, $teamId)
@@ -112,11 +105,9 @@ class TeamMembersController extends Controller
 
     /**
      * PUT/PATCH /api/admin/teams/{team}/members/{member}
-     *
      * @param    AdminUpdateMember $request
      * @param    int $teamId
      * @param    int $memberId
-     *
      * @return JsonResponse
      */
     public function update(AdminUpdateMember $request, $teamId, $memberId)

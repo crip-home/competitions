@@ -12,7 +12,6 @@ class PostRepository extends PaginationRepository implements IPostRepository
 {
     /**
      * Get current repository full model class name
-     *
      * @return string
      */
     function modelClass()
@@ -22,7 +21,6 @@ class PostRepository extends PaginationRepository implements IPostRepository
 
     /**
      * Filter only published posts
-     *
      * @return $this
      */
     public function filterPublished()
@@ -36,9 +34,7 @@ class PostRepository extends PaginationRepository implements IPostRepository
 
     /**
      * Filter only where in list of locales
-     *
      * @param array $locales
-     *
      * @return $this
      */
     public function filterLocales(array $locales = [])
@@ -52,7 +48,6 @@ class PostRepository extends PaginationRepository implements IPostRepository
 
     /**
      * Join author entity ro querable
-     *
      * @return $this
      */
     public function withAuthor()
@@ -66,9 +61,7 @@ class PostRepository extends PaginationRepository implements IPostRepository
 
     /**
      * Filter query by author id
-     *
      * @param int $id Author identifier
-     *
      * @return $this
      */
     public function filterByAuthor($id)

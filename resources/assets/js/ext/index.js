@@ -1,7 +1,6 @@
 export default {
   /**
    * Determines is value undefined
-   *
    * @param value
    * @returns {boolean}
    */
@@ -11,7 +10,6 @@ export default {
 
   /**
    * Determines is value defined
-   *
    * @param value
    * @returns {boolean}
    */
@@ -21,7 +19,6 @@ export default {
 
   /**
    * Determines is value defined as javascript function
-   *
    * @param {*} func
    * @returns {Boolean}
    */
@@ -35,7 +32,6 @@ export default {
 
   /**
    * Determines is value empty
-   *
    * @param value
    * @returns {boolean}
    */
@@ -45,7 +41,6 @@ export default {
 
   /**
    * Determines is value in object
-   *
    * @param value
    * @returns {boolean}
    */
@@ -55,7 +50,6 @@ export default {
 
   /**
    * Determines is object containing properties chain
-   *
    * @param {object} object
    * @param {...string} properties
    * @returns {boolean}

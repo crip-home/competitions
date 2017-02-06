@@ -17,7 +17,6 @@ class RegisterController extends Controller
 
     /**
      * Where to redirect users after login / registration.
-     *
      * @var string
      */
     protected $redirectTo = '/home';
@@ -29,7 +28,6 @@ class RegisterController extends Controller
 
     /**
      * Create a new controller instance.
-     *
      * @param IUserRepository $users
      */
     public function __construct(IUserRepository $users)
@@ -41,7 +39,6 @@ class RegisterController extends Controller
 
     /**
      * Get a validator for an incoming registration request.
-     *
      * @param  array $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
@@ -56,9 +53,7 @@ class RegisterController extends Controller
 
     /**
      * Create a new user instance after a valid registration.
-     *
      * @param  array $data
-     *
      * @return \Illuminate\Database\Eloquent\Model
      */
     protected function create(array $data)
@@ -72,7 +67,6 @@ class RegisterController extends Controller
 
     /**
      * The user has been registered.
-     *
      * @param  \Illuminate\Http\Request $request
      * @param  mixed $user
      * @return mixed

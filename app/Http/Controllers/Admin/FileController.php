@@ -19,7 +19,6 @@ class FileController extends Controller
 
     /**
      * FileController constructor.
-     *
      * @param FileService $files
      */
     public function __construct(FileService $files)
@@ -30,9 +29,7 @@ class FileController extends Controller
 
     /**
      * POST  /api/admin/files
-     *
      * @param FileUploadRequest $request
-     *
      * @return JsonResponse
      */
     public function store(FileUploadRequest $request)

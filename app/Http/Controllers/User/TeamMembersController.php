@@ -28,10 +28,8 @@ class TeamMembersController extends Controller
 
     /**
      * GET    /user/team-members/{id}
-     *
      * @param Request $request
      * @param integer $memberId
-     *
      * @return JsonResponse
      */
     public function show(Request $request, $memberId)

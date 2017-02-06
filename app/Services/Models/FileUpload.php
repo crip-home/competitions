@@ -25,14 +25,12 @@ class FileUpload implements Arrayable
 
     /**
      * Filesystem full path to the file
-     *
      * @var string
      */
     public $path = '';
 
     /**
      * FileUpload constructor.
-     *
      * @param IFileRepository $files
      * @param string $dir
      */
@@ -44,7 +42,6 @@ class FileUpload implements Arrayable
 
     /**
      * Get the instance as an array.
-     *
      * @return array
      */
     public function toArray()
@@ -70,7 +67,6 @@ class FileUpload implements Arrayable
 
     /**
      * Gets file upload status
-     *
      * @return int
      */
     public function status()
@@ -80,9 +76,7 @@ class FileUpload implements Arrayable
 
     /**
      * Set file base configuration before start uploading
-     *
      * @param UploadedFile $file
-     *
      * @return $this
      */
     public function setFile(UploadedFile $file)
@@ -97,7 +91,6 @@ class FileUpload implements Arrayable
 
     /**
      * Get file full name
-     *
      * @return string
      */
     public function filesystemName()
@@ -113,9 +106,7 @@ class FileUpload implements Arrayable
 
     /**
      * Add thumb definition to payload
-     *
      * @param $size
-     *
      * @return string
      */
     public function addThumb($size)
@@ -139,7 +130,6 @@ class FileUpload implements Arrayable
 
     /**
      * Set database id for file
-     *
      * @param $id
      */
     public function setId($id)
@@ -149,7 +139,6 @@ class FileUpload implements Arrayable
 
     /**
      * @param string $size
-     *
      * @return string
      */
     public function getDir($size = '')
@@ -159,9 +148,7 @@ class FileUpload implements Arrayable
 
     /**
      * Get file src property
-     *
      * @param string $size
-     *
      * @return string
      */
     private function getSrc($size = '')
@@ -178,9 +165,7 @@ class FileUpload implements Arrayable
 
     /**
      * Get file path property
-     *
      * @param string $size
-     *
      * @return string
      */
     private function getPath($size = '')
@@ -190,9 +175,7 @@ class FileUpload implements Arrayable
 
     /**
      * Get unique file name for uploading file
-     *
      * @param UploadedFile $file
-     *
      * @return string
      */
     private function getUniqueName(UploadedFile $file)

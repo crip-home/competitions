@@ -19,7 +19,6 @@ class FileService
 
     /**
      * Default file sizes
-     *
      * @var array
      */
     private $sizes = [
@@ -29,7 +28,6 @@ class FileService
 
     /**
      * FileService constructor.
-     *
      * @param IFileRepository $files
      */
     public function __construct(IFileRepository $files)
@@ -40,7 +38,6 @@ class FileService
     /**
      * @param UploadedFile $file
      * @param array $sizes
-     *
      * @return FileUpload
      */
     public function upload(UploadedFile $file, array $sizes = [])
@@ -71,10 +68,8 @@ class FileService
 
     /**
      * Generate thumbs for uploaded file
-     *
      * @param FileUpload $upload
      * @param array $sizes
-     *
      * @return FileUpload
      */
     private function createThumbs(FileUpload $upload, array $sizes)

@@ -14,14 +14,12 @@ class Area extends Model
 
     /**
      * The table associated with the model.
-     *
      * @var string
      */
     protected $table = 'areas';
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
     protected $fillable = [

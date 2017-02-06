@@ -25,7 +25,6 @@ class AuthenticateController extends Controller
 
     /**
      * AuthenticateController constructor.
-     *
      * @param User $user
      * @param IUserRepository $users
      */
@@ -38,9 +37,7 @@ class AuthenticateController extends Controller
 
     /**
      * Get Authenticated user details and roles
-     *
      * @param Request $request
-     *
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -52,7 +49,6 @@ class AuthenticateController extends Controller
 
     /**
      * Authenticate new user
-     *
      * @param Request $request
      * @return JsonResponse
      */

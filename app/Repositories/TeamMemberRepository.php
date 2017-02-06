@@ -11,7 +11,6 @@ class TeamMemberRepository extends PaginationRepository implements ITeamMemberRe
 {
     /**
      * Get current repository full model class name
-     *
      * @return string
      */
     function modelClass()
@@ -21,9 +20,7 @@ class TeamMemberRepository extends PaginationRepository implements ITeamMemberRe
 
     /**
      * Set team id filter on querable
-     *
      * @param int $id
-     *
      * @return $this
      */
     public function filterByTeam($id)

@@ -27,7 +27,6 @@ class MessagesController extends Controller
 
     /**
      * MessagesController constructor.
-     *
      * @param IMessageRepository $messages
      * @param IUserRepository $users
      */
@@ -40,9 +39,7 @@ class MessagesController extends Controller
 
     /**
      * GET    /api/user/messages
-     *
      * @param Request $request
-     *
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -63,10 +60,8 @@ class MessagesController extends Controller
 
     /**
      * GET    /api/user/messages/read/{message}
-     *
      * @param Request $request
      * @param int $id
-     *
      * @return JsonResponse
      */
     public function read(Request $request, $id)
@@ -87,9 +82,7 @@ class MessagesController extends Controller
 
     /**
      * GET    /api/user/messages/count/unread
-     *
      * @param Request $request
-     *
      * @return JsonResponse
      */
     public function countUnread(Request $request)
@@ -101,10 +94,8 @@ class MessagesController extends Controller
 
     /**
      * POST   /api/user/messages/{message}/reply
-     *
      * @param UserReplyMessage $request
      * @param int $id
-     *
      * @return JsonResponse
      */
     public function reply(UserReplyMessage $request, $id)
@@ -132,9 +123,7 @@ class MessagesController extends Controller
 
     /**
      * POST   /api/user/messages
-     *
      * @param UserStoreMessage $request
-     *
      * @return JsonResponse
      */
     public function store(UserStoreMessage $request)

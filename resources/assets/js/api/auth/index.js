@@ -81,7 +81,6 @@ export default {
 
     /**
      * Determines user authenticated sate
-     *
      * @returns {boolean}
      */
     isAuthenticated () {
@@ -90,7 +89,6 @@ export default {
 
     /**
      * Determine has a auth user presented role
-     *
      * @param {string} role
      * @returns {boolean}
      */
@@ -107,7 +105,6 @@ export default {
 
     /**
      * Determine has a auth user any of role presented in list of roles
-     *
      * @param {Array} roles List of roles to match
      * @returns {boolean}
      */
@@ -123,7 +120,6 @@ export default {
 
     /**
      * Determine has a auth user all roles presented in list
-     *
      * @param {Array} roles List of roles to match
      * @returns {boolean}
      */

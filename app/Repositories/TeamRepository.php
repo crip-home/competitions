@@ -14,7 +14,6 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
 {
     /**
      * Get current repository full model class name
-     *
      * @return string
      */
     function modelClass()
@@ -24,9 +23,7 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
 
     /**
      * Filter teams by owner id
-     *
      * @param int $ownerId
-     *
      * @return $this
      */
     function filterByOwner($ownerId)
@@ -40,7 +37,6 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
 
     /**
      * Join logo to query results
-     *
      * @return $this
      */
     public function withLogo()
@@ -52,12 +48,9 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
 
     /**
      * Create new team and attach owner in single transaction
-     *
      * @param array $input
      * @param int $ownerId
-     *
      * @return mixed
-     *
      * @throws Exception
      */
     function createAndAttachOwner(array $input, $ownerId)
@@ -79,10 +72,8 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
 
     /**
      * Crate team member for team
-     *
      * @param mixed $team
      * @param array $memberDetails
-     *
      * @return mixed
      */
     public function createMember($team, array $memberDetails)

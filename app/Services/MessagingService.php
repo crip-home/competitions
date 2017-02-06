@@ -23,7 +23,6 @@ class MessagingService
 
     /**
      * MessagingService constructor.
-     *
      * @param IMessageRepository $messages
      * @param IUserRepository $users
      */
@@ -38,7 +37,6 @@ class MessagingService
      * @param int $toUserId
      * @param Team $fromTeamName
      * @param int $forMemberId
-     *
      * @return \Illuminate\Database\Eloquent\Model
      */
     public function sendTeamMemberInvitation($fromUserId, $toUserId, $fromTeamName, $forMemberId)

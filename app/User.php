@@ -13,14 +13,12 @@ class User extends Authenticatable
 
     /**
      * The table associated with the model.
-     *
      * @var string
      */
     protected $table = 'users';
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
     protected $fillable = [
@@ -31,7 +29,6 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be hidden for arrays.
-     *
      * @var array
      */
     protected $hidden = [
@@ -42,7 +39,6 @@ class User extends Authenticatable
 
     /**
      * The attributes that should be mutated to dates.
-     *
      * @var array
      */
     protected $dates = [
@@ -52,7 +48,6 @@ class User extends Authenticatable
 
     /**
      * The accessors to append to the model's array form.
-     *
      * @var array
      */
     protected $appends = [
@@ -108,7 +103,6 @@ class User extends Authenticatable
 
     /**
      * Encode user email in md5
-     *
      * @return string
      */
     public function getMd5Attribute()

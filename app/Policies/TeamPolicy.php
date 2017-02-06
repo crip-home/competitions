@@ -16,7 +16,6 @@ class TeamPolicy
 
     /**
      * Determine whether the user can view the team.
-     *
      * @param  \App\User $user
      * @param  \App\Team $team
      * @return mixed
@@ -29,7 +28,6 @@ class TeamPolicy
 
     /**
      * Determine whether the user can view list of teams.
-     *
      * @param  \App\User $user
      * @return bool
      */
@@ -41,7 +39,6 @@ class TeamPolicy
 
     /**
      * Determine whether the user can create teams.
-     *
      * @param  \App\User $user
      * @return mixed
      */
@@ -58,7 +55,6 @@ class TeamPolicy
 
     /**
      * Determine whether the user can update the team.
-     *
      * @param  \App\User $user
      * @param  \App\Team $team
      * @return mixed
@@ -79,7 +75,6 @@ class TeamPolicy
 
     /**
      * Determine whether the user can delete the team.
-     *
      * @param  \App\User $user
      * @param  \App\Team $team
      * @return mixed

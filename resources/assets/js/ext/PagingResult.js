@@ -26,7 +26,6 @@ export default class PagingResult {
 
   /**
    * Convert server response to PagingResult object
-   *
    * @param {Object} response
    * @param {Function} resolver
    * @returns {PagingResult}

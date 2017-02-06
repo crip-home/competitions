@@ -6,7 +6,6 @@ const hide = Symbol('hide')
 export default class {
   /**
    * Initialize Handler class object
-   *
    * @param {Element} el
    * @param {object} binding
    */

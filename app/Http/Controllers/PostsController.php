@@ -17,7 +17,6 @@ class PostsController extends Controller
 
     /**
      * PostsController constructor.
-     *
      * @param IPostRepository $posts
      */
     public function __construct(IPostRepository $posts)
@@ -27,9 +26,7 @@ class PostsController extends Controller
 
     /**
      * GET    /api/posts
-     *
      * @param Request $request
-     *
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -46,9 +43,7 @@ class PostsController extends Controller
 
     /**
      * GET    /api/posts/{post}
-     *
      * @param $id
-     *
      * @return JsonResponse
      */
     public function show($id)

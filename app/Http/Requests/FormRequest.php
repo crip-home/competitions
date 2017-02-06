@@ -12,7 +12,6 @@ class FormRequest extends LaravelFormRequest
 {
     /**
      * Validate the class instance.
-     *
      * @return void
      */
     public function validate()

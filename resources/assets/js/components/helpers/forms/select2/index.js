@@ -13,7 +13,6 @@ export default class Select2Options {
 
   /**
    * Configure select2 component to load selection data from server
-   *
    * @param {String}   url
    * @param {Function} resultMap Mapper to convert server data object to select2 compatible ({id, text})
    * @param {Number}   delay Delay for request frequency
@@ -39,7 +38,6 @@ export default class Select2Options {
   /**
    * Configure option to make available creation of
    * new element in existing selection
-   *
    * @param {Boolean} value Flag to enable/disable tags property
    * @returns {Select2Options}
    */
@@ -59,7 +57,6 @@ export default class Select2Options {
 
   /**
    * Configure option to make search unavailable on UI
-   *
    * @param {Boolean} value Flag to enable/disable search property
    * @returns {Select2Options}
    */

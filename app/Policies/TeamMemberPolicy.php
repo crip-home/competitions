@@ -17,7 +17,6 @@ class TeamMemberPolicy
 
     /**
      * Determine whether the user can view list of teams.
-     *
      * @param  \App\User $user
      * @param Team $team
      * @return bool
@@ -30,7 +29,6 @@ class TeamMemberPolicy
 
     /**
      * Determine whether the user can create team member.
-     *
      * @param  User $user
      * @param  Team $team
      * @return bool
@@ -52,7 +50,6 @@ class TeamMemberPolicy
 
     /**
      * Determine whether the user can view the team member.
-     *
      * @param User $user
      * @param TeamMember $member
      * @param Team $team
@@ -68,7 +65,6 @@ class TeamMemberPolicy
 
     /**
      * Determine whether the user can update the team member.
-     *
      * @param User $user
      * @param TeamMember $member
      * @param Team $team

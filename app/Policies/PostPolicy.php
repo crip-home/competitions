@@ -16,7 +16,6 @@ class PostPolicy
 
     /**
      * Determine whether the user can view the post.
-     *
      * @param  \App\User $user
      * @param  \App\Post $post
      * @return bool
@@ -42,7 +41,6 @@ class PostPolicy
 
     /**
      * Determine whether the user can view list of posts.
-     *
      * @param  \App\User $user
      * @return bool
      */
@@ -59,7 +57,6 @@ class PostPolicy
 
     /**
      * Determine whether the user can create posts.
-     *
      * @param  \App\User $user
      * @return bool
      */
@@ -76,7 +73,6 @@ class PostPolicy
 
     /**
      * Determine whether the user can update the post.
-     *
      * @param  \App\User $user
      * @param  \App\Post $post
      * @return bool
@@ -102,7 +98,6 @@ class PostPolicy
 
     /**
      * Determine whether the user can delete the post.
-     *
      * @param  \App\User $user
      * @param  \App\Post $post
      * @return bool

@@ -16,7 +16,6 @@ class HomeController extends Controller
 
     /**
      * Show the application initial view.
-     *
      * @return \Illuminate\Http\Response
      */
     public function index()

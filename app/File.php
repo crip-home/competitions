@@ -12,7 +12,6 @@ class File extends Model
 
     /**
      * The table associated with the model.
-     *
      * @var string
      */
     protected $table = 'files';
@@ -35,7 +34,6 @@ class File extends Model
 
     /**
      * The attributes that should be mutated to dates.
-     *
      * @var array
      */
     protected $dates = [
@@ -45,7 +43,6 @@ class File extends Model
 
     /**
      * The attributes that should be casted to native types.
-     *
      * @var array
      */
     protected $casts = [

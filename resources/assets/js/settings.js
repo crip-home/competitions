@@ -13,7 +13,6 @@ export default {
 
   /**
    * Logging placement area
-   *
    * 'console' - logs all sections to the browser console
    * false     - disables all logs
    */
@@ -21,7 +20,6 @@ export default {
 
   /**
    * List of enabled log sections
-   *
    * To disable logs for some section, remove it from this list
    * To disable all logs, change logs property value to false or make logSections list empty
    */
@@ -34,7 +32,6 @@ export default {
 
   /**
    * Generate url to the application api
-   *
    * @param {string}  path        Request path
    * @param {object} [params]     Parameters to be included in URL
    * @param {object} [urlReplace] Url placeholders should be replaced with variable values
@@ -55,7 +52,6 @@ export default {
 
   /**
    * Global handler of Vue HTTP error responses
-   *
    * @param {object} errorResponse
    * @param {function} [reject]
    */
@@ -93,7 +89,6 @@ export default {
 
   /**
    * Append new parameter to url
-   *
    * @param {String} url Original URL
    * @param {String} param Parameter key
    * @param {String} value Parameter value
@@ -131,7 +126,6 @@ export default {
 
   /**
    * Set user auth token in storage for later usage
-   *
    * @param token
    */
   setToken (token) {
@@ -146,7 +140,6 @@ export default {
   /**
    * Determine storage token existence
    * If exists - reset to make sure it is in interceptors
-   *
    * @returns {boolean}
    */
   hasToken () {
@@ -160,7 +153,6 @@ export default {
 
   /**
    * Get auth header token value
-   *
    * @returns {string}
    */
   getAuthToken () {
@@ -176,7 +168,6 @@ export default {
 
   /**
    * Get last user used locale from storage
-   *
    * @returns {string}
    */
   getLocale () {

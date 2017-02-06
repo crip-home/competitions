@@ -18,7 +18,6 @@ class ProfileController extends Controller
 
     /**
      * ProfileController constructor.
-     *
      * @param IUserRepository $users
      */
     public function __construct(IUserRepository $users)
@@ -29,9 +28,7 @@ class ProfileController extends Controller
 
     /**
      * GET    /user/profile
-     *
      * @param Request $request
-     *
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -41,9 +38,7 @@ class ProfileController extends Controller
 
     /**
      * GET    /user/profile/{id}
-     *
      * @param integer $userId
-     *
      * @return JsonResponse
      */
     public function show($userId)

@@ -19,7 +19,6 @@ class TeamInvitationController extends Controller
 
     /**
      * TeamInvitationController constructor.
-     *
      * @param ITeamMemberRepository $teamMembers
      */
     function __construct(ITeamMemberRepository $teamMembers)
@@ -31,7 +30,6 @@ class TeamInvitationController extends Controller
     /**
      * @param Request $request
      * @param $teamMemberId
-     *
      * @return JsonResponse
      */
     function confirm(Request $request, $teamMemberId)
@@ -57,7 +55,6 @@ class TeamInvitationController extends Controller
     /**
      * @param Request $request
      * @param $teamMemberId
-     *
      * @return JsonResponse
      */
     function decline(Request $request, $teamMemberId)

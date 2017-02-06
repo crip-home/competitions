@@ -16,7 +16,6 @@ export default {
 
   /**
    * Calculate class for label
-   *
    * @param {number} size Size taken by input
    * @param {string} mediaSize Media query where apply calculation (xs|sm|md|lg)
    * @returns {string} Class like 'col-sm-4'
@@ -27,7 +26,6 @@ export default {
 
   /**
    * Calculate class for form-control
-   *
    * @param {number} size Size taken by input
    * @param {string} mediaSize Media query where apply calculation (xs|sm|md|lg)
    * @returns {string} Class like 'col-sm-8'
@@ -38,7 +36,6 @@ export default {
 
   /**
    * Calculate class for element under form-control
-   *
    * @param {number} size Size taken by input
    * @param {string} mediaSize Media query where apply calculation (xs|sm|md|lg)
    * @returns {string} Class like 'col-sm-8 col-sm-offset-2'

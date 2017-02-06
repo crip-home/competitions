@@ -13,14 +13,12 @@ class Discipline extends Model
 
     /**
      * The table associated with the model.
-     *
      * @var string
      */
     protected $table = 'disciplines';
 
     /**
      * The attributes that are mass assignable.
-     *
      * @var array
      */
     protected $fillable = [
