@@ -2,6 +2,7 @@
 
 use App\Http\Requests\FormRequest;
 use Illuminate\Validation\Rule;
+use Route;
 
 /**
  * Class AdminStoreMember
@@ -30,7 +31,9 @@ class AdminStoreMember extends FormRequest
                 'max:255'
             ],
             'user_id' => [
-                Rule::exists('users', 'id')
+                Rule::exists('users', 'id'),
+                Rule::unique('team_members', 'user_id')
+                    ->where('team_id', Route::current()->parameters()['team'])
             ]
         ];
     }
