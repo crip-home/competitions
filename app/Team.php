@@ -1,6 +1,5 @@
 <?php namespace App;
 
-use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Team extends Model
 {
-    use HasAuditTrait;
+    use HasAuditTrait, HasTimestampsTrait;
 
     /**
      * The table associated with the model.
@@ -40,6 +39,14 @@ class Team extends Model
      */
     protected $hidden = [
         '_credits'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     * @var array
+     */
+    protected $appends = [
+        'created_from_now'
     ];
 
     /**

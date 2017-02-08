@@ -1,6 +1,9 @@
 import { http } from 'vue'
 import settings from '../settings'
 import PagingResult from '../ext/PagingResult'
+import { sLog } from '../ext/Log'
+
+let log = sLog('api')
 
 export default {
   /**
@@ -17,9 +20,14 @@ export default {
     perPage = parseInt(perPage < 1 ? 15 : perPage)
     return new Promise((resolve, reject) => {
       params = {page, per_page: perPage, ...params}
-      http.get(settings.apiUrl(path, params, urlReplace))
+      let url = settings.apiUrl(path, params, urlReplace)
+      http.get(url)
         .then(
-          ({data}) => resolve(PagingResult.handle(data, entityResolver)),
+          ({data}) => {
+            let resolvedData = PagingResult.handle(data, entityResolver)
+            log(url, resolvedData)
+            resolve(resolvedData)
+          },
           response => settings.handleError(response, reject)
         )
     })
@@ -37,9 +45,14 @@ export default {
   find (path, entityResolver, id = '', urlReplace = {}, urlParams = {}) {
     return new Promise((resolve, reject) => {
       let url = id === '' ? path : `${path}/${id}`
-      http.get(settings.apiUrl(url, urlParams, urlReplace))
+      url = settings.apiUrl(url, urlParams, urlReplace)
+      http.get(url)
         .then(
-          ({data}) => resolve(entityResolver(data)),
+          ({data}) => {
+            let resolvedData = entityResolver(data)
+            log(url, resolvedData)
+            resolve(resolvedData)
+          },
           response => settings.handleError(response, reject)
         )
     })
@@ -63,10 +76,16 @@ export default {
       url = `${path}/${entity.id}`
     }
 
+    url = settings.apiUrl(url, urlParams, urlReplace)
+
     return new Promise((resolve, reject) => {
-      http[method](settings.apiUrl(url, urlParams, urlReplace), entity)
+      http[method](url, entity)
         .then(
-          ({data}) => resolve(entityResolver(data)),
+          ({data}) => {
+            let resolvedData = entityResolver(data)
+            log(url, resolvedData)
+            resolve(resolvedData)
+          },
           response => settings.handleError(response, reject)
         )
     })

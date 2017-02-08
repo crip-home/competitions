@@ -34,7 +34,7 @@ class FileController extends Controller
      */
     public function store(FileUploadRequest $request)
     {
-        $response = $this->files->upload($request->file);
+        $response = $this->files->upload($request->user()->id, $request->file);
 
         return new JsonResponse($response, $response->status());
     }

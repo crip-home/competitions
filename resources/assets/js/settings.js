@@ -25,6 +25,7 @@ export default {
    */
   logSections: [
     'global',
+    'api',
     'component',
     'error',
     'info'

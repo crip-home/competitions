@@ -9,8 +9,8 @@ $this->post('register', 'Auth\\RegisterController@register');
 $this->post('password/email', 'Auth\\ForgotPasswordController@sendResetLinkEmail');
 $this->post('password/reset', 'Auth\\ResetPasswordController@reset');
 
-$this->resource('posts', 'PostsController',
-    ['only' => ['index', 'show']]);
+$this->resource('posts', 'PostsController', ['only' => ['index', 'show']]);
+$this->resource('teams', 'TeamsController', ['only' => ['show']]);
 
 $this->group(['prefix' => 'user'], function (Router $route) {
     $route->get('messages/count/unread', 'User\\MessagesController@countUnread');

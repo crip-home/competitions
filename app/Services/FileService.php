@@ -36,13 +36,16 @@ class FileService
     }
 
     /**
+     * @param integer $userId
      * @param UploadedFile $file
      * @param array $sizes
      * @return FileUpload
      */
-    public function upload(UploadedFile $file, array $sizes = [])
+    public function upload($userId, UploadedFile $file, array $sizes = [])
     {
-        $dir = 'uploads';
+        // each user will have own dir
+        $dir = 'uploads/' . $userId;
+
         $upload = new FileUpload($this->files, $dir);
 
         if ($file->isValid()) {

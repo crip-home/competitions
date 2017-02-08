@@ -1,3 +1,4 @@
+import { profileRoute } from '../router/routes'
 import Entity from './Entity'
 import Team from './Team'
 
@@ -16,4 +17,10 @@ export default class User extends Entity {
       this.teams = data.teams.map(team => new Team(team))
     }
   }
+
+  /**
+   * Gets route to show user profile page
+   * @returns {{params: {id: Number}}}
+   */
+  get profileRoute () { return {...profileRoute, params: {id: this.id}} }
 }

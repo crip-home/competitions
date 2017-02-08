@@ -11,7 +11,6 @@
           <hr>
           <h4>Teams</h4>
           <template v-for="team in user.teams">
-            <!-- TODO: router link to team page -->
             <router-link :to="team.pDetailsRoute" :title="team.name">
               <img v-if="team.logo" :src="team.logo.xs" width="35" height="35">
               <span v-else="">{{ team.short }}</span>

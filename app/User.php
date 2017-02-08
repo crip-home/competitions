@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, HasTimestampsTrait;
 
     /**
      * The table associated with the model.
@@ -109,18 +109,6 @@ class User extends Authenticatable
     {
         if (array_key_exists('email', $this->attributes)) {
             return md5($this->attributes['email']);
-        }
-
-        return '';
-    }
-
-    /**
-     * @return string
-     */
-    public function getCreatedFromNowAttribute()
-    {
-        if (array_key_exists('created_at', $this->attributes)) {
-            return $this->created_at->diffForHumans();
         }
 
         return '';
