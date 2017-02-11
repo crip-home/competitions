@@ -10,10 +10,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * Class MessagesController
+ * Class MessageController
  * @package App\Http\Controllers\User
  */
-class MessagesController extends Controller
+class MessageController extends Controller
 {
     /**
      * @var IMessageRepository
@@ -26,7 +26,7 @@ class MessagesController extends Controller
     private $users;
 
     /**
-     * MessagesController constructor.
+     * MessageController constructor.
      * @param IMessageRepository $messages
      * @param IUserRepository $users
      */

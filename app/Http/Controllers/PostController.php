@@ -5,10 +5,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * Class PostsController
+ * Class PostController
  * @package App\Http\Controllers
  */
-class PostsController extends Controller
+class PostController extends Controller
 {
     /**
      * @var IPostRepository
@@ -16,7 +16,7 @@ class PostsController extends Controller
     private $posts;
 
     /**
-     * PostsController constructor.
+     * PostController constructor.
      * @param IPostRepository $posts
      */
     public function __construct(IPostRepository $posts)

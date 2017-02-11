@@ -11,10 +11,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 /**
- * Class TeamsController
+ * Class TeamController
  * @package App\Http\Controllers\Admin
  */
-class TeamsController extends Controller
+class TeamController extends Controller
 {
     /**
      * @var ITeamRepository
@@ -22,7 +22,7 @@ class TeamsController extends Controller
     private $teams;
 
     /**
-     * TeamsController constructor.
+     * TeamController constructor.
      * @param ITeamRepository $teams
      */
     public function __construct(ITeamRepository $teams)

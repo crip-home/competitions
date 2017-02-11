@@ -4,10 +4,10 @@ use App\Contracts\ITeamRepository;
 use Illuminate\Http\JsonResponse;
 
 /**
- * Class TeamsController
+ * Class TeamController
  * @package App\Http\Controllers
  */
-class TeamsController extends Controller
+class TeamController extends Controller
 {
     /**
      * @var ITeamRepository
@@ -15,7 +15,7 @@ class TeamsController extends Controller
     private $teams;
 
     /**
-     * TeamsController constructor.
+     * TeamController constructor.
      * @param ITeamRepository $teams
      */
     public function __construct(ITeamRepository $teams)
