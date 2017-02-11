@@ -32,6 +32,8 @@ export default class Paging {
     this.loading = loading
 
     // this will allow return to page where we last time left
-    this.route.params ? (this.route.params.page = this.currentPage) : (this.route.params = {page: this.currentPage})
+    this.route.params
+      ? (this.route.params.page = this.currentPage)
+      : (this.route.params = {page: this.currentPage})
   }
 }

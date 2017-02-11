@@ -10,7 +10,7 @@ import CreateEditTeam from '../../components/teams/admin/CreateEditTeam.vue'
 import ListTeams from '../../components/teams/admin/ListTeams.vue'
 import ListTeamMembers from '../../components/teams/admin/ListMembers.vue'
 import CreateEditTeamMember from '../../components/teams/admin/CreateEditMember.vue'
-import TeamDetails from '../../components/teams/TeamDetails.vue'
+import TeamDetails from '../../components/teams/TeamProfile.vue'
 
 const requiresAuth = true
 const meta = {requiresAuth, requiresRoles: [roles.CREATE_TEAMS]}
@@ -24,6 +24,6 @@ export default {
     {path: 'admin/:team/members/create', ...createTeamMember, component: CreateEditTeamMember, meta},
     {path: 'admin/:team/members/edit/:id', ...editTeamMember, component: CreateEditTeamMember, meta},
     {path: 'admin/:team/members/:page?', ...listTeamMembers, component: ListTeamMembers, meta},
-    {path: ':team/details', ...publicTeamDetailsRoute, component: TeamDetails}
+    {path: ':team/details/:tab/:page?', ...publicTeamDetailsRoute, component: TeamDetails}
   ]
 }

@@ -12,4 +12,10 @@ interface ITeamMemberRepository extends IPaginateRepository
      * @return $this
      */
     public function filterByTeam($id);
+
+    /**
+     * Join user details to member
+     * @return $this
+     */
+    public function withUserDetails();
 }

@@ -42,23 +42,25 @@ export default class {
    * Show loading box element
    */
   [show] () {
-    let position = window.getComputedStyle(this.el).position
-    if (position === 'static' || position === '') {
-      this.static = true
-      this.el.style.position = 'relative'
+    if (this.el.getElementsByClassName('v-loading').length === 0) {
+      let position = window.getComputedStyle(this.el).position
+      if (position === 'static' || position === '') {
+        this.static = true
+        this.el.style.position = 'relative'
+      }
+
+      let box = Node.create({className: 'v-loading', bg: this.bg})
+      this.el.appendChild(box)
+
+      let msg = Node.create({className: 'v-loading-msg', text: this.text})
+      box.appendChild(msg)
+
+      window.requestAnimationFrame(() => {
+        box.style.opacity = 1
+      })
+
+      this.loadingBox = box
     }
-
-    let box = Node.create({className: 'v-loading', bg: this.bg})
-    this.el.appendChild(box)
-
-    let msg = Node.create({className: 'v-loading-msg', text: this.text})
-    box.appendChild(msg)
-
-    window.requestAnimationFrame(() => {
-      box.style.opacity = 1
-    })
-
-    this.loadingBox = box
   }
 
   /**
@@ -67,7 +69,9 @@ export default class {
   [hide] () {
     if (this.loadingBox) {
       this.loadingBox.addEventListener('transitionend', _ => {
-        this.loadingBox.parentElement.removeChild(this.loadingBox)
+        if (this.loadingBox.parentElement) {
+          this.loadingBox.parentElement.removeChild(this.loadingBox)
+        }
 
         if (this.static) {
           this.el.style.removeProperty('position')

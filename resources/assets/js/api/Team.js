@@ -44,5 +44,5 @@ export default class Team extends Entity {
    * Gets route to public team details screen
    * @returns {{params: {team: Number}}}
    */
-  get pDetailsRoute () { return {...publicTeamDetailsRoute, params: {team: this.id}} }
+  get pDetailsRoute () { return {...publicTeamDetailsRoute, params: {tab: 'members', team: this.id}} }
 }

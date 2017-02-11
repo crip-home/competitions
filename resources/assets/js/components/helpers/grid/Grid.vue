@@ -1,5 +1,5 @@
 <template>
-  <panel class="col-md-12" v-loading="paging.loading">
+  <panel class="col-md-12" v-loading="paging.loading" :hide-header="hideHeader">
     <span slot="title"><slot name="title"></slot></span>
     <span slot="actions"><slot name="actions"></slot></span>
 
@@ -16,6 +16,7 @@
 
   export default {
     props: {
+      hideHeader: {type: Boolean, 'default': _ => false},
       paging: {type: Paging}
     }
   }

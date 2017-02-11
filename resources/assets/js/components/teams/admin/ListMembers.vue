@@ -49,7 +49,6 @@
     methods: {
       /**
        * Fetch team from the server
-       *
        * @param {Number} teamId
        */
       fetchData (teamId) {
@@ -63,7 +62,6 @@
 
       /**
        * Fetch paging data from server
-       *
        * @param {Number}  teamId
        * @param {Number} [page]
        */

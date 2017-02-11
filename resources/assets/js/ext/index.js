@@ -70,5 +70,17 @@ export default {
     }
 
     return true
+  },
+
+  /**
+   * Generates random guid like string
+   * @returns {string}
+   */
+  newGuid () {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+      let r = Math.random() * 16 | 0
+      let v = c === 'x' ? r : (r & 0x3 | 0x8)
+      return v.toString(16)
+    })
   }
 }

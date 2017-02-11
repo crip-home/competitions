@@ -10,6 +10,7 @@ $this->post('password/email', 'Auth\\ForgotPasswordController@sendResetLinkEmail
 $this->post('password/reset', 'Auth\\ResetPasswordController@reset');
 
 $this->resource('posts', 'PostsController', ['only' => ['index', 'show']]);
+$this->resource('teams.members', 'TeamMembersController', ['only' => ['index']]);
 $this->resource('teams', 'TeamsController', ['only' => ['show']]);
 
 $this->group(['prefix' => 'user'], function (Router $route) {

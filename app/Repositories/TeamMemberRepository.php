@@ -29,4 +29,15 @@ class TeamMemberRepository extends PaginationRepository implements ITeamMemberRe
 
         return $this;
     }
+
+    /**
+     * Join user details to member
+     * @return $this
+     */
+    public function withUserDetails()
+    {
+        $this->query = $this->getQuery()->with('user');
+
+        return $this;
+    }
 }
