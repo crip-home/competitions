@@ -45,4 +45,6 @@ $this->group(['prefix' => 'admin'], function (Router $route) {
         ['only' => ['index', 'store', 'show', 'update']]);
 
     $route->resource('files', 'Admin\\FileController', ['only' => ['store']]);
+
+    $route->resource('competitions', 'Admin\\CompetitionController', ['only' => ['index', 'store']]);
 });

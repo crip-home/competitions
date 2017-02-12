@@ -1,5 +1,7 @@
 <?php namespace App\Providers;
 
+use App\Competition;
+use App\Policies\CompetitionPolicy;
 use App\Policies\PostPolicy;
 use App\Policies\TeamMemberPolicy;
 use App\Policies\TeamPolicy;
@@ -22,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         Post::class => PostPolicy::class,
         Team::class => TeamPolicy::class,
         TeamMember::class => TeamMemberPolicy::class,
+        Competition::class => CompetitionPolicy::class
     ];
 
     /**
