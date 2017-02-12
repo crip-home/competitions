@@ -22,3 +22,6 @@ export const createTeamMember = {name: 'createTeamMember'}
 export const editTeam = {name: 'editTeam'}
 export const editTeamMember = {name: 'editTeamMember'}
 export const publicTeamDetailsRoute = {name: 'publicTeamDetailsRoute', params: {tab: 'members'}}
+
+export const createCompetitionRoute = {name: 'createCompetitionRoute'}
+export const listCompetitionsRoute = {name: 'listCompetitionsRoute'}

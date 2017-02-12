@@ -2,7 +2,10 @@ import Entity from './Entity'
 
 /**
  * @property {String} name
- * @property {String} short
+ * @property {String} extension
+ * @property {String} mimetype
+ * @property {String} [thumb]
+ * @property {String} [xs]
  */
 export default class File extends Entity {
   constructor (data) {

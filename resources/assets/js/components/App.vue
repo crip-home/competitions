@@ -50,7 +50,9 @@
         let canManage = user.hasAnyRole([
           roles.CREATE_POST,
           roles.MANAGE_POSTS,
-          roles.CREATE_TEAMS
+          roles.CREATE_TEAMS,
+          roles.CREATE_COMPETITIONS,
+          roles.EDIT_COMPETITIONS
         ])
 
         // if user is not authenticated, this menu is unavailable for him
@@ -60,17 +62,16 @@
 
         let manageNav = new NavbarGroup('Manage')
         let canManagePosts = user.hasAnyRole([roles.CREATE_POST, roles.MANAGE_POSTS])
+        let canManageCompetitions = user.hasAnyRole([roles.CREATE_COMPETITIONS, roles.EDIT_COMPETITIONS])
         let divider = new NavbarItem(true)
 
         if (canManagePosts) {
           manageNav.add('Posts')
-        }
 
-        if (user.hasRole(roles.CREATE_POST)) {
-          manageNav.add('Create', routes.createPost)
-        }
+          if (user.hasRole(roles.CREATE_POST)) {
+            manageNav.add('Create', routes.createPost)
+          }
 
-        if (canManagePosts) {
           manageNav.add('List', routes.listPosts)
           manageNav.add(divider)
         }
@@ -79,6 +80,17 @@
           manageNav.add('Teams')
           manageNav.add('Create', routes.createTeam)
           manageNav.add('List', routes.listTeams)
+          manageNav.add(divider)
+        }
+
+        if (canManageCompetitions) {
+          manageNav.add('Competitions')
+
+          if (user.hasRole(roles.CREATE_COMPETITIONS)) {
+            manageNav.add('Create', routes.createCompetitionRoute)
+          }
+
+          manageNav.add('List', routes.listCompetitionsRoute)
           manageNav.add(divider)
         }
 

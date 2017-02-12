@@ -19,7 +19,7 @@ class Role extends Model
     // Can create/manage teams
     const CREATE_TEAMS = 'CREATE_TEAMS';
 
-    // Can manage own team competitions
+    // Can manage assigned competitions
     const EDIT_COMPETITIONS = 'EDIT_COMPETITIONS';
     // Can create/manage own team competitions
     const CREATE_COMPETITIONS = 'CREATE_COMPETITIONS';
