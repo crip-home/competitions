@@ -1,6 +1,6 @@
 import { http } from 'vue'
 import settings from '../../settings'
-import PagingResult from '../PagingResult'
+import PagingResult from '../../data/PagingResult'
 import Post from '../../entities/Post'
 
 export default {

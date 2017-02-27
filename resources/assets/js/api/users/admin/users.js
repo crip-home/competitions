@@ -1,4 +1,4 @@
-import AdminRepository from '../../AdminRepository'
+import AdminRepository from '../../../data/AdminRepository'
 import User from '../../../entities/User'
 
 class UserAdminRepository extends AdminRepository {
