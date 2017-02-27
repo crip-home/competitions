@@ -1,5 +1,5 @@
 import api from '../../api'
-import User from '../User'
+import User from '../../entities/User'
 
 export default {
   find (id = 0) {

@@ -3,7 +3,7 @@ import {
   logout
 } from './store/types'
 import { login } from './router/routes'
-import { error } from './ext/Log'
+import { error } from './data/Log'
 import router from './router'
 import store from './store'
 import Vue from 'vue'

@@ -1,5 +1,5 @@
 import api from '../../api'
-import Message from '../Message'
+import Message from '../../entities/Message'
 
 export default {
   /**

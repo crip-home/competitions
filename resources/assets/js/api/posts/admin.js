@@ -1,5 +1,5 @@
 import AdminRepository from '../AdminRepository'
-import Post from '../Post'
+import Post from '../../entities/Post'
 
 class PostsAdminRepository extends AdminRepository {
   constructor () {

@@ -5,8 +5,8 @@
 </template>
 
 <script>
-  import { sLog } from '../../../../ext/Log'
-  import ext from '../../../../ext'
+  import { sLog } from '../../../../data/Log'
+  import help from '../../../../data/help'
   import Select2Options from './index'
 
   export default {
@@ -56,7 +56,7 @@
        * @param $select
        */
       compiled ($select) {
-        if (this.options.initialSelection && ext.isFunction(this.options.initialSelection)) {
+        if (this.options.initialSelection && help.isFunction(this.options.initialSelection)) {
           this.options.initialSelection((text, value, defaultSelected = true, selected = true) => {
             let option = new Option(text, value, defaultSelected, selected)
             $select.append(option)

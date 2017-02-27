@@ -1,4 +1,4 @@
-import ext from '../index'
+import help from '../help'
 
 export default {
   /**
@@ -12,7 +12,7 @@ export default {
     if (!el || !el.getAttribute) { return defaultValue }
 
     const value = el.getAttribute(attrKey)
-    if (ext.hasValue(value)) { return value }
+    if (help.hasValue(value)) { return value }
 
     return defaultValue
   },

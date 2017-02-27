@@ -6,7 +6,7 @@
 
 <script type="text/babel">
   import Tabs from './index'
-  import ext from '../../../../ext'
+  import help from '../../../../data/help'
 
   export default {
     name: 'tab',
@@ -24,7 +24,7 @@
 
     data () {
       return {
-        id: ext.newGuid(),
+        id: help.newGuid(),
         active: false
       }
     },

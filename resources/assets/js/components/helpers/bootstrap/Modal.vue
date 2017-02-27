@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import { info } from '../../../ext/Log'
+  import { info } from '../../../data/Log'
   import { modalOpened } from '../../../store/types'
 
   export default {

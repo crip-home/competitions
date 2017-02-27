@@ -1,7 +1,7 @@
 import { http } from 'vue'
 import settings from '../settings'
 import PagingResult from './PagingResult'
-import { sLog } from '../ext/Log'
+import { sLog } from '../data/Log'
 
 let log = sLog('api')
 

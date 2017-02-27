@@ -62,7 +62,7 @@
 <script>
   import Tabs from '../helpers/bootstrap/tabs'
   import Paging from '../helpers/grid/Paging'
-  import { logComponent, error } from '../../ext/Log'
+  import { logComponent, error } from '../../data/Log'
   import teamsApi from '../../api/teams'
   import membersApi from '../../api/teams/members'
   import { publicTeamDetailsRoute } from '../../router/routes'

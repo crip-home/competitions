@@ -1,5 +1,5 @@
 import api from '../../api'
-import Team from '../Team'
+import Team from '../../entities/Team'
 
 export default {
   confirmInvitation (teamMemberId) {

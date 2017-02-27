@@ -1,5 +1,5 @@
 import AdminRepository from '../../AdminRepository'
-import Team from '../../Team'
+import Team from '../../../entities/Team'
 
 class TeamsAdminRepository extends AdminRepository {
   constructor () {

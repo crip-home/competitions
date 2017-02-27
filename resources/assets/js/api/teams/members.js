@@ -1,5 +1,5 @@
 import api from '../index'
-import TeamMember from '../TeamMember'
+import TeamMember from '../../entities/TeamMember'
 
 export default {
   /**

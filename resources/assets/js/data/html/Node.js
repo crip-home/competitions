@@ -1,4 +1,4 @@
-import Ext from '../index'
+import help from '../help'
 
 export default {
   /**
@@ -12,11 +12,11 @@ export default {
   create (options) {
     const {tag = 'div', bg, text, className} = options
     let node = document.createElement(tag)
-    if (Ext.hasValue(className)) { node.className = className }
+    if (help.hasValue(className)) { node.className = className }
 
-    if (Ext.hasValue(bg)) { node.style.backgroundColor = bg }
+    if (help.hasValue(bg)) { node.style.backgroundColor = bg }
 
-    if (Ext.hasValue(text)) { node.textContent = text }
+    if (help.hasValue(text)) { node.textContent = text }
 
     return node
   }
