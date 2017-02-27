@@ -16,6 +16,7 @@ class UsersTableSeeder extends Seeder
     const SUPER_ADMIN_EMAIL = 'tahq69@gmail.com';
     const POST_MANAGER_EMAIL = 'post.manager@crip.lv';
     const TEAM_MANAGER_EMAIL = 'team.manager@crip.lv';
+    const JUDGE_EMAIL = 'judge@crip.lv';
 
     /**
      * Run the database seeds.
@@ -28,6 +29,7 @@ class UsersTableSeeder extends Seeder
         $this->createPostCreator();
         $this->createPostManager();
         $this->createTeamManager();
+        $this->createJudge();
 
         // Create extra 50 random users
         factory(App\User::class, 50)->create()->each(function ($user) {
@@ -85,6 +87,18 @@ class UsersTableSeeder extends Seeder
         ]);
 
         $user->roles()->sync([$this->findRoleId(Role::CREATE_TEAMS)]);
+    }
+
+    private function createJudge()
+    {
+        $user = App\User::create([
+            'name' => 'judge',
+            'email' => static::JUDGE_EMAIL,
+            'password' => bcrypt('password')
+        ]);
+
+        // Has no roles at this moment
+        // $user->roles()->sync([$this->findRoleId(Role::CREATE_TEAMS)]);
     }
 
     private function findRoleId($role_key)

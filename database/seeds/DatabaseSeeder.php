@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(TeamsTableSeeder::class);
         $this->call(TeamMembersTableSeeder::class);
+        $this->call(CompetitionsTableSeeder::class);
 
         Eloquent::unguard(false);
     }
