@@ -42,8 +42,3 @@ export function setLocale (locale = 'lv') {
     Vue.config.lang = locale
   }
 }
-
-// set locales
-Object.keys(translations).forEach(function (lang) {
-  Vue.locale(lang, translations[lang])
-})

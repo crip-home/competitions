@@ -5,6 +5,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link rel="stylesheet" href="/assets/styles.css" />
+
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -20,9 +22,9 @@
 <div id="app">
   Loading...
   <!-- Scripts -->
-  <script src="/js/vendor.js"></script>
-  <script src="/ckeditor/ckeditor.js"></script>
-  <script src="/js/app.js"></script>
+  <script src="/assets/vendor.js"></script>
+  <script src="/assets/ckeditor/ckeditor.js"></script>
+  <script src="/assets/app.js"></script>
 </div>
 
 </body>
