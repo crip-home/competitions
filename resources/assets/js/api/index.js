@@ -1,4 +1,4 @@
-import { http } from 'vue'
+import Vue from 'vue'
 import settings from '../settings'
 import PagingResult from '../data/PagingResult'
 import { sLog } from '../data/Log'
@@ -21,7 +21,7 @@ export default {
     return new Promise((resolve, reject) => {
       params = {page, per_page: perPage, ...params}
       let url = settings.apiUrl(path, params, urlReplace)
-      http.get(url)
+      Vue.http.get(url)
         .then(
           ({data}) => {
             let resolvedData = PagingResult.handle(data, entityResolver)
@@ -46,7 +46,7 @@ export default {
     return new Promise((resolve, reject) => {
       let url = id === '' ? path : `${path}/${id}`
       url = settings.apiUrl(url, urlParams, urlReplace)
-      http.get(url)
+      Vue.http.get(url)
         .then(
           ({data}) => {
             let resolvedData = entityResolver(data)
@@ -79,7 +79,7 @@ export default {
     url = settings.apiUrl(url, urlParams, urlReplace)
 
     return new Promise((resolve, reject) => {
-      http[method](url, entity)
+      Vue.http[method](url, entity)
         .then(
           ({data}) => {
             let resolvedData = entityResolver(data)

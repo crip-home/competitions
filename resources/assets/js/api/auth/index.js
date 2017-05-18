@@ -1,5 +1,6 @@
-import { http, t } from 'vue'
+import Vue from 'vue'
 import store from '../../store'
+import { i18n } from '../../lang'
 import * as types from '../../store/types'
 import settings from '../../settings'
 
@@ -7,7 +8,7 @@ export default {
 
   login (credentials) {
     return new Promise((resolve, reject) => {
-      http.post(settings.apiUrl('authenticate'), credentials)
+      Vue.http.post(settings.apiUrl('authenticate'), credentials)
         .then(({data}) => {
           settings.setToken(data.token)
           this.getAuthUserDetails(resolve)
@@ -24,7 +25,7 @@ export default {
   },
 
   getAuthUserDetails (onResolved) {
-    http.get(settings.apiUrl('authenticate'))
+    Vue.http.get(settings.apiUrl('authenticate'))
       .then(({data}) => {
         // update data before auth to make sure guard does
         // not redirect us as unauthorized users
@@ -33,7 +34,7 @@ export default {
         onResolved(data)
       }, r => {
         if (r.status === 401) {
-          store.commit(types.addToast, {message: t('auth.token_expired'), class: 'toast-info'})
+          store.commit(types.addToast, {message: i18n.t('auth.token_expired'), class: 'toast-info'})
           store.commit(types.logout)
         } else { settings.handleError(r) }
       })
@@ -41,7 +42,7 @@ export default {
 
   register (details) {
     return new Promise((resolve, reject) => {
-      http.post(settings.apiUrl('register'), details)
+      Vue.http.post(settings.apiUrl('register'), details)
         .then(({data}) => {
           settings.setToken(data.token)
           // update data before auth to make sure guard does
@@ -57,7 +58,7 @@ export default {
 
   sendResetLink (email) {
     return new Promise((resolve, reject) => {
-      http.post(settings.apiUrl('password/email'), {email})
+      Vue.http.post(settings.apiUrl('password/email'), {email})
         .then(({data}) => {
           resolve(data.status)
         }, ({data}) => {
@@ -68,7 +69,7 @@ export default {
 
   reset (details) {
     return new Promise((resolve, reject) => {
-      http.post(settings.apiUrl('password/reset'), details)
+      Vue.http.post(settings.apiUrl('password/reset'), details)
         .then(({data}) => {
           resolve(data.status)
         }, ({data}) => {

@@ -1,4 +1,4 @@
-import { http } from 'vue'
+import Vue from 'vue'
 import settings from '../../settings'
 import PagingResult from '../../data/PagingResult'
 import Post from '../../entities/Post'
@@ -16,7 +16,7 @@ export default {
     return new Promise((resolve, reject) => {
       const params = {page, per_page: perPage, locales: locales ? locales.join(',') : ''}
       const resolver = item => new Post(item)
-      http.get(settings.apiUrl('posts', params))
+      Vue.http.get(settings.apiUrl('posts', params))
         .then(
           ({data}) => resolve(PagingResult.handle(data, resolver)),
           response => settings.handleError(response, reject)
@@ -31,7 +31,7 @@ export default {
    */
   find (id) {
     return new Promise((resolve, reject) => {
-      http.get(settings.apiUrl(`posts/${id}`))
+      Vue.http.get(settings.apiUrl(`posts/${id}`))
         .then(
           ({data}) => resolve(new Post(data)),
           response => settings.handleError(response, reject)
