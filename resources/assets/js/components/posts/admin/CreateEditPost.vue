@@ -14,7 +14,7 @@
     </form-group>
 
     <form-group id="body" label="Body" :errors="errors.body">
-      <ckeditor v-model="form.body" id="editor-body"></ckeditor>
+      <ckeditor v-model="form.body" id="editor-body" :filesys="true"></ckeditor>
     </form-group>
 
     <form-group id="state" label="State" :errors="errors.state">

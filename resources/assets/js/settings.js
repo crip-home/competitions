@@ -11,6 +11,8 @@ import Vue from 'vue'
 export default {
   apiRoot: '/api/',
 
+  filesysUrl: '/packages/filemanager?type=ckeditor',
+
   /**
    * Logging placement area
    * 'console' - logs all sections to the browser console

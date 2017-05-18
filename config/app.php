@@ -46,6 +46,7 @@ return [
 
         Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
+        Crip\Filesys\CripFilesysServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -5,16 +5,19 @@
 </template>
 
 <script>
+  import settings from '../../../settings'
+
   export default {
 
     props: {
       value: {type: String},
       id: {type: String, 'default': 'editor'},
       height: {type: String, 'default': '200px'},
-      toolbar: {type: Array, 'default': () => [['Format'], ['Bold', 'Italic'], ['Undo', 'Redo']]},
+      toolbar: {type: Array, 'default': () => [['Format'], ['Bold', 'Italic'], ['Undo', 'Redo'], ['Image']]},
       language: {type: String, 'default': 'en'},
       extraplugins: {type: String, 'default': ''},
-      focus: {type: Boolean, 'default': _ => false}
+      focus: {type: Boolean, 'default': _ => false},
+      filesys: {type: Boolean, 'default': _ => false}
     },
 
     beforeUpdate () {
@@ -32,6 +35,10 @@
         height: this.height,
         extraPlugins: this.extraplugins,
         startupFocus: this.focus
+      }
+      if (this.filesys) {
+        ckeditorConfig.filebrowserBrowseUrl = settings.filesysUrl
+        ckeditorConfig.filebrowserUploadUrl = settings.filesysUrl
       }
       CKEDITOR.replace(ckeditorId, ckeditorConfig)
       CKEDITOR.instances[ckeditorId].setData(this.value)

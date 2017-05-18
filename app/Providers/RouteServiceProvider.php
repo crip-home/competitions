@@ -20,7 +20,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Route::pattern('crip_file', '[a-zA-Z0-9.\-\/\(\)\_\% ]+');
+        Route::pattern('crip_folder', '[a-zA-Z0-9.\-\/\(\)\_\% ]+');
 
         parent::boot();
     }
@@ -33,9 +34,10 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
+        $this->mapPackageRoutes();
+
         $this->mapWebRoutes();
 
-        //
     }
 
     /**
@@ -67,5 +69,13 @@ class RouteServiceProvider extends ServiceProvider
         ], function ($router) {
             require base_path('routes/api.php');
         });
+    }
+
+    /**
+     * Define the "package" routes for the application.
+     */
+    protected function mapPackageRoutes() {
+        Route::prefix('packages')
+            ->group(base_path('routes/package.php'));
     }
 }

@@ -9,5 +9,7 @@ _ide_helper.php
 /.phpstorm.meta.php
 npm-debug.log
 /public/assets/**/*
+/public/vendor/**/*
+/composer.lock
 
 /public/uploads/
