@@ -36,10 +36,15 @@
         extraPlugins: this.extraplugins,
         startupFocus: this.focus
       }
+
       if (this.filesys) {
-        ckeditorConfig.filebrowserBrowseUrl = settings.filesysUrl
-        ckeditorConfig.filebrowserUploadUrl = settings.filesysUrl
+        const url = settings.filesysUrl()
+        ckeditorConfig.filebrowserBrowseUrl = url
+        ckeditorConfig.filebrowserUploadUrl = url
+        ckeditorConfig.filebrowserImageBrowseUrl = url
+        ckeditorConfig.filebrowserImageUploadUrl = url
       }
+
       CKEDITOR.replace(ckeditorId, ckeditorConfig)
       CKEDITOR.instances[ckeditorId].setData(this.value)
       CKEDITOR.instances[ckeditorId].on('change', () => {

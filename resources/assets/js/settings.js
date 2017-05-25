@@ -11,7 +11,12 @@ import Vue from 'vue'
 export default {
   apiRoot: '/api/',
 
-  filesysUrl: '/packages/filemanager?type=ckeditor',
+  filesysUrl () {
+    return '/packages/filemanager?target=ckeditor' +
+      '&type=image' +
+      '&token=' + localStorage.getItem('token') +
+      '&Authorization=' + this.getAuthToken()
+  },
 
   /**
    * Logging placement area
