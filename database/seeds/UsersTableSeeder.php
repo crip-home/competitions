@@ -15,6 +15,7 @@ class UsersTableSeeder extends Seeder
 
     const SUPER_ADMIN_EMAIL = 'tahq69@gmail.com';
     const POST_MANAGER_EMAIL = 'post.manager@crip.lv';
+    const POST_CREATOR_EMAIL = 'post.creator@crip.lv';
     const TEAM_MANAGER_EMAIL = 'team.manager@crip.lv';
     const JUDGE_EMAIL = 'judge@crip.lv';
 
@@ -56,7 +57,7 @@ class UsersTableSeeder extends Seeder
     {
         $user = App\User::create([
             'name' => 'post.creator',
-            'email' => 'post.creator@crip.lv',
+            'email' => static::POST_CREATOR_EMAIL,
             'password' => bcrypt('password')
         ]);
 

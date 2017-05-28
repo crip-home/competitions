@@ -14,8 +14,7 @@ export default {
   filesysUrl () {
     return '/packages/filemanager?target=ckeditor' +
       '&type=image' +
-      '&token=' + localStorage.getItem('token') +
-      '&Authorization=' + this.getAuthToken()
+      '&token=' + localStorage.getItem('token')
   },
 
   /**

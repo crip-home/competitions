@@ -40,9 +40,9 @@
       if (this.filesys) {
         const url = settings.filesysUrl()
         ckeditorConfig.filebrowserBrowseUrl = url
-        ckeditorConfig.filebrowserUploadUrl = url
+        // ckeditorConfig.filebrowserUploadUrl = url
         ckeditorConfig.filebrowserImageBrowseUrl = url
-        ckeditorConfig.filebrowserImageUploadUrl = url
+        // ckeditorConfig.filebrowserImageUploadUrl = url
       }
 
       CKEDITOR.replace(ckeditorId, ckeditorConfig)
