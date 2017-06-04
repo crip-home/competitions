@@ -24,14 +24,15 @@ class TeamController extends Controller
     }
 
     /**
-     * GET    /api/teams/{team}
-     * @param integer $teamId
+     * Get team details.
+     * GET     /api/teams/{team}
+     * @param  int $teamId
      * @return JsonResponse
      */
-    public function show($teamId)
+    public function show(int $teamId): JsonResponse
     {
-        $data = $this->teams->withLogo()->find($teamId);
+        $data = $this->teams->find($teamId);
 
-        return new JsonResponse($data);
+        return $this->json($data);
     }
 }
