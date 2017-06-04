@@ -11,8 +11,9 @@ import Vue from 'vue'
 export default {
   apiRoot: '/api/',
 
-  filesysUrl () {
-    return '/packages/filemanager?target=ckeditor' +
+  filesysUrl (target = 'ckeditor', callback = '') {
+    return '/packages/filemanager?target=' + target +
+      (callback ? `&callback=${callback}` : '') +
       '&type=image' +
       '&token=' + localStorage.getItem('token')
   },

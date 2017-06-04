@@ -4,16 +4,16 @@
     <panel-action slot="actions" :to="backRoute">Back to list</panel-action>
 
     <form-group id="team-logo" label="Logo" :errors="errors.logo">
-      <input id="team-logo" type="file" name="logo" class="form-control" @change="onLogoChange">
-      <div class="logo-preview" v-if="thumb">
-        <hr>
-        <img :src="thumb" alt="team-logo" class="img-thumbnail">
+      <div class="input-group">
+        <input id="team-logo" type="url" name="logo" class="form-control" v-model="form.logo" v-focus="true">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" @click="openFilesys">File</button>
+        </span>
       </div>
     </form-group>
 
     <form-group id="name" label="Name" :errors="errors.name">
-      <input id="name" type="text" class="form-control" name="name" required title="Name"
-             v-model="form.name" v-focus="true">
+      <input id="name" type="text" class="form-control" name="name" required title="Name" v-model="form.name">
     </form-group>
 
     <form-group id="short" label="Short Name" :errors="errors.short">
@@ -25,6 +25,8 @@
       <button type="submit" class="btn btn-primary">Save</button>
     </submit>
 
+    <filesys-modal :target.sync="form.logo" :open.sync="filesysIsOpen"></filesys-modal>
+
   </form-panel>
 </template>
 
@@ -32,7 +34,6 @@
   import Vue from 'vue'
   import { teams } from '../../../api/teams/admin'
   import * as routes from '../../../router/routes'
-  import fileUploader from '../../../api/files'
 
   export default {
     mounted () {
@@ -48,10 +49,13 @@
         backRoute: routes.listTeams,
         thumb: '',
         form: {
+          logo: '',
+          // TODO: Remove logo_id from API
           logo_id: null,
           name: '',
           short: ''
         },
+        filesysIsOpen: false,
         errors: {}
       }
     },
@@ -75,23 +79,11 @@
           })
       },
 
-      onLogoChange (event) {
-        let files = event.target.files || event.dataTransfer.files
-        if (files.length < 1) {
-          return
-        }
-
-        fileUploader.upload(files[0])
-          .then(file => {
-            this.errors.file = null
-            this.thumb = file.payload.thumbs.thumb
-            this.form.logo_id = file.id
-          })
-          .catch((error) => {
-            this.errors.logo = error.file
-            this.thumb = ''
-            this.form.logo_id = null
-          })
+      /**
+       * Open FileSys modal for a file select.
+       */
+      openFilesys () {
+        this.filesysIsOpen = true
       }
     }
   }

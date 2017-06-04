@@ -1,5 +1,5 @@
 <template>
-  <modal :id="modalId" :on-hide="onHide" size="lg">
+  <modal :id="modalId" @hidden="onHide" size="lg">
     <span slot="title">New Message</span>
     <form @submit.prevent="sendMessage" class="modal-body">
       <div class="row">

@@ -33,8 +33,11 @@
             </thead>
             <tbody>
             <template v-for="message in paging.items">
-              <router-link tag="tr" :to="message.readRoute" class="pointer"
-                           :class="paging.rowClasses(message, {active: !message.is_read})"
+              <router-link
+                      tag="tr"
+                      :to="message.readRoute"
+                      class="pointer"
+                      :class="paging.rowClasses(message, {active: !message.is_read})"
               >
                 <td><i class="fa" :class="messageClass(message)"></i></td>
                 <td><span v-if="isInboxActive">{{ message.from_name }}</span>

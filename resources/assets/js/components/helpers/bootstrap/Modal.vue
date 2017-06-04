@@ -4,7 +4,8 @@
       <div class="modal-content">
 
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <button type="button" class="close" data-dismiss="modal">&times;
+          </button>
 
           <h4 class="modal-title">
             <slot name="title"></slot>
@@ -19,19 +20,25 @@
 </template>
 
 <script>
-  import { info } from '../../../data/Log'
   import { modalOpened } from '../../../store/types'
 
   export default {
+    name: 'modal',
+
     props: {
-      onHide: {type: Function, required: true},
-      onShow: {type: Function, required: false, 'default': _ => _},
-      size: {type: String, 'default': _ => ''},
-      id: {type: String, 'default': _ => `modal-${Date.now() * Math.random()}`}
+      /**
+       * The size of modal component.
+       */
+      size: {type: String, 'default': () => ''},
+
+      /**
+       * Unique identifier of teh modal.
+       */
+      id: {type: String, 'default': () => `modal-${Date.now() * Math.random()}`}
     },
 
     mounted () {
-      info('modal:mounted', {el: this.$el})
+      this.$emit('mounted', this.id)
 
       // Register current modal as opened
       this.$store.commit(modalOpened, this.id)
@@ -40,23 +47,21 @@
       $el.modal('show')
 
       $el.on('hidden.bs.modal', e => {
-        this.onHide(e)
+        this.$emit('hidden', e)
       })
 
       $el.on('shown.bs.modal', () => {
-        this.onShow()
+        this.$emit('shown')
       })
     },
 
     computed: {
       /**
-       * Calculate modal size class
+       * Calculate modal size class.
        */
       sizeClass () {
         if (this.size) {
-          return {
-            [`modal-${this.size}`]: true
-          }
+          return [`modal-${this.size}`]
         }
 
         return {}
@@ -73,14 +78,17 @@
     },
 
     destroyed () {
-      // ensure that there is no backdrops when leaving this component
+      this.$emit('destroyed', this.id)
+
+      // Ensure that there is no backdrops when leaving this component.
       $('.modal-backdrop').remove()
     },
 
     watch: {
       '$store.state.modal.modals' (modals) {
         if (modals.indexOf(this.id) === -1) {
-          // if modal is not registered in collection, close this instance
+          // If modal is no longer registered in collection of modals, close
+          // this instance.
           this.close()
         }
       }
