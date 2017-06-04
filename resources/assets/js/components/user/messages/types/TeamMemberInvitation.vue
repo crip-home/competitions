@@ -85,7 +85,7 @@
           .then(
             member => {
               if (!member.isInvited) {
-                this.error = 'This invitation is actual anymore.'
+                this.error = 'This invitation is not actual anymore.'
                 this.checkFailed = true
               }
             },

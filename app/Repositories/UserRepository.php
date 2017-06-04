@@ -20,22 +20,24 @@ class UserRepository extends PaginationRepository implements IUserRepository
     }
 
     /**
-     * Set query to search by name column
-     * @param string $name
-     * @return $this
+     * Set query to search by name column.
+     * @param  string $name
+     * @return IUserRepository
      */
-    public function searchByName($name)
+    public function searchByName(string $name): IUserRepository
     {
-        $this->query = $this->getQuery()->where('name', 'LIKE', "%$name%");
+        $this->query = $this->getQuery()->where(
+            'name', 'LIKE', "%$name%"
+        );
 
         return $this;
     }
 
     /**
      * Join user roles to the request response
-     * @return $this
+     * @return IUserRepository
      */
-    public function withRoles()
+    public function withRoles(): IUserRepository
     {
         $this->query = $this->getQuery()->with('roles');
 
@@ -43,18 +45,17 @@ class UserRepository extends PaginationRepository implements IUserRepository
     }
 
     /**
-     * Join user teams from membership to the query response
-     * @param bool $includeLogo
-     * @return $this
+     * Join user teams from membership to the query response.
+     * @return IUserRepository
      */
-    public function withTeams($includeLogo = false)
+    public function withTeams(): IUserRepository
     {
-        $this->query = $this->getQuery()->with(['teams' => function (BelongsToMany $query) use ($includeLogo) {
-            $query->getQuery()->select('teams.id', 'teams.name', 'teams.short', 'teams.logo_id');
-            if ($includeLogo) {
-                $query->getQuery()->with('logo');
-            }
-        }]);
+        $this->query = $this->getQuery()
+            ->with(['teams' => function (BelongsToMany $query) {
+                $query->getQuery()->select(
+                    'teams.id', 'teams.name', 'teams.short', 'teams.logo'
+                );
+            }]);
 
         return $this;
     }

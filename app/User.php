@@ -1,5 +1,7 @@
 <?php namespace App;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -56,7 +58,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function posts()
     {
@@ -64,7 +66,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function roles()
     {
@@ -73,7 +75,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function teams()
     {
@@ -82,10 +84,10 @@ class User extends Authenticatable
     }
 
     /**
-     * @param $role
+     * @param  string $role
      * @return bool
      */
-    public function hasRole($role)
+    public function hasRole(string $role): bool
     {
         $roles = $this->roles->map(function ($role) {
             return $role->key;
@@ -95,17 +97,14 @@ class User extends Authenticatable
         if (in_array(Role::SUPER_ADMIN, $roles))
             return true;
 
-        if (in_array($role, $roles))
-            return true;
-
-        return false;
+        return in_array($role, $roles);
     }
 
     /**
      * Encode user email in md5
      * @return string
      */
-    public function getMd5Attribute()
+    public function getMd5Attribute(): string
     {
         if (array_key_exists('email', $this->attributes)) {
             return md5($this->attributes['email']);

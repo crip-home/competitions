@@ -27,8 +27,9 @@ class ProfileController extends Controller
     }
 
     /**
-     * GET    /user/profile
-     * @param Request $request
+     * Get authorized user profile details.
+     * GET     /user/profile
+     * @param  Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -37,14 +38,17 @@ class ProfileController extends Controller
     }
 
     /**
-     * GET    /user/profile/{id}
-     * @param integer $userId
+     * Get user profile details.
+     * GET     /user/profile/{id}
+     * @param  integer $userId
      * @return JsonResponse
      */
-    public function show($userId)
+    public function show(int $userId): JsonResponse
     {
-        $user = $this->users->withTeams(true)->find($userId);
+        $user = $this->users
+            ->withTeams()
+            ->find($userId);
 
-        return new JsonResponse($user);
+        return $this->json($user);
     }
 }

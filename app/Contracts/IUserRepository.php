@@ -9,20 +9,19 @@ interface IUserRepository extends IPaginateRepository
     /**
      * Set query to search by name column
      * @param string $name
-     * @return $this
+     * @return IUserRepository
      */
-    public function searchByName($name);
+    public function searchByName(string $name): IUserRepository;
 
     /**
-     * Join user roles to the query response
-     * @return $this
+     * Join user roles to the query response.
+     * @return IUserRepository
      */
-    public function withRoles();
+    public function withRoles(): IUserRepository;
 
     /**
-     * Join user teams from membership to the query response
-     * @param bool $includeLogo
-     * @return $this
+     * Join user teams from membership to the query response.
+     * @return IUserRepository
      */
-    public function withTeams($includeLogo = false);
+    public function withTeams(): IUserRepository;
 }

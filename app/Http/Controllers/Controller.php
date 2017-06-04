@@ -19,7 +19,7 @@ class Controller extends BaseController
      * @param  int $status HTTP status code
      * @return JsonResponse
      */
-    protected function json($data, $status = 200)
+    protected function json($data, int $status = 200): JsonResponse
     {
         return new JsonResponse($data, $status);
     }
