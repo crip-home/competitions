@@ -27,7 +27,7 @@ class AdminStorePost extends FormRequest
         return [
             'title' => 'required|min:3|max:255',
             'body' => 'required',
-            'image' => 'required|url|max:1000',
+            'image' => 'required|max:1000',
             'state' => 'required|in:' . join(',', Post::STATES),
             'publish_at' => 'required|date',
             'locale' => 'required|max:2|min:2'

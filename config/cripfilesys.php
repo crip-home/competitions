@@ -86,11 +86,9 @@ return [
     */
 
     'thumbs' => [
-        'thumb' => [205, 100, 'resize',],
-        'xs' => [24, 24, 'resize',],
-        'sm' => [200, 200, 'resize',],
-        'md' => [512, 1000, 'width',],
-        'lg' => [1024, 2000, 'width',],
+        'thumb' => [205, 100, 'resize'],
+        'post-title' => [1110, 300, 'resize'],
+        'post' => [1110, 0, 'width'],
     ],
 
     /*
