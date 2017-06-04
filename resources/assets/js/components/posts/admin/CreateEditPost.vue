@@ -76,6 +76,7 @@
     <filesys-modal
         :target.sync="form.image"
         :open.sync="filesysIsOpen"
+        image="post-title"
     ></filesys-modal>
 
   </form-panel>

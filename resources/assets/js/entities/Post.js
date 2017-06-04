@@ -1,6 +1,7 @@
 import Entity from './Entity'
 import User from './User'
 import Select2Options from '../components/helpers/forms/select2'
+import * as routes from '../router/routes'
 
 /**
  * @property {String}          title
@@ -29,6 +30,14 @@ export default class Post extends Entity {
     if (data.author) {
       this.author = new User(data.author)
     }
+  }
+
+  /**
+   * Current post edit route.
+   * @return {{params: {id: Number}}}
+   */
+  get editRoute () {
+    return {...routes.editPost, params: {id: this.id}}
   }
 
   static get states () {

@@ -30,7 +30,12 @@
       /**
        * Current state of model visibility.
        */
-      open: {type: Boolean, required: false, default: () => true}
+      open: {type: Boolean, required: false, default: () => true},
+
+      /**
+       * Selectable image size.
+       */
+      image: {type: String, required: false, default: () => ''}
     },
 
     mounted () {
@@ -42,7 +47,11 @@
        * FileSys url.
        */
       filesysUrl () {
-        return settings.filesysUrl('callback', 'filesys')
+        return settings.filesysUrl({
+          target: 'callback',
+          callback: 'filesys',
+          image: this.image
+        })
       }
     },
 

@@ -11,10 +11,12 @@ import Vue from 'vue'
 export default {
   apiRoot: '/api/',
 
-  filesysUrl (target = 'ckeditor', callback = '') {
+  filesysUrl ({target = 'ckeditor', callback = '', image = ''} =
+                {target: 'ckeditor'}) {
     return '/packages/filemanager?target=' + target +
       (callback ? `&callback=${callback}` : '') +
       '&type=image' +
+      (image ? `&select=${image}` : '') +
       '&token=' + localStorage.getItem('token')
   },
 
@@ -85,7 +87,10 @@ export default {
       case 403:
       case 405:
         error('settings.handleError -> method not allowed', errorResponse)
-        store.commit(addToast, {message: 'Action is not allowed', class: 'toast-error'})
+        store.commit(addToast, {
+          message: 'Action is not allowed',
+          class: 'toast-error'
+        })
         // TODO: send this as email to admin to be able detect users who is trying hack app
         //   or some places has not enough protection and simple user can open it and
         //   create not allowed requests

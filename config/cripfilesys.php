@@ -86,7 +86,7 @@ return [
     */
 
     'thumbs' => [
-        'thumb' => [205, 100, 'resize'],
+        'profile' => [165, 165, 'resize'],
         'post-title' => [1110, 300, 'resize'],
         'post' => [1110, 0, 'width'],
     ],

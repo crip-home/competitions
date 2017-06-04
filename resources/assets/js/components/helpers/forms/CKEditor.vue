@@ -13,7 +13,10 @@
       value: {type: String},
       id: {type: String, 'default': 'editor'},
       height: {type: String, 'default': '200px'},
-      toolbar: {type: Array, 'default': () => [['Format'], ['Bold', 'Italic'], ['Undo', 'Redo'], ['Image']]},
+      toolbar: {
+        type: Array,
+        'default': () => [['Format'], ['Bold', 'Italic'], ['Undo', 'Redo'], ['Image']]
+      },
       language: {type: String, 'default': 'en'},
       extraplugins: {type: String, 'default': ''},
       focus: {type: Boolean, 'default': _ => false},
@@ -38,11 +41,9 @@
       }
 
       if (this.filesys) {
-        const url = settings.filesysUrl()
+        const url = settings.filesysUrl({image: 'post'})
         ckeditorConfig.filebrowserBrowseUrl = url
-        // ckeditorConfig.filebrowserUploadUrl = url
         ckeditorConfig.filebrowserImageBrowseUrl = url
-        // ckeditorConfig.filebrowserImageUploadUrl = url
       }
 
       CKEDITOR.replace(ckeditorId, ckeditorConfig)

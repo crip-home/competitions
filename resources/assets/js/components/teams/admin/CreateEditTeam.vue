@@ -66,6 +66,7 @@
         :target.sync="form.logo"
         :open.sync="filesysIsOpen"
         @selected="refreshThumb"
+        image="profile"
     ></filesys-modal>
 
   </form-panel>
