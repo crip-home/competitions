@@ -32,8 +32,9 @@ class TeamController extends Controller
     }
 
     /**
-     * GET    /api/admin/teams
-     * @param Request $request
+     * Get list of teams.
+     * GET     /api/admin/teams
+     * @param  Request $request
      * @return JsonResponse
      */
     public function index(Request $request)
@@ -45,21 +46,24 @@ class TeamController extends Controller
             $this->teams->filterByOwner($request->user()->id);
         }
 
-        $teams = $this->teams->paginate($request->per_page ?: 15, [], ['teams.id', 'name', 'short']);
+        $teams = $this->teams->paginate(
+            $request->per_page ?: 15, [], ['teams.id', 'name', 'short']
+        );
 
         return new JsonResponse($teams);
     }
 
     /**
-     * POST   /api/admin/teams
-     * @param AdminStoreTeam $request
+     * Save new team to database and attach creator as owner of the team.
+     * POST    /api/admin/teams
+     * @param  AdminStoreTeam $request
      * @return JsonResponse
      */
     public function store(AdminStoreTeam $request)
     {
         $this->authorize('create', Team::class);
         $authUserId = $request->user()->id;
-        $details = $request->only(['name', 'short', 'logo_id']);
+        $details = $request->only(['name', 'short', 'logo']);
 
         try {
             $team = $this->teams->createAndAttachOwner($details, $authUserId);
@@ -71,13 +75,14 @@ class TeamController extends Controller
     }
 
     /**
+     * Get single team.
      * GET     /api/admin/teams/{team}
      * @param  int $teamId
      * @return JsonResponse
      */
     public function show($teamId)
     {
-        $team = $this->teams->withLogo()->find($teamId);
+        $team = $this->teams->find($teamId);
 
         $this->authorize('view', $team);
 
@@ -85,9 +90,10 @@ class TeamController extends Controller
     }
 
     /**
+     * Update existing team details.
      * PUT/PATCH /api/admin/teams/{team}
-     * @param AdminUpdateTeam $request
-     * @param int $teamId
+     * @param    AdminUpdateTeam $request
+     * @param    int $teamId
      * @return   JsonResponse
      */
     public function update(AdminUpdateTeam $request, $teamId)
@@ -96,7 +102,7 @@ class TeamController extends Controller
 
         $this->authorize('update', $team);
 
-        $details = $request->only(['name', 'short', 'logo_id']);
+        $details = $request->only(['name', 'short', 'logo']);
 
         $this->teams->update($details, $teamId, $team);
 

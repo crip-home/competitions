@@ -1,6 +1,7 @@
 <template>
   <div v-if="open">
     <modal @hidden="onHide" @shown="onShow" id="filesys-modal" size="lg">
+
       <span slot="title">Upload and select a file</span>
 
       <div>
@@ -8,6 +9,7 @@
           <iframe class="embed-responsive-item" :src="filesysUrl"></iframe>
         </div>
       </div>
+
     </modal>
   </div>
 </template>
@@ -36,6 +38,9 @@
     },
 
     computed: {
+      /**
+       * FileSys url.
+       */
       filesysUrl () {
         return settings.filesysUrl('callback', 'filesys')
       }
@@ -64,7 +69,11 @@
        */
       fileSelected (fileUrl) {
         // Emit event that sets target state now is set to selected file url.
+        // This event is used by .sync modifier.
         this.$emit('update:target', fileUrl)
+
+        // Emit one more event for custom usage of this component.
+        this.$emit('selected', fileUrl)
 
         // Close modal after file is selected.
         this.$store.commit(closeModal, 'filesys-modal')

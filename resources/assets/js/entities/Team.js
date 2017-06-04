@@ -1,5 +1,4 @@
 import Entity from './Entity'
-import File from './File'
 import {
   listTeamMembers, editTeam, createTeamMember,
   publicTeamDetailsRoute
@@ -15,11 +14,8 @@ export default class Team extends Entity {
 
     this.name = data.name
     this.short = data.short
-    this.logo_id = data.logo_id
+    this.logo = data.logo
     this.created_from_now = data.created_from_now
-    if (data.logo) {
-      this.logo = new File(data.logo)
-    }
   }
 
   /**

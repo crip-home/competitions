@@ -22,6 +22,8 @@ class CreateTeamsTable extends BaseMigration
             $table->string('name');
             $table->string('short', 15);
 
+            $table->string('logo', 1000)->default('');
+
             $table->smallInteger('_credits')->default(0);
 
             $this->audit($table);
