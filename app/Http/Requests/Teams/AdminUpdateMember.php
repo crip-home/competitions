@@ -28,8 +28,7 @@ class AdminUpdateMember extends FormRequest
         $params = Route::current()->parameters();
         return [
             'name' => [
-                'required',
-                'max:255'
+                'required', 'max:255'
             ],
             'user_id' => [
                 Rule::exists('users', 'id'),

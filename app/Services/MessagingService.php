@@ -26,7 +26,9 @@ class MessagingService
      * @param IMessageRepository $messages
      * @param IUserRepository $users
      */
-    public function __construct(IMessageRepository $messages, IUserRepository $users)
+    public function __construct(
+        IMessageRepository $messages, IUserRepository $users
+    )
     {
         $this->messages = $messages;
         $this->users = $users;
@@ -39,7 +41,9 @@ class MessagingService
      * @param int $forMemberId
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function sendTeamMemberInvitation($fromUserId, $toUserId, $fromTeamName, $forMemberId)
+    public function sendTeamMemberInvitation(
+        $fromUserId, $toUserId, $fromTeamName, $forMemberId
+    )
     {
         $fromUser = $this->users->find($fromUserId, ['id', 'name']);
         $toUser = $this->users->find($toUserId, ['id', 'name']);

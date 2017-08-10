@@ -70,8 +70,9 @@ class User extends Authenticatable
      */
     public function roles()
     {
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id')
-            ->withTimestamps();
+        return $this->belongsToMany(
+            Role::class, 'role_user', 'user_id', 'role_id'
+        )->withTimestamps();
     }
 
     /**
@@ -79,8 +80,9 @@ class User extends Authenticatable
      */
     public function teams()
     {
-        return $this->belongsToMany(Team::class, 'team_members', 'user_id', 'team_id')
-            ->wherePivot('membership_type', TeamMember::MEMBER);
+        return $this->belongsToMany(
+            Team::class, 'team_members', 'user_id', 'team_id'
+        )->wherePivot('membership_type', TeamMember::MEMBER);
     }
 
     /**

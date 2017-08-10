@@ -45,7 +45,7 @@ abstract class Repository implements IRepository
     abstract function modelClass();
 
     /**
-     * Set repository querable ordering
+     * Set repository queryable ordering
      * @param string $by
      * @param string $direction
      * @return $this
@@ -58,13 +58,15 @@ abstract class Repository implements IRepository
     }
 
     /**
-     * Set repository querable ordering from a request
+     * Set repository queryable ordering from a request
      * @param Request $request
      * @param string $defaultOrder
      * @param string $defaultDirection
      * @return $this
      */
-    public function requestOrdered(Request $request, $defaultOrder = 'id', $defaultDirection = 'asc')
+    public function requestOrdered(
+        Request $request, $defaultOrder = 'id', $defaultDirection = 'asc'
+    )
     {
         $order = $request->sort_order ?: $defaultOrder;
         $direction = $request->sort_direction ?: $defaultDirection;
@@ -169,10 +171,14 @@ abstract class Repository implements IRepository
     {
         foreach ($filters as $filter => $index) {
             if (is_array($filter)) {
-                $this->query = call_user_func_array([$this->getQuery(), 'where'], $filter);
+                $this->query = call_user_func_array(
+                    [$this->getQuery(), 'where'], $filter
+                );
             } else {
                 $type = gettype($filter);
-                throw new \Exception("Filters property should be array with arrays, but got '$type' at position '$index'");
+                throw new \Exception(
+                    "Filters property should be array with arrays, but got '$type' at position '$index'"
+                );
             }
         }
 

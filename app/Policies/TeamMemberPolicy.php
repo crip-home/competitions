@@ -37,13 +37,11 @@ class TeamMemberPolicy
     {
         $roles = $this->roles($user);
         // Super Admin can create anything and for anyone
-        if ($this->hasRole($roles, Role::SUPER_ADMIN))
-            return true;
+        if ($this->hasRole($roles, Role::SUPER_ADMIN)) return true;
 
         $owner = $team->owners()->wherePivot('user_id', $user->id)->first();
-        // if current user is team owner - he can ad members
-        if ($owner)
-            return true;
+        // if current user is team owner - he can add new members
+        if ($owner) return true;
 
         return false;
     }
@@ -57,8 +55,7 @@ class TeamMemberPolicy
      */
     public function show(User $user, TeamMember $member, Team $team)
     {
-        if ($user->id == $member->user_id)
-            return true;
+        if ($user->id == $member->user_id) return true;
 
         return $this->create($user, $team);
     }
@@ -74,16 +71,13 @@ class TeamMemberPolicy
     {
         $roles = $this->roles($user);
         // Super Admin can create anything and for anyone
-        if ($this->hasRole($roles, Role::SUPER_ADMIN))
-            return true;
+        if ($this->hasRole($roles, Role::SUPER_ADMIN)) return true;
 
         $owner = $team->owners()->wherePivot('user_id', $user->id)->first();
         // if current user is team owner - he can ad members
-        if ($owner)
-            return true;
+        if ($owner) return true;
 
-        if ($user->id == $member->user_id)
-            return true;
+        if ($user->id == $member->user_id) return true;
 
         return false;
     }

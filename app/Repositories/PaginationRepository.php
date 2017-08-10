@@ -6,7 +6,9 @@ use App\Contracts\IPaginateRepository;
  * Class PaginationRepository
  * @package App\Repositories
  */
-abstract class PaginationRepository extends Repository implements IPaginateRepository
+abstract class PaginationRepository
+    extends Repository
+    implements IPaginateRepository
 {
     /**
      * Paginate collection of models
@@ -15,7 +17,9 @@ abstract class PaginationRepository extends Repository implements IPaginateRepos
      * @param array $columns
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate($perPage = 15, array $filters = [], array $columns = ['*'])
+    public function paginate(
+        $perPage = 15, array $filters = [], array $columns = ['*']
+    )
     {
         $this->filter($filters);
 

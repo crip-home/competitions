@@ -8,7 +8,9 @@ use Illuminate\Http\Request;
  * Class MessageRepository
  * @package App\Repositories
  */
-class MessageRepository extends PaginationRepository implements IMessageRepository
+class MessageRepository
+    extends PaginationRepository
+    implements IMessageRepository
 {
     /**
      * Get current repository full model class name

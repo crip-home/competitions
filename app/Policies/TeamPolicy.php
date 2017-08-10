@@ -47,8 +47,7 @@ class TeamPolicy
         $roles = $this->roles($user);
 
         // if user has role to create team
-        if ($this->hasRole($roles, Role::CREATE_TEAMS))
-            return true;
+        if ($this->hasRole($roles, Role::CREATE_TEAMS)) return true;
 
         return false;
     }
@@ -64,8 +63,7 @@ class TeamPolicy
         $roles = $this->roles($user);
 
         // super admin can update any team teams
-        if ($this->hasRole($roles, Role::SUPER_ADMIN))
-            return true;
+        if ($this->hasRole($roles, Role::SUPER_ADMIN)) return true;
 
         // if user is in list os team owners he can update it
         $isOwner = $team->owners()->wherePivot('user_id', $user->id)->first();
@@ -84,8 +82,7 @@ class TeamPolicy
         $roles = $this->roles($user);
 
         // only super admin can delete teams
-        if ($this->hasRole($roles, Role::SUPER_ADMIN))
-            return true;
+        if ($this->hasRole($roles, Role::SUPER_ADMIN)) return true;
 
         return false;
     }

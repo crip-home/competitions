@@ -40,9 +40,7 @@ class AdminStoreCompetition extends FormRequest
             'rules' => '',
             'subtitle' => ['required', 'max:255'],
             'title' => [
-                'required',
-                'max:255',
-                Rule::unique('competitions', 'title')
+                'required', 'max:255', Rule::unique('competitions', 'title')
             ],
         ];
     }

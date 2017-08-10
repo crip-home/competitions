@@ -27,8 +27,12 @@ class UserStoreMessage extends FormRequest
         return [
             'subject' => ['required'],
             'body' => ['required'],
-            'importance_level' => [Rule::in(range(1, 10))],
-            'to' => ['required', Rule::exists('users', 'id')]
+            'importance_level' => [
+                Rule::in(range(1, 10))
+            ],
+            'to' => [
+                'required', Rule::exists('users', 'id')
+            ]
         ];
     }
 }

@@ -28,7 +28,9 @@ class UserReplyMessage extends FormRequest
         return [
             'subject' => ['required'],
             'body' => ['required'],
-            'importance_level' => [Rule::in(range(1, 10))]
+            'importance_level' => [
+                Rule::in(range(1, 10))
+            ]
         ];
     }
 }

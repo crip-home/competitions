@@ -31,11 +31,9 @@ trait HandlesUserRoles
     public function hasRole($roles = [], $role)
     {
         // Allow super admin do anything
-        if (in_array(Role::SUPER_ADMIN, $roles))
-            return true;
+        if (in_array(Role::SUPER_ADMIN, $roles)) return true;
 
-        if (in_array($role, $roles))
-            return true;
+        if (in_array($role, $roles)) return true;
 
         return false;
     }
@@ -48,8 +46,7 @@ trait HandlesUserRoles
     public function hasAnyRole($current = [], $searchFor = [])
     {
         foreach ($searchFor as $role)
-            if ($this->hasRole($current, $role))
-                return true;
+            if ($this->hasRole($current, $role)) return true;
 
         return false;
     }

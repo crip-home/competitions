@@ -7,7 +7,9 @@ use App\TeamMember;
  * Class TeamMemberRepository
  * @package App\Repositories
  */
-class TeamMemberRepository extends PaginationRepository implements ITeamMemberRepository
+class TeamMemberRepository
+    extends PaginationRepository
+    implements ITeamMemberRepository
 {
     /**
      * Get current repository full model class name

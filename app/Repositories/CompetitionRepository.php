@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
  * Class CompetitionRepository
  * @package App\Repositories
  */
-class CompetitionRepository extends PaginationRepository implements ICompetitionRepository
+class CompetitionRepository
+    extends PaginationRepository
+    implements ICompetitionRepository
 {
     /**
      * @var Auth

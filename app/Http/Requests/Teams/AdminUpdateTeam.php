@@ -26,13 +26,11 @@ class AdminUpdateTeam extends FormRequest
     {
         return [
             'name' => [
-                'required',
-                'max:255',
+                'required', 'max:255',
                 Rule::unique('teams', 'name')->ignore($this->get('id'))
             ],
             'short' => [
-                'required',
-                'max:15',
+                'required', 'max:15',
                 Rule::unique('teams', 'short')->ignore($this->get('id'))
             ],
             'logo_id' => [

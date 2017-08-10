@@ -23,8 +23,10 @@ class CompetitionPolicy
         $roles = $this->roles($user);
 
         // if user can manage posts or cant create post, he cal see list
-        if ($this->hasAnyRole($roles, [Role::EDIT_COMPETITIONS, Role::CREATE_COMPETITIONS]))
-            return true;
+        if ($this->hasAnyRole($roles, [
+            Role::EDIT_COMPETITIONS, Role::CREATE_COMPETITIONS
+        ])
+        ) return true;
 
         return false;
     }

@@ -89,7 +89,8 @@ class PostPolicy
         if (!$this->hasRole($roles, Role::CREATE_POST))
             return false;
 
-        // if user has CREATE_POST and he is author of this post, he can update it
+        // if user has CREATE_POST and he is author of this post, he can update
+        // this post instance
         if ($user->id == $post->author_id)
             return true;
 

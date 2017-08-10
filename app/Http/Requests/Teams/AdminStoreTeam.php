@@ -26,14 +26,10 @@ class AdminStoreTeam extends FormRequest
     {
         return [
             'name' => [
-                'required',
-                'max:255',
-                Rule::unique('teams', 'name')
+                'required', 'max:255', Rule::unique('teams', 'name')
             ],
             'short' => [
-                'required',
-                'max:15',
-                Rule::unique('teams', 'short')
+                'required', 'max:15', Rule::unique('teams', 'short')
             ],
             'logo_id' => [
                 Rule::exists('files', 'id')

@@ -53,8 +53,13 @@ class TeamRepository extends PaginationRepository implements ITeamRepository
             $team->owners()->attach($ownerId);
         } catch (Exception $exception) {
             DB::rollBack();
-            Log::critical("User '$ownerId' was unavailable store team.", [$exception, $input]);
-            throw new Exception('Internal database transaction error occurred.', 507, $exception);
+            Log::critical(
+                "User '$ownerId' was unavailable store team.",
+                [$exception, $input]
+            );
+            throw new Exception(
+                'Internal database transaction error occurred.', 507, $exception
+            );
         }
 
         DB::commit();

@@ -52,9 +52,11 @@ class PostRepository extends PaginationRepository implements IPostRepository
      */
     public function withAuthor()
     {
-        $this->query = $this->getQuery()->with(['author' => function (BelongsTo $query) {
-            $query->getQuery()->select(['id', 'name']);
-        }]);
+        $this->query = $this->getQuery()->with([
+            'author' => function (BelongsTo $query) {
+                $query->getQuery()->select(['id', 'name']);
+            }
+        ]);
 
         return $this;
     }
