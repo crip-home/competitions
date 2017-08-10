@@ -55,12 +55,10 @@
           return true
         }
 
-        if (auth.middleware.hasRole(roles.CREATE_POST) &&
-          this.authUser.id === this.author.id) {
-          return true
-        }
-
-        return false
+        return !!(
+          auth.middleware.hasRole(roles.CREATE_POST) &&
+          this.authUser.id === this.author.id
+        )
       }
     },
 

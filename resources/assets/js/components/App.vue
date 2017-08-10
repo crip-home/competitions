@@ -181,7 +181,7 @@
   }
 </script>
 
-<style lang="sass">
+<style lang="sass" type="text/scss">
   @import "../../sass/app.scss";
 
   .router-link-active {

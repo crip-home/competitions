@@ -43,7 +43,7 @@ module.exports = {
         loader: 'url-loader'
       },
       {
-        test: /\.scss$|\.css$/,
+        test: /\.s[a|c]ss$|\.css$/,
         exclude: /node_modules/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',

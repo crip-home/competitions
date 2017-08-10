@@ -1,5 +1,5 @@
 <template>
-  <div class="row">
+  <div>
     <div class="col-md-2 col-sm-3">
       <div class="list-group">
         <router-link :to="newMessageRoute" class="list-group-item list-group-item-info" active-class="active">
