@@ -1,9 +1,9 @@
-import { t } from 'vue'
-import router from './index'
-import auth from './../api/auth'
 import * as routes from './routes'
 import * as types from '../store/types'
+import auth from './../api/auth'
+import router from './index'
 import store from '../store'
+import { i18n } from '../lang'
 
 export default {
   init () {
@@ -21,7 +21,10 @@ export default {
           if (to.matched.some(record => record.meta.requiresRoles)) {
             if (!middleware.hasAllRoles(to.meta.requiresRoles)) {
               store.commit(types.addToast, {
-                message: t('app.permission_denied', {perm: to.meta.requiresRoles.join(', ')}),
+                message: i18n.t(
+                  'app.permission_denied',
+                  {perm: to.meta.requiresRoles.join(', ')}
+                ),
                 'class': 'toast-error'
               })
               next(routes.home.name)
@@ -29,7 +32,10 @@ export default {
           } else if (to.matched.some(r => r.meta.requiresAnyOfRoles)) {
             if (!middleware.hasAnyRole(to.meta.requiresAnyOfRoles)) {
               store.commit(types.addToast, {
-                message: t('app.permission_denied', {perm: to.meta.requiresAnyOfRoles.join(', ')}),
+                message: i18n.t(
+                  'app.permission_denied',
+                  {perm: to.meta.requiresAnyOfRoles.join(', ')}
+                ),
                 'class': 'toast-error'
               })
               next(routes.home.name)

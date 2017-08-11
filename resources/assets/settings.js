@@ -9,15 +9,16 @@ import store from './store'
 import Vue from 'vue'
 
 export default {
-  apiRoot: '/api/',
+  apiRoot: 'http://crip-competitions.dev/api/',
 
-  filesysUrl ({target = 'ckeditor', callback = '', image = ''} =
-                {target: 'ckeditor'}) {
-    return '/packages/filemanager?target=' + target +
+  filesysUrl (
+    {target = 'ckeditor', callback = '', image = ''} = {target: 'ckeditor'}
+  ) {
+    return `/packages/filemanager?target=&{target}` +
       (callback ? `&callback=${callback}` : '') +
       '&type=image' +
       (image ? `&select=${image}` : '') +
-      '&token=' + localStorage.getItem('token')
+      `&token=${localStorage.getItem('token')}`
   },
 
   /**
@@ -55,7 +56,9 @@ export default {
 
     Object.keys(params).forEach(index => {
       let val = params[index]
-      if (typeof val !== 'undefined' && val !== '') { url = this.addParameter(url, index, val) }
+      if (typeof val !== 'undefined' && val !== '') {
+        url = this.addParameter(url, index, val)
+      }
     })
 
     return url
@@ -161,6 +164,7 @@ export default {
    */
   hasToken () {
     let result = !!localStorage.getItem('token')
+
     if (result) {
       this.setToken(localStorage.getItem('token'))
     }

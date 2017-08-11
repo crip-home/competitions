@@ -36,6 +36,7 @@ export default {
    * @returns {boolean}
    */
   isEmpty (value) {
+    /* eslint-disable no-self-compare */
     return this.isUndefined(value) || value === '' || value === null || value !== value
   },
 

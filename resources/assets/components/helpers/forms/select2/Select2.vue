@@ -74,6 +74,7 @@
       onChange ($select) {
         let tagVal = this.getTagVal($select)
 
+        /* eslint-disable no-self-compare */
         if (tagVal !== -1 && this.oldTagVal !== tagVal && $select.val() === tagVal) {
           this.oldTagVal = tagVal
           this.$emit('new', tagVal)
@@ -94,6 +95,7 @@
        */
       onClose ($select) {
         let tagVal = this.getTagVal($select)
+        /* eslint-disable no-self-compare */
         if (tagVal !== -1 && this.oldTagVal !== tagVal) {
           this.oldTagVal = tagVal
           this.$emit('new', tagVal)

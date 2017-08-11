@@ -27,9 +27,8 @@ export default {
             let resolvedData = PagingResult.handle(data, entityResolver)
             log(url, resolvedData)
             resolve(resolvedData)
-          },
-          response => settings.handleError(response, reject)
-        )
+          }
+        ).catch(response => settings.handleError(response, reject))
     })
   },
 
@@ -60,11 +59,12 @@ export default {
 
   /**
    * Store entity on the server
-   * @param {String}   path
-   * @param {Function} entityResolver
-   * @param {object}   entity
-   * @param {*}        [urlReplace]
-   * @param {*}        [urlParams]
+   * @param   {String}   path
+   * @param   {Function} entityResolver
+   * @param   {Object}   entity
+   * @param   {Number}   entity.id
+   * @param   {*}        [urlReplace]
+   * @param   {*}        [urlParams]
    * @returns {Promise}
    */
   save (path, entityResolver, entity, urlReplace = {}, urlParams = {}) {

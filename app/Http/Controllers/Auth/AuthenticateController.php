@@ -30,7 +30,7 @@ class AuthenticateController extends Controller
      */
     public function __construct(User $user, IUserRepository $users)
     {
-        $this->middleware('jwt.auth', ['except' => ['authenticate']]);
+        $this->middleware('jwt.auth', ['only' => ['index']]);
         $this->user = $user;
         $this->users = $users;
     }
@@ -52,7 +52,7 @@ class AuthenticateController extends Controller
      * @param Request $request
      * @return JsonResponse
      */
-    public function authenticate(Request $request)
+    public function store(Request $request)
     {
         $credentials = $request->only('email', 'password');
 

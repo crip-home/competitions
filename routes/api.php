@@ -2,8 +2,9 @@
 
 use Illuminate\Routing\Router;
 
-$this->post('authenticate', 'Auth\\AuthenticateController@authenticate');
-$this->resource('authenticate', 'Auth\\AuthenticateController', ['only' => ['index']]);
+$this->resource('authenticate', 'Auth\\AuthenticateController', [
+    'only' => ['index', 'store']
+]);
 
 $this->post('register', 'Auth\\RegisterController@register');
 $this->post('password/email', 'Auth\\ForgotPasswordController@sendResetLinkEmail');

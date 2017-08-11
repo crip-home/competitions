@@ -181,8 +181,8 @@
   }
 </script>
 
-<style lang="sass" type="text/scss">
-  @import "../../sass/app.scss";
+<style lang="scss">
+  @import "../assets/app.scss";
 
   .router-link-active {
     font-weight: bolder !important;

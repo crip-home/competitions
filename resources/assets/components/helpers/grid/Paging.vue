@@ -1,7 +1,9 @@
 <template>
   <ul class="pagination" v-if="hasMoreThanOnePage">
     <li v-for="page in pages" :class="getPageClass(page)">
-      <router-link :to="getRoute(page.nr)">{{ page.text }}</router-link>
+      <router-link :to="getRoute(page.nr)" onclick="this.blur();">
+        {{ page.text }}
+      </router-link>
     </li>
   </ul>
 </template>
