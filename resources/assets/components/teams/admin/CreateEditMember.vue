@@ -5,15 +5,17 @@
     </panel-action>
 
     <form-group id="name" label="Name" :errors="concatErrors">
-      <select2 id="name"
-               @new="createNewMember"
-               @input="createRelatedMember"
-               :options="searchUser"></select2>
+      <select2
+          id="name" @new="createNewMember" @input="createRelatedMember"
+          :options="searchUser"
+      ></select2>
     </form-group>
 
     <submit v-if="form.user_id && form.user_id != user_id">
       <span>
-        <button type="button" @click="dismissInvitation" class="close text-danger">&times;</button>
+        <button
+            type="button" @click="dismissInvitation" class="close text-danger"
+        >&times;</button>
         {{form.name}} will receive invitation to join {{ team.short }} team
       </span>
     </submit>
@@ -44,9 +46,7 @@
         // pass this promise data to select2 initial selection
         searchUser = new Select2Options([], select => {
           this.fetchTeamMember(this.$route.params.id)
-            .then(data => {
-              select(data.name, data.user_id)
-            })
+            .then(data => select(data.name, data.user_id))
         })
       }
       // configure option to make available creation of

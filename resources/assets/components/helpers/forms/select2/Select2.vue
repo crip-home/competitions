@@ -52,15 +52,17 @@
 
       /**
        * Do post actions after select2 is binded in dom
-       *
-       * @param $select
+       * @param {$} $select
        */
       compiled ($select) {
-        if (this.options.initialSelection && help.isFunction(this.options.initialSelection)) {
-          this.options.initialSelection((text, value, defaultSelected = true, selected = true) => {
-            let option = new Option(text, value, defaultSelected, selected)
-            $select.append(option)
-          })
+        if (this.options.initialSelection &&
+          help.isFunction(this.options.initialSelection)) {
+          this.options.initialSelection(
+            (text, value, defaultSelected = true, selected = true) => {
+              let option = new Option(text, value, defaultSelected, selected)
+              $select.append(option)
+            }
+          )
 
           $select.trigger('change')
         }
@@ -68,19 +70,20 @@
 
       /**
        * Actions to be done on select2 change event
-       *
-       * @param $select
+       * @param {$} $select
        */
       onChange ($select) {
         let tagVal = this.getTagVal($select)
 
         /* eslint-disable no-self-compare */
-        if (tagVal !== -1 && this.oldTagVal !== tagVal && $select.val() === tagVal) {
-          this.oldTagVal = tagVal
+        if (tagVal !== -1 && this.oldTagVal !== tagVal &&
+          $select.val() === tagVal) {
           this.$emit('new', tagVal)
         } else {
           this.$emit('input', $select.val())
         }
+
+        this.oldTagVal = tagVal
       },
 
       /**
@@ -95,7 +98,6 @@
        */
       onClose ($select) {
         let tagVal = this.getTagVal($select)
-        /* eslint-disable no-self-compare */
         if (tagVal !== -1 && this.oldTagVal !== tagVal) {
           this.oldTagVal = tagVal
           this.$emit('new', tagVal)
@@ -104,15 +106,12 @@
 
       /**
        * Get taggable value or -1 if does not have any
-       *
-       * @param $select
-       * @returns string Current tag value
+       * @param {$} $select
+       * @returns {String|Number} Current tag value or -1 if value is not selected
        */
       getTagVal ($select) {
         const tagVal = $select.find('[data-select2-tag="true"]')
-        if (tagVal.length === 0) {
-          return -1
-        }
+        if (tagVal.length === 0) return -1
 
         return $(tagVal[tagVal.length - 1]).val()
       }
@@ -123,14 +122,10 @@
         this.log('value updated', {newValue: val})
         let $select = $(this.$el)
 
-        if ($select.val() === val) {
-          return
-        }
+        if ($select.val() === val) return
 
         // update value
-        $select
-          .val(val)
-          .trigger('change')
+        $select.val(val).trigger('change')
       },
 
       options (options) {

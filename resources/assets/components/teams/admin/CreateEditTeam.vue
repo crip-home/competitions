@@ -1,28 +1,22 @@
 <template>
   <form-panel
-      id="create-edit-team"
-      class="col-md-12"
-      :submit="saveTeam"
+      id="create-edit-team" class="col-md-12" :submit="saveTeam"
       :title="panelTitle"
   >
-    <panel-action slot="actions" :to="backRoute">Back to list</panel-action>
+    <span slot="actions">
+      <panel-action :to="backRoute">Teams</panel-action>
+      <panel-action :to="membersRoute" v-if="isEdit">Members</panel-action>
+    </span>
 
     <form-group id="team-logo" label="Logo" :errors="errors.logo">
       <div class="input-group">
         <input
-            id="team-logo"
-            type="text"
-            name="logo"
-            disabled
-            class="form-control"
-            v-model="form.logo"
-            v-focus="true"
+            id="team-logo" type="text" name="logo" disabled class="form-control"
+            v-model="form.logo" v-focus="true"
         >
         <span class="input-group-btn">
           <button
-              class="btn btn-default"
-              type="button"
-              @click="openFilesys"
+              class="btn btn-default" type="button" @click="openFilesys"
           >
             File
           </button>
@@ -36,25 +30,15 @@
 
     <form-group id="name" label="Name" :errors="errors.name">
       <input
-          id="name"
-          type="text"
-          class="form-control"
-          name="name"
-          required
-          title="Name"
-          v-model="form.name"
+          id="name" type="text" class="form-control" name="name" required
+          title="Name" v-model="form.name"
       >
     </form-group>
 
     <form-group id="short" label="Short Name" :errors="errors.short">
       <input
-          id="short"
-          type="text"
-          class="form-control"
-          name="short"
-          required
-          title="Short Name"
-          v-model="form.short"
+          id="short" type="text" class="form-control" name="short" required
+          title="Short Name" v-model="form.short"
       >
     </form-group>
 
@@ -63,10 +47,8 @@
     </submit>
 
     <filesys-modal
-        :target.sync="form.logo"
-        :open.sync="filesysIsOpen"
-        @selected="refreshThumb"
-        image="profile"
+        :target.sync="form.logo" :open.sync="filesysIsOpen"
+        @selected="refreshThumb" image="profile"
     ></filesys-modal>
 
   </form-panel>
@@ -79,7 +61,7 @@
 
   export default {
     mounted () {
-      if (this.$route.name === routes.editTeam.name) {
+      if (this.isEdit) {
         this.panelTitle = 'Edit team'
         this.fetchTeam(this.$route.params.id)
       }
@@ -97,6 +79,27 @@
         },
         filesysIsOpen: false,
         errors: {}
+      }
+    },
+
+    computed: {
+      /**
+       * Determines is the current form open in edit mode.
+       * @return {Boolean}
+       */
+      isEdit () {
+        return this.$route.name === routes.editTeam.name
+      },
+
+      /**
+       * Team members list route.
+       * @return {{params: {team}}}
+       */
+      membersRoute () {
+        return {
+          ...routes.listTeamMembers,
+          params: {team: this.$route.params.id}
+        }
       }
     },
 

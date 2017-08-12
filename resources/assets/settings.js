@@ -9,12 +9,14 @@ import store from './store'
 import Vue from 'vue'
 
 export default {
-  apiRoot: 'http://crip-competitions.dev/api/',
+  domain: 'http://crip-competitions.dev',
+
+  apiRoot: `api/`,
 
   filesysUrl (
     {target = 'ckeditor', callback = '', image = ''} = {target: 'ckeditor'}
   ) {
-    return `/packages/filemanager?target=&{target}` +
+    return `${this.domain}/packages/filemanager?target=&{target}` +
       (callback ? `&callback=${callback}` : '') +
       '&type=image' +
       (image ? `&select=${image}` : '') +
@@ -51,7 +53,7 @@ export default {
    */
   apiUrl (path, params = {}, urlReplace = {}) {
     let url = path.replace(new RegExp('^[\\/]+'), '')
-    url = `${this.apiRoot}${url}`
+    url = `${this.domain}/${this.apiRoot}${url}`
     url = url.supplant(urlReplace)
 
     Object.keys(params).forEach(index => {

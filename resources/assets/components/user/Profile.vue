@@ -66,7 +66,8 @@
     watch: {
       [isAuth] (to, from) {
         if (this.user.id === 0 && !from && to) {
-          // watch authentication and fetch data from server when user is authorized
+          // watch authentication and fetch data from server when user
+          // is authorized
           this.fetchProfile(this.user.id)
         }
       }
