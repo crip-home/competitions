@@ -84,10 +84,10 @@
 
 <script>
   import Vue from 'vue'
-  import Post from '../../../entities/Post'
-  import posts from '../../../api/posts/admin'
-  import * as lang from '../../../lang'
-  import * as routes from '../../../router/routes'
+  import Post from '../../entities/Post'
+  import posts from '../../api/posts/admin'
+  import * as lang from '../../lang/index'
+  import * as routes from '../../router/routes'
 
   export default {
     mounted () {

@@ -16,7 +16,7 @@ import string from './extensions/String'
 import router from './router'
 import guard from './router/guard'
 import store from './store'
-import App from './components/App.vue'
+import App from './App.vue'
 import globals from './globals'
 
 sync(store, router)

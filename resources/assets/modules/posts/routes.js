@@ -1,31 +1,31 @@
-import * as routes from '../routes'
+import * as routes from '../../router/routes'
 import * as roles from '../../api/auth/roles'
-import ChildHolder from '../../components/ChildHolder.vue'
-import Home from '../../components/Home.vue'
-import ReadPost from '../../components/posts/ReadPost.vue'
-import CreateEditPost from '../../components/posts/admin/CreateEditPost.vue'
-import ListPosts from '../../components/posts/admin/ListPosts.vue'
+import Wrapper from '../../Wrapper.vue'
+import Home from './PostList.vue'
+import ReadPost from './PostView.vue'
+import CreateEditPost from './ManagePost.vue'
+import ListPosts from './ManagePosts.vue'
 
 export const home = {path: '/home/:page?', name: routes.home.name, component: Home}
 export const posts = {
   path: '/posts',
-  component: ChildHolder,
+  component: Wrapper,
   children: [
-    {path: 'read/:id', name: routes.readPost.name, component: ReadPost},
+    {path: 'view/:id', name: routes.readPost.name, component: ReadPost},
     {
-      path: 'admin/create',
+      path: 'manage/new',
       name: routes.createPost.name,
       component: CreateEditPost,
       meta: {requiresAuth: true, requiresRoles: [roles.CREATE_POST]}
     },
     {
-      path: 'admin/list/:page?',
+      path: 'manage/all/:page?',
       name: routes.listPosts.name,
       component: ListPosts,
       meta: {requiresAuth: true, requiresAnyOfRoles: [roles.CREATE_POST, roles.MANAGE_POSTS]}
     },
     {
-      path: 'admin/edit/:id',
+      path: 'manage/edit/:id',
       name: routes.editPost.name,
       component: CreateEditPost,
       meta: {requiresAuth: true, requiresAnyOfRoles: [roles.CREATE_POST, roles.MANAGE_POSTS]}

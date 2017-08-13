@@ -25,8 +25,8 @@
 <script>
   import * as getters from '../../store/getters'
   import * as roles from '../../api/auth/roles'
-  import auth from '../../api/auth'
-  import posts from '../../api/posts'
+  import auth from '../../api/auth/index'
+  import posts from '../../api/posts/index'
   import { mapGetters } from 'vuex'
 
   export default {

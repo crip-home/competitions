@@ -1,8 +1,8 @@
 import * as routes from '../../router/routes'
 import * as roles from '../../api/auth/roles'
 import Wrapper from '../../Wrapper.vue'
-import CreateCompetition from './CreateCompetition.vue'
-import ListCompetitions from './ManageCompetitionList.vue'
+import CreateCompetition from './ManageCompetition.vue'
+import ListCompetitions from './ManageCompetitions.vue'
 
 let requiresAuth = {requiresAuth: true}
 let createRole = [roles.CREATE_COMPETITIONS]
@@ -13,13 +13,13 @@ export default {
   component: Wrapper,
   children: [
     {
-      path: 'admin/create',
+      path: 'manage/new',
       name: routes.createCompetitionRoute.name,
       component: CreateCompetition,
       meta: {requiresAuth, requiresRoles: createRole}
     },
     {
-      path: 'admin/list/:page?',
+      path: 'manage/all/:page?',
       name: routes.listCompetitionsRoute.name,
       component: ListCompetitions,
       meta: {requiresAuth, requiresAnyOfRoles: [...createRole, ...listRole]}

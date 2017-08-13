@@ -1,16 +1,18 @@
 <template>
   <div id="app-view">
     <navbar :left-menu="leftNavbarItems" :right-menu="rightNavbarItems">
-      <router-link :to="routes.home" class="navbar-brand">{{ $t('app.title') }}</router-link>
+      <router-link :to="routes.home" class="navbar-brand">
+        {{ $t('app.title') }}
+      </router-link>
     </navbar>
 
     <div class="container">
-      <transition name="fade-horizontal" mode="out-in"
-                  enter-active-class="animated fadeInLeft"
-                  leave-active-class="animated fadeOutRight">
+      <transition
+          name="fade-horizontal" mode="out-in"
+          enter-active-class="animated fadeInLeft"
+          leave-active-class="animated fadeOutRight">
         <router-view class="row"></router-view>
       </transition>
-
     </div>
 
     <toast></toast>
@@ -19,15 +21,19 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import Toast from './helpers/Toast.vue'
-  import Navbar from './helpers/bootstrap/nav/Navbar.vue'
-  import { NavbarItem, NavbarGroup, NavbarItems } from './helpers/bootstrap/nav'
-  import auth from '../api/auth'
-  import * as roles from '../api/auth/roles'
-  import * as types from '../store/types'
-  import * as getters from '../store/getters'
-  import * as lang from '../lang'
-  import * as routes from '../router/routes'
+  import Toast from './components/helpers/Toast.vue'
+  import Navbar from './components/helpers/bootstrap/nav/Navbar.vue'
+  import {
+    NavbarItem,
+    NavbarGroup,
+    NavbarItems
+  } from './components/helpers/bootstrap/nav/index'
+  import auth from './api/auth/index'
+  import * as roles from './api/auth/roles'
+  import * as types from './store/types'
+  import * as getters from './store/getters'
+  import * as lang from './lang/index'
+  import * as routes from './router/routes'
 
   export default {
     mounted () {
@@ -182,7 +188,7 @@
 </script>
 
 <style lang="scss">
-  @import "../assets/app.scss";
+  @import "assets/app";
 
   .router-link-active {
     font-weight: bolder !important;
