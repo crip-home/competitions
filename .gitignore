@@ -13,3 +13,4 @@ npm-debug.log
 /composer.lock
 
 /public/uploads/
+_ide_helper_models.php

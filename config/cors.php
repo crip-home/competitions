@@ -11,7 +11,7 @@ return [
      |
      */
     'supportsCredentials' => true,
-    'allowedOrigins' => ['http://localhost:8081'],
+    'allowedOrigins' => ['*'],
     'allowedHeaders' => ['Origin', 'Content-Type', 'X-Auth-Token', 'Authorization', 'Accept', 'User-Agent'],
     'allowedMethods' => ['GET', 'POST', 'PATCH', 'PUT', 'DELETE', 'OPTIONS'],
     'exposedHeaders' => [],

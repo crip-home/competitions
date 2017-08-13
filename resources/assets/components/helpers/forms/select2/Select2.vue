@@ -88,6 +88,7 @@
 
       /**
        * Actions to be done on select2 open event
+       * @param {$} $select
        */
       onOpen ($select) {
         this.oldTagVal = ''
@@ -95,6 +96,7 @@
 
       /**
        * Actions to be done on select2 close event
+       * @param {$} $select
        */
       onClose ($select) {
         let tagVal = this.getTagVal($select)

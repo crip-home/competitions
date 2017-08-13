@@ -43,7 +43,7 @@ class UsersTableSeeder extends Seeder
     {
         $admin = App\User::create([
             'name' => 'TAHQ69',
-            'email' => static::SUPER_ADMIN_EMAIL ,
+            'email' => static::SUPER_ADMIN_EMAIL,
             'password' => bcrypt('password')
         ]);
 
@@ -98,8 +98,10 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
 
-        // Has no roles at this moment
-        // $user->roles()->sync([$this->findRoleId(Role::CREATE_TEAMS)]);
+        $user->roles()->sync([
+            $this->findRoleId(Role::CREATE_COMPETITIONS),
+            $this->findRoleId(Role::EDIT_COMPETITIONS),
+        ]);
     }
 
     private function findRoleId($role_key)

@@ -16,7 +16,8 @@ class TeamsTableSeeder extends \Illuminate\Database\Seeder
      */
     public function run()
     {
-        $manager = User::where('email', UsersTableSeeder::TEAM_MANAGER_EMAIL)->firstOrFail();
+        $manager = User::where('email', UsersTableSeeder::TEAM_MANAGER_EMAIL)
+            ->firstOrFail();
 
         $team = Team::create([
             'name' => 'Team Manager Team 1',

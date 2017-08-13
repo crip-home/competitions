@@ -2,6 +2,8 @@
 
 use App\Competition;
 use App\Contracts\ICompetitionRepository;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 /**
@@ -21,7 +23,7 @@ class CompetitionRepository
      * CompetitionRepository constructor.
      * @param Auth $auth
      */
-    public function __construct(Auth $auth)
+    public function __construct(Guard $auth)
     {
         parent::__construct();
         $this->auth = $auth;
@@ -42,7 +44,14 @@ class CompetitionRepository
      */
     public function filterOwnedOrManaged()
     {
-        $this->query = $this->getQuery()->where('created_by', $this->auth->id);
+        $userId = $this->auth->user()->id;
+
+        $this->query = $this->getQuery()
+            ->whereHas('managers', function (Builder $q) use ($userId) {
+                $q->where('users.id', $userId);
+            })
+            ->orWhere('created_by', $userId)
+            ->orWhere('judge_id', $userId);
 
         return $this;
     }

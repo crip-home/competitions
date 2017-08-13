@@ -163,7 +163,7 @@ abstract class Repository implements IRepository
 
     /**
      * Set filter params to querable
-     * @param array $filters
+     * @param array<array> $filters
      * @return $this
      * @throws \Exception
      */
