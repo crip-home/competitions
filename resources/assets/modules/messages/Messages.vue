@@ -2,15 +2,22 @@
   <div>
     <div class="col-md-2 col-sm-3">
       <div class="list-group">
-        <router-link :to="newMessageRoute" class="list-group-item list-group-item-info" active-class="active">
+        <router-link
+            :to="newMessageRoute" class="list-group-item list-group-item-info"
+            active-class="active"
+        >
           New Message
         </router-link>
 
-        <router-link :to="inboxRoute" active-class="active" class="list-group-item">
+        <router-link
+            :to="inboxRoute" active-class="active" class="list-group-item"
+        >
           Inbox <span class="badge">{{ unreadMessages }}</span>
         </router-link>
 
-        <router-link :to="outboxRoute" active-class="active" class="list-group-item">
+        <router-link
+            :to="outboxRoute" active-class="active" class="list-group-item"
+        >
           Outbox
         </router-link>
       </div>
@@ -34,15 +41,17 @@
             <tbody>
             <template v-for="message in paging.items">
               <router-link
-                      tag="tr"
-                      :to="message.readRoute"
-                      class="pointer"
-                      :class="paging.rowClasses(message, {active: !message.is_read})"
+                  tag="tr" :to="message.readRoute" class="pointer"
+                  :class="paging.rowClasses(message, {active: !message.is_read})"
               >
                 <td><i class="fa" :class="messageClass(message)"></i></td>
-                <td><span v-if="isInboxActive">{{ message.from_name }}</span>
+                <td>
+                  <span v-if="isInboxActive">{{ message.from_name }}</span>
                   <span v-else>{{ message.to_name }}</span>&nbsp;
-                  <span v-if="message.reply_count">( {{ message.reply_count }} )</span></td>
+                  <span v-if="message.reply_count">
+                    ( {{ message.reply_count }} )
+                  </span>
+                </td>
                 <td>{{ message.subject }}</td>
                 <td>{{ message.date_from_now }}</td>
               </router-link>
@@ -58,9 +67,9 @@
 </template>
 
 <script>
-  import { messagesRoute, newMessageRoute } from '../../../router/routes'
-  import msg from '../../../api/users/messages'
-  import Paging from '../../helpers/grid/Paging'
+  import { messagesRoute, newMessageRoute } from '../../router/routes'
+  import msg from '../../api/users/messages'
+  import Paging from '../../components/helpers/grid/Paging'
 
   export default {
     mounted () {

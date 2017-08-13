@@ -48,9 +48,9 @@
 
 <script>
   import TeamMemberInvitation from './types/TeamMemberInvitation.vue'
-  import { messagesRoute } from '../../../router/routes'
-  import { closeModal } from '../../../store/types'
-  import msg from '../../../api/users/messages'
+  import { messagesRoute } from '../../router/routes'
+  import { closeModal } from '../../store/types'
+  import msg from '../../api/users/messages'
 
   export default {
     mounted () {

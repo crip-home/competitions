@@ -29,11 +29,11 @@
 </template>
 
 <script>
-  import { messagesRoute } from '../../../router/routes'
-  import { closeModal } from '../../../store/types'
-  import Select2Options from '../../helpers/forms/select2'
-  import settings from '../../../settings'
-  import msg from '../../../api/users/messages'
+  import { messagesRoute } from '../../router/routes'
+  import { closeModal } from '../../store/types'
+  import Select2Options from '../../components/helpers/forms/select2/index'
+  import settings from '../../settings'
+  import msg from '../../api/users/messages'
 
   export default {
     data () {

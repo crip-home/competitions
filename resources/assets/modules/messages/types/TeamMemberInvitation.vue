@@ -20,10 +20,10 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { authUserId } from '../../../../store/getters'
-  import teams from '../../../../api/teams'
-  import members from '../../../../api/teams/members'
-  import Message from '../../../../entities/Message'
+  import { authUserId } from '../../../store/getters'
+  import teams from '../../../api/teams/index'
+  import members from '../../../api/teams/members'
+  import Message from '../../../entities/Message'
 
   export default {
     props: {
