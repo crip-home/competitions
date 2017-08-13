@@ -88,10 +88,7 @@ export default {
       case 403:
       case 405:
         Vue.log.error('settings.handleError -> method not allowed', errorResponse)
-        store.commit('addToast', {
-          message: 'Action is not allowed',
-          class: 'toast-error'
-        })
+        Vue.toasted.error('Action is not allowed')
         // TODO: send this as email to admin to be able detect users who is trying hack app
         //   or some places has not enough protection and simple user can open it and
         //   create not allowed requests

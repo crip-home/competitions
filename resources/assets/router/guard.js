@@ -1,7 +1,6 @@
 import * as routes from './routes'
 import auth from '../modules/auth/api'
 import router from './index'
-import store from '../store'
 import { i18n } from '../lang'
 
 export default {
@@ -19,24 +18,18 @@ export default {
           // if not, redirect to home page and notify.
           if (to.matched.some(record => record.meta.requiresRoles)) {
             if (!middleware.hasAllRoles(to.meta.requiresRoles)) {
-              store.commit('addToast', {
-                message: i18n.t(
-                  'app.permission_denied',
-                  {perm: to.meta.requiresRoles.join(', ')}
-                ),
-                'class': 'toast-error'
-              })
+              this.$toasted.error(i18n.t(
+                'app.permission_denied',
+                {perm: to.meta.requiresRoles.join(', ')}
+              ))
               next(routes.home.name)
             } else { next() }
           } else if (to.matched.some(r => r.meta.requiresAnyOfRoles)) {
             if (!middleware.hasAnyRole(to.meta.requiresAnyOfRoles)) {
-              store.commit('addToast', {
-                message: i18n.t(
-                  'app.permission_denied',
-                  {perm: to.meta.requiresAnyOfRoles.join(', ')}
-                ),
-                'class': 'toast-error'
-              })
+              this.$toasted.error(i18n.t(
+                'app.permission_denied',
+                {perm: to.meta.requiresAnyOfRoles.join(', ')}
+              ))
               next(routes.home.name)
             } else { next() }
           } else { next() }

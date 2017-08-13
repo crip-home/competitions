@@ -1,5 +1,5 @@
 import settings from '../../settings'
-import store from '../../store/index'
+import store from '../../store'
 import Vue from 'vue'
 import { i18n } from '../../lang/index'
 
@@ -33,7 +33,7 @@ export default {
         onResolved(data)
       }, r => {
         if (r.status === 401) {
-          store.commit('addToast', {message: i18n.t('auth.token_expired'), class: 'toast-info'})
+          Vue.toasted.info(i18n.t('auth.token_expired'))
           store.commit('logout')
         } else { settings.handleError(r) }
       })

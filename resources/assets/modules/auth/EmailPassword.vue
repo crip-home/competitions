@@ -43,7 +43,7 @@
         auth.sendResetLink(this.form.email)
           .then(
             status => {
-              this.$store.commit('addToast', {message: status})
+              this.$toasted.success(status)
               this.$router.push(home)
             },
             errors => { Vue.set(this, 'errors', errors) }

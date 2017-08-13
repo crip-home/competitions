@@ -14,24 +14,21 @@
         <router-view class="row"></router-view>
       </transition>
     </div>
-
-    <toast></toast>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-  import Toast from './components/helpers/Toast.vue'
+  import * as lang from './lang/index'
+  import * as roles from './api/roles'
+  import * as routes from './router/routes'
+  import auth from './modules/auth/api'
   import Navbar from './components/helpers/bootstrap/nav/Navbar.vue'
+  import { mapGetters } from 'vuex'
   import {
     NavbarItem,
     NavbarGroup,
     NavbarItems
   } from './components/helpers/bootstrap/nav/index'
-  import auth from './modules/auth/api'
-  import * as roles from './api/roles'
-  import * as lang from './lang/index'
-  import * as routes from './router/routes'
 
   export default {
     mounted () {
@@ -145,7 +142,7 @@
     methods: {
       logout () {
         this.$store.commit('logout')
-        this.$store.commit('addToast', {message: this.$t('app.logout_toast_msg')})
+        this.$toasted.success(this.$t('app.logout_toast_msg'))
         // Redirect user to homepage after logout
         this.$router.push(routes.home)
       },
@@ -176,7 +173,6 @@
     },
 
     components: {
-      toast: Toast,
       [Navbar.name]: Navbar
     }
   }
