@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import auth from './modules/auth'
 import toast from './modules/toast'
 import modal from './modules/modal'
-import messages from './modules/messages'
+import messages from '../modules/messages/store'
 
 Vue.use(Vuex)
 

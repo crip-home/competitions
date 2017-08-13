@@ -157,11 +157,8 @@
        * @param store
        */
       checkMessageCount (store) {
-        store.dispatch(types.checkMessageCount)
+        store.dispatch('checkMessageCount')
       }
-      // toast() {
-      //    this.$store.commit(types.addToast, {message: 'Hello World!'});
-      // }
     },
 
     watch: {
