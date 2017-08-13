@@ -1,5 +1,5 @@
 <template>
-  <modal :id="modalId" @hidden="onHide" size="lg">
+  <crip-modal @hidden="close" size="lg">
     <span slot="title">New Message</span>
     <form @submit.prevent="sendMessage" class="modal-body">
       <div class="row">
@@ -10,13 +10,22 @@
           </select2>
         </form-group>
 
-        <form-group id="subject" :errors="errors.subject" :col-lg="12" class="clearfix">
-          <input id="subject" type="text" class="form-control" name="subject" required title="Subject"
-                 placeholder="Subject" v-model="form.subject">
+        <form-group
+            id="subject" :errors="errors.subject" :col-lg="12" class="clearfix"
+        >
+          <input
+              id="subject" type="text" class="form-control" name="subject"
+              required title="Subject" placeholder="Subject"
+              v-model="form.subject"
+          >
         </form-group>
 
-        <form-group id="message-body" :errors="errors.body" :col-lg="12" class="clearfix">
-          <ckeditor v-model="form.body" id="message-body" :focus="true"></ckeditor>
+        <form-group
+            id="message-body" :errors="errors.body" :col-lg="12"
+            class="clearfix"
+        >
+          <ckeditor v-model="form.body" id="message-body" :focus="true">
+          </ckeditor>
         </form-group>
 
       </div>
@@ -25,7 +34,7 @@
       <button @click="sendMessage" class="btn btn-primary">Send message</button>
       <button @click="close" class="btn btn-default">Close</button>
     </div>
-  </modal>
+  </crip-modal>
 </template>
 
 <script>
@@ -52,26 +61,16 @@
           subject: ''
         },
         errors: {},
-        modalId: 'message-modal',
         searchUser
       }
     },
 
     methods: {
       /**
-       * React on modal hide event
-       */
-      onHide () {
-        // Redirect to messages list route
-        this.$router.push(messagesRoute)
-      },
-
-      /**
        * Close modal
        */
       close () {
-        // commit to vuex for current modal close
-        this.$store.commit('closeModal', this.modalId)
+        this.$router.push(messagesRoute)
       },
 
       /**
@@ -80,7 +79,7 @@
       sendMessage () {
         msg.send(this.form)
           .then(
-            _ => { this.close() },
+            () => { this.close() },
             errors => { this.errors = errors }
           )
       }

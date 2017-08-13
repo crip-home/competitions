@@ -8,7 +8,6 @@ import FormGroup from './components/helpers/forms/FormGroup.vue'
 import FormPanel from './components/helpers/forms/FormPanel.vue'
 import Gravatar from './modules/user/Gravatar.vue'
 import Grid from './components/helpers/grid/Grid.vue'
-import Modal from './components/helpers/bootstrap/Modal.vue'
 import NavbarItems from './components/helpers/bootstrap/nav/NavbarItems.vue'
 import Paging from './components/helpers/grid/Paging.vue'
 import Panel from './components/helpers/panel/Panel.vue'
@@ -31,7 +30,6 @@ export default {
     Vue.component('form-panel', FormPanel)
     Vue.component('gravatar', Gravatar)
     Vue.component('grid', Grid)
-    Vue.component('modal', Modal)
     Vue.component('navbar-items', NavbarItems)
     Vue.component('paging', Paging)
     Vue.component('panel', Panel)

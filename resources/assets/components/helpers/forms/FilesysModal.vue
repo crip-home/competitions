@@ -1,16 +1,17 @@
 <template>
   <div v-if="open">
-    <modal @hidden="onHide" @shown="onShow" id="filesys-modal" size="lg">
-
+    <crip-modal
+        @hidden="onHide" @shown="onShow" id="filesys-modal" size="lg"
+        :close="!open"
+    >
       <span slot="title">Upload and select a file</span>
-
       <div>
         <div class="embed-responsive embed-responsive-4by3">
           <iframe class="embed-responsive-item" :src="filesysUrl"></iframe>
         </div>
       </div>
 
-    </modal>
+    </crip-modal>
   </div>
 </template>
 
@@ -84,7 +85,7 @@
         this.$emit('selected', fileUrl)
 
         // Close modal after file is selected.
-        this.$store.commit('closeModal', 'filesys-modal')
+        this.$emit('update:open', false)
       }
     }
   }

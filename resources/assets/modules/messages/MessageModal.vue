@@ -1,5 +1,5 @@
 <template>
-  <modal :id="modalId" @hidden="onHide" size="lg">
+  <crip-modal @hidden="close" size="lg">
     <span slot="title">{{ message.subject }}</span>
 
     <table class="table table-hover">
@@ -71,7 +71,7 @@
         Close
       </button>
     </div>
-  </modal>
+  </crip-modal>
 </template>
 
 <script>
@@ -98,26 +98,16 @@
         messages: [],
         replyIsVisible: false,
         canReply: false,
-        modalId: 'message-modal',
         complete: false
       }
     },
 
     methods: {
       /**
-       * React on modal hide event
-       */
-      onHide () {
-        // Redirect to messages list route
-        this.$router.push(messagesRoute)
-      },
-
-      /**
        * Close modal
        */
       close () {
-        // commit to vuex for current modal close
-        this.$store.commit('closeModal', this.modalId)
+        this.$router.push(messagesRoute)
       },
 
       /**

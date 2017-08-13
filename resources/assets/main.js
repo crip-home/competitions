@@ -2,12 +2,12 @@ $.fn.select2.defaults.set('theme', 'bootstrap')
 
 import Vue from 'vue'
 import VueResource from 'vue-resource'
-
-Vue.use(VueResource)
-
+import CripModal from 'crip-vue-bootstrap-modal'
 import Log from './extensions/Log'
 import settings from './settings'
 
+Vue.use(VueResource)
+Vue.use(CripModal)
 Vue.use(Log, settings)
 
 import { i18n, init } from './lang'
