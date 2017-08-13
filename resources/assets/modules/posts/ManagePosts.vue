@@ -1,7 +1,8 @@
 <template>
   <grid id="list-posts" :paging="paging">
     <span slot="title">Manage posts</span>
-    <panel-action slot="actions" :to="createRoute">Create New post</panel-action>
+    <panel-action slot="actions" :to="createRoute">Create New post
+    </panel-action>
 
     <table class="table table-hover">
       <thead>
@@ -18,7 +19,9 @@
         <tr :class="paging.rowClasses(post)" @click="paging.select(post)">
           <td>{{ post.id }}</td>
           <td>{{ post.title }}&nbsp;
-            <router-link :to="postRoute(post)" class="label label-info actions">Edit</router-link>
+            <router-link :to="postRoute(post)" class="label label-info actions">
+              Edit
+            </router-link>
           </td>
           <td>{{ post.date_from_now }}</td>
           <td :class="stateClass(post)">{{ post.state }}</td>
@@ -32,7 +35,7 @@
 </template>
 
 <script>
-  import posts from '../../api/posts/admin'
+  import { adminApi } from './api'
   import { createPost, listPosts, editPost } from '../../router/routes'
   import Paging from '../../components/helpers/grid/Paging'
 
@@ -51,7 +54,7 @@
     methods: {
       fetchPage (page = 1) {
         this.paging.loading = true
-        posts.get(page, this.paging.perPage)
+        adminApi.get(page, this.paging.perPage)
           .then(data => { this.paging.update(data) })
       },
 

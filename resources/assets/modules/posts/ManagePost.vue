@@ -1,44 +1,28 @@
 <template>
   <form-panel
-      id="create-edit-post"
-      :submit="savePost"
-      :title="panelTitle"
+      id="create-edit-post" :submit="savePost" :title="panelTitle"
       class="col-md-12"
   >
     <panel-action slot="actions" :to="backRoute">Back to list</panel-action>
 
     <form-group id="title" label="Title" :errors="errors.title">
       <input
-          id="title"
-          type="text"
-          class="form-control"
-          name="title"
-          required
-          title="Post title"
-          v-focus="true"
-          v-model="form.title"
+          id="title" type="text" class="form-control" name="title" required
+          title="Post title" v-focus="true" v-model="form.title"
       >
     </form-group>
 
     <form-group id="image" label="Image" :errors="errors.image">
       <div class="input-group">
         <input
-            id="image"
-            type="url"
-            class="form-control"
-            name="image"
-            required
-            title="Image"
-            disabled
-            placeholder="http://image"
+            id="image" type="url" class="form-control" name="image" required
+            title="Image" disabled placeholder="http://image"
             v-model="form.image"
         >
         <span class="input-group-btn">
-          <button
-              class="btn btn-default"
-              type="button"
-              @click="openFilesys"
-          >File</button>
+          <button class="btn btn-default" type="button" @click="openFilesys">
+            File
+          </button>
         </span>
       </div>
     </form-group>
@@ -54,9 +38,7 @@
     </form-group>
 
     <form-group
-        id="publish-at"
-        label="Published At"
-        :errors="errors.publish_at"
+        id="publish-at" label="Published At" :errors="errors.publish_at"
     >
       <date-picker v-model="form.publish_at"></date-picker>
       <span class="help-block">
@@ -74,9 +56,7 @@
     </submit>
 
     <filesys-modal
-        :target.sync="form.image"
-        :open.sync="filesysIsOpen"
-        image="post-title"
+        :target.sync="form.image" :open.sync="filesysIsOpen" image="post-title"
     ></filesys-modal>
 
   </form-panel>
@@ -84,8 +64,8 @@
 
 <script>
   import Vue from 'vue'
+  import { adminApi } from './api'
   import Post from '../../entities/Post'
-  import posts from '../../api/posts/admin'
   import * as lang from '../../lang/index'
   import * as routes from '../../router/routes'
 
@@ -121,7 +101,7 @@
        * Save post details with server API.
        */
       savePost () {
-        posts.save(this.form)
+        adminApi.save(this.form)
           // Redirect to admin posts list when new post is saved.
           .then(() => { this.$router.push(routes.listPosts) })
           // Display errors if server validation failed.
@@ -132,7 +112,7 @@
        * Fetch post details from server API.
        */
       fetchPost (id) {
-        posts.find(id)
+        adminApi.find(id)
           .then(post => { this.form = post })
       },
 

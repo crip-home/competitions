@@ -5,9 +5,7 @@
         <h2>
           {{ post.title }}&nbsp;
           <router-link
-              class="btn btn-default"
-              :to="post.editRoute"
-              v-if="canEdit"
+              class="btn btn-default" :to="post.editRoute" v-if="canEdit"
           >
             Edit
           </router-link>
@@ -26,7 +24,7 @@
   import * as getters from '../../store/getters'
   import * as roles from '../../api/auth/roles'
   import auth from '../../api/auth/index'
-  import posts from '../../api/posts/index'
+  import { api } from './api'
   import { mapGetters } from 'vuex'
 
   export default {
@@ -64,7 +62,7 @@
 
     methods: {
       fetchPost (id) {
-        posts.find(id)
+        api.find(id)
           .then(post => {
             this.post = post
             this.author = post.author
