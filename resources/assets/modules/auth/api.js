@@ -1,8 +1,7 @@
-import Vue from 'vue'
-import store from '../../store'
-import { i18n } from '../../lang'
-import * as types from '../../store/types'
 import settings from '../../settings'
+import store from '../../store/index'
+import Vue from 'vue'
+import { i18n } from '../../lang/index'
 
 export default {
 
@@ -29,13 +28,13 @@ export default {
       .then(({data}) => {
         // update data before auth to make sure guard does
         // not redirect us as unauthorized users
-        store.commit(types.authDetailsUpdate, data)
-        store.commit(types.authenticate)
+        store.commit('updateAuthUserDetails', data)
+        store.commit('authenticate')
         onResolved(data)
       }, r => {
         if (r.status === 401) {
-          store.commit(types.addToast, {message: i18n.t('auth.token_expired'), class: 'toast-info'})
-          store.commit(types.logout)
+          store.commit('addToast', {message: i18n.t('auth.token_expired'), class: 'toast-info'})
+          store.commit('logout')
         } else { settings.handleError(r) }
       })
   },
@@ -47,8 +46,8 @@ export default {
           settings.setToken(data.token)
           // update data before auth to make sure guard does
           // not redirect us as unauthorized users
-          store.commit(types.authDetailsUpdate, data)
-          store.commit(types.authenticate)
+          store.commit('updateAuthUserDetails', data)
+          store.commit('authenticate')
           resolve(data)
         }, ({data}) => {
           reject(data)

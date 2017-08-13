@@ -20,8 +20,6 @@
 </template>
 
 <script>
-  import { modalOpened } from '../../../store/types'
-
   export default {
     name: 'modal',
 
@@ -41,7 +39,7 @@
       this.$emit('mounted', this.id)
 
       // Register current modal as opened
-      this.$store.commit(modalOpened, this.id)
+      this.$store.commit('modalOpened', this.id)
 
       let $el = $(this.$el)
       $el.modal('show')

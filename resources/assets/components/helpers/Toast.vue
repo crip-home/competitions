@@ -8,8 +8,6 @@
 </template>
 
 <script>
-  import * as types from '../../store/types'
-
   export default {
     computed: {
       toastClass () {
@@ -24,7 +22,7 @@
 
     methods: {
       remove (index) {
-        this.$store.commit(types.removeToast, {index})
+        this.$store.commit('removeToast', {index})
       }
     }
   }

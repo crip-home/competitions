@@ -16,7 +16,6 @@
 
 <script>
   import settings from '../../../settings'
-  import { closeModal } from '../../../store/types'
 
   export default {
     name: 'filesys-modal',
@@ -85,7 +84,7 @@
         this.$emit('selected', fileUrl)
 
         // Close modal after file is selected.
-        this.$store.commit(closeModal, 'filesys-modal')
+        this.$store.commit('closeModal', 'filesys-modal')
       }
     }
   }

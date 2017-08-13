@@ -1,15 +1,13 @@
-import { closeModal, modalOpened } from '../types'
-
 const state = {
   modals: []
 }
 
 const mutations = {
-  [modalOpened] (state, payload) {
+  modalOpened (state, payload) {
     state.modals.push(payload)
   },
 
-  [closeModal] (state, payload) {
+  closeModal (state, payload) {
     state.modals.splice(state.modals.indexOf(payload), 1)
   }
 }

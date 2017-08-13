@@ -20,7 +20,6 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { authUserId } from '../../../store/getters'
   import teams from '../../../api/teams/index'
   import members from '../../../api/teams/members'
   import Message from '../../../entities/Message'
@@ -36,7 +35,7 @@
     },
 
     computed: {
-      ...mapGetters([authUserId]),
+      ...mapGetters(['authUserId']),
       team () { return this.message.payload.from_team_name },
       user () { return this.message.payload.from_user_name },
       id () { return this.message.payload.member_id },

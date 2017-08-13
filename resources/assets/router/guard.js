@@ -1,6 +1,5 @@
 import * as routes from './routes'
-import * as types from '../store/types'
-import auth from './../api/auth'
+import auth from '../modules/auth/api'
 import router from './index'
 import store from '../store'
 import { i18n } from '../lang'
@@ -20,7 +19,7 @@ export default {
           // if not, redirect to home page and notify.
           if (to.matched.some(record => record.meta.requiresRoles)) {
             if (!middleware.hasAllRoles(to.meta.requiresRoles)) {
-              store.commit(types.addToast, {
+              store.commit('addToast', {
                 message: i18n.t(
                   'app.permission_denied',
                   {perm: to.meta.requiresRoles.join(', ')}
@@ -31,7 +30,7 @@ export default {
             } else { next() }
           } else if (to.matched.some(r => r.meta.requiresAnyOfRoles)) {
             if (!middleware.hasAnyRole(to.meta.requiresAnyOfRoles)) {
-              store.commit(types.addToast, {
+              store.commit('addToast', {
                 message: i18n.t(
                   'app.permission_denied',
                   {perm: to.meta.requiresAnyOfRoles.join(', ')}

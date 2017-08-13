@@ -1,5 +1,3 @@
-import * as types from '../types'
-import { authUserId, isAuth, authUser } from '../getters'
 import settings from '../../settings'
 
 const state = {
@@ -17,32 +15,32 @@ const state = {
 }
 
 const mutations = {
-  [types.authenticate] (state) {
+  authenticate (state) {
     state.user.authenticated = true
   },
 
-  [types.logout] (state) {
+  logout (state) {
     settings.removeToken()
     state.user.authenticated = false
     state.details = false
   },
 
-  [types.authDetailsUpdate] (state, payload) {
+  updateAuthUserDetails (state, payload) {
     state.user.name = payload.name
     state.user.email = payload.email
     state.user.id = payload.id
     state.roles = []
     payload.roles.forEach((role) => state.roles.push(role.key))
 
-    // allow listeners to watch that user has details received
+    // allow listeners to watch that user details has received
     state.user.details = true
   }
 }
 
 const getters = {
-  [authUserId]: (store, getters) => getters[authUser].id,
-  [isAuth]: (store, getters) => getters[authUser].authenticated,
-  [authUser]: store => store.user
+  authUserId: (store, getters) => getters.authUser.id,
+  isAuth: (store, getters) => getters.authUser.authenticated,
+  authUser: store => store.user
 }
 
 export default {state, mutations, getters}

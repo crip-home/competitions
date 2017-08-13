@@ -30,7 +30,6 @@
 
 <script>
   import { messagesRoute } from '../../router/routes'
-  import { closeModal } from '../../store/types'
   import Select2Options from '../../components/helpers/forms/select2/index'
   import settings from '../../settings'
   import msg from './api'
@@ -72,7 +71,7 @@
        */
       close () {
         // commit to vuex for current modal close
-        this.$store.commit(closeModal, this.modalId)
+        this.$store.commit('closeModal', this.modalId)
       },
 
       /**

@@ -21,9 +21,8 @@
 </template>
 
 <script>
-  import * as getters from '../../store/getters'
-  import * as roles from '../../api/auth/roles'
-  import auth from '../../api/auth/index'
+  import * as roles from '../../api/roles'
+  import auth from '../auth/api'
   import { api } from './api'
   import { mapGetters } from 'vuex'
 
@@ -40,7 +39,7 @@
     },
 
     computed: {
-      ...mapGetters([getters.isAuth, getters.authUser]),
+      ...mapGetters(['isAuth', 'authUser']),
 
       /**
        * Can currently authorized user edit this post instance.

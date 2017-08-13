@@ -1,5 +1,5 @@
 import * as routes from '../../router/routes'
-import * as roles from '../../api/auth/roles'
+import * as roles from '../../api/roles'
 import Wrapper from '../../Wrapper.vue'
 import CreateCompetition from './ManageCompetition.vue'
 import ListCompetitions from './ManageCompetitions.vue'

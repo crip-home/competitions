@@ -28,10 +28,8 @@
     NavbarGroup,
     NavbarItems
   } from './components/helpers/bootstrap/nav/index'
-  import auth from './api/auth/index'
-  import * as roles from './api/auth/roles'
-  import * as types from './store/types'
-  import * as getters from './store/getters'
+  import auth from './modules/auth/api'
+  import * as roles from './api/roles'
   import * as lang from './lang/index'
   import * as routes from './router/routes'
 
@@ -49,7 +47,7 @@
     },
 
     computed: {
-      ...mapGetters([getters.isAuth, getters.authUser]),
+      ...mapGetters(['isAuth', 'authUser']),
 
       leftNavbarItems () {
         let user = auth.middleware
@@ -146,8 +144,8 @@
 
     methods: {
       logout () {
-        this.$store.commit(types.logout)
-        this.$store.commit(types.addToast, {message: this.$t('app.logout_toast_msg')})
+        this.$store.commit('logout')
+        this.$store.commit('addToast', {message: this.$t('app.logout_toast_msg')})
         // Redirect user to homepage after logout
         this.$router.push(routes.home)
       },

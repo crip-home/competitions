@@ -29,12 +29,11 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import { isAuth } from '../../store/getters'
   import api from './api'
 
   export default {
     mounted () {
-      if (this.user.id === 0 && this[isAuth]) {
+      if (this.user.id === 0 && this.isAuth) {
         // fetch profile only if user is already authenticated
         this.fetchProfile(0)
       } else if (this.user.id > 0) {
@@ -54,7 +53,7 @@
     },
 
     computed: {
-      ...mapGetters([isAuth]),
+      ...mapGetters(['isAuth']),
       hasTeams () { return this.user.teams.length > 0 }
     },
 
@@ -66,7 +65,7 @@
     },
 
     watch: {
-      [isAuth] (to, from) {
+      isAuth (to, from) {
         if (this.user.id === 0 && !from && to) {
           // watch authentication and fetch data from server when user
           // is authorized

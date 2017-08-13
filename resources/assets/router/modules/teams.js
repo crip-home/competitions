@@ -3,7 +3,7 @@ import {
   listTeamMembers, createTeamMember, editTeamMember,
   publicTeamDetailsRoute
 } from '../routes'
-import * as roles from '../../api/auth/roles'
+import * as roles from '../../api/roles'
 
 import Wrapper from '../../Wrapper.vue'
 import CreateEditTeam from '../../components/teams/admin/CreateEditTeam.vue'

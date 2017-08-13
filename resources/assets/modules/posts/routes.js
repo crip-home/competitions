@@ -1,5 +1,5 @@
 import * as routes from '../../router/routes'
-import * as roles from '../../api/auth/roles'
+import * as roles from '../../api/roles'
 import Wrapper from '../../Wrapper.vue'
 import Home from './PostList.vue'
 import ReadPost from './PostView.vue'

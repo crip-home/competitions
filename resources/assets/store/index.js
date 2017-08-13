@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import auth from './modules/auth'
+import auth from '../modules/auth/store'
 import toast from './modules/toast'
 import modal from './modules/modal'
 import messages from '../modules/messages/store'

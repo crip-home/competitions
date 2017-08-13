@@ -5,18 +5,25 @@
     <table class="table table-hover">
       <tbody>
       <template v-for="message in messages">
-        <tr @click="toggleMessage(message)" class="pointer" :class="messageHeaderClass(message)">
+        <tr
+            @click="toggleMessage(message)" class="pointer"
+            :class="messageHeaderClass(message)"
+        >
           <td>
             From <strong>{{ message.from_name }}</strong>
-            <span class="pull-right">{{ message.date_from_now }} ({{ message.created_at }})</span>
+            <span class="pull-right">
+              {{ message.date_from_now }} ({{ message.created_at }})
+            </span>
           </td>
         </tr>
         <tr v-if="message.isOpen">
           <td>
             <blockquote class="message-body">
               <div v-if="message.isUserMessage" v-html="message.body"></div>
-              <team-member-invitation v-else-if="message.isTeamMemberInvitation"
-                                      :message="message" :on-close="close"></team-member-invitation>
+              <team-member-invitation
+                  v-else-if="message.isTeamMemberInvitation"
+                  :message="message" :on-close="close"></team-member-invitation
+              >
             </blockquote>
           </td>
         </tr>
@@ -27,21 +34,42 @@
     <form @submit.prevent="reply" v-if="replyIsVisible" class="modal-body">
       <div class="row">
 
-        <form-group id="subject" :errors="errors.subject" :col-lg="12" class="clearfix">
-          <input id="subject" type="text" class="form-control" name="subject" required title="Subject"
-                 placeholder="Subject" v-model="form.subject">
+        <form-group
+            id="subject" :errors="errors.subject" :col-lg="12" class="clearfix"
+        >
+          <input
+              id="subject" type="text" class="form-control" name="subject"
+              required title="Subject" placeholder="Subject"
+              v-model="form.subject"
+          >
         </form-group>
 
-        <form-group id="message-body" :errors="errors.body" :col-lg="12" class="clearfix">
-          <ckeditor v-model="form.body" id="message-body" :focus="true"></ckeditor>
+        <form-group
+            id="message-body" :errors="errors.body" :col-lg="12"
+            class="clearfix"
+        >
+          <ckeditor v-model="form.body" id="message-body" :focus="true">
+          </ckeditor>
         </form-group>
 
       </div>
     </form>
     <div class="modal-footer">
-      <button @click="showReply" v-if="!replyIsVisible && canReply" class="btn btn-primary">Reply</button>
-      <button @click="reply" v-if="replyIsVisible && canReply" class="btn btn-primary">Send reply</button>
-      <button @click="close" class="btn btn-default">Close</button>
+      <button
+          @click="showReply" v-if="!replyIsVisible && canReply"
+          class="btn btn-primary">
+        Reply
+      </button>
+
+      <button
+          @click="reply" v-if="replyIsVisible && canReply"
+          class="btn btn-primary">
+        Send reply
+      </button>
+
+      <button @click="close" class="btn btn-default">
+        Close
+      </button>
     </div>
   </modal>
 </template>
@@ -49,7 +77,6 @@
 <script>
   import TeamMemberInvitation from './types/TeamMemberInvitation.vue'
   import { messagesRoute } from '../../router/routes'
-  import { closeModal } from '../../store/types'
   import msg from './api'
 
   export default {
@@ -90,7 +117,7 @@
        */
       close () {
         // commit to vuex for current modal close
-        this.$store.commit(closeModal, this.modalId)
+        this.$store.commit('closeModal', this.modalId)
       },
 
       /**

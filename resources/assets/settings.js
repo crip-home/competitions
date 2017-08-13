@@ -1,4 +1,3 @@
-import { addToast, logout } from './store/types'
 import { login } from './router/routes'
 import router from './router'
 import store from './store'
@@ -80,7 +79,7 @@ export default {
     switch (errorResponse.status) {
       case 401:
         Vue.log.error('settings.handleError -> unauthorized', errorResponse.data)
-        store.commit(logout)
+        store.commit('logout')
         router.push({...login, query: {redirect: router.currentRoute.fullPath}})
         break
       case 422:
@@ -89,7 +88,7 @@ export default {
       case 403:
       case 405:
         Vue.log.error('settings.handleError -> method not allowed', errorResponse)
-        store.commit(addToast, {
+        store.commit('addToast', {
           message: 'Action is not allowed',
           class: 'toast-error'
         })
