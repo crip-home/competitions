@@ -12,7 +12,9 @@
           <h4>Teams</h4>
           <template v-for="team in user.teams">
             <router-link :to="team.pDetailsRoute" :title="team.name">
-              <img v-if="team.logo" v-bind:src="team.logo" width="35" height="35">
+              <img
+                  v-if="team.logo" v-bind:src="team.logo" width="35" height="35"
+              >
               <span v-else="">{{ team.short }}</span>
             </router-link>&nbsp;
           </template>
@@ -28,7 +30,7 @@
 <script>
   import { mapGetters } from 'vuex'
   import { isAuth } from '../../store/getters'
-  import profile from '../../api/users/profile'
+  import api from './api'
 
   export default {
     mounted () {
@@ -58,7 +60,7 @@
 
     methods: {
       fetchProfile (userId) {
-        profile.find(userId)
+        api.profile(userId)
           .then(user => { this.user = user })
       }
     },

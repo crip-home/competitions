@@ -19,7 +19,9 @@
           picture = ''
         }
 
-        return `http://www.gravatar.com/avatar/${this.md5}?s=${this.size}${picture}`
+        return (
+          `http://www.gravatar.com/avatar/${this.md5}?s=${this.size}${picture}`
+        )
       }
     }
   }
