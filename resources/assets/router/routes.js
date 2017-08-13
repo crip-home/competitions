@@ -25,3 +25,4 @@ export const publicTeamDetailsRoute = {name: 'publicTeamDetailsRoute', params: {
 
 export const createCompetitionRoute = {name: 'createCompetitionRoute'}
 export const listCompetitionsRoute = {name: 'listCompetitionsRoute'}
+export const editCompetitionRoute = {name: 'editCompetitionRoute'}

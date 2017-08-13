@@ -22,7 +22,7 @@ export default {
         .then(
           ({data}) => {
             let resolvedData = PagingResult.handle(data, entityResolver)
-            Vue.log.group('api')(url, resolvedData)
+            Vue.log.group('api', 'debug')(url, resolvedData)
             resolve(resolvedData)
           }
         ).catch(response => settings.handleError(response, reject))
@@ -46,7 +46,7 @@ export default {
         .then(
           ({data}) => {
             let resolvedData = entityResolver(data)
-            Vue.log.group('api')(url, resolvedData)
+            Vue.log.group('api', 'debug')(url, resolvedData)
             resolve(resolvedData)
           },
           response => settings.handleError(response, reject)
@@ -80,7 +80,7 @@ export default {
         .then(
           ({data}) => {
             let resolvedData = entityResolver(data)
-            Vue.log.group('api')(url, resolvedData)
+            Vue.log.debug('api', 'debug')(url, resolvedData)
             resolve(resolvedData)
           },
           response => settings.handleError(response, reject)

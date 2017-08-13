@@ -11,7 +11,7 @@ export default {
     Vue.log = log
 
     Object.defineProperties(Vue.prototype, {
-      $log: {get: function get () { return log }}
+      '$log': {get: () => log}
     })
   }
 }

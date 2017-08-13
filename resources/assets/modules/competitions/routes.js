@@ -23,6 +23,12 @@ export default {
       ...routes.listCompetitionsRoute,
       component: ListCompetitions,
       meta: {requiresAuth, requiresAnyOfRoles: [...createRole, ...listRole]}
+    },
+    {
+      path: 'manage/:id',
+      ...routes.editCompetitionRoute,
+      component: CreateCompetition,
+      meta: {requiresAuth, requiresAnyOfRoles: [...createRole, ...listRole]}
     }
   ]
 }
