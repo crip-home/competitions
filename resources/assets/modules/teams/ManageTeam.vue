@@ -55,9 +55,9 @@
 </template>
 
 <script>
-  import * as routes from '../../../router/routes'
+  import * as routes from '../../router/routes'
   import Vue from 'vue'
-  import { teams } from '../../../api/teams/admin'
+  import { manageTeams } from './api'
 
   export default {
     mounted () {
@@ -108,7 +108,7 @@
        * Save team details with server API.
        */
       saveTeam () {
-        teams.save(this.form)
+        manageTeams.save(this.form)
           // Redirect to teams list when team is saved.
           .then(() => this.$router.push(routes.listTeams))
           // Display errors if server validation failed.
@@ -120,7 +120,7 @@
        * @param {Number} teamId
        */
       fetchTeam (teamId) {
-        teams.find(teamId)
+        manageTeams.find(teamId)
           .then(team => {
             this.form = team
 

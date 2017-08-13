@@ -28,11 +28,11 @@
 </template>
 
 <script>
-  import Select2Options from '../../helpers/forms/select2'
-  import users from '../../../api/users/admin/users'
-  import { teams, members } from '../../../api/teams/admin'
-  import settings from '../../../settings'
-  import { editTeamMember } from '../../../router/routes'
+  import Select2Options from '../../components/helpers/forms/select2/index'
+  import users from '../../api/users/admin/users'
+  import { manageTeams, manageMembers } from './api'
+  import settings from '../../settings'
+  import { editTeamMember } from '../../router/routes'
 
   export default {
     mounted () {
@@ -94,7 +94,7 @@
        * @param {Number} teamId
        */
       fetchTeam (teamId) {
-        teams.find(teamId)
+        manageTeams.find(teamId)
           .then(team => { this.team = team })
       },
 
@@ -103,7 +103,7 @@
        * @param {Number} memberId
        */
       fetchTeamMember (memberId) {
-        return members.find(memberId, {teamId: this.$route.params.team})
+        return manageMembers.find(memberId, {teamId: this.$route.params.team})
           .then(member => {
             this.form.name = member.name
             this.form.user_id = member.user_id
@@ -118,7 +118,7 @@
        * Save new member
        */
       saveMember () {
-        members.save(this.form, {teamId: this.$route.params.team})
+        manageMembers.save(this.form, {teamId: this.$route.params.team})
           .then(
             _ => { this.$router.push(this.team.membersListRoute) },
             errors => { this.errors = errors }

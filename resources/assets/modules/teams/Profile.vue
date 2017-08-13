@@ -2,7 +2,10 @@
   <section id="team-details" class="col-md-12">
     <div class="row">
       <div class="col-md-2 col-sm-3">
-        <img v-if="team.logo" :src="team.logo.thumb" width="265" height="265" class="img-responsive img-thumbnail">
+        <img
+            v-if="team.logo" :src="team.logo.thumb" width="265" height="265"
+            class="img-responsive img-thumbnail"
+        >
         <h2>{{ team.name }}</h2>
         <p>
           <small>Created {{ team.created_from_now }}</small>
@@ -22,9 +25,15 @@
       <div class="col-md-9">
         <tabs :tabs="tabs">
 
-          <tab :for="tabs" name="members" header="Members" :on-selected="setMembersTab">
+          <tab
+              :for="tabs" name="members" header="Members"
+              :on-selected="setMembersTab"
+          >
             <br>
-            <grid id="list-team-members" :paging="membersPaging" :hide-header="true">
+            <grid
+                id="list-team-members" :paging="membersPaging"
+                :hide-header="true"
+            >
               <table class="table table-hover">
                 <thead>
                 <tr>
@@ -33,11 +42,14 @@
                 </thead>
                 <tbody>
                 <template v-for="member in membersPaging.items">
-                  <tr @click="membersPaging.select(member)" :class="membersPaging.rowClasses(member)">
+                  <tr
+                      @click="membersPaging.select(member)"
+                      :class="membersPaging.rowClasses(member)">
                     <td>
                       {{ member.name }}&nbsp;
-                      <router-link v-if="member.user" :to="member.user.profileRoute"
-                                   class="label label-info actions">
+                      <router-link
+                          v-if="member.user" :to="member.user.profileRoute"
+                          class="label label-info actions">
                         Profile
                       </router-link>
                     </td>
@@ -49,7 +61,10 @@
 
           </tab>
 
-          <tab :for="tabs" name="coaches" header="Coaches" :on-selected="setCoachesTab">
+          <tab
+              :for="tabs" name="coaches" header="Coaches"
+              :on-selected="setCoachesTab"
+          >
             List of coaches
           </tab>
 
@@ -60,10 +75,9 @@
 </template>
 
 <script>
-  import Tabs from '../helpers/bootstrap/tabs'
-  import Paging from '../helpers/grid/Paging'
-  import teamsApi from '../../api/teams'
-  import membersApi from '../../api/teams/members'
+  import * as api from './api'
+  import Paging from '../../components/helpers/grid/Paging'
+  import Tabs from '../../components/helpers/bootstrap/tabs/index'
   import { publicTeamDetailsRoute } from '../../router/routes'
 
   export default {
@@ -124,7 +138,7 @@
        * Fetch team details from the server
        */
       fetchTeamDetails (teamId) {
-        teamsApi.find(teamId)
+        api.teams.find(teamId)
           .then(team => { this.team = team })
       },
 
@@ -135,7 +149,7 @@
        */
       fetchTeamMembers (teamId, page = 1) {
         this.membersPaging.loading = true
-        membersApi.getForTeam(teamId, page, this.membersPaging.perPage || 15)
+        api.members.getForTeam(teamId, page, this.membersPaging.perPage || 15)
           .then(data => this.membersPaging.update(data))
       }
     },

@@ -14,12 +14,13 @@
       <template v-for="team in paging.items">
         <tr @click="paging.select(team)" :class="paging.rowClasses(team)">
           <td>{{ team.name }}&nbsp;
-            <router-link :to="team.editRoute"
-                         class="label label-info actions">Edit
+            <router-link :to="team.editRoute" class="label label-info actions">
+              Edit
             </router-link>
             &nbsp;
-            <router-link :to="team.membersListRoute"
-                         class="label label-info actions">Members
+            <router-link
+                :to="team.membersListRoute" class="label label-info actions">
+              Members
             </router-link>
           </td>
           <td>{{ team.short }}</td>
@@ -32,9 +33,9 @@
 </template>
 
 <script>
-  import { teams } from '../../../api/teams/admin'
-  import { listTeams, createTeam } from '../../../router/routes'
-  import Paging from '../../helpers/grid/Paging'
+  import { manageTeams } from './api'
+  import { listTeams, createTeam } from '../../router/routes'
+  import Paging from '../../components/helpers/grid/Paging'
 
   export default {
     mounted () {
@@ -51,7 +52,11 @@
     methods: {
       fetchPage (page = 1) {
         this.paging.loading = true
-        teams.get(page, this.paging.perPage)
+        manageTeams.get(page, this.paging.perPage)
+          .then(data => {
+            console.log(data)
+            return data
+          })
           .then(data => { this.paging.update(data) })
       }
     },

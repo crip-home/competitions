@@ -30,9 +30,9 @@
 </template>
 
 <script>
-  import { teams, members } from '../../../api/teams/admin'
-  import { listTeamMembers } from '../../../router/routes'
-  import Paging from '../../helpers/grid/Paging'
+  import { manageTeams, manageMembers } from './api'
+  import { listTeamMembers } from '../../router/routes'
+  import Paging from '../../components/helpers/grid/Paging'
 
   export default {
     mounted () {
@@ -53,7 +53,7 @@
        */
       fetchData (teamId) {
         this.paging.loading = true
-        teams.find(teamId)
+        manageTeams.find(teamId)
           .then(team => {
             this.team = team
             this.fetchPage(team.id, this.$route.params.page)
@@ -67,7 +67,7 @@
        */
       fetchPage (teamId, page = 1) {
         this.paging.loading = true
-        members.get(page, this.paging.perPage || 15, {teamId})
+        manageMembers.get(page, this.paging.perPage || 15, {teamId})
           .then(data => this.paging.update(data))
       }
     },

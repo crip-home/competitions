@@ -23,7 +23,7 @@
 <script>
   import * as roles from '../../api/roles'
   import auth from '../auth/api'
-  import { api } from './api'
+  import { posts } from './api'
   import { mapGetters } from 'vuex'
 
   export default {
@@ -61,7 +61,7 @@
 
     methods: {
       fetchPost (id) {
-        api.find(id)
+        posts.find(id)
           .then(post => {
             this.post = post
             this.author = post.author

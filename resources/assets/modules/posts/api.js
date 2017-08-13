@@ -1,21 +1,12 @@
-import Vue from 'vue'
-import settings from './../../settings'
+import managePostsApi from './managePostsApi'
 import PagingResult from './../../api/PagingResult'
-import AdminApi from './../../api/AdminApi'
 import Post from './../../entities/Post'
+import settings from './../../settings'
+import Vue from 'vue'
 
-class PostsAdminApi extends AdminApi {
-  constructor () {
-    super('admin/posts')
-  }
+export const managePosts = managePostsApi
 
-  static entityResolver (data) {
-    return new Post(data)
-  }
-}
-
-export const adminApi = new PostsAdminApi()
-export const api = {
+export const posts = {
   /**
    * Get posts from the server
    * @param {number} [page]

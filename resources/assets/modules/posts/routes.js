@@ -25,7 +25,7 @@ export const posts = {
       meta: {requiresAuth: true, requiresAnyOfRoles: [roles.CREATE_POST, roles.MANAGE_POSTS]}
     },
     {
-      path: 'manage/edit/:id',
+      path: 'manage/:id',
       name: routes.editPost.name,
       component: CreateEditPost,
       meta: {requiresAuth: true, requiresAnyOfRoles: [roles.CREATE_POST, roles.MANAGE_POSTS]}

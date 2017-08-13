@@ -20,8 +20,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import teams from '../../../api/teams/index'
-  import members from '../../../api/teams/members'
+  import * as api from '../../teams/api'
   import Message from '../../../entities/Message'
 
   export default {
@@ -56,7 +55,7 @@
        */
       confirmInvitation () {
         if (this.disabled) { return }
-        teams.confirmInvitation(this.id)
+        api.members.confirmInvitation(this.id)
           .then(
             _ => { this.onClose() },
             error => { this.error = error }
@@ -68,7 +67,7 @@
        */
       declineInvitation () {
         if (this.disabled) { return }
-        teams.declineInvitation(this.id)
+        api.members.declineInvitation(this.id)
           .then(
             _ => { this.onClose() },
             error => { this.error = error }
@@ -80,7 +79,7 @@
        * In case of incorrect state, sets checkFailed property to true
        */
       checkInvitationStatus () {
-        members.find(this.id)
+        api.members.find(this.id)
           .then(
             member => {
               if (!member.isInvited) {

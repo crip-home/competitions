@@ -1,5 +1,5 @@
-import AdminApi from '../../AdminApi'
-import TeamMember from '../../../entities/TeamMember'
+import AdminApi from '../../api/AdminApi'
+import TeamMember from '../../entities/TeamMember'
 
 class TeamMembersAdminApi extends AdminApi {
   constructor () {

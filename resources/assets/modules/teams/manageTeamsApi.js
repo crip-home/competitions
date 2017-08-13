@@ -1,12 +1,12 @@
-import AdminApi from '../../AdminApi'
-import Team from '../../../entities/Team'
+import AdminApi from '../../api/AdminApi'
+import Team from '../../entities/Team'
 
 class TeamsAdminApi extends AdminApi {
   constructor () {
     super('admin/teams')
   }
 
-  static entityResolver (data) {
+  entityResolver (data) {
     return new Team(data)
   }
 }

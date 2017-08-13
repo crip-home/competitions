@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import { api } from './api'
+  import { posts } from './api'
   import * as routes from '../../router/routes'
   import Paging from '../../components/helpers/grid/Paging'
 
@@ -38,7 +38,7 @@
 
     methods: {
       fetchPage (page) {
-        api.get(page, this.paging.perPage)
+        posts.get(page, this.paging.perPage)
           .then(data => this.paging.update(data))
       },
 

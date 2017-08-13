@@ -35,7 +35,7 @@
 </template>
 
 <script>
-  import { adminApi } from './api'
+  import { managePosts } from './api'
   import { createPost, listPosts, editPost } from '../../router/routes'
   import Paging from '../../components/helpers/grid/Paging'
 
@@ -54,7 +54,7 @@
     methods: {
       fetchPage (page = 1) {
         this.paging.loading = true
-        adminApi.get(page, this.paging.perPage)
+        managePosts.get(page, this.paging.perPage)
           .then(data => { this.paging.update(data) })
       },
 
