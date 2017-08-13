@@ -35,7 +35,7 @@
 <script>
   import { manageTeams } from './api'
   import { listTeams, createTeam } from '../../router/routes'
-  import Paging from '../../components/helpers/grid/Paging'
+  import Paging from '../helpers/grid/Paging'
 
   export default {
     mounted () {

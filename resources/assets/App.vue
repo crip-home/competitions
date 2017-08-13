@@ -22,13 +22,13 @@
   import * as roles from './api/roles'
   import * as routes from './router/routes'
   import auth from './modules/auth/api'
-  import Navbar from './components/helpers/bootstrap/nav/Navbar.vue'
+  import Navbar from './modules/helpers/bootstrap/nav/Navbar.vue'
   import { mapGetters } from 'vuex'
   import {
     NavbarItem,
     NavbarGroup,
     NavbarItems
-  } from './components/helpers/bootstrap/nav/index'
+  } from './modules/helpers/bootstrap/nav/index'
 
   export default {
     mounted () {
@@ -179,7 +179,7 @@
 </script>
 
 <style lang="scss">
-  @import "assets/app";
+  @import "../sass/app";
 
   .router-link-active {
     font-weight: bolder !important;

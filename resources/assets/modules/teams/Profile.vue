@@ -76,8 +76,8 @@
 
 <script>
   import * as api from './api'
-  import Paging from '../../components/helpers/grid/Paging'
-  import Tabs from '../../components/helpers/bootstrap/tabs/index'
+  import Paging from '../helpers/grid/Paging'
+  import Tabs from '../helpers/bootstrap/tabs/index'
   import { publicTeamDetailsRoute } from '../../router/routes'
 
   export default {

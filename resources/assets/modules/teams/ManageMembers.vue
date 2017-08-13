@@ -14,12 +14,19 @@
       </thead>
       <tbody>
       <template v-for="member in paging.items">
-        <tr @click="paging.select(member)" :class="paging.rowClasses(member, {danger: !member.isActive})">
+        <tr
+            @click="paging.select(member)"
+            :class="paging.rowClasses(member, {danger: !member.isActive})"
+        >
           <td>{{ member.id }}</td>
           <td>{{ member.name }}&nbsp;
-            <span v-if="!member.isActive" class="actions">(member is not active)</span>
-            <router-link :to="member.editRoute"
-                         class="label label-info actions">Edit
+            <span v-if="!member.isActive" class="actions">
+              (member is not active)
+            </span>
+            <router-link
+                :to="member.editRoute" class="label label-info actions"
+            >
+              Edit
             </router-link>
           </td>
         </tr>
@@ -32,7 +39,7 @@
 <script>
   import { manageTeams, manageMembers } from './api'
   import { listTeamMembers } from '../../router/routes'
-  import Paging from '../../components/helpers/grid/Paging'
+  import Paging from '../helpers/grid/Paging'
 
   export default {
     mounted () {

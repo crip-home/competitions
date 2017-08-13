@@ -23,7 +23,7 @@
 <script>
   import { posts } from './api'
   import * as routes from '../../router/routes'
-  import Paging from '../../components/helpers/grid/Paging'
+  import Paging from '../helpers/grid/Paging'
 
   export default {
     mounted () {

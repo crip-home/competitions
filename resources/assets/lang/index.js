@@ -1,4 +1,4 @@
-import Select2Options from '../components/helpers/forms/select2'
+import Select2Options from '../modules/helpers/forms/select2'
 import settings from '../settings'
 import VueI18n from 'vue-i18n'
 import Vue from 'vue'

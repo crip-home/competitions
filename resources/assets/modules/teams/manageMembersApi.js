@@ -6,7 +6,7 @@ class TeamMembersAdminApi extends AdminApi {
     super('admin/teams/{teamId}/members')
   }
 
-  static entityResolver (data) {
+  entityResolver (data) {
     return new TeamMember(data)
   }
 }

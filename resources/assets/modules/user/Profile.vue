@@ -29,7 +29,7 @@
 
 <script>
   import { mapGetters } from 'vuex'
-  import api from './api'
+  import { users } from './api'
 
   export default {
     mounted () {
@@ -59,7 +59,7 @@
 
     methods: {
       fetchProfile (userId) {
-        api.profile(userId)
+        users.profile(userId)
           .then(user => { this.user = user })
       }
     },

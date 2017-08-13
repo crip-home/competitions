@@ -37,7 +37,7 @@
 <script>
   import { managePosts } from './api'
   import { createPost, listPosts, editPost } from '../../router/routes'
-  import Paging from '../../components/helpers/grid/Paging'
+  import Paging from '../helpers/grid/Paging'
 
   export default {
     mounted () {

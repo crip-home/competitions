@@ -39,7 +39,7 @@
 
 <script>
   import { messagesRoute } from '../../router/routes'
-  import Select2Options from '../../components/helpers/forms/select2/index'
+  import Select2Options from '../helpers/forms/select2/index'
   import settings from '../../settings'
   import msg from './api'
 

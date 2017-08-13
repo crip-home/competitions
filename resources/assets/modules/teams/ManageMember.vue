@@ -28,11 +28,11 @@
 </template>
 
 <script>
-  import Select2Options from '../../components/helpers/forms/select2/index'
-  import users from '../../api/users/admin/users'
-  import { manageTeams, manageMembers } from './api'
+  import Select2Options from '../helpers/forms/select2/index'
   import settings from '../../settings'
   import { editTeamMember } from '../../router/routes'
+  import { manageTeams, manageMembers } from './api'
+  import { manageUsers } from '../user/api'
 
   export default {
     mounted () {
@@ -141,7 +141,7 @@
       createRelatedMember (userId) {
         if (userId) {
           this.form.user_id = userId
-          users.find(userId)
+          manageUsers.find(userId)
             .then(user => { this.form.name = user.name })
         }
       },
@@ -160,5 +160,9 @@
   button.close.text-danger {
     float: none;
     font-weight: bolder;
+  }
+
+  .select2-container--bootstrap .select2-selection--single {
+    height: 36px !important;
   }
 </style>
