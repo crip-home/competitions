@@ -62,7 +62,6 @@
 <script>
   import Tabs from '../helpers/bootstrap/tabs'
   import Paging from '../helpers/grid/Paging'
-  import { logComponent, error } from '../../data/Log'
   import teamsApi from '../../api/teams'
   import membersApi from '../../api/teams/members'
   import { publicTeamDetailsRoute } from '../../router/routes'
@@ -71,7 +70,7 @@
     name: 'team-details',
 
     mounted () {
-      logComponent(this)
+      this.$log.component(this)
       let {team, tab, page} = this.$route.params
 
       this.fetchTeamDetails(team)
@@ -148,7 +147,7 @@
         }
 
         if (tab === 'coaches') {
-          error('TODO: fetch coaches')
+          this.$log.error('TODO: fetch coaches')
         }
       }
     }

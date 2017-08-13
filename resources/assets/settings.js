@@ -1,27 +1,16 @@
-import {
-  addToast,
-  logout
-} from './store/types'
+import { addToast, logout } from './store/types'
 import { login } from './router/routes'
-import { error } from './data/Log'
 import router from './router'
 import store from './store'
 import Vue from 'vue'
+import moment from 'moment'
 
 export default {
   domain: 'http://crip-competitions.dev',
 
   apiRoot: `api/`,
 
-  filesysUrl (
-    {target = 'ckeditor', callback = '', image = ''} = {target: 'ckeditor'}
-  ) {
-    return `${this.domain}/packages/filemanager?target=&{target}` +
-      (callback ? `&callback=${callback}` : '') +
-      '&type=image' +
-      (image ? `&select=${image}` : '') +
-      `&token=${localStorage.getItem('token')}`
-  },
+  serverDateFormat: 'YYYY-MM-DD HH:mm:ss',
 
   /**
    * Logging placement area
@@ -43,6 +32,14 @@ export default {
     'info'
     // // 'select2', // Uncomment this line to see all changes in select2 helper
   ],
+
+  filesysUrl ({target = 'ckeditor', callback = '', image = ''} = {target: 'ckeditor'}) {
+    return `${this.domain}/packages/filemanager?target=&{target}` +
+      (callback ? `&callback=${callback}` : '') +
+      '&type=image' +
+      (image ? `&select=${image}` : '') +
+      `&token=${localStorage.getItem('token')}`
+  },
 
   /**
    * Generate url to the application api
@@ -82,16 +79,16 @@ export default {
 
     switch (errorResponse.status) {
       case 401:
-        error('settings.handleError -> unauthorized', errorResponse.data)
+        Vue.log.error('settings.handleError -> unauthorized', errorResponse.data)
         store.commit(logout)
         router.push({...login, query: {redirect: router.currentRoute.fullPath}})
         break
       case 422:
-        error('settings.handleError -> validation failed', errorResponse.data)
+        Vue.log.error('settings.handleError -> validation failed', errorResponse.data)
         break
       case 403:
       case 405:
-        error('settings.handleError -> method not allowed', errorResponse)
+        Vue.log.error('settings.handleError -> method not allowed', errorResponse)
         store.commit(addToast, {
           message: 'Action is not allowed',
           class: 'toast-error'
@@ -101,7 +98,7 @@ export default {
         //   create not allowed requests
         break
       default:
-        error('settings.handleError -> unknown', errorResponse)
+        Vue.log.error('settings.handleError -> unknown', errorResponse)
       // TODO: send email as there happened something that we did not expected
     }
   },
@@ -203,5 +200,16 @@ export default {
    */
   setLocale (locale) {
     localStorage.setItem('locale', locale)
+  },
+
+  /**
+   * Convert server date string to moment object instance.
+   * @param   {String} date
+   * @returns {null|moment.Moment}
+   */
+  parseServerDate (date) {
+    if (date) return moment(date, this.serverDateFormat)
+
+    return null
   }
 }

@@ -2,6 +2,14 @@ $.fn.select2.defaults.set('theme', 'bootstrap')
 
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+
+Vue.use(VueResource)
+
+import Log from './extensions/Log'
+import settings from './settings'
+
+Vue.use(Log, settings)
+
 import { i18n, init } from './lang'
 import { sync } from 'vuex-router-sync'
 import string from './data/String'
@@ -11,7 +19,6 @@ import store from './store'
 import App from './components/App.vue'
 import globals from './globals'
 
-Vue.use(VueResource)
 sync(store, router)
 guard.init()
 string.init()

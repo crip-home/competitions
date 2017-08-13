@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import settings from '../settings'
 import PagingResult from '../data/PagingResult'
-import { sLog } from '../data/Log'
-
-let log = sLog('api')
 
 export default {
   /**
@@ -25,7 +22,7 @@ export default {
         .then(
           ({data}) => {
             let resolvedData = PagingResult.handle(data, entityResolver)
-            log(url, resolvedData)
+            Vue.log.group('api')(url, resolvedData)
             resolve(resolvedData)
           }
         ).catch(response => settings.handleError(response, reject))
@@ -49,7 +46,7 @@ export default {
         .then(
           ({data}) => {
             let resolvedData = entityResolver(data)
-            log(url, resolvedData)
+            Vue.log.group('api')(url, resolvedData)
             resolve(resolvedData)
           },
           response => settings.handleError(response, reject)
@@ -83,7 +80,7 @@ export default {
         .then(
           ({data}) => {
             let resolvedData = entityResolver(data)
-            log(url, resolvedData)
+            Vue.log.group('api')(url, resolvedData)
             resolve(resolvedData)
           },
           response => settings.handleError(response, reject)

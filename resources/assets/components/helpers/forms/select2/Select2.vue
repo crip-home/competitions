@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  import { sLog } from '../../../../data/Log'
   import help from '../../../../data/help'
   import Select2Options from './index'
 
@@ -29,7 +28,7 @@
 
     methods: {
       log (type, extend = {}) {
-        sLog('select2')(type, {
+        this.$log.group('select2')(type, {
           value: this.value,
           options: this.options,
           search: this.search,
