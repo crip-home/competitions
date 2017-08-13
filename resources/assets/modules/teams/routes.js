@@ -2,15 +2,15 @@ import {
   listTeams, createTeam, editTeam,
   listTeamMembers, createTeamMember, editTeamMember,
   publicTeamDetailsRoute
-} from '../routes'
+} from '../../router/routes'
 import * as roles from '../../api/roles'
 
 import Wrapper from '../../Wrapper.vue'
-import CreateEditTeam from '../../modules/teams/ManageTeam.vue'
-import ListTeams from '../../modules/teams/ManageTeams.vue'
-import ListTeamMembers from '../../modules/teams/ManageMembers.vue'
-import CreateEditTeamMember from '../../modules/teams/ManageMember.vue'
-import TeamDetails from '../../modules/teams/Profile.vue'
+import CreateEditTeam from './ManageTeam.vue'
+import ListTeams from './ManageTeams.vue'
+import ListTeamMembers from './ManageMembers.vue'
+import CreateEditTeamMember from './ManageMember.vue'
+import TeamDetails from './Profile.vue'
 
 const requiresAuth = true
 const meta = {requiresAuth, requiresRoles: [roles.CREATE_TEAMS]}

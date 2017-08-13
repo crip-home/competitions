@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import auth from './modules/auth'
-import teams from './modules/teams'
+import auth from '../modules/auth/routes'
+import teams from '../modules/teams/routes'
 import user from '../modules/user/routes'
 import competitions from './../modules/competitions/routes'
 import messages from './../modules/messages/routes'

@@ -1,10 +1,10 @@
-import * as routes from '../routes'
+import * as routes from '../../router/routes'
 
 import Wrapper from '../../Wrapper.vue'
-import Login from '../../modules/auth/Login.vue'
-import Signup from '../../modules/auth/Signup.vue'
-import EmailPassword from '../../modules/auth/EmailPassword.vue'
-import ResetPassword from '../../modules/auth/ResetPassword.vue'
+import Login from './Login.vue'
+import Signup from './Signup.vue'
+import EmailPassword from './EmailPassword.vue'
+import ResetPassword from './ResetPassword.vue'
 
 export default {
   path: '/auth',
