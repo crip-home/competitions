@@ -14,13 +14,13 @@ export default {
   children: [
     {
       path: 'manage/new',
-      name: routes.createCompetitionRoute.name,
+      ...routes.createCompetitionRoute,
       component: CreateCompetition,
       meta: {requiresAuth, requiresRoles: createRole}
     },
     {
       path: 'manage/all/:page?',
-      name: routes.listCompetitionsRoute.name,
+      ...routes.listCompetitionsRoute,
       component: ListCompetitions,
       meta: {requiresAuth, requiresAnyOfRoles: [...createRole, ...listRole]}
     }
