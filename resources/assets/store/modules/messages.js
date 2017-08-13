@@ -1,6 +1,6 @@
 import { checkMessageCount, messagesCountUpdated } from '../types'
 
-import messages from '../../api/users/messages'
+import messages from '../../modules/messages/api'
 
 const state = {
   unread: 0

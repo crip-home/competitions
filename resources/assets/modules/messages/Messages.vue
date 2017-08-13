@@ -68,7 +68,7 @@
 
 <script>
   import { messagesRoute, newMessageRoute } from '../../router/routes'
-  import msg from '../../api/users/messages'
+  import msg from './api'
   import Paging from '../../components/helpers/grid/Paging'
 
   export default {

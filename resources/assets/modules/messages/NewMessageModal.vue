@@ -33,7 +33,7 @@
   import { closeModal } from '../../store/types'
   import Select2Options from '../../components/helpers/forms/select2/index'
   import settings from '../../settings'
-  import msg from '../../api/users/messages'
+  import msg from './api'
 
   export default {
     data () {
