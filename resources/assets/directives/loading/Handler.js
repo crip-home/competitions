@@ -1,4 +1,5 @@
-import { Attr, Node } from '../../data/html'
+import Attr from './Attr'
+import Node from './Node'
 
 const show = Symbol('show')
 const hide = Symbol('hide')

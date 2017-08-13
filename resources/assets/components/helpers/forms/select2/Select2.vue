@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import help from '../../../../data/help'
+  import help from '../../../../help'
   import Select2Options from './index'
 
   export default {

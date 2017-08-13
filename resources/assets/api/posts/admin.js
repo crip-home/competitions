@@ -1,14 +1,14 @@
-import AdminRepository from '../../data/AdminRepository'
+import AdminApi from './../AdminApi'
 import Post from '../../entities/Post'
 
-class PostsAdminRepository extends AdminRepository {
+class PostsAdminApi extends AdminApi {
   constructor () {
     super('admin/posts')
   }
 
-  entityResolver (data) {
+  static entityResolver (data) {
     return new Post(data)
   }
 }
 
-export default new PostsAdminRepository()
+export default new PostsAdminApi()

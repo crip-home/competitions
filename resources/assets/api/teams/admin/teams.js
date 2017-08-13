@@ -1,14 +1,14 @@
-import AdminRepository from '../../../data/AdminRepository'
+import AdminApi from '../../AdminApi'
 import Team from '../../../entities/Team'
 
-class TeamsAdminRepository extends AdminRepository {
+class TeamsAdminApi extends AdminApi {
   constructor () {
     super('admin/teams')
   }
 
-  entityResolver (data) {
+  static entityResolver (data) {
     return new Team(data)
   }
 }
 
-export default new TeamsAdminRepository()
+export default new TeamsAdminApi()

@@ -12,7 +12,7 @@ Vue.use(Log, settings)
 
 import { i18n, init } from './lang'
 import { sync } from 'vuex-router-sync'
-import string from './data/String'
+import string from './extensions/String'
 import router from './router'
 import guard from './router/guard'
 import store from './store'

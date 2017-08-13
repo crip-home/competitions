@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import settings from '../settings'
-import PagingResult from '../data/PagingResult'
+import PagingResult from './PagingResult'
 
 export default {
   /**

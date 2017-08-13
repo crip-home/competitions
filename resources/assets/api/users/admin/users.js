@@ -1,14 +1,14 @@
-import AdminRepository from '../../../data/AdminRepository'
+import AdminApi from '../../AdminApi'
 import User from '../../../entities/User'
 
-class UserAdminRepository extends AdminRepository {
+class UserAdminApi extends AdminApi {
   constructor () {
     super('admin/users')
   }
 
-  entityResolver (data) {
+  static entityResolver (data) {
     return new User(data)
   }
 }
 
-export default new UserAdminRepository()
+export default new UserAdminApi()

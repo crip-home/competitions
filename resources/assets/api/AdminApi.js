@@ -1,9 +1,9 @@
-import api from '../api'
+import api from './index'
 
 // All child classes should have methods:
 // - entityResolver(data)
 
-export default class AdminRepository {
+export default class AdminApi {
   constructor (path) {
     this.path = path
   }
