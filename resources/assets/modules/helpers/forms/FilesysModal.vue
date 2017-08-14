@@ -39,7 +39,7 @@
     },
 
     mounted () {
-      window.filesys = this.fileSelected
+      window.filesys = this.fileSelected.bind(this)
     },
 
     computed: {

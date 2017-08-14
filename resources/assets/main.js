@@ -1,19 +1,17 @@
 $.fn.select2.defaults.set('theme', 'bootstrap')
 
-import Vue from 'vue'
-
-// https://github.com/pagekit/vue-resource
-import VueResource from 'vue-resource'
-
 // https://github.com/shakee93/vue-toasted
 import Toasted from 'vue-toasted'
 
 // https://github.com/tahq69/vue-bootstrap-modal
 import CripModal from 'crip-vue-bootstrap-modal'
+import CripLoading from 'crip-vue-loading'
+import axios from 'axios'
+import Vue from 'vue'
 import Log from './extensions/Log'
 import settings from './settings'
 
-Vue.use(VueResource)
+Vue.use(CripLoading, {axios})
 Vue.use(Toasted, {duration: 3700})
 Vue.use(CripModal)
 Vue.use(Log, settings)

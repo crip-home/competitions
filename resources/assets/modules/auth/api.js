@@ -1,3 +1,4 @@
+import http from 'axios'
 import settings from '../../settings'
 import store from '../../store'
 import Vue from 'vue'
@@ -7,7 +8,7 @@ export default {
 
   login (credentials) {
     return new Promise((resolve, reject) => {
-      Vue.http.post(settings.apiUrl('authenticate'), credentials)
+      http.post(settings.apiUrl('authenticate'), credentials)
         .then(({data}) => {
           settings.setToken(data.token)
           this.getAuthUserDetails(resolve)
@@ -24,7 +25,7 @@ export default {
   },
 
   getAuthUserDetails (onResolved) {
-    Vue.http.get(settings.apiUrl('authenticate'))
+    http.get(settings.apiUrl('authenticate'))
       .then(({data}) => {
         // update data before auth to make sure guard does
         // not redirect us as unauthorized users
@@ -41,7 +42,7 @@ export default {
 
   register (details) {
     return new Promise((resolve, reject) => {
-      Vue.http.post(settings.apiUrl('register'), details)
+      http.post(settings.apiUrl('register'), details)
         .then(({data}) => {
           settings.setToken(data.token)
           // update data before auth to make sure guard does
@@ -57,7 +58,7 @@ export default {
 
   sendResetLink (email) {
     return new Promise((resolve, reject) => {
-      Vue.http.post(settings.apiUrl('password/email'), {email})
+      http.post(settings.apiUrl('password/email'), {email})
         .then(({data}) => {
           resolve(data.status)
         }, ({data}) => {
@@ -68,7 +69,7 @@ export default {
 
   reset (details) {
     return new Promise((resolve, reject) => {
-      Vue.http.post(settings.apiUrl('password/reset'), details)
+      http.post(settings.apiUrl('password/reset'), details)
         .then(({data}) => {
           resolve(data.status)
         }, ({data}) => {

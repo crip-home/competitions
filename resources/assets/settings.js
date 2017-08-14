@@ -1,8 +1,9 @@
-import { login } from './router/routes'
+import axios from 'axios'
+import moment from 'moment'
 import router from './router'
 import store from './store'
 import Vue from 'vue'
-import moment from 'moment'
+import { login } from './router/routes'
 
 export default {
   domain: 'http://crip-competitions.dev',
@@ -33,7 +34,7 @@ export default {
   ],
 
   filesysUrl ({target = 'ckeditor', callback = '', image = ''} = {target: 'ckeditor'}) {
-    return `${this.domain}/packages/filemanager?target=&{target}` +
+    return `${this.domain}/packages/filemanager?target=${target}` +
       (callback ? `&callback=${callback}` : '') +
       '&type=image' +
       (image ? `&select=${image}` : '') +
@@ -145,11 +146,7 @@ export default {
    */
   setToken (token) {
     localStorage.setItem('token', token)
-
-    Vue.http.interceptors.push((request, next) => {
-      request.headers.set('Authorization', this.getAuthToken())
-      next()
-    })
+    axios.defaults.headers.common['Authorization'] = this.getAuthToken()
   },
 
   /**

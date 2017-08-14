@@ -3,7 +3,6 @@ var webpack = require('webpack')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -13,8 +12,10 @@ module.exports = {
   entry: {
     app: './resources/assets/main.js',
     vendor: [
-      'vue', 'vue-router', 'vuex', 'vue-resource', 'jquery',
-      'bootstrap-sass', 'bootstrap-datepicker', 'select2',
+      'vue', 'vue-router', 'vuex', 'vue-i18n', 'vue-toasted',
+      'vuex-router-sync', 'axios', 'crip-vue-bootstrap-modal',
+      'crip-vue-loading', 'jquery', 'bootstrap-sass', 'bootstrap-datepicker',
+      'select2', 'moment',
     ],
   },
   output: {
@@ -82,10 +83,6 @@ module.exports = {
       name: 'vendor',
       filename: 'vendor.js'
     }),
-    new CopyWebpackPlugin([{
-      from: './node_modules/ckeditor',
-      to: 'ckeditor'
-    }]),
     new webpack.ProvidePlugin({jQuery: 'jquery', $: 'jquery', jquery: 'jquery'})
   ]
 }

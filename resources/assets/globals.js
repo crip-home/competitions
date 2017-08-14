@@ -41,11 +41,5 @@ export default {
 
     Vue.directive('focus', focusDirective)
     Vue.directive('loading', loadingDirective)
-
-    Vue.http.interceptors.push((request, next) => {
-      /* request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken) */
-
-      next()
-    })
   }
 }

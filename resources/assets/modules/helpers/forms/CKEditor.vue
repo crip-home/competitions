@@ -41,7 +41,7 @@
       }
 
       if (this.filesys) {
-        const url = settings.filesysUrl({image: 'post'})
+        const url = settings.filesysUrl()
         ckeditorConfig.filebrowserBrowseUrl = url
         ckeditorConfig.filebrowserImageBrowseUrl = url
       }

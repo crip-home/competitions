@@ -1,8 +1,8 @@
+import http from 'axios'
 import managePostsApi from './managePostsApi'
 import PagingResult from './../../api/PagingResult'
 import Post from './../../entities/Post'
 import settings from './../../settings'
-import Vue from 'vue'
 
 export const managePosts = managePostsApi
 
@@ -22,7 +22,7 @@ export const posts = {
         locales: locales ? locales.join(',') : ''
       }
       const resolver = item => new Post(item)
-      Vue.http.get(settings.apiUrl('posts', params))
+      http.get(settings.apiUrl('posts', params))
         .then(
           ({data}) => resolve(PagingResult.handle(data, resolver)),
           response => settings.handleError(response, reject)
@@ -37,7 +37,7 @@ export const posts = {
    */
   find (id) {
     return new Promise((resolve, reject) => {
-      Vue.http.get(settings.apiUrl(`posts/${id}`))
+      http.get(settings.apiUrl(`posts/${id}`))
         .then(
           ({data}) => resolve(new Post(data)),
           response => settings.handleError(response, reject)
