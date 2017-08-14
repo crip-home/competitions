@@ -61,13 +61,21 @@
     },
 
     methods: {
-      fetchPage (page = 1) {
-        api.manageCompetitions.get(page, this.paging.perPage)
-          .then(data => this.paging.update(data))
+      async fetchPage (page = 1) {
+        this.paging.loading = true
+        this.paging.update(
+          await api.manageCompetitions.get(page, this.paging.perPage)
+        )
       },
 
       editRoute (competition) {
         return {...routes.editCompetitionRoute, params: {id: competition.id}}
+      }
+    },
+
+    watch: {
+      '$route.params.page' (page) {
+        this.fetchPage(page || 1)
       }
     }
   }
