@@ -1,19 +1,21 @@
 <template>
   <grid id="list-posts" :paging="paging">
     <span slot="title">Manage posts</span>
-    <panel-action slot="actions" :to="createRoute">Create New post
+    <panel-action slot="actions" :to="createRoute">
+      Create New post
     </panel-action>
 
     <table class="table table-hover">
       <thead>
       <tr>
-        <th>#</th>
+        <th><sort-th :paging="paging" column="id">#</sort-th></th>
         <th>Title</th>
         <th>Published</th>
         <th>State</th>
         <th>Author</th>
       </tr>
       </thead>
+
       <tbody>
       <template v-for="post in paging.items">
         <tr :class="paging.rowClasses(post)" @click="paging.select(post)">
