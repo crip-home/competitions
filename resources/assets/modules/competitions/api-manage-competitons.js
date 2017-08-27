@@ -1,38 +1,35 @@
 import api from './../../api'
-import Post from './../../entities/Post'
+import Competition from './../../entities/Competition'
 
 const path = 'admin/competitions'
-const resolveEntity = (data) => new Post(data)
+const resolveEntity = (data) => new Competition(data)
 
 export default {
   /**
-   * Get list of entities from the server
-   * @param {Number} [page]
-   * @param {Number} [perPage]
-   * @param {*}      [urlReplace]
+   * Get list of competition entities from the server.
+   * @param   {number} [page]
+   * @param   {number} [perPage]
    * @returns {Promise.<PagingResult>}
    */
-  get (page = 1, perPage = 15, urlReplace = {}) {
-    return api.get(path, resolveEntity, page, perPage, urlReplace)
+  get (page = 1, perPage = 15) {
+    return api.get(path, resolveEntity, page, perPage)
   },
 
   /**
-   * Get single entity from the server
-   * @param {number}  id
-   * @param {*}      [urlReplace]
-   * @returns {Promise}
+   * Get single competition entity from the server.
+   * @param   {number} id
+   * @returns {Promise<Competition>}
    */
-  find (id, urlReplace = {}) {
-    return api.find(path, resolveEntity, id, urlReplace)
+  find (id) {
+    return api.find(path, resolveEntity, id)
   },
 
   /**
-   * Store entity on the server
-   * @param {object} entity
-   * @param {*}      [urlReplace]
+   * Store competition entity on the server.
+   * @param   {object} entity
    * @returns {Promise}
    */
-  save (entity, urlReplace = {}) {
-    return api.save(path, resolveEntity, entity, urlReplace)
+  save (entity) {
+    return api.save(path, resolveEntity, entity)
   }
 }

@@ -6,33 +6,30 @@ const resolveEntity = (data) => new Team(data)
 
 export default {
   /**
-   * Get list of entities from the server
-   * @param {Number} [page]
-   * @param {Number} [perPage]
-   * @param {*}      [urlReplace]
-   * @returns {Promise.<PagingResult>}
+   * Get list of team entities from the server.
+   * @param   {number} [page]
+   * @param   {number} [perPage]
+   * @returns {Promise<PagingResult>}
    */
-  get (page = 1, perPage = 15, urlReplace = {}) {
-    return api.get(path, resolveEntity, page, perPage, urlReplace)
+  get (page = 1, perPage = 15) {
+    return api.get(path, resolveEntity, page, perPage)
   },
 
   /**
-   * Get single entity from the server
-   * @param {number}  id
-   * @param {*}      [urlReplace]
-   * @returns {Promise}
+   * Get single team entity from the server.
+   * @param   {number} id
+   * @returns {Promise<Team>}
    */
-  find (id, urlReplace = {}) {
-    return api.find(path, resolveEntity, id, urlReplace)
+  find (id) {
+    return api.find(path, id)
   },
 
   /**
-   * Store entity on the server
-   * @param {object} entity
-   * @param {*}      [urlReplace]
-   * @returns {Promise}
+   * Store team entity on the server.
+   * @param   {object} entity
+   * @returns {Promise<Team>}
    */
-  save (entity, urlReplace = {}) {
-    return api.save(path, resolveEntity, entity, urlReplace)
+  save (entity) {
+    return api.save(path, resolveEntity, entity)
   }
 }
