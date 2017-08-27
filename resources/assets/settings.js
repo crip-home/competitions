@@ -70,32 +70,41 @@ export default {
    */
   handleError (errorResponse, reject = _ => _) {
     if (reject && typeof reject === 'function') {
-      if (errorResponse.status === 422) {
-        reject(errorResponse.data)
+      if (errorResponse.response.status === 422) {
+        reject(errorResponse.response.data)
       } else {
         reject({error: ['Unknown error']})
       }
     }
 
-    switch (errorResponse.status) {
+    switch (errorResponse.response.status) {
       case 401:
-        Vue.log.error('settings.handleError -> unauthorized', errorResponse.data)
+        Vue.log.error(
+          'settings.handleError -> unauthorized',
+          errorResponse.response.data
+        )
         store.commit('logout')
         router.push({...login, query: {redirect: router.currentRoute.fullPath}})
         break
       case 422:
-        Vue.log.error('settings.handleError -> validation failed', errorResponse.data)
+        Vue.log.error(
+          'settings.handleError -> validation failed',
+          errorResponse.response.data
+        )
         break
       case 403:
       case 405:
-        Vue.log.error('settings.handleError -> method not allowed', errorResponse)
+        Vue.log.error(
+          'settings.handleError -> method not allowed',
+          errorResponse.response
+        )
         Vue.toasted.error('Action is not allowed')
         // TODO: send this as email to admin to be able detect users who is trying hack app
         //   or some places has not enough protection and simple user can open it and
         //   create not allowed requests
         break
       default:
-        Vue.log.error('settings.handleError -> unknown', errorResponse)
+        Vue.log.error('settings.handleError -> unknown', errorResponse.response)
       // TODO: send email as there happened something that we did not expected
     }
   },
