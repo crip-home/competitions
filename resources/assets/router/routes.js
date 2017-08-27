@@ -1,3 +1,14 @@
+/**
+ * Create router route instance.
+ * @param {object} route
+ * @param {string} route.name
+ * @param {object} params
+ * @returns {object} Router route.
+ */
+export function createRoute (route, params) {
+  return {...route, params}
+}
+
 export const home = {name: 'home'}
 export const profileRoute = {name: 'profile'}
 
@@ -21,7 +32,10 @@ export const createTeam = {name: 'createTeam'}
 export const createTeamMember = {name: 'createTeamMember'}
 export const editTeam = {name: 'editTeam'}
 export const editTeamMember = {name: 'editTeamMember'}
-export const publicTeamDetailsRoute = {name: 'publicTeamDetailsRoute', params: {tab: 'members'}}
+export const publicTeamDetailsRoute = {
+  name: 'publicTeamDetailsRoute',
+  params: {tab: 'members'}
+}
 
 export const createCompetitionRoute = {name: 'createCompetitionRoute'}
 export const listCompetitionsRoute = {name: 'listCompetitionsRoute'}

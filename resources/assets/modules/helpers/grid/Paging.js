@@ -1,5 +1,5 @@
 export default class Paging {
-  constructor ({route, activeClass = 'active', disabledClass = 'disabled', show = 5}) {
+  constructor (vm, {route, activeClass = 'active', disabledClass = 'disabled', show = 5}) {
     this.currentPage = 0
     this.lastPage = 0
     this.perPage = 0
@@ -10,6 +10,8 @@ export default class Paging {
     this.disabledClass = disabledClass
     this.show = show
     this.selected = {}
+
+    this.$vm = vm
   }
 
   rowClasses (item, extra = {}) {
@@ -35,5 +37,16 @@ export default class Paging {
     this.route.params
       ? (this.route.params.page = this.currentPage)
       : (this.route.params = {page: this.currentPage})
+  }
+
+  /**
+   * Initialize paging loading initial page data and setting up page change
+   * handler.
+   * @param {function(number)} callback
+   * @param {number} initialPage
+   */
+  init (callback, initialPage = 1) {
+    callback(initialPage)
+    this.$vm.$watch('$route.params.page', callback)
   }
 }

@@ -35,26 +35,31 @@
 
 <script>
   import * as api from './api'
-  import * as routes from '../../router/routes'
   import Paging from '../helpers/grid/Paging'
+  import {
+    createRoute,
+    editCompetitionRoute,
+    createCompetitionRoute,
+    listCompetitionsRoute
+  } from '../../router/routes'
 
   export default {
     name: 'manage-competitions',
 
-    created () {
-      this.$log.component(this)
-      this.fetchPage(this.page)
-    },
-
     data () {
       return {
-        paging: new Paging({route: routes.listCompetitionsRoute})
+        paging: new Paging(this, {route: listCompetitionsRoute})
       }
+    },
+
+    created () {
+      this.$log.component(this)
+      this.paging.init(page => this.fetchPage(page), this.page)
     },
 
     computed: {
       page () { return this.$route.params.page || 1 },
-      createRoute () { return routes.createCompetitionRoute },
+      createRoute () { return createCompetitionRoute },
       // TODO: get user settings to find out is new competition allowed
       // if it is not, show title on disabled button
       canCreateNew () { return true }
@@ -69,13 +74,7 @@
       },
 
       editRoute (competition) {
-        return {...routes.editCompetitionRoute, params: {id: competition.id}}
-      }
-    },
-
-    watch: {
-      '$route.params.page' (page) {
-        this.fetchPage(page || 1)
+        return createRoute(editCompetitionRoute, {id: competition.id})
       }
     }
   }

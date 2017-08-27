@@ -72,14 +72,17 @@
   import Paging from '../helpers/grid/Paging'
 
   export default {
-    mounted () {
-      this.fetchMessages(this.$route.params.page || 1, this.$route.params.type)
-    },
+    name: 'messages',
 
     data () {
       return {
-        paging: new Paging({route: messagesRoute})
+        paging: new Paging(this, {route: messagesRoute})
       }
+    },
+
+    created () {
+      this.$log.component(this)
+      this.fetchMessages(this.page, this.routeType)
     },
 
     computed: {
@@ -90,6 +93,8 @@
       routeType () {
         return this.$route.params.type
       },
+
+      page () { return this.$route.params.page || 1 },
 
       inboxRoute () {
         return {...messagesRoute, params: {type: 'inbox'}}

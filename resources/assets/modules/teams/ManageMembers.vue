@@ -42,15 +42,24 @@
   import Paging from '../helpers/grid/Paging'
 
   export default {
-    mounted () {
-      this.fetchData(this.$route.params.team)
-    },
+    name: 'manage-members',
 
     data () {
       return {
-        paging: new Paging({route: listTeamMembers}),
+        paging: new Paging(this, {route: listTeamMembers}),
         team: {}
       }
+    },
+
+    created () {
+      this.$log.component(this)
+      this.fetchTeamData(this.$route.params.team)
+      this.paging.init(page => this.fetchPage(this.teamId, page), this.page)
+    },
+
+    computed: {
+      teamId () { return this.$route.params.team },
+      page () { return this.$route.params.page || 1 }
     },
 
     methods: {
@@ -58,12 +67,11 @@
        * Fetch team from the server
        * @param {Number} teamId
        */
-      fetchData (teamId) {
+      fetchTeamData (teamId) {
         this.paging.loading = true
         manageTeams.find(teamId)
           .then(team => {
             this.team = team
-            this.fetchPage(team.id, this.$route.params.page)
           })
       },
 
@@ -76,12 +84,6 @@
         this.paging.loading = true
         manageMembers.get(page, this.paging.perPage || 15, {teamId})
           .then(data => this.paging.update(data))
-      }
-    },
-
-    watch: {
-      '$route' ({params}) {
-        this.fetchPage(this.team.id, params.page || 1)
       }
     }
   }

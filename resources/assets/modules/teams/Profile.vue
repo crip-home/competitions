@@ -83,7 +83,17 @@
   export default {
     name: 'team-details',
 
-    mounted () {
+    data () {
+      return {
+        tabs: new Tabs(),
+        team: {
+          logo: {}
+        },
+        membersPaging: new Paging(this, {route: publicTeamDetailsRoute})
+      }
+    },
+
+    created () {
       this.$log.component(this)
       let {team, tab, page} = this.$route.params
 
@@ -91,16 +101,6 @@
 
       if (tab === 'members') {
         this.fetchTeamMembers(team, page)
-      }
-    },
-
-    data () {
-      return {
-        tabs: new Tabs(),
-        team: {
-          logo: {}
-        },
-        membersPaging: new Paging({route: publicTeamDetailsRoute})
       }
     },
 

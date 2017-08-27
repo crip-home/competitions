@@ -1,7 +1,8 @@
 <template>
   <grid id="list-teams" :paging="paging">
     <span slot="title">Manage teams</span>
-    <panel-action slot="actions" :to="createRoute">Create New Team</panel-action>
+    <panel-action slot="actions" :to="createRoute">Create New Team
+    </panel-action>
 
     <table class="table table-hover">
       <thead>
@@ -38,32 +39,29 @@
   import Paging from '../helpers/grid/Paging'
 
   export default {
-    mounted () {
-      this.fetchPage(this.$route.params.page || 1)
-    },
+    name: 'manage-teams',
 
     data () {
       return {
-        paging: new Paging({route: listTeams}),
+        paging: new Paging(this, {route: listTeams}),
         createRoute: createTeam
       }
+    },
+
+    created () {
+      this.$log.component(this)
+      this.paging.init(page => this.fetchPage(page), this.page)
+    },
+
+    computed: {
+      page () { return this.$route.params.page || 1 }
     },
 
     methods: {
       fetchPage (page = 1) {
         this.paging.loading = true
         manageTeams.get(page, this.paging.perPage)
-          .then(data => {
-            console.log(data)
-            return data
-          })
           .then(data => { this.paging.update(data) })
-      }
-    },
-
-    watch: {
-      '$route' (to) {
-        this.fetchPage(to.params.page || 1)
       }
     }
   }

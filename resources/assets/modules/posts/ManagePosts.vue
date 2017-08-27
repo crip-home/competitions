@@ -40,15 +40,22 @@
   import Paging from '../helpers/grid/Paging'
 
   export default {
-    mounted () {
-      this.fetchPage(this.$route.params.page || 1)
-    },
+    name: 'manage-posts',
 
     data () {
       return {
-        paging: new Paging({route: listPosts}),
+        paging: new Paging(this, {route: listPosts}),
         createRoute: createPost
       }
+    },
+
+    created () {
+      this.$log.component(this)
+      this.paging.init(page => this.fetchPage(page), this.page)
+    },
+
+    computed: {
+      page () { return this.$route.params.page || 1 }
     },
 
     methods: {
@@ -79,12 +86,6 @@
           default:
             return []
         }
-      }
-    },
-
-    watch: {
-      '$route' (to) {
-        this.fetchPage(to.params.page || 1)
       }
     }
   }
