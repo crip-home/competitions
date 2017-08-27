@@ -2,9 +2,14 @@
   <grid id="list-team-members" :paging="paging">
     <span slot="title">Manage members</span>
     <span slot="actions" v-if="team.id">
-      <panel-action :to="team.editRoute">Edit team</panel-action>
-      <panel-action :to="team.newMemberRoute">Create New Member</panel-action>
+      <panel-action :to="team.editRoute" title="Edit team settings">
+        Edit team
+      </panel-action>
+      <panel-action :to="team.newMemberRoute" title="Create new team member">
+        Create New Member
+      </panel-action>
     </span>
+
     <table class="table table-hover">
       <thead>
       <tr>
@@ -12,6 +17,7 @@
         <th>Name</th>
       </tr>
       </thead>
+
       <tbody>
       <template v-for="member in paging.items">
         <tr
@@ -19,20 +25,30 @@
             :class="paging.rowClasses(member, {danger: !member.isActive})"
         >
           <td>{{ member.id }}</td>
-          <td>{{ member.name }}&nbsp;
+          <td>
+            {{ member.name }}
             <span v-if="!member.isActive" class="actions">
               (member is not active)
             </span>
+            &nbsp;
             <router-link
                 :to="member.editRoute" class="label label-info actions"
             >
               Edit
+            </router-link>
+            &nbsp;
+            <router-link
+                :to="member.userProfileRoute" class="label label-info actions"
+                v-if="member.isLinkedToUser"
+            >
+              Profile
             </router-link>
           </td>
         </tr>
       </template>
       </tbody>
     </table>
+
   </grid>
 </template>
 
@@ -64,7 +80,7 @@
 
     methods: {
       /**
-       * Fetch team from the server
+       * Fetch team from the server API.
        * @param {Number} teamId
        */
       fetchTeamData (teamId) {
@@ -76,7 +92,7 @@
       },
 
       /**
-       * Fetch paging data from server
+       * Fetch paging data from server API.
        * @param {Number}  teamId
        * @param {Number} [page]
        */

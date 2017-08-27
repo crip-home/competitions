@@ -1,7 +1,7 @@
 import Entity from './Entity'
 import User from './User'
 import Team from './Team'
-import { editTeamMember } from '../router/routes'
+import { editTeamMember, profileRoute } from '../router/routes'
 
 /**
  * @property {Number}  user_id
@@ -46,8 +46,25 @@ export default class TeamMember extends Entity {
   get isInvited () { return this.membership_type === TeamMember.invitedMemberType }
 
   /**
-   * Generates route to edit current member
+   * Determines is the member linked to user profile.
+   * @returns {boolean}
+   */
+  get isLinkedToUser () { return !!this.user_id }
+
+  /**
+   * Generates route to edit current member.
    * @returns {{name: string, params: {id: Number}}}
    */
   get editRoute () { return {...editTeamMember, params: {id: this.id}} }
+
+  /**
+   * Generates route to user profile.
+   * @returns {{name: string, params: {id: Number}}}
+   */
+  get userProfileRoute () {
+    return {
+      ...profileRoute,
+      params: {id: this.user_id}
+    }
+  }
 }
