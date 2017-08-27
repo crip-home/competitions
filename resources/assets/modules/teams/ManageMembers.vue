@@ -53,9 +53,10 @@
 </template>
 
 <script>
-  import { manageTeams, manageMembers } from './api'
-  import { listTeamMembers } from '../../router/routes'
+  import members from './api-members-manage'
   import Paging from '../helpers/grid/Paging'
+  import teams from './api-teams-manage'
+  import { listTeamMembers } from '../../router/routes'
 
   export default {
     name: 'manage-members',
@@ -69,7 +70,7 @@
 
     created () {
       this.$log.component(this)
-      this.fetchTeamData(this.$route.params.team)
+      this.fetchTeamData(this.teamId)
       this.paging.init(page => this.fetchPage(this.teamId, page), this.page)
     },
 
@@ -81,25 +82,25 @@
     methods: {
       /**
        * Fetch team from the server API.
-       * @param {Number} teamId
+       * @param  {number} teamId
+       * @return {Promise.<void>}
        */
-      fetchTeamData (teamId) {
+      async fetchTeamData (teamId) {
         this.paging.loading = true
-        manageTeams.find(teamId)
-          .then(team => {
-            this.team = team
-          })
+        this.team = await teams.find(teamId)
       },
 
       /**
        * Fetch paging data from server API.
-       * @param {Number}  teamId
-       * @param {Number} [page]
+       * @param  {number} teamId
+       * @param  {number} [page]
+       * @return {Promise.<void>}
        */
-      fetchPage (teamId, page = 1) {
+      async fetchPage (teamId, page = 1) {
         this.paging.loading = true
-        manageMembers.get(page, this.paging.perPage || 15, {teamId})
-          .then(data => this.paging.update(data))
+        const perPage = this.paging.perPage || 15
+        const response = await members.get(page, perPage, {teamId})
+        this.paging.update(response)
       }
     }
   }

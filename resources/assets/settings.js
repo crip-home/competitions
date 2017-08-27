@@ -65,38 +65,38 @@ export default {
 
   /**
    * Global handler of Vue HTTP error responses
-   * @param {object} errorResponse
-   * @param {function} [reject]
+   * @param   {object}           errorResponse
+   * @param   {function(object)} [reject]
+   * @returns {object}
    */
   handleError (errorResponse, reject = _ => _) {
-    if (reject && typeof reject === 'function') {
-      if (errorResponse.response.status === 422) {
-        reject(errorResponse.response.data)
-      } else {
-        reject({error: ['Unknown error']})
-      }
+    let result = errorResponse.data
+
+    if (errorResponse.status !== 422) {
+      result = {error: ['Unknown error']}
     }
 
-    switch (errorResponse.response.status) {
+    if (reject && typeof reject === 'function') {
+      reject(result)
+    }
+
+    switch (errorResponse.status) {
       case 401:
         Vue.log.error(
-          'settings.handleError -> unauthorized',
-          errorResponse.response.data
+          'settings.handleError -> unauthorized', errorResponse.data
         )
         store.commit('logout')
         router.push({...login, query: {redirect: router.currentRoute.fullPath}})
         break
       case 422:
         Vue.log.error(
-          'settings.handleError -> validation failed',
-          errorResponse.response.data
+          'settings.handleError -> validation failed', errorResponse.data
         )
         break
       case 403:
       case 405:
         Vue.log.error(
-          'settings.handleError -> method not allowed',
-          errorResponse.response
+          'settings.handleError -> method not allowed', errorResponse
         )
         Vue.toasted.error('Action is not allowed')
         // TODO: send this as email to admin to be able detect users who is trying hack app
@@ -104,9 +104,11 @@ export default {
         //   create not allowed requests
         break
       default:
-        Vue.log.error('settings.handleError -> unknown', errorResponse.response)
+        Vue.log.error('settings.handleError -> unknown', errorResponse)
       // TODO: send email as there happened something that we did not expected
     }
+
+    return result
   },
 
   /**

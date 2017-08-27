@@ -2,6 +2,11 @@ import api from '../../api'
 import Team from '../../entities/Team'
 
 const path = 'admin/teams'
+/**
+ * Resolve team entity.
+ * @param   {object} data
+ * @returns {Team}
+ */
 const resolveEntity = (data) => new Team(data)
 
 export default {
@@ -21,13 +26,13 @@ export default {
    * @returns {Promise<Team>}
    */
   find (id) {
-    return api.find(path, id)
+    return api.find(path, resolveEntity, id)
   },
 
   /**
    * Store team entity on the server.
    * @param   {object} entity
-   * @returns {Promise<Team>}
+   * @returns {Promise.<Team>}
    */
   save (entity) {
     return api.save(path, resolveEntity, entity)

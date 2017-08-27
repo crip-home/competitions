@@ -64,7 +64,7 @@
 
 <script>
   import Vue from 'vue'
-  import { managePosts } from './api'
+  import posts from './api-posts-manage'
   import Post from '../../entities/Post'
   import * as lang from '../../lang/index'
   import * as routes from '../../router/routes'
@@ -100,20 +100,24 @@
       /**
        * Save post details with server API.
        */
-      savePost () {
-        managePosts.save(this.form)
+      async savePost () {
+        try {
+          await posts.save(this.form)
           // Redirect to admin posts list when new post is saved.
-          .then(() => { this.$router.push(routes.listPosts) })
+          this.$router.push(routes.listPosts)
+        } catch (errors) {
           // Display errors if server validation failed.
-          .catch(errors => { this.errors = errors })
+          this.errors = errors
+        }
       },
 
       /**
        * Fetch post details from server API.
+       * @param  {number} id
+       * @return {Promise.<void>}
        */
-      fetchPost (id) {
-        managePosts.find(id)
-          .then(post => { this.form = post })
+      async fetchPost (id) {
+        this.form = await posts.find(id)
       },
 
       /**

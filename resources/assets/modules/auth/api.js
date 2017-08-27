@@ -50,32 +50,28 @@ export default {
           store.commit('updateAuthUserDetails', data)
           store.commit('authenticate')
           resolve(data)
-        }, ({data}) => {
-          reject(data)
-        })
+        }, r => settings.handleError(r, reject))
     })
   },
 
-  sendResetLink (email) {
-    return new Promise((resolve, reject) => {
-      http.post(settings.apiUrl('password/email'), {email})
-        .then(({data}) => {
-          resolve(data.status)
-        }, ({data}) => {
-          reject(data)
-        })
-    })
+  async sendResetLink (email) {
+    try {
+      const url = settings.apiUrl('password/email')
+      const {data} = await http.post(url, {email})
+      return data.status
+    } catch (error) {
+      settings.handleError(error, exception => { throw exception })
+    }
   },
 
-  reset (details) {
-    return new Promise((resolve, reject) => {
-      http.post(settings.apiUrl('password/reset'), details)
-        .then(({data}) => {
-          resolve(data.status)
-        }, ({data}) => {
-          reject(data)
-        })
-    })
+  async reset (details) {
+    try {
+      const url = settings.apiUrl('password/reset')
+      const {data} = await http.post(url, details)
+      return data.status
+    } catch (error) {
+      settings.handleError(error, exception => { throw exception })
+    }
   },
 
   middleware: {

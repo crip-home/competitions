@@ -7,52 +7,49 @@ export default {
   /**
    * Get list of entities from the server
    * @param {String}   path
-   * @param {Function} entityResolver
+   * @param {function<T>} entityResolver
    * @param {Number}   [page]
    * @param {Number}   [perPage]
    * @param {*}        [urlReplace]
    * @param {*}        [params]
    * @returns {Promise.<PagingResult>}
    */
-  get (path, entityResolver, page = 1, perPage = 15, urlReplace = {}, params = {}) {
+  async get (path, entityResolver, page = 1, perPage = 15, urlReplace = {}, params = {}) {
     perPage = parseInt(perPage < 1 ? 15 : perPage)
-    return new Promise((resolve, reject) => {
-      params = {page, per_page: perPage, ...params}
-      let url = settings.apiUrl(path, params, urlReplace)
-      http.get(url)
-        .then(
-          ({data}) => {
-            let resolvedData = PagingResult.handle(data, entityResolver)
-            Vue.log.group('api', 'debug')(url, resolvedData)
-            resolve(resolvedData)
-          }
-        ).catch(response => settings.handleError(response, reject))
-    })
+    params = {page, per_page: perPage, ...params}
+    const url = settings.apiUrl(path, params, urlReplace)
+
+    try {
+      const {data} = await http.get(url)
+      const resolvedData = PagingResult.handle(data, entityResolver)
+      Vue.log.group('api', 'debug')(url, resolvedData)
+      return resolvedData
+    } catch (error) {
+      throw settings.handleError(error)
+    }
   },
 
   /**
    * Find single entity from the server
    * @param {String}        path
-   * @param {Function}      entityResolver
+   * @param {function<T>}      entityResolver
    * @param {Number|String} id
    * @param {*}             [urlReplace]
    * @param {*}             [urlParams]
-   * @returns {Promise}
+   * @returns {Promise.<*>}
    */
-  find (path, entityResolver, id = '', urlReplace = {}, urlParams = {}) {
-    return new Promise((resolve, reject) => {
-      let url = id === '' ? path : `${path}/${id}`
-      url = settings.apiUrl(url, urlParams, urlReplace)
-      http.get(url)
-        .then(
-          ({data}) => {
-            let resolvedData = entityResolver(data)
-            Vue.log.group('api', 'debug')(url, resolvedData)
-            resolve(resolvedData)
-          },
-          response => settings.handleError(response, reject)
-        )
-    })
+  async find (path, entityResolver, id = '', urlReplace = {}, urlParams = {}) {
+    let url = id === '' ? path : `${path}/${id}`
+    url = settings.apiUrl(url, urlParams, urlReplace)
+
+    try {
+      const {data} = await http.get(url)
+      let resolvedData = entityResolver(data)
+      Vue.log.group('api', 'debug')(url, resolvedData)
+      return resolvedData
+    } catch (error) {
+      throw settings.handleError(error)
+    }
   },
 
   /**
@@ -63,9 +60,9 @@ export default {
    * @param   {Number}   entity.id
    * @param   {*}        [urlReplace]
    * @param   {*}        [urlParams]
-   * @returns {Promise}
+   * @returns {Promise.<*>}
    */
-  save (path, entityResolver, entity, urlReplace = {}, urlParams = {}) {
+  async save (path, entityResolver, entity, urlReplace = {}, urlParams = {}) {
     let method = 'post'
     let url = path
 
@@ -76,16 +73,13 @@ export default {
 
     url = settings.apiUrl(url, urlParams, urlReplace)
 
-    return new Promise((resolve, reject) => {
-      http[method](url, entity)
-        .then(
-          ({data}) => {
-            let resolvedData = entityResolver(data)
-            Vue.log.group('api', 'debug')(url, resolvedData)
-            resolve(resolvedData)
-          },
-          response => settings.handleError(response, reject)
-        )
-    })
+    try {
+      const {data} = await http[method](url, entity)
+      let resolvedData = entityResolver(data)
+      Vue.log.group('api', 'debug')(url, resolvedData)
+      return resolvedData
+    } catch (error) {
+      throw settings.handleError(error)
+    }
   }
 }
