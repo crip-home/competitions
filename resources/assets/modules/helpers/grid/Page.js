@@ -26,4 +26,16 @@ export default class Page {
     let nr = current < last ? current + 1 : last
     return new Page('»', nr)
   }
+
+  isCurr (curr) {
+    return (this.nr | 0) === (curr | 0)
+  }
+
+  isDisabled (curr) {
+    return this.isCurr(curr) && (this.text | 0) === 0
+  }
+
+  isActive (curr) {
+    return !this.isDisabled(curr) && this.isCurr(curr)
+  }
 }

@@ -1,7 +1,10 @@
 <template>
   <ul class="pagination" v-if="hasMoreThanOnePage">
     <li v-for="page in pages" :class="getPageClass(page)">
-      <router-link :to="getRoute(page.nr)" onclick="this.blur();">
+      <router-link
+          :to="getRoute(page.nr)" :title="pageTitle(page)"
+          onclick="this.blur();"
+      >
         {{ page.text }}
       </router-link>
     </li>
@@ -24,7 +27,7 @@
 
         let pages = [prev]
 
-        // if page count greater than showable, calculate where place ...
+        // if page count greater than visible, calculate where place '...'
         if (this.paging.lastPage > this.paging.show) {
           let delta = ~~(this.paging.show / 2)
           let startFrom = this.paging.currentPage - delta
@@ -36,7 +39,7 @@
             pages.push(new Page(1, 1))
             // If first page is not 2, push ...
             if (startFrom - 1 !== 1) {
-              pages.push(new Page('...', 0))
+              pages.push(new Page('...', startFrom - 1))
             }
           }
 
@@ -50,7 +53,7 @@
           if (endOn < this.paging.lastPage) {
             // if there is pages between last and last visible, show ... between them
             if (this.paging.lastPage - 1 !== endOn) {
-              pages.push(new Page('...', 0))
+              pages.push(new Page('...', endOn + 1))
             }
             // Add last page to the end of paging
             pages.push(new Page(this.paging.lastPage, this.paging.lastPage))
@@ -69,7 +72,7 @@
 
         return pages
       },
-
+      curr () { return this.paging.currentPage | 0 },
       hasMoreThanOnePage () {
         return this.pages.length > 3
       }
@@ -100,15 +103,27 @@
        * @returns {String}
        */
       getPageClass (page) {
-        if ((page.nr | 0) === (this.paging.currentPage | 0)) {
-          if ((page.text | 0) === 0) {
-            return this.paging.disabledClass
-          }
+        if (page.isDisabled(this.curr)) {
+          return this.paging.disabledClass
+        }
 
+        if (page.isActive(this.curr)) {
           return this.paging.activeClass
         }
 
         return ''
+      },
+
+      /**
+       * @param {Page} page
+       * @returns {string}
+       */
+      pageTitle (page) {
+        if (page.isDisabled(this.curr)) {
+          return ''
+        }
+
+        return `Go to a page ${page.nr}`
       }
     }
   }
