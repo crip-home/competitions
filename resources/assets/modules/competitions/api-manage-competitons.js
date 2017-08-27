@@ -1,13 +1,10 @@
-import api from './index'
+import api from './../../api'
+import Post from './../../entities/Post'
 
-// All child classes should have methods:
-// - entityResolver(data)
+const path = 'admin/competitions'
+const resolveEntity = (data) => new Post(data)
 
-export default class AdminApi {
-  constructor (path) {
-    this.path = path
-  }
-
+export default {
   /**
    * Get list of entities from the server
    * @param {Number} [page]
@@ -16,8 +13,8 @@ export default class AdminApi {
    * @returns {Promise.<PagingResult>}
    */
   get (page = 1, perPage = 15, urlReplace = {}) {
-    return api.get(this.path, this.entityResolver, page, perPage, urlReplace)
-  }
+    return api.get(path, resolveEntity, page, perPage, urlReplace)
+  },
 
   /**
    * Get single entity from the server
@@ -26,8 +23,8 @@ export default class AdminApi {
    * @returns {Promise}
    */
   find (id, urlReplace = {}) {
-    return api.find(this.path, this.entityResolver, id, urlReplace)
-  }
+    return api.find(path, resolveEntity, id, urlReplace)
+  },
 
   /**
    * Store entity on the server
@@ -36,6 +33,6 @@ export default class AdminApi {
    * @returns {Promise}
    */
   save (entity, urlReplace = {}) {
-    return api.save(this.path, this.entityResolver, entity, urlReplace)
+    return api.save(path, resolveEntity, entity, urlReplace)
   }
 }

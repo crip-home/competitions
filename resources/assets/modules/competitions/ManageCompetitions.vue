@@ -34,7 +34,7 @@
 </template>
 
 <script>
-  import * as api from './api'
+  import api from './api-manage-competitons'
   import Paging from '../helpers/grid/Paging'
   import {
     createRoute,
@@ -68,9 +68,8 @@
     methods: {
       async fetchPage (page = 1) {
         this.paging.loading = true
-        this.paging.update(
-          await api.manageCompetitions.get(page, this.paging.perPage)
-        )
+        const results = await api.get(page, this.paging.perPage)
+        this.paging.update(results)
       },
 
       editRoute (competition) {

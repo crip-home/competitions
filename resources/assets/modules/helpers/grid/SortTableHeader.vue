@@ -27,7 +27,7 @@
 
     computed: {
       sortDirection () { return this.direction ? 'asc' : 'desc' },
-      isEnabled () { return this.column === this.paging.sort }
+      isEnabled () { return this.column === this.paging.$sort }
     },
 
     methods: {
@@ -38,7 +38,7 @@
       toggleDirection () {
         if (this.isEnabled) {
           this.direction = !this.direction
-          this.paging.direction = this.direction
+          this.paging.setDirection(this.sortDirection)
           return true
         }
 
@@ -54,7 +54,7 @@
           return this.toggleDirection()
         }
 
-        this.paging.sort = this.column
+        this.paging.setSort(this.column)
       }
     }
   }

@@ -20,19 +20,15 @@ export default class Paging {
     this.$vm = vm
   }
 
-  set sort (value) {
+  setSort (value) {
     // TODO: mutate route
     this.$sort = value
   }
 
-  get sort () { return this.$sort }
-
-  set direction (value) {
+  setDirection (value) {
     // TODO: mutate route
     this.$direction = value
   }
-
-  get direction () { return this.$direction }
 
   rowClasses (item, extra = {}) {
     return {

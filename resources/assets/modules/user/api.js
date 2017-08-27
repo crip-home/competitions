@@ -1,6 +1,6 @@
 import api from '../../api/index'
 import User from '../../entities/User'
-import manageUsersApi from './manageUsersApi'
+import manageUsersApi from './api-users-manage'
 
 export const manageUsers = manageUsersApi
 

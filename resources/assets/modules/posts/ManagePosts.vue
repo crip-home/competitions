@@ -37,9 +37,9 @@
 </template>
 
 <script>
-  import { managePosts } from './api'
   import { createPost, listPosts, editPost } from '../../router/routes'
   import Paging from '../helpers/grid/Paging'
+  import api from './api-posts-manage'
 
   export default {
     name: 'manage-posts',
@@ -61,10 +61,10 @@
     },
 
     methods: {
-      fetchPage (page = 1) {
+      async fetchPage (page = 1) {
         this.paging.loading = true
-        managePosts.get(page, this.paging.perPage)
-          .then(data => { this.paging.update(data) })
+        const result = await api.get(page, this.paging.perPage)
+        this.paging.update(result)
       },
 
       postRoute (post) {

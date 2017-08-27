@@ -1,5 +1,5 @@
-import _members from './manageMembersApi'
-import _teams from './manageTeamsApi'
+import _members from './api-members-manage'
+import _teams from './api-teams-manage'
 import api from '../../api'
 import Team from '../../entities/Team'
 import TeamMember from '../../entities/TeamMember'
