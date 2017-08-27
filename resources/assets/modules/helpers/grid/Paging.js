@@ -1,5 +1,8 @@
 export default class Paging {
-  constructor (vm, {route, activeClass = 'active', disabledClass = 'disabled', show = 5}) {
+  constructor (vm, {
+    route, activeClass = 'active', disabledClass = 'disabled', show = 5,
+    sortBy = 'id', sortDirection = 'asc'
+  }) {
     this.currentPage = 0
     this.lastPage = 0
     this.perPage = 0
@@ -11,8 +14,25 @@ export default class Paging {
     this.show = show
     this.selected = {}
 
+    this.$sort = sortBy
+    this.$direction = sortDirection
+
     this.$vm = vm
   }
+
+  set sort (value) {
+    // TODO: mutate route
+    this.$sort = value
+  }
+
+  get sort () { return this.$sort }
+
+  set direction (value) {
+    // TODO: mutate route
+    this.$direction = value
+  }
+
+  get direction () { return this.$direction }
 
   rowClasses (item, extra = {}) {
     return {

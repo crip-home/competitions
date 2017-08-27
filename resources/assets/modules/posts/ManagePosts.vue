@@ -8,11 +8,11 @@
     <table class="table table-hover">
       <thead>
       <tr>
-        <th><sort-th :paging="paging" column="id">#</sort-th></th>
-        <th>Title</th>
-        <th>Published</th>
-        <th>State</th>
-        <th>Author</th>
+        <sort-th :paging="paging" column="id">#</sort-th>
+        <sort-th :paging="paging" column="title">Title</sort-th>
+        <sort-th :paging="paging" column="published_at">Published</sort-th>
+        <sort-th :paging="paging" column="state">State</sort-th>
+        <sort-th :paging="paging" column="author_name">Author</sort-th>
       </tr>
       </thead>
 

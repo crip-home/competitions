@@ -3,7 +3,7 @@
     <span slot="title"><slot name="title"></slot></span>
     <span slot="actions"><slot name="actions"></slot></span>
 
-    <div slot="pre" class="grid-placeholder">
+    <div slot="pre" class="grid-placeholder table-responsive">
       <slot></slot>
     </div>
 

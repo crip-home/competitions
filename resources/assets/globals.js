@@ -13,6 +13,7 @@ import Paging from './modules/helpers/grid/Paging.vue'
 import Panel from './modules/helpers/panel/Panel.vue'
 import PanelAction from './modules/helpers/panel/PanelAction.vue'
 import Select2 from './modules/helpers/forms/select2/Select2.vue'
+import SortTH from './modules/helpers/grid/SortTableHeader.vue'
 import SubmitArea from './modules/helpers/forms/SubmitArea.vue'
 import Tab from './modules/helpers/bootstrap/tabs/Tab.vue'
 import Tabs from './modules/helpers/bootstrap/tabs/Tabs.vue'
@@ -38,6 +39,7 @@ export default {
     Vue.component('submit', SubmitArea)
     Vue.component('tab', Tab)
     Vue.component('tabs', Tabs)
+    Vue.component('sort-th', SortTH)
 
     Vue.directive('focus', focusDirective)
     Vue.directive('loading', loadingDirective)
