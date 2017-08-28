@@ -2,6 +2,7 @@ import axios from 'axios'
 import moment from 'moment'
 import router from './router'
 import store from './store'
+import help from './help'
 import Vue from 'vue'
 import { login } from './router/routes'
 
@@ -70,6 +71,10 @@ export default {
    * @returns {object}
    */
   handleError (errorResponse, reject = _ => _) {
+    if (help.isUndefined(errorResponse)) {
+      return this.handleUnknownError(errorResponse)
+    }
+
     let result = errorResponse.data
 
     if (errorResponse.status !== 422) {
@@ -104,11 +109,16 @@ export default {
         //   create not allowed requests
         break
       default:
-        Vue.log.error('settings.handleError -> unknown', errorResponse)
-      // TODO: send email as there happened something that we did not expected
+
     }
 
     return result
+  },
+
+  handleUnknownError (error) {
+    Vue.log.error('settings.handleError -> unknown', error)
+    // TODO: send email as there happened something that we did not expected
+    Vue.toasted.error('Unknown server error. Please contact support if this error repeats.')
   },
 
   /**

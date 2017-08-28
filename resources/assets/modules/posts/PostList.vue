@@ -23,7 +23,7 @@
 <script>
   import { posts } from './api'
   import * as routes from '../../router/routes'
-  import Paging from '../helpers/grid/Paging'
+  import Paging from '../../components/grid/Paging'
 
   export default {
     name: 'posts',

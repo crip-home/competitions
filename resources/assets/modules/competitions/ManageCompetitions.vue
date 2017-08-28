@@ -35,7 +35,7 @@
 
 <script>
   import api from './api-manage-competitons'
-  import Paging from '../helpers/grid/Paging'
+  import Paging from '../../components/grid/Paging'
   import {
     createRoute,
     editCompetitionRoute,

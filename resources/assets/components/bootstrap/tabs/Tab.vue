@@ -6,7 +6,7 @@
 
 <script type="text/babel">
   import Tabs from './index'
-  import help from '../../../../help'
+  import help from '../../../help'
 
   export default {
     name: 'tab',

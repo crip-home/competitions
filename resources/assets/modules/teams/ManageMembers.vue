@@ -54,7 +54,7 @@
 
 <script>
   import members from './api-members-manage'
-  import Paging from '../helpers/grid/Paging'
+  import Paging from '../../components/grid/Paging'
   import teams from './api-teams-manage'
   import { listTeamMembers } from '../../router/routes'
 

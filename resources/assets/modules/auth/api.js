@@ -33,7 +33,7 @@ export default {
         store.commit('authenticate')
         onResolved(data)
       }, r => {
-        if (r.response.status === 401) {
+        if (r.status === 401) {
           Vue.toasted.info(i18n.t('auth.token_expired'))
           store.commit('logout')
         } else { settings.handleError(r) }

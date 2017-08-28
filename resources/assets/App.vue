@@ -25,13 +25,13 @@
   import * as roles from './api/roles'
   import * as routes from './router/routes'
   import auth from './modules/auth/api'
-  import Navbar from './modules/helpers/bootstrap/nav/Navbar.vue'
+  import Navbar from './components/bootstrap/nav/Navbar.vue'
   import { mapGetters } from 'vuex'
   import {
     NavbarItem,
     NavbarGroup,
     NavbarItems
-  } from './modules/helpers/bootstrap/nav/index'
+  } from './components/bootstrap/nav/index'
 
   export default {
     mounted () {

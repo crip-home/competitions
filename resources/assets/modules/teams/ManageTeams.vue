@@ -36,7 +36,7 @@
 <script>
   import { manageTeams } from './api'
   import { listTeams, createTeam } from '../../router/routes'
-  import Paging from '../helpers/grid/Paging'
+  import Paging from '../../components/grid/Paging'
 
   export default {
     name: 'manage-teams',

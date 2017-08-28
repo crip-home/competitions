@@ -28,7 +28,7 @@
 </template>
 
 <script>
-  import Select2Options from '../helpers/forms/select2/index'
+  import Select2Options from '../../components/forms/select2/index'
   import settings from '../../settings'
   import { editTeamMember } from '../../router/routes'
   import { manageTeams, manageMembers } from './api'
