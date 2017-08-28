@@ -40,9 +40,12 @@
   import { createPost, listPosts, editPost } from '../../router/routes'
   import Paging from '../../components/grid/Paging'
   import api from './api-posts-manage'
+  import mixin from './../../extensions/component-mixin'
 
   export default {
     name: 'manage-posts',
+
+    mixins: [mixin],
 
     data () {
       return {
@@ -52,12 +55,7 @@
     },
 
     created () {
-      this.$log.component(this)
       this.paging.init(page => this.fetchPage(page), this.page)
-    },
-
-    computed: {
-      page () { return this.$route.params.page || 1 }
     },
 
     methods: {
