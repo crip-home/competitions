@@ -50,17 +50,13 @@
 
     created () {
       this.$log.component(this)
-      this.paging.init(page => this.fetchPage(page), this.page)
-    },
-
-    computed: {
-      page () { return this.$route.params.page || 1 }
+      this.paging.init(() => this.fetchPage())
     },
 
     methods: {
-      fetchPage (page = 1) {
+      fetchPage () {
         this.paging.loading = true
-        manageTeams.get(page, this.paging.perPage)
+        manageTeams.get(this.paging)
           .then(data => { this.paging.update(data) })
       }
     }

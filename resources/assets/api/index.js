@@ -7,16 +7,12 @@ export default {
   /**
    * Get list of entities from the server
    * @param {String}   path
-   * @param {function<T>} entityResolver
-   * @param {Number}   [page]
-   * @param {Number}   [perPage]
+   * @param {function} entityResolver
    * @param {*}        [urlReplace]
    * @param {*}        [params]
    * @returns {Promise.<PagingResult>}
    */
-  async get (path, entityResolver, page = 1, perPage = 15, urlReplace = {}, params = {}) {
-    perPage = parseInt(perPage < 1 ? 15 : perPage)
-    params = {page, per_page: perPage, ...params}
+  async get (path, entityResolver, urlReplace = {}, params = {}) {
     const url = settings.apiUrl(path, params, urlReplace)
 
     try {

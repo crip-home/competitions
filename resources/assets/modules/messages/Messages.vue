@@ -82,7 +82,7 @@
 
     created () {
       this.$log.component(this)
-      this.fetchMessages(this.page, this.routeType)
+      this.paging.init(() => this.fetchMessages(this.routeType))
     },
 
     computed: {
@@ -93,8 +93,6 @@
       routeType () {
         return this.$route.params.type
       },
-
-      page () { return this.$route.params.page || 1 },
 
       inboxRoute () {
         return {...messagesRoute, params: {type: 'inbox'}}
@@ -115,20 +113,17 @@
 
     methods: {
       /**
-       * Fetch messages from api
-       *
-       * @param {Number} page
+       * Fetch messages from api.
        * @param {String} messageType
        */
-      fetchMessages (page, messageType) {
+      fetchMessages (messageType) {
         this.paging.loading = true
-        msg.get(messageType, page, this.paging.perPage || 25)
+        msg.get(messageType, this.paging)
           .then(messages => this.paging.update(messages))
       },
 
       /**
        * Resolve message class
-       *
        * @param {Message} message
        */
       messageClass (message) {
@@ -141,10 +136,15 @@
     },
 
     watch: {
-      '$route' (to) {
-        if (to.name === messagesRoute.name) {
+      '$route' (to, from) {
+        // TODO: pagination does not roll back when users open message from page
+        // 2 or more. In this case, after close, user allays is returned to
+        // first page.
+        if (to.name === messagesRoute.name &&
+          to.params.type !== from.params.type) {
           messagesRoute.params.type = to.params.type
-          this.fetchMessages(to.params.page || 1, to.params.type)
+          messagesRoute.params.page = to.params.page
+          this.fetchMessages(to.params.type)
         }
       }
     }

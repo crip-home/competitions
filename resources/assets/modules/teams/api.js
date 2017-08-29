@@ -32,14 +32,13 @@ export const members = {
   /**
    * Paginate members for a team
    * @param {Number} teamId
-   * @param {Number} page
-   * @param {Number} perPage
+   * @param {Paging} paging
    * @returns {Promise.<PagingResult>}
    */
-  getForTeam (teamId, page = 1, perPage = 15) {
+  getForTeam (teamId, paging) {
     return api.get(
-      'teams/{teamId}/members', member => new TeamMember(member), page,
-      perPage, {teamId}
+      'teams/{teamId}/members', member => new TeamMember(member), {},
+      {teamId, ...paging.toUrlParams()}
     )
   },
 

@@ -6,16 +6,13 @@ import settings from './../../settings'
 export default {
   /**
    * Get posts from the server
-   * @param {number} [page]
-   * @param {number} [perPage]
+   * @param {Paging} paging
    * @param {array}  [locales]
    */
-  get (page = 1, perPage = 5, locales = null) {
-    perPage = parseInt(perPage < 1 ? 5 : perPage)
+  get (paging, locales = null) {
     return new Promise((resolve, reject) => {
       const params = {
-        page,
-        per_page: perPage,
+        ...paging.toUrlParams(),
         locales: locales ? locales.join(',') : ''
       }
       const resolver = item => new Post(item)

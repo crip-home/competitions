@@ -7,13 +7,12 @@ const resolveEntity = (data) => new TeamMember(data)
 export default {
   /**
    * Get list of team member entities from the server.
-   * @param   {number} [page]
-   * @param   {number} [perPage]
+   * @param   {Paging} paging
    * @param   {object} [urlReplace]
    * @returns {Promise<PagingResult>}
    */
-  get (page = 1, perPage = 15, urlReplace = {}) {
-    return api.get(path, resolveEntity, page, perPage, urlReplace)
+  get (paging, urlReplace = {}) {
+    return api.get(path, resolveEntity, urlReplace, paging.toUrlParams())
   },
 
   /**

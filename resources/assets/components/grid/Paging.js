@@ -3,9 +3,7 @@ export default class Paging {
     route, activeClass = 'active', disabledClass = 'disabled', show = 5,
     sortBy = 'id', sortDirection = 'asc'
   }) {
-    this.currentPage = 0
     this.lastPage = 0
-    this.perPage = 0
     this.items = []
     this.loading = true
     this.route = route
@@ -14,10 +12,21 @@ export default class Paging {
     this.show = show
     this.selected = {}
 
-    this.$sort = sortBy
-    this.$direction = sortDirection
+    this.$sort = vm.$route.params.sort || sortBy
+    this.$direction = vm.$route.params.direction || sortDirection
+    this.$perPage = parseInt(vm.$route.params.perpage) || 15
+    this.$page = parseInt(vm.$route.params.page) || 1
 
     this.$vm = vm
+  }
+
+  toUrlParams () {
+    return {
+      sort_by: this.$sort,
+      sort_direction: this.$direction,
+      per_page: this.$perPage,
+      page: this.$page
+    }
   }
 
   setSort (value) {
@@ -43,26 +52,38 @@ export default class Paging {
   }
 
   update ({currentPage = 0, lastPage = 0, perPage = 0, items = [], loading = false}) {
-    this.currentPage = currentPage
+    this.$page = currentPage
+    this.$perPage = perPage
     this.lastPage = lastPage
-    this.perPage = perPage
     this.items = items
     this.loading = loading
 
     // this will allow return to page where we last time left
     this.route.params
-      ? (this.route.params.page = this.currentPage)
-      : (this.route.params = {page: this.currentPage})
+      ? (this.route.params.page = this.$page)
+      : (this.route.params = {page: this.$page})
   }
 
   /**
    * Initialize paging loading initial page data and setting up page change
    * handler.
    * @param {function(number)} callback
-   * @param {number} initialPage
    */
-  init (callback, initialPage = 1) {
-    callback(initialPage)
-    this.$vm.$watch('$route.params.page', callback)
+  init (callback) {
+    callback()
+    this.$vm.$watch('$route.params', (newValues, oldValues) => {
+      if (newValues.page !== oldValues.page ||
+        newValues.sort !== oldValues.sort ||
+        newValues.direction !== oldValues.direction ||
+        newValues.perpage !== oldValues.perpage) {
+        // update current paging values
+        this.$page = parseInt(newValues.page)
+        this.$perPage = parseInt(newValues.perpage) || 15
+        this.$direction = newValues.direction
+        this.$sort = newValues.sort
+        // call callback after data in paging object was updated
+        callback()
+      }
+    })
   }
 }

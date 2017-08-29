@@ -54,11 +54,10 @@
 
     created () {
       this.$log.component(this)
-      this.paging.init(page => this.fetchPage(page), this.page)
+      this.paging.init(() => this.fetchPage())
     },
 
     computed: {
-      page () { return this.$route.params.page || 1 },
       createRoute () { return createCompetitionRoute },
       // TODO: get user settings to find out is new competition allowed
       // if it is not, show title on disabled button
@@ -66,9 +65,9 @@
     },
 
     methods: {
-      async fetchPage (page = 1) {
+      async fetchPage () {
         this.paging.loading = true
-        const results = await api.get(page, this.paging.perPage)
+        const results = await api.get(this.paging)
         this.paging.update(results)
       },
 

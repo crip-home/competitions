@@ -5,12 +5,14 @@ export default {
   /**
    * Get messages from the server
    * @param {String} type
-   * @param {Number} [page]
-   * @param {Number} [perPage]
+   * @param {Paging} paging
    * @returns {Promise.<PagingResult>}
    */
-  get (type, page = 1, perPage = 25) {
-    return api.get('user/messages', item => new Message(item), page, perPage, {}, {type})
+  get (type, paging) {
+    return api.get(
+      'user/messages', item => new Message(item), {},
+      {type, ...paging.toUrlParams()}
+    )
   },
 
   /**

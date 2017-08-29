@@ -19,7 +19,7 @@ export const posts = {
       meta: {requiresAuth: true, requiresRoles: [roles.CREATE_POST]}
     },
     {
-      path: 'manage/all/:page?',
+      path: 'manage/all/:page(\\d+)?/:sort?/:order?',
       name: routes.listPosts.name,
       component: ListPosts,
       meta: {requiresAuth: true, requiresAnyOfRoles: [roles.CREATE_POST, roles.MANAGE_POSTS]}

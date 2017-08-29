@@ -22,16 +22,16 @@
 
     computed: {
       pages () {
-        let prev = Page.prev(this.paging.currentPage)
-        let next = Page.next(this.paging.currentPage, this.paging.lastPage)
+        let prev = Page.prev(this.curr)
+        let next = Page.next(this.curr, this.paging.lastPage)
 
         let pages = [prev]
 
         // if page count greater than visible, calculate where place '...'
         if (this.paging.lastPage > this.paging.show) {
           let delta = ~~(this.paging.show / 2)
-          let startFrom = this.paging.currentPage - delta
-          let endOn = this.paging.currentPage + delta
+          let startFrom = this.curr - delta
+          let endOn = this.curr + delta
 
           if (startFrom < 1) startFrom = 1
           if (startFrom > 1) {
@@ -72,10 +72,8 @@
 
         return pages
       },
-      curr () { return this.paging.currentPage | 0 },
-      hasMoreThanOnePage () {
-        return this.pages.length > 3
-      }
+      curr () { return this.paging.$page | 0 },
+      hasMoreThanOnePage () { return this.pages.length > 3 }
     },
 
     methods: {
@@ -86,7 +84,7 @@
       getRoute (page) {
         let route = JSON.parse(JSON.stringify(this.paging.route))
         if (!page) {
-          page = this.paging.currentPage
+          page = this.curr
         }
 
         if (!route.params) {

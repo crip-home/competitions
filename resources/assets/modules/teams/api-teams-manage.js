@@ -12,12 +12,11 @@ const resolveEntity = (data) => new Team(data)
 export default {
   /**
    * Get list of team entities from the server.
-   * @param   {number} [page]
-   * @param   {number} [perPage]
+   * @param   {Paging} paging
    * @returns {Promise<PagingResult>}
    */
-  get (page = 1, perPage = 15) {
-    return api.get(path, resolveEntity, page, perPage)
+  get (paging) {
+    return api.get(path, resolveEntity, {}, paging.toUrlParams())
   },
 
   /**

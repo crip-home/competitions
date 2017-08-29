@@ -71,12 +71,11 @@
     created () {
       this.$log.component(this)
       this.fetchTeamData(this.teamId)
-      this.paging.init(page => this.fetchPage(this.teamId, page), this.page)
+      this.paging.init(() => this.fetchPage(this.teamId))
     },
 
     computed: {
-      teamId () { return this.$route.params.team },
-      page () { return this.$route.params.page || 1 }
+      teamId () { return this.$route.params.team }
     },
 
     methods: {
@@ -93,13 +92,11 @@
       /**
        * Fetch paging data from server API.
        * @param  {number} teamId
-       * @param  {number} [page]
        * @return {Promise.<void>}
        */
-      async fetchPage (teamId, page = 1) {
+      async fetchPage (teamId) {
         this.paging.loading = true
-        const perPage = this.paging.perPage || 15
-        const response = await members.get(page, perPage, {teamId})
+        const response = await members.get(this.paging, {teamId})
         this.paging.update(response)
       }
     }

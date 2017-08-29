@@ -37,10 +37,10 @@
 </template>
 
 <script>
-  import { createPost, listPosts, editPost } from '../../router/routes'
-  import Paging from '../../components/grid/Paging'
   import api from './api-posts-manage'
   import mixin from './../../extensions/component-mixin'
+  import Paging from '../../components/grid/Paging'
+  import { createPost, listPosts, editPost } from '../../router/routes'
 
   export default {
     name: 'manage-posts',
@@ -55,13 +55,13 @@
     },
 
     created () {
-      this.paging.init(page => this.fetchPage(page), this.page)
+      this.paging.init(() => this.fetchPage())
     },
 
     methods: {
-      async fetchPage (page = 1) {
+      async fetchPage () {
         this.paging.loading = true
-        const result = await api.get(page, this.paging.perPage)
+        const result = await api.get(this.paging)
         this.paging.update(result)
       },
 
