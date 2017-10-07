@@ -31,6 +31,8 @@
   },
   "devDependencies": {
     "@kazupon/vue-i18n-loader": "^0.2.0",
+    "@types/jquery": "^3.2.13",
+    "@types/select2": "^4.0.41",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-loader": "^7.1.1",

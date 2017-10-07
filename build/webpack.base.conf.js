@@ -11,7 +11,7 @@ function resolve (dir) {
 
 module.exports = {
   entry: {
-    app: './resources/assets/main.ts',
+    app: './resources/scripts/main.ts',
     vendor: [
       'vue', 'vue-router', 'vuex', 'vue-i18n', 'vue-toasted',
       'vuex-router-sync', 'axios', 'crip-vue-bootstrap-modal',
@@ -29,7 +29,7 @@ module.exports = {
   resolve: {
     extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
-      '@': resolve('resources/assets')
+      '@': resolve('resources/scripts')
     }
   },
   module: {
@@ -46,7 +46,7 @@ module.exports = {
         test: /\.ts$/,
         exclude: /node_modules|vue\/src|vendor\/*/,
         loader: 'ts-loader',
-        include: [resolve('resources/assets'), resolve('test')],
+        include: [resolve('resources/scripts'), resolve('test')],
         options: {
           appendTsSuffixTo: [/\.vue$/]
         }
@@ -59,7 +59,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('resources/assets'), resolve('test')]
+        include: [resolve('resources/scripts'), resolve('test')]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
