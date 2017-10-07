@@ -1,4 +1,3 @@
-import axios from 'axios'
 import Vue from 'vue'
 
 import {installer as LoggerInstaller} from './Helpers/Logger'

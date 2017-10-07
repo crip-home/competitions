@@ -1,4 +1,4 @@
-import _Vue from 'vue'
+import Vue from 'vue'
 import Utils from './Utils'
 
 export type LogType = 'log' | 'info' | 'warn' | 'debug' | 'error'
@@ -35,7 +35,7 @@ export interface ILogger {
      * @param {Vue} vm
      * @param args
      */
-    component(vm: _Vue, ...args: any[]): void
+    component(vm: Vue, ...args: any[]): void
 }
 
 export interface ILoggerOptions {
@@ -81,7 +81,7 @@ class Logger implements ILogger {
         }
     }
 
-    public component(vm: _Vue, ...args: any[]) {
+    public component(vm: Vue, ...args: any[]) {
         // TODO: add vue router typings
         // let route = { ...vm.$route.params, path: vm.$route.fullPath }
         let debugArgs = [`component ${vm.$options.name}`, /*{ route },*/ ...args]
@@ -109,11 +109,11 @@ class Logger implements ILogger {
 }
 
 export const installer = {
-    install(Vue: typeof _Vue, options: ILoggerOptions) {
+    install(VueInstance: typeof Vue, options: ILoggerOptions) {
         const logger = new Logger(options)
-        Vue.log = logger
+      VueInstance.log = logger
 
-        Object.defineProperties(Vue.prototype, {
+        Object.defineProperties(VueInstance.prototype, {
             '$log': {get: () => logger}
         })
     }

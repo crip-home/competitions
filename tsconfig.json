@@ -1,11 +1,12 @@
 {
   "include": [
-    "resources/assets/**/*.ts"
+    "resources/scripts/**/*.ts"
   ],
   "files": [
     "resources/scripts/typings/Vue.d.ts"
   ],
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",
       "es5",
@@ -14,7 +15,6 @@
     "target": "es5",
     "module": "es2015",
     "moduleResolution": "node",
-    "sourceMap": true,
-    "allowSyntheticDefaultImports": true
+    "sourceMap": true
   }
 }
