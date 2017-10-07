@@ -93,11 +93,11 @@ class Logger implements ILogger {
         if (!this.isInAvailableSections(section)) return
 
         if (this.logType === 'console') {
-            return this.consoleLog(type, args)
+            return Logger.consoleLog(type, args)
         }
     }
 
-    private consoleLog(type: LogType, args: any) {
+    private static consoleLog(type: LogType, args: any) {
         if (window.console && console[type]) {
             console[type].apply(console, args)
         }

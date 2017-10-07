@@ -43,23 +43,17 @@ module.exports = {
         }
       },
       {
-        test: /\.ts$/,
-        exclude: /node_modules|vue\/src|vendor\/*/,
-        loader: 'ts-loader',
-        include: [resolve('resources/scripts'), resolve('test')],
-        options: {
-          appendTsSuffixTo: [/\.vue$/]
-        }
-      },
-      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
       },
       {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        include: [resolve('resources/scripts'), resolve('test')]
+        test: /\.ts$/,
+        loader: 'ts-loader',
+        include: [resolve('resources/scripts'), resolve('test')],
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

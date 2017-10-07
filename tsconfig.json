@@ -2,10 +2,8 @@
   "include": [
     "resources/scripts/**/*.ts"
   ],
-  "files": [
-    "resources/scripts/typings/Vue.d.ts"
-  ],
   "compilerOptions": {
+    "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "lib": [
       "dom",
