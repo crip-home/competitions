@@ -3,8 +3,9 @@ var webpack = require('webpack')
 var utils = require('./utils')
 var config = require('../config')
 var vueLoaderConfig = require('./vue-loader.conf')
+var tslintRules = require('../tslint.rules')
 
-function resolve(dir) {
+function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
@@ -35,20 +36,19 @@ module.exports = {
     rules: [
       {
         test: /\.ts$/,
+        enforce: 'pre',
+        loader: 'tslint-loader',
+        options: {
+          configuration: {rules: tslintRules}
+        }
+      },
+      {
+        test: /\.ts$/,
         exclude: /node_modules|vue\/src|vendor\/*/,
         loader: 'ts-loader',
         include: [resolve('resources/assets'), resolve('test')],
         options: {
           appendTsSuffixTo: [/\.vue$/]
-        }
-      },
-      {
-        test: /\.(js|vue)$/,
-        loader: 'eslint-loader',
-        enforce: 'pre',
-        include: [resolve('resources/assets'), resolve('test')],
-        options: {
-          formatter: require('eslint-friendly-formatter')
         }
       },
       {
