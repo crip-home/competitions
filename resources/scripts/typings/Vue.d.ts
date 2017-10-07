@@ -3,10 +3,10 @@ import {ILogger} from '../Helpers/Logger'
 
 declare module 'vue/types/vue' {
     interface Vue {
-        $log: ILogger
+        $logger: ILogger
     }
 
     namespace Vue {
-        let log: ILogger
+        let logger: ILogger
     }
 }

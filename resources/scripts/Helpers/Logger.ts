@@ -111,10 +111,10 @@ class Logger implements ILogger {
 export const installer = {
     install(VueInstance: typeof Vue, options: ILoggerOptions) {
         const logger = new Logger(options)
-      VueInstance.log = logger
+      VueInstance.logger = logger
 
         Object.defineProperties(VueInstance.prototype, {
-            '$log': {get: () => logger}
+            '$logger': {get: () => logger}
         })
     }
 }
