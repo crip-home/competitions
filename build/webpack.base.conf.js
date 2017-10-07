@@ -10,7 +10,7 @@ function resolve(dir) {
 
 module.exports = {
   entry: {
-    app: './resources/assets/main.js',
+    app: './resources/assets/main.ts',
     vendor: [
       'vue', 'vue-router', 'vuex', 'vue-i18n', 'vue-toasted',
       'vuex-router-sync', 'axios', 'crip-vue-bootstrap-modal',
@@ -26,13 +26,22 @@ module.exports = {
       : config.dev.assetsPublicPath
   },
   resolve: {
-    extensions: ['.js', '.vue', '.json'],
+    extensions: ['.ts', '.js', '.vue', '.json'],
     alias: {
       '@': resolve('resources/assets')
     }
   },
   module: {
     rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules|vue\/src|vendor\/*/,
+        loader: 'ts-loader',
+        include: [resolve('resources/assets'), resolve('test')],
+        options: {
+          appendTsSuffixTo: [/\.vue$/]
+        }
+      },
       {
         test: /\.(js|vue)$/,
         loader: 'eslint-loader',

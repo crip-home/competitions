@@ -12,7 +12,8 @@
   <body>
   <div id="app">Loading...</div>
   <script src="//cdn.ckeditor.com/4.7.1/full/ckeditor.js"></script>
-  <script src="http://localhost:8081/assets/static/js/app.js"></script>
+  <script src="http://localhost:8081/vendor.js"></script>
+  <script src="http://localhost:8081/app.js"></script>
   </body>
   </html>
 @else
