@@ -14,6 +14,7 @@ var webpackConfig = require('./webpack.dev.conf')
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
+var uri = 'http://localhost:' + port
 // automatically open browser, if not set will be false
 var autoOpenBrowser = config.dev.autoOpenBrowser
 // Define HTTP proxies to your custom API backend
@@ -25,12 +26,13 @@ var compiler = webpack(webpackConfig)
 
 var devMiddleware = require('webpack-dev-middleware')(compiler, {
   publicPath: webpackConfig.output.publicPath,
-  quiet: true
+  headers: { 'Access-Control-Allow-Origin': '*' },
+  quiet: true,
 })
 
 var hotMiddleware = require('webpack-hot-middleware')(compiler, {
   log: false,
-  heartbeat: 2000
+  heartbeat: 2000,
 })
 // force page reload when html-webpack-plugin template changes
 compiler.plugin('compilation', function (compilation) {
@@ -62,8 +64,6 @@ app.use(hotMiddleware)
 // serve pure static assets
 var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsSubDirectory)
 app.use(staticPath, express.static('./static'))
-
-var uri = 'http://localhost:' + port
 
 var _resolve
 var readyPromise = new Promise(resolve => {
