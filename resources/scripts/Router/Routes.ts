@@ -9,6 +9,7 @@ export const home: Route = {name: 'home'}
 export const login: Route = {name: 'login'}
 export const signup: Route = {name: 'signup'}
 export const profile: Route = {name: 'profile'}
+export const passwordReset: Route = {name: 'passwordReset'}
 
 export const createPost: Route = {name: 'createPost'}
 export const listPosts: Route = {name: 'listPosts'}
