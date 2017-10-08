@@ -3,19 +3,19 @@ import Vue from 'vue'
 
 Vue.use(VueI18n)
 
-import {localeType, getLocale, setLocale} from '../Helpers/Settings'
+import {LocaleType, getLocale, setLocale} from '../Helpers/Settings'
 
 import en from './en'
 import lv from './lv'
 
 const translations = {en, lv}
 
-export interface ILocale {
-  key: localeType
+export interface Locale {
+  key: LocaleType
   text: string
 }
 
-export const locales: {[key: string]: ILocale} = {
+export const locales: {[TKey in LocaleType]: Locale} = {
   lv: {key: 'lv', text: lv.locale},
   en: {key: 'en', text: en.locale},
 }
@@ -31,7 +31,7 @@ export const init = () => {
   SetLocale(locale)
 }
 
-export const SetLocale = (locale: localeType = 'lv') => {
+export const SetLocale = (locale: LocaleType = 'lv') => {
   setLocale(locale)
   i18n.locale = locale
 }

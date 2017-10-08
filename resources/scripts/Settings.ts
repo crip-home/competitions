@@ -1,6 +1,6 @@
-import {ILoggerOptions} from './Helpers/Logger'
+import {LoggerOptions} from './Helpers/Logger'
 
-const logger: ILoggerOptions = {
+const logger: LoggerOptions = {
   logs: 'console',
   logSections: [
     'global',

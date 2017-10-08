@@ -1,5 +1,5 @@
 import {LocaleMessageObject} from 'vue-i18n'
 
-export interface IPostsLang extends LocaleMessageObject {
+export interface PostsLang extends LocaleMessageObject {
   title: string
 }

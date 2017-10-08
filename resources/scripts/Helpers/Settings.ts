@@ -1,16 +1,16 @@
 import conf from '../Settings'
 
-export type localeType = 'lv' | 'en'
+export type LocaleType = 'lv' | 'en'
 
-export function getLocale(): localeType {
+export function getLocale(): LocaleType {
   let locale = localStorage.getItem('crip-cm-locale')
   if (locale === 'lv' || locale === 'en') {
-    return locale as localeType
+    return locale as LocaleType
   }
 
-  return conf.defaultLocale as localeType
+  return conf.defaultLocale as LocaleType
 }
 
-export function setLocale(locale: localeType): void {
+export function setLocale(locale: LocaleType): void {
   localStorage.setItem('crip-cm-locale', locale)
 }

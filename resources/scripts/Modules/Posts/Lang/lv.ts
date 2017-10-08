@@ -1,5 +1,5 @@
-import {IPostsLang} from './index'
+import {PostsLang} from './index'
 
 export default {
   title: 'Nosaukums'
-} as IPostsLang
+} as PostsLang

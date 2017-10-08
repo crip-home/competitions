@@ -3,7 +3,7 @@ import Utils from './Utils'
 
 export type LogType = 'log' | 'info' | 'warn' | 'debug' | 'error'
 
-export interface ILogger {
+export interface Logger {
   /**
    * Write log message.
    * @param args
@@ -38,7 +38,7 @@ export interface ILogger {
   component(vm: Vue, ...args: any[]): void
 }
 
-export interface ILoggerOptions {
+export interface LoggerOptions {
   /**
    * Logging placement area.
    * 'console' - logs all sections to the browser console
@@ -53,11 +53,11 @@ export interface ILoggerOptions {
   logSections: Array<string>
 }
 
-class Logger implements ILogger {
+class WebLogger implements Logger {
   private logType: string | boolean
   private sections: string[]
 
-  public constructor({logs, logSections}: ILoggerOptions) {
+  public constructor({logs, logSections}: LoggerOptions) {
     this.logType = logs
     this.sections = logSections
   }
@@ -92,7 +92,7 @@ class Logger implements ILogger {
     if (!this.isInAvailableSections(section)) return
 
     if (this.logType === 'console') {
-      return Logger.consoleLog(type, args)
+      return WebLogger.consoleLog(type, args)
     }
   }
 
@@ -108,8 +108,8 @@ class Logger implements ILogger {
 }
 
 export const installer = {
-  install(VueInstance: typeof Vue, options: ILoggerOptions) {
-    const logger = new Logger(options)
+  install(VueInstance: typeof Vue, options: LoggerOptions) {
+    const logger = new WebLogger(options)
     VueInstance.logger = logger
 
     Object.defineProperties(VueInstance.prototype, {
