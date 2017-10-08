@@ -1,11 +1,6 @@
 <template>
   <div>
     <span>PostList.vue</span>
-    <form class="form-horizontal">
-      <form-group id="text" label="Some label content">
-        <input type="text" id="text" class="form-control">
-      </form-group>
-    </form>
   </div>
 </template>
 

@@ -14,6 +14,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {Prop} from 'vue-property-decorator'
+  import Utils from '@/Helpers/Utils'
   import FormErrors from './FormErrors.vue'
 
   @Component({
@@ -22,7 +23,8 @@
   })
   export default class FormGroup extends Vue {
     @Prop({'type': String, 'required': true})
-    public id: string
+    public 'for': string
+    public id = this.for
 
     @Prop({'type': String, 'default': () => ''})
     public label: string
@@ -75,16 +77,26 @@
       return initial
     }
 
-    private labelCalc(size: number, media: string): string {
-      return `col-${media}-${this.offset(size)}`
+    private labelCalc(size: number, media: string, asOffset = false): string {
+      return this.colClass(this.offset(size), media, asOffset)
     }
 
     private controlCalc(size: number, media: string): string {
-      return `col-${media}-${size}`
+      return this.colClass(size, media)
+    }
+
+    private colClass(size: number, media: string, offset = false) {
+      let template = offset ?
+        'col-{media}-offset-{size}' :
+        'col-{media}-{size}'
+
+      return Utils.supplant(template, {media, size})
     }
 
     private emptyCalc(size: number, media: string): string {
-      return `col-${media}-${size} col-${media}-offset-${this.offset(size)}`
+      const control = this.controlCalc(size, media)
+      const offset = this.labelCalc(size, media, true)
+      return `${control} ${offset}`
     }
 
     private offset(size: number) {
@@ -93,14 +105,6 @@
       if (availableSpace == 0) return 12
 
       return availableSpace
-      /*
-      let col = (availableSpace / 2) + 1
-      if ((col + size) >= 12) {
-        col -= 1
-      }
-
-      return col
-      */
     }
   }
 </script>
