@@ -6,13 +6,13 @@ import CripModal from 'crip-vue-bootstrap-modal'
 // https://www.npmjs.com/package/crip-vue-loading
 import CripLoading from 'crip-vue-loading'
 import axios from 'axios'
-import {installer as LoggerInstaller} from './Helpers/Logger'
+import {installer as Logger} from './Helpers/Logger'
 import settings from './Settings'
 
 Vue.use(CripLoading, {axios})
 Vue.use(Toasted, {duration: 3700})
 Vue.use(CripModal)
-Vue.use(LoggerInstaller, settings.logger)
+Vue.use(Logger, settings.logger)
 
 import {i18n, init as initLocale} from './Lang'
 import {sync} from 'vuex-router-sync'
