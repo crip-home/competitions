@@ -3,6 +3,12 @@
     "resources/scripts/**/*.ts"
   ],
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./resources/scripts/*"
+      ]
+    },
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "lib": [

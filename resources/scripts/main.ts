@@ -17,11 +17,12 @@ Vue.use(LoggerInstaller, settings.logger)
 import {i18n, init as initLocale} from './Lang'
 import {sync} from 'vuex-router-sync'
 import Router from './Router'
+import Guard from './Router/Guard'
 import Store from './Store'
 import App from './Components/App.vue'
 
 sync(Store, Router)
-// TODO: add router guard
+Guard(Router)
 
 let app = new Vue({
   render: (h) => h(App),

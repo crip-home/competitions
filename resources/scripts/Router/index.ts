@@ -3,7 +3,7 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import { posts, home } from '../Modules/Posts/Routes'
+import { posts, home } from '@/Modules/Posts/Routes'
 
 const router = new Router({
   mode: 'history',
