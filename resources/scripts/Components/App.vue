@@ -1,5 +1,11 @@
 <template>
   <div id="app-view">
+    <navbar :left-menu="leftNav" :right-menu="rightNav">
+      <router-link :to="home" class="navbar-brand">
+        {{ $t('appTitle') }}
+      </router-link>
+    </navbar>
+
     <div class="container">
 
       <crip-loading color="rgba(88, 91, 169, 1)"></crip-loading>
@@ -10,6 +16,7 @@
           leave-active-class="animated fadeOutRight">
         <router-view class="row"></router-view>
       </transition>
+
     </div>
   </div>
 </template>
@@ -17,11 +24,25 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
+  import {home, Route} from '@/Router/Routes'
+  import {left as leftNav, right as rightNav} from './Navigation'
 
   @Component({name: 'component-app'})
   export default class App extends Vue {
     mounted() {
       this.$logger.component(this)
+    }
+
+    get home(): Route {
+      return home
+    }
+
+    get leftNav() {
+      return leftNav()
+    }
+
+    get rightNav() {
+      return rightNav()
     }
   }
 </script>

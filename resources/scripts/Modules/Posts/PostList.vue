@@ -15,7 +15,7 @@
   })
   export default class PostList extends Vue {
     mounted() {
-      // this.$logger.component()
+      this.$logger.component(this)
     }
   }
 </script>
