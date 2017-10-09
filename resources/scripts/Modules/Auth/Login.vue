@@ -1,8 +1,9 @@
 <template>
   <form-panel
       :title="$t('auth.login.title')" :submit="authorize"
-      class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3"
-  >
+      class="col-sm-10 col-sm-offset-1
+             col-md-8 col-md-offset-2
+             col-lg-6 col-lg-offset-3">
     <div class="row">
       <div class="col-sm-12 col-md-10 col-md-offset-1">
 
@@ -19,7 +20,7 @@
 
         <form-group
             for="password" :col-sm="8"
-            :label="$t('auth.login.password.label')" >
+            :label="$t('auth.login.password.label')">
           <input
               id="password" type="password"
               class="form-control" name="password"
@@ -47,7 +48,8 @@
   import FormPanel from '@/Components/Forms/FormPanel.vue'
   import FormGroup from '@/Components/Forms/FormGroup.vue'
   import Focus from '@/Components/Focus'
-  import {passwordReset, Route} from '@/Router/Routes'
+  import {passwordReset, home, Route} from '@/Router/Routes'
+  import {AuthService} from './AuthService'
 
   @Component({
     name: 'module-auth-login',
@@ -70,9 +72,23 @@
       return passwordReset
     }
 
-    public authorize() {
+    public async authorize() {
       this.$logger.info('authorize', this.credentials)
-      // TODO: authorize user in system
+      this.error = []
+      try {
+        await AuthService.authorize(this.credentials)
+
+        // If user has redirected here by guard, redirect him back
+        // to guarded route instead of home page.
+        if(this.$route.query && this.$route.query['redirect']) {
+          this.$router.push(this.$route.query['redirect'])
+          return
+        }
+
+        this.$router.push(home)
+      } catch (error) {
+        this.error = [error]
+      }
     }
   }
 </script>

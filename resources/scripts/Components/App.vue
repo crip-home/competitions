@@ -26,11 +26,14 @@
   import Component from 'vue-class-component'
   import {home, Route} from '@/Router/Routes'
   import {left as leftNav, right as rightNav} from './Navigation'
+  import {AuthService} from '@/Modules/Auth/AuthService'
 
   @Component({name: 'component-app'})
   export default class App extends Vue {
     mounted() {
       this.$logger.component(this)
+      // Check user authorization when application is mounted.
+      AuthService.checkAuth()
     }
 
     get home(): Route {

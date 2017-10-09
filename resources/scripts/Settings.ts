@@ -13,7 +13,13 @@ const logger: LoggerOptions = {
   ],
 }
 
+const web = {
+  domain: 'http://crip-competitions.dev',
+  apiRoot: `api/`,
+  serverDateFormat: 'YYYY-MM-DD HH:mm:ss',
+}
+
 export default {
-  logger,
+  logger, web,
   defaultLocale: 'lv',
 }

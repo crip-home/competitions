@@ -1,18 +1,23 @@
 import {removeToken} from '@/Helpers/Settings'
-import {State, UpdateUserDetails} from './Contracts'
+import {
+  State,
+  UpdateUserDetailsPayload,
+  AuthenticatePayload,
+  LogoutPayload
+} from './Contracts'
 
 export default {
-  authenticate(state: State) {
+  authenticate(state: State, payload: AuthenticatePayload) {
     state.user.authenticated = true
   },
 
-  logout(state: State) {
+  logout(state: State, payload: LogoutPayload) {
     removeToken()
     state.user.authenticated = false
     state.user.details = false
   },
 
-  updateAuthUserDetails(state: State, payload: UpdateUserDetails) {
+  updateAuthUserDetails(state: State, payload: UpdateUserDetailsPayload) {
     state.user.name = payload.name
     state.user.email = payload.email
     state.user.id = payload.id

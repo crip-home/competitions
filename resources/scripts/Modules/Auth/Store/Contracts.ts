@@ -2,7 +2,20 @@ export interface Role {
   key: string
 }
 
-export interface UpdateUserDetails {
+export interface Payload {
+  type: string
+}
+
+export interface AuthenticatePayload extends Payload {
+  type: 'authenticate'
+}
+
+export interface LogoutPayload extends Payload {
+  type: 'logout'
+}
+
+export interface UpdateUserDetailsPayload extends Payload {
+  type: 'updateAuthUserDetails'
   name: string
   email: string
   id: number

@@ -1,3 +1,4 @@
+import Utils from '@/Helpers/Utils'
 import http from 'axios'
 import conf from '../Settings'
 
@@ -44,4 +45,20 @@ export function setToken(token: string): void {
  */
 export function getAuthToken(): string {
   return `Bearer ${localStorage.getItem(storageTokenKey)}`
+}
+
+/**
+ * Determines is there user token stored
+ * @returns {boolean}
+ */
+export function hasToken(): boolean {
+  const token = localStorage.getItem(storageTokenKey)
+  const result = Utils.hasValue(token)
+
+  if (result) {
+    // Reset token again to ensure that http module contains it as a header.
+    setToken(token)
+  }
+
+  return result
 }

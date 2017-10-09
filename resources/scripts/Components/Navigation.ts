@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import middleware from '@/Modules/Auth/MiddlewareService'
-import auth from '@/Modules/Auth/AuthService'
+import {AuthService} from '@/Modules/Auth/AuthService'
 import * as roles from '@/Modules/Auth/Roles'
 import router from '@/Router'
 import * as routes from '@/Router/Routes'
@@ -70,7 +70,7 @@ export const right = () => {
   }
 
   nav.push(new NavGroup(
-    auth.user().name,
+    AuthService.user().name,
     [
       // TODO: add messages menu item
       new NavItem({text: t('nav.profile'), route: routes.profile}),
@@ -100,6 +100,6 @@ function t(key: string): string {
 }
 
 function logout() {
-  auth.logout()
+  AuthService.logout()
   router.push({...routes.home, params: {message: 'logout'}})
 }
