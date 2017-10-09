@@ -49,8 +49,13 @@ export class AuthService {
     const url = Api.url({path: 'authenticate'})
     try {
       const {data} = await http.get(url)
-      const payload: UpdateUserDetailsPayload =
-        {type: 'updateAuthUserDetails', ...data}
+      const payload: UpdateUserDetailsPayload = {
+        type: 'updateAuthUserDetails',
+        name: data.name,
+        email: data.email,
+        id: data.id,
+        roles: data.roles,
+      }
 
       // Update user data before authenticate state to make sure guard does
       // not redirect us as unauthorized users.
