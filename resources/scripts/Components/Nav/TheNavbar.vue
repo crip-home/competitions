@@ -13,7 +13,7 @@
         </button>
 
         <!-- Branding Image -->
-        <slot></slot>
+        <slot/>
       </div>
 
       <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -21,12 +21,12 @@
         <!-- Left Side Of Navbar -->
         <navbar-items
             v-if="hasLeftMenu" :items="leftMenu"
-            class="nav navbar-nav"></navbar-items>
+            class="nav navbar-nav"/>
 
         <!-- Right Side Of Navbar -->
         <navbar-items
             v-if="hasRightMenu" :items="rightMenu"
-            class="nav navbar-nav navbar-right"></navbar-items>
+            class="nav navbar-nav navbar-right"/>
 
       </div>
 
@@ -40,8 +40,8 @@
   import {Prop} from 'vue-property-decorator'
   import {NavGroup} from './index'
 
-  @Component({name: 'Navbar'})
-  export default class Navbar extends Vue {
+  @Component({name: 'TheNavbar'})
+  export default class TheNavbar extends Vue {
     @Prop({'type': Array, 'default': () => []})
     public leftMenu: NavGroup[]
 

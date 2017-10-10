@@ -6,15 +6,15 @@ import * as routes from '@/Router/Routes'
 import {locales as AppLocales, SetLocale, Locale, i18n} from '@/Lang'
 import {NavGroup, NavItem, NavItemType} from './Nav'
 
-import Navbar from './Nav/Navbar.vue'
+import Navbar from './Nav/TheNavbar.vue'
 import NavbarItems from './Nav/NavbarItems.vue'
 import NavbarGroup from './Nav/NavbarGroup.vue'
 import NavbarItem from './Nav/NavbarItem.vue'
 
-Vue.component('navbar', Navbar)
-Vue.component('navbar-items', NavbarItems)
-Vue.component('navbar-group', NavbarGroup)
-Vue.component('navbar-item', NavbarItem)
+Vue.component('Navbar', Navbar)
+Vue.component('NavbarItems', NavbarItems)
+Vue.component('NavbarGroup', NavbarGroup)
+Vue.component('NavbarItem', NavbarItem)
 
 const canManage = () => middleware.hasAnyRole(roles.all)
 

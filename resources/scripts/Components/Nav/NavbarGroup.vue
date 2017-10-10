@@ -3,9 +3,7 @@
     <a href class="dropdown-toggle" data-toggle="dropdown">
       {{ item.text }} <span class="caret"></span>
     </a>
-    <navbar-items
-        v-if="hasItems" :items="items"
-        class="dropdown-menu"></navbar-items>
+    <navbar-items v-if="hasItems" :items="items" class="dropdown-menu"/>
   </li>
 </template>
 

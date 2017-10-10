@@ -1,9 +1,8 @@
 <template>
   <ul>
     <template v-for="item in items">
-      <navbar-item :item="item" v-if="!item.items"></navbar-item>
-      <navbar-group
-          v-else :item="item.parent" :items="item.items"></navbar-group>
+      <navbar-item :item="item" v-if="!item.items"/>
+      <navbar-group v-else :item="item.parent" :items="item.items"/>
     </template>
   </ul>
 </template>

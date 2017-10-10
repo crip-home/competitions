@@ -5,12 +5,12 @@
       <div class="panel-heading clearfix">
         <div class="v-panel-title pull-left">{{ title }}</div>
         <div class="v-panel-title pull-right">
-          <slot name="actions"></slot>
+          <slot name="actions"/>
         </div>
       </div>
 
       <div class="panel-body form-horizontal">
-        <slot></slot>
+        <slot/>
       </div>
 
     </div>

@@ -4,8 +4,8 @@
       {{ label }}
     </label>
     <div :class="controlClass">
-      <slot></slot>
-      <form-errors :errors="errors"></form-errors>
+      <slot/>
+      <form-errors :errors="errors"/>
     </div>
   </div>
 </template>
