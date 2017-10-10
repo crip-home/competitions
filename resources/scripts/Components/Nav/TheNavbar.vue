@@ -5,7 +5,9 @@
 
         <!-- Collapsed Hamburger -->
         <button
-            type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
             data-target="#app-navbar-collapse">
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -16,16 +18,18 @@
         <slot/>
       </div>
 
-      <div class="collapse navbar-collapse" id="app-navbar-collapse">
+      <div id="app-navbar-collapse" class="collapse navbar-collapse">
 
         <!-- Left Side Of Navbar -->
         <navbar-items
-            v-if="hasLeftMenu" :items="leftMenu"
+            v-if="hasLeftMenu"
+            :items="leftMenu"
             class="nav navbar-nav"/>
 
         <!-- Right Side Of Navbar -->
         <navbar-items
-            v-if="hasRightMenu" :items="rightMenu"
+            v-if="hasRightMenu"
+            :items="rightMenu"
             class="nav navbar-nav navbar-right"/>
 
       </div>

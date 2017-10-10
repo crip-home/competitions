@@ -1,15 +1,27 @@
 <template>
   <router-link
-      v-if="item.route" :to="item.route" tag="li" active-class="active">
+      v-if="item.route"
+      :to="item.route"
+      active-class="active"
+      tag="li"
+  >
     <a v-html="item.text"/>
   </router-link>
 
-  <li :class="classes" v-else-if="!item.route">
+  <li v-else-if="!item.route" :class="classes">
+    <a
+        v-if="item.href"
+        :href="item.href"
+        v-html="item.text"
+        href
+    />
 
-    <a href v-if="item.href" :href="item.href" v-html="item.text"/>
-
-    <a href v-else-if="item.click" @click.prevent="item.click"
-       v-html="item.text"/>
+    <a
+        v-else-if="item.click"
+        @click.prevent="item.click"
+        v-html="item.text"
+        href
+    />
 
     <span v-else v-html="item.text"/>
   </li>

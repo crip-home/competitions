@@ -1,6 +1,8 @@
 <template>
-  <ul class="help-block crip-form-errors" v-if="hasErrors">
-    <li v-for="error in errors" class="text-danger">{{ error }}</li>
+  <ul v-if="hasErrors" class="help-block crip-form-errors">
+    <li v-for="error in errors" class="text-danger">
+      {{ error }}
+    </li>
   </ul>
 </template>
 

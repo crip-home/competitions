@@ -3,7 +3,9 @@
     <div class="panel panel-default">
 
       <div class="panel-heading clearfix">
-        <div class="v-panel-title pull-left">{{ title }}</div>
+        <div class="v-panel-title pull-left">
+          {{ title }}
+        </div>
         <div class="v-panel-title pull-right">
           <slot name="actions"/>
         </div>

@@ -7,16 +7,15 @@
     </navbar>
 
     <div class="container">
-
       <crip-loading color="rgba(88, 91, 169, 1)"/>
 
       <transition
-          name="fade-horizontal" mode="out-in"
+          mode="out-in"
+          name="fade-horizontal"
           enter-active-class="animated fadeInLeft"
           leave-active-class="animated fadeOutRight">
         <router-view class="row"/>
       </transition>
-
     </div>
   </div>
 </template>

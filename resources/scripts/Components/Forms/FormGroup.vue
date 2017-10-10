@@ -1,6 +1,11 @@
 <template>
-  <div class="form-group crip-form-group" :class="groupClass">
-    <label v-if="label" :for="id" :id="`${id}-label`" :class="labelClass">
+  <div :class="groupClass" class="form-group crip-form-group">
+    <label
+        v-if="label"
+        :for="id"
+        :id="`${id}-label`"
+        :class="labelClass"
+    >
       {{ label }}
     </label>
     <div :class="controlClass">
