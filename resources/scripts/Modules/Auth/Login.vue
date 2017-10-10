@@ -1,60 +1,56 @@
 <template>
   <form-panel
-      :submit="authorize"
+      id="login"
+      @submit="authorize"
       :title="$t('auth.login.title')"
-      class="col-sm-10 col-sm-offset-1
-             col-md-8 col-md-offset-2
-             col-lg-6 col-lg-offset-3"
+      :body-col-md="10"
+      :col-sm="10"
+      :col-md="8"
+      :col-lg="6"
   >
-    <div class="row">
-      <div class="col-sm-12 col-md-10 col-md-offset-1">
+    <form-group
+        for="email"
+        :errors="error"
+        :label="$t('auth.login.email.label')"
+        :col-sm="8"
+    >
+      <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          :placeholder="$t('auth.login.email.placeholder')"
+          v-model="credentials.email"
+          v-focus="true"
+          required
+      >
+    </form-group>
 
-        <form-group
-            for="email"
-            :errors="error"
-            :label="$t('auth.login.email.label')"
-            :col-sm="8"
-        >
-          <input
-              type="email"
-              id="email"
-              name="email"
-              class="form-control"
-              :placeholder="$t('auth.login.email.placeholder')"
-              v-model="credentials.email"
-              v-focus="true"
-              required
-          >
-        </form-group>
+    <form-group
+        for="password"
+        :label="$t('auth.login.password.label')"
+        :col-sm="8"
+    >
+      <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          :placeholder="$t('auth.login.password.placeholder')"
+          v-model="credentials.password"
+          required
+      >
+    </form-group>
 
-        <form-group
-            for="password"
-            :label="$t('auth.login.password.label')"
-            :col-sm="8"
-        >
-          <input
-              type="password"
-              id="password"
-              name="password"
-              class="form-control"
-              :placeholder="$t('auth.login.password.placeholder')"
-              v-model="credentials.password"
-              v-focus="true"
-              required
-          >
-        </form-group>
+    <form-group for="submit" :col-sm="8">
+      <button id="submit" type="submit" class="btn btn-primary">
+        {{ $t('auth.login.submit.button') }}
+      </button>
 
-        <form-group for="submit">
-          <button type="submit" class="btn btn-primary">
-            {{ $t('auth.login.submit.button') }}
-          </button>
-
-          <router-link :to="passwordReset" class="btn btn-link">
-            {{ $t('auth.login.submit.forgot') }}
-          </router-link>
-        </form-group>
-      </div>
-    </div>
+      <router-link :to="passwordReset" class="btn btn-link">
+        {{ $t('auth.login.submit.forgot') }}
+      </router-link>
+    </form-group>
   </form-panel>
 </template>
 

@@ -37,7 +37,7 @@
     @Prop({'type': Array, 'default': () => []})
     public errors: string[]
 
-    @Prop({'type': Number, 'default': () => 8})
+    @Prop({'type': Number, 'default': () => 0})
     public colLg: number
 
     @Prop({'type': Number, 'default': () => 0})
@@ -46,7 +46,7 @@
     @Prop({'type': Number, 'default': () => 0})
     public colSm: number
 
-    @Prop({'type': Number, 'default': () => 0})
+    @Prop({'type': Number, 'default': () => 12})
     public colXs: number
 
     public get labelClass() {
@@ -107,7 +107,7 @@
     private offset(size: number) {
       const availableSpace = 12 - size
 
-      if (availableSpace == 0) return 12
+      if (availableSpace == 0) return 0
 
       return availableSpace
     }
