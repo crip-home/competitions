@@ -28,7 +28,7 @@
   import {left as leftNav, right as rightNav} from './Navigation'
   import {AuthService} from '@/Modules/Auth/AuthService'
 
-  @Component({name: 'component-app'})
+  @Component({name: 'App'})
   export default class App extends Vue {
     mounted() {
       this.$logger.component(this)

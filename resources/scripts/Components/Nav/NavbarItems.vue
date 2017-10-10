@@ -14,7 +14,7 @@
   import {Prop} from 'vue-property-decorator'
   import {NavGroup} from './'
 
-  @Component({name: 'component-navbar-items'})
+  @Component({name: 'NavbarItems'})
   export default class NavbarItems extends Vue {
     @Prop({'type': Array, 'default': () => []})
     public items: NavGroup[]

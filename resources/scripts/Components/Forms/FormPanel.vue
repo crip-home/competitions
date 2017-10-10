@@ -22,7 +22,7 @@
   import Component from 'vue-class-component'
   import {Prop} from 'vue-property-decorator'
 
-  @Component({name: 'component-form-panel'})
+  @Component({name: 'FormPanel'})
   export default class FormPanel extends Vue {
     @Prop({'type': String, 'required': true})
     public title: string

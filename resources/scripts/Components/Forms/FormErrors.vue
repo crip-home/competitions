@@ -9,7 +9,7 @@
   import Component from 'vue-class-component'
   import {Prop} from 'vue-property-decorator'
 
-  @Component({name: 'component-form-errors'})
+  @Component({name: 'FormErrors'})
   export default class FormErrors extends Vue {
     @Prop({'type': Array, 'default': () => []})
     errors: string[]

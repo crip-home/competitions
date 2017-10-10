@@ -52,7 +52,7 @@
   import {AuthService} from './AuthService'
 
   @Component({
-    name: 'module-auth-login',
+    name: 'Login',
     components: {FormPanel, FormGroup},
     directives: {Focus},
   })

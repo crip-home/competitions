@@ -10,7 +10,7 @@
   import FormGroup from '@/Components/Forms/FormGroup.vue'
 
   @Component({
-    name: 'module-posts-list',
+    name: 'PostList',
     components: {FormGroup}
   })
   export default class PostList extends Vue {

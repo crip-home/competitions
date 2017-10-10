@@ -17,7 +17,7 @@
   import NavbarItems from './NavbarItems.vue'
 
   @Component({
-    name: 'component-navbar-group',
+    name: 'NavbarGroup',
     components: {NavbarItems}
   })
   export default class NavbarGroup extends Vue {

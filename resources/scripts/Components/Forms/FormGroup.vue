@@ -18,8 +18,8 @@
   import FormErrors from './FormErrors.vue'
 
   @Component({
-    name: 'component-form-group',
-    components: {FormErrors}
+    name: 'FormGroup',
+    components: {FormErrors},
   })
   export default class FormGroup extends Vue {
     @Prop({'type': String, 'required': true})

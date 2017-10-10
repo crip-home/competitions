@@ -13,7 +13,7 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
 
-  @Component({name: 'component-wrapper'})
+  @Component({name: 'Wrapper'})
   export default class Wrapper extends Vue {
     mounted() {
       this.$logger.component(this)

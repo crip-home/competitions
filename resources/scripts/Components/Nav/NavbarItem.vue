@@ -24,8 +24,8 @@
   import {Prop} from 'vue-property-decorator'
   import {NavItem} from './index'
 
-  @Component({name: 'component-navbar-item'})
-  export default class Navbar extends Vue {
+  @Component({name: 'NavbarItem'})
+  export default class NavbarItem extends Vue {
     @Prop({'type': NavItem, 'required': true})
     public item: NavItem
 

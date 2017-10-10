@@ -40,7 +40,7 @@
   import {Prop} from 'vue-property-decorator'
   import {NavGroup} from './index'
 
-  @Component({name: 'component-navbar'})
+  @Component({name: 'Navbar'})
   export default class Navbar extends Vue {
     @Prop({'type': Array, 'default': () => []})
     public leftMenu: NavGroup[]
