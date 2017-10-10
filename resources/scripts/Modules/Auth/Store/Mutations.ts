@@ -1,4 +1,3 @@
-import {removeToken} from '@/Helpers/Settings'
 import {
   State,
   UpdateUserDetailsPayload,
@@ -12,7 +11,6 @@ export default {
   },
 
   logout(state: State, payload: LogoutPayload) {
-    removeToken()
     state.user.authenticated = false
     state.user.details = false
   },

@@ -1,9 +1,9 @@
-import http, {AxiosResponse} from 'axios'
+import http from 'axios'
 import store from '@/Store'
 import router from '@/Router'
-import {login} from '@/Router/Routes'
+import {login, home} from '@/Router/Routes'
 import {Api} from '@/Helpers/Api'
-import {setToken, hasToken} from '@/Helpers/Settings'
+import {setToken, hasToken, removeToken} from '@/Helpers/Settings'
 import Middleware from './MiddlewareService'
 import {
   User,
@@ -63,6 +63,7 @@ export class AuthService {
       store.commit<AuthenticatePayload>({type: 'authenticate'})
     } catch (error) {
       if (error.status === 401) {
+        removeToken()
         store.commit<LogoutPayload>({type: 'logout'})
         router.push({...login, params: {message: 'unauthorized'}})
         return
@@ -73,7 +74,9 @@ export class AuthService {
   }
 
   public static logout() {
+    removeToken()
     store.commit<LogoutPayload>({type: 'logout'})
+    router.push({...home, params: {message: 'logout'}})
   }
 
   public static user(): User {

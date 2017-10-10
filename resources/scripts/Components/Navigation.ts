@@ -2,7 +2,6 @@ import Vue from 'vue'
 import middleware from '@/Modules/Auth/MiddlewareService'
 import {AuthService} from '@/Modules/Auth/AuthService'
 import * as roles from '@/Modules/Auth/Roles'
-import router from '@/Router'
 import * as routes from '@/Router/Routes'
 import {locales as AppLocales, SetLocale, Locale, i18n} from '@/Lang'
 import {NavGroup, NavItem, NavItemType} from './Nav'
@@ -72,9 +71,10 @@ export const right = () => {
   nav.push(new NavGroup(
     AuthService.user().name,
     [
+      // TODO: add profile menu item
       // TODO: add messages menu item
       new NavItem({text: t('nav.profile'), route: routes.profile}),
-      new NavItem({text: t('nav.logout'), click: logout})
+      new NavItem({text: t('nav.logout'), click: AuthService.logout})
     ]
   ))
 
@@ -97,9 +97,4 @@ function localesNav() {
 
 function t(key: string): string {
   return i18n.t(key) as string
-}
-
-function logout() {
-  AuthService.logout()
-  router.push({...routes.home, params: {message: 'logout'}})
 }

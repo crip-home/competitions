@@ -5,5 +5,5 @@ export default {
   profile: 'Profils',
   locale: 'Latviešu',
   login: 'Ienākt',
-  logout: 'iziet',
+  logout: 'Iziet',
 } as NavLang
