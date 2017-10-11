@@ -2,15 +2,18 @@
   <form-panel
       id="login"
       @submit="authorize"
+      :form="form"
       :title="$t('auth.login.title')"
       :body-col-md="10"
       :col-sm="10"
       :col-md="8"
       :col-lg="6"
   >
+
+    <!-- #email -->
     <form-group
         for="email"
-        :errors="error"
+        :form="form"
         :label="$t('auth.login.email.label')"
         :col-sm="8"
     >
@@ -20,12 +23,13 @@
           name="email"
           class="form-control"
           :placeholder="$t('auth.login.email.placeholder')"
-          v-model="credentials.email"
+          v-model="form.data.email"
           v-focus="true"
           required
       >
     </form-group>
 
+    <!-- #password -->
     <form-group
         for="password"
         :label="$t('auth.login.password.label')"
@@ -37,11 +41,12 @@
           name="password"
           class="form-control"
           :placeholder="$t('auth.login.password.placeholder')"
-          v-model="credentials.password"
+          v-model="form.data.password"
           required
       >
     </form-group>
 
+    <!-- #submit -->
     <form-group for="submit" :col-sm="8">
       <button id="submit" type="submit" class="btn btn-primary">
         {{ $t('auth.login.submit.button') }}
@@ -57,6 +62,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
+  import Form from '@/Components/Forms/Form'
   import FormPanel from '@/Components/Forms/FormPanel.vue'
   import FormGroup from '@/Components/Forms/FormGroup.vue'
   import Focus from '@/Components/Focus'
@@ -73,22 +79,20 @@
       this.$logger.component(this)
     }
 
-    public credentials = {
+    public form = new Form({
       email: '',
       password: '',
-    }
-
-    public error: string[] = []
+    })
 
     public get passwordReset(): Route {
       return passwordReset
     }
 
     public async authorize() {
-      this.$logger.info('authorize', this.credentials)
-      this.error = []
+      this.$logger.info('authorize', this.form)
+      this.form.clearErrors()
       try {
-        await AuthService.authorize(this.credentials)
+        await AuthService.authorize(this.form.data)
 
         // If user has redirected here by guard, redirect him back
         // to guarded route instead of home page.
@@ -99,7 +103,7 @@
 
         this.$router.push(home)
       } catch (error) {
-        this.error = [error]
+        this.form.addErrors({email: [error]})
       }
     }
   }

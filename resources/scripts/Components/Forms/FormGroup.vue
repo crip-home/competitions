@@ -10,7 +10,7 @@
     </label>
     <div :class="controlClass">
       <slot/>
-      <form-errors :errors="errors"/>
+      <form-errors :errors="formErrors"/>
     </div>
   </div>
 </template>
@@ -21,6 +21,7 @@
   import {Prop} from 'vue-property-decorator'
   import Utils from '@/Helpers/Utils'
   import FormErrors from './FormErrors.vue'
+  import Form from './Form'
 
   @Component({
     name: 'FormGroup',
@@ -33,6 +34,9 @@
 
     @Prop({'type': String, 'default': () => ''})
     public label: string
+
+    @Prop({'type': Form, 'default': () => new Form({__: false})})
+    public form: Form<{ __: boolean }>
 
     @Prop({'type': Array, 'default': () => []})
     public errors: string[]
@@ -66,8 +70,18 @@
       }
     }
 
+    public get formErrors() {
+      if (Utils.isDefined(this.form.data.__) &&
+        this.form.data.__ === false
+      ) {
+        return this.errors
+      }
+
+      return this.form.errors[this.for] || []
+    }
+
     public get hasErrors() {
-      return this.errors.length > 0
+      return this.formErrors.length > 0
     }
 
     private getColClass(method: 'control' | 'label' | 'empty',

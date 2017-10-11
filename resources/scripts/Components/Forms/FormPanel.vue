@@ -17,6 +17,10 @@
 
       <div class="panel-body form-horizontal">
         <div class="row">
+          <div v-if="hasError">
+            <alert>{{ error }}</alert>
+          </div>
+
           <div :class="contentClass">
             <slot/>
           </div>
@@ -31,12 +35,20 @@
   import Vue from 'vue'
   import Component from 'vue-class-component'
   import {Prop} from 'vue-property-decorator'
+  import Alert from '@/Components/Alert.vue'
   import Utils from '@/Helpers/Utils'
+  import Form from './Form'
 
-  @Component({name: 'FormPanel'})
+  @Component({
+    name: 'FormPanel',
+    components: {Alert}
+  })
   export default class FormPanel extends Vue {
     @Prop({'type': String, 'required': true})
     public title: string
+
+    @Prop({'type': Form, 'default': () => new Form({__: false})})
+    public form: Form<any>
 
     @Prop({'type': Number, 'default': () => 0})
     public bodyColLg: number
@@ -67,15 +79,36 @@
     }
 
     public get elementClass() {
-      return this.calculateColClass('col{size}')
+      let classes = []
+
+      if (this.hasErrors) {
+        classes.push('has-data-errors')
+      }
+
+      if (this.hasError) {
+        classes.push('has-error')
+      }
+
+      return this.calculateColClass('col{size}', classes)
+    }
+
+    public get hasErrors() {
+      return this.form.hasErrors
+    }
+
+    public get hasError() {
+      return this.form.hasUnknownError
+    }
+
+    public get error() {
+      return this.form.unknownError
     }
 
     public submit() {
       this.$emit('submit')
     }
 
-    private calculateColClass(selectorTemplate: string): string[] {
-      const result = [];
+    private calculateColClass(selectorTemplate: string, initial: string[] = []) {
       ['Lg', 'Md', 'Sm', 'Xs'].forEach(size => {
         const valueKey = Utils.supplant(selectorTemplate, {size})
         const value = this[valueKey]
@@ -85,12 +118,12 @@
 
         const offset = parseInt(((12 - value) / 2).toString())
         const sizeKey = size.toLowerCase()
-        result.push(`col-${sizeKey}-offset-${offset}`)
-        result.push(`col-${sizeKey}-${value}`)
+        initial.push(`col-${sizeKey}-offset-${offset}`)
+        initial.push(`col-${sizeKey}-${value}`)
 
       })
 
-      return result
+      return initial
     }
   }
 </script>

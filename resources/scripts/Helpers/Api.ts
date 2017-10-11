@@ -27,7 +27,7 @@ export class Api {
     return url
   }
 
-  public static handle(error: Error) {
+  public static handle(error) {
     console.log(error)
   }
 

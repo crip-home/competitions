@@ -1,3 +1,4 @@
+import Vue from 'vue'
 import http from 'axios'
 import store from '@/Store'
 import router from '@/Router'
@@ -17,6 +18,13 @@ export interface Credentials {
   password: string
 }
 
+export interface SignUpDetails {
+  name: string
+  email: string
+  password: string
+  password_confirmation: string
+}
+
 export class AuthService {
   /**
    * Determines user authenticated sate.
@@ -33,9 +41,20 @@ export class AuthService {
       setToken(data.token)
       await AuthService.getAuthUserDetails()
     } catch (err) {
-      Api.handle(err)
+      // Api.handle(err)
       // TODO: add translated error message
       throw 'Auth failed'
+    }
+  }
+
+  public static async signUp(details: SignUpDetails) {
+    const url = Api.url({path: 'register'})
+    try {
+      await http.post(url, details)
+    } catch (error) {
+      console.log('AuthService.signUp', {error})
+      // Api.handle(error)
+      throw {'email': ['some dummy error']}
     }
   }
 
