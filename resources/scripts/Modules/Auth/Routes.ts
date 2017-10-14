@@ -1,7 +1,7 @@
 import Wrapper from '@/Components/Wrapper.vue'
 import * as routes from '@/Router/Routes'
 import Login from './Login.vue'
-import Signup from './Signup.vue'
+import Signup from './SignUp.vue'
 
 export default {
   path: '/auth',

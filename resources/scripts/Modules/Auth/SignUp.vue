@@ -3,7 +3,7 @@
       id="signup"
       @submit="signup"
       :form="form"
-      :title="$t('auth.signup.title')"
+      :title="$t('auth.signUp.title')"
       :body-col-md="10"
       :col-md="10"
       :col-lg="8"
@@ -12,7 +12,7 @@
     <form-group
         for="name"
         :form="form"
-        :label="$t('auth.signup.name.label')"
+        :label="$t('auth.signUp.name.label')"
         :col-sm="8"
     >
       <input
@@ -20,7 +20,7 @@
           id="name"
           name="name"
           class="form-control"
-          :placeholder="$t('auth.signup.name.placeholder')"
+          :placeholder="$t('auth.signUp.name.placeholder')"
           v-model="form.data.name"
           v-focus="true"
           required
@@ -31,7 +31,7 @@
     <form-group
         for="email"
         :form="form"
-        :label="$t('auth.signup.email.label')"
+        :label="$t('auth.signUp.email.label')"
         :col-sm="8"
     >
       <input
@@ -39,7 +39,7 @@
           id="email"
           name="email"
           class="form-control"
-          :placeholder="$t('auth.signup.email.placeholder')"
+          :placeholder="$t('auth.signUp.email.placeholder')"
           v-model="form.data.email"
           required
       >
@@ -49,7 +49,7 @@
     <form-group
         for="password"
         :form="form"
-        :label="$t('auth.signup.password.label')"
+        :label="$t('auth.signUp.password.label')"
         :col-sm="8"
     >
       <input
@@ -57,7 +57,7 @@
           id="password"
           name="password"
           class="form-control"
-          :placeholder="$t('auth.signup.password.placeholder')"
+          :placeholder="$t('auth.signUp.password.placeholder')"
           v-model="form.data.password"
           required
       >
@@ -67,7 +67,7 @@
     <form-group
         for="password_confirmation"
         :form="form"
-        :label="$t('auth.signup.password_confirmation.label')"
+        :label="$t('auth.signUp.password_confirmation.label')"
         :col-sm="8"
     >
       <input
@@ -75,7 +75,7 @@
           id="password_confirmation"
           name="password_confirmation"
           class="form-control"
-          :placeholder="$t('auth.signup.password_confirmation.placeholder')"
+          :placeholder="$t('auth.signUp.password_confirmation.placeholder')"
           v-model="form.data.password_confirmation"
           required
       >
@@ -84,7 +84,7 @@
     <!-- #submit -->
     <form-group for="submit" :col-sm="8">
       <button id="submit" type="submit" class="btn btn-primary">
-        {{ $t('auth.signup.submit.button') }}
+        {{ $t('auth.signUp.submit.button') }}
       </button>
     </form-group>
   </form-panel>
@@ -101,11 +101,11 @@
   import {AuthService} from './AuthService'
 
   @Component({
-    name: 'Signup',
+    name: 'SignUp',
     components: {FormPanel, FormGroup},
     directives: {Focus},
   })
-  export default class Signup extends Vue {
+  export default class SignUp extends Vue {
     mounted() {
       this.$logger.component(this)
     }
