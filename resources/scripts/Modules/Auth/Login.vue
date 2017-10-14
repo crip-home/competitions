@@ -77,6 +77,10 @@
   export default class Login extends Vue {
     mounted() {
       this.$logger.component(this)
+
+      if (AuthService.isAuthenticated()) {
+        this.$router.push(home)
+      }
     }
 
     public form = new Form({
@@ -93,15 +97,6 @@
       this.form.clearErrors()
       try {
         await AuthService.authorize(this.form.data)
-
-        // If user has redirected here by guard, redirect him back
-        // to guarded route instead of home page.
-        if (this.$route.query && this.$route.query['redirect']) {
-          this.$router.push(this.$route.query['redirect'])
-          return
-        }
-
-        this.$router.push(home)
       } catch (error) {
         this.form.addErrors({email: [error]})
       }

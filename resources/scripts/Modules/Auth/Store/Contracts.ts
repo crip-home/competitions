@@ -6,10 +6,6 @@ export interface Payload {
   type: string
 }
 
-export interface AuthenticatePayload extends Payload {
-  type: 'authenticate'
-}
-
 export interface LogoutPayload extends Payload {
   type: 'logout'
 }

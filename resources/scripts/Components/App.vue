@@ -23,28 +23,50 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
+  import {Watch} from 'vue-property-decorator'
   import {home, Route} from '@/Router/Routes'
   import {left as leftNav, right as rightNav} from './Navigation'
   import {AuthService} from '@/Modules/Auth/AuthService'
 
   @Component({name: 'App'})
   export default class App extends Vue {
-    mounted() {
+    public async mounted() {
       this.$logger.component(this)
       // Check user authorization when application is mounted.
-      AuthService.checkAuth()
+      await AuthService.checkAuth()
     }
 
-    get home(): Route {
+    public get home(): Route {
       return home
     }
 
-    get leftNav() {
+    public get leftNav() {
       return leftNav()
     }
 
-    get rightNav() {
+    public get rightNav() {
       return rightNav()
+    }
+
+    private redirectAuthenticated() {
+      // If user has redirected here by guard, redirect him back
+      // to guarded route instead of home page.
+      if (this.$route.query && this.$route.query['redirect']) {
+        this.$router.push(this.$route.query['redirect'])
+        return
+      }
+
+      this.$router.push(home)
+    }
+
+    @Watch('$store.state.auth.user.authenticated')
+    private onAuthenticated(value: boolean) {
+      // Watching user details, because they arrives later than route
+      // guard redirects to login and in case we receive them, we can
+      // redirect him to requested route.
+      if (value) {
+        this.redirectAuthenticated()
+      }
     }
   }
 </script>

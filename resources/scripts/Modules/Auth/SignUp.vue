@@ -97,7 +97,7 @@
   import FormPanel from '@/Components/Forms/FormPanel.vue'
   import FormGroup from '@/Components/Forms/FormGroup.vue'
   import Focus from '@/Components/Focus'
-  import {login} from '@/Router/Routes'
+  import {login, home} from '@/Router/Routes'
   import {AuthService} from './AuthService'
 
   @Component({
@@ -108,6 +108,10 @@
   export default class SignUp extends Vue {
     mounted() {
       this.$logger.component(this)
+
+      if (AuthService.isAuthenticated()) {
+        this.$router.push(home)
+      }
     }
 
     public form = new Form({

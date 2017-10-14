@@ -1,18 +1,8 @@
-import {
-  State,
-  UpdateUserDetailsPayload,
-  AuthenticatePayload,
-  LogoutPayload
-} from './Contracts'
+import {State, UpdateUserDetailsPayload, LogoutPayload} from './Contracts'
 
 export default {
-  authenticate(state: State, payload: AuthenticatePayload) {
-    state.user.authenticated = true
-  },
-
   logout(state: State, payload: LogoutPayload) {
     state.user.authenticated = false
-    state.user.details = false
   },
 
   updateAuthUserDetails(state: State, payload: UpdateUserDetailsPayload) {
@@ -23,6 +13,6 @@ export default {
     payload.roles.forEach((role) => state.roles.push(role.key))
 
     // allow listeners to watch that user details has received
-    state.user.details = true
+    state.user.authenticated = true
   },
 }
