@@ -17,9 +17,12 @@
 
       <div class="panel-body form-horizontal">
         <div class="row">
-          <div v-if="hasError">
-            <alert>{{ error }}</alert>
-          </div>
+          <alert
+              :is-visible.sync="showError"
+              class="col-md-12"
+          >
+            {{ error }}
+          </alert>
 
           <div :class="contentClass">
             <slot/>
@@ -34,7 +37,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
-  import {Prop} from 'vue-property-decorator'
+  import {Prop, Watch} from 'vue-property-decorator'
   import Alert from '@/Components/Alert.vue'
   import Utils from '@/Helpers/Utils'
   import Form from './Form'
@@ -74,6 +77,8 @@
     @Prop({'type': Number, 'default': () => 12})
     public colXs: number
 
+    showError = false
+
     public get contentClass(): string[] {
       return this.calculateColClass('bodyCol{size}')
     }
@@ -86,7 +91,7 @@
       }
 
       if (this.hasError) {
-        classes.push('has-error')
+        classes.push('has-global-error')
       }
 
       return this.calculateColClass('col{size}', classes)
@@ -124,6 +129,17 @@
       })
 
       return initial
+    }
+
+    @Watch('hasError')
+    private onHasErrorChanged(value: boolean, oldValue: boolean) {
+      if (!oldValue && value) {
+        this.showError = true
+      }
+
+      if (oldValue && !value) {
+        this.showError = false
+      }
     }
   }
 </script>

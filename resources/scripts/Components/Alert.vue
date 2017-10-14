@@ -1,18 +1,20 @@
 <template>
-  <div
-      class="alert alert-dismissible"
-      :class="[`alert-${type}`]"
-  >
-    <button
-        type="button"
-        class="close"
-        @click="hide"
+  <div v-if="isVisible">
+    <div
+        class="alert alert-dismissible"
+        :class="[`alert-${type}`]"
     >
-      &times;
-    </button>
+      <button
+          type="button"
+          class="close"
+          @click="hide"
+      >
+        &times;
+      </button>
 
-    <slot/>
+      <slot/>
 
+    </div>
   </div>
 </template>
 
@@ -37,7 +39,7 @@
     public type: 'success' | 'info' | 'warning' | 'danger'
 
     @Prop({'type': Boolean, 'default': () => true})
-    public isVisible: string
+    public isVisible: boolean
 
     public hide() {
       this.$emit('update:isVisible', false)
