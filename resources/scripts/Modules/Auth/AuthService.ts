@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import http from 'axios'
 import store from '@/Store'
+import {i18n} from '@/Lang'
 import router from '@/Router'
 import {login, home} from '@/Router/Routes'
 import {Api} from '@/Helpers/Api'
@@ -41,20 +42,19 @@ export class AuthService {
       setToken(data.token)
       await AuthService.getAuthUserDetails()
     } catch (err) {
-      // Api.handle(err)
-      // TODO: add translated error message
-      throw 'Auth failed'
+      Vue.logger.log({err})
+
+      throw i18n.t('auth.login.error')
     }
   }
 
   public static async signUp(details: SignUpDetails) {
     const url = Api.url({path: 'register'})
     try {
-      await http.post(url, details)
+      const response = await http.post(url, details)
+      console.log('AuthService.signUp', {response})
     } catch (error) {
-      console.log('AuthService.signUp', {error})
-      // Api.handle(error)
-      throw {'email': ['some dummy error']}
+      Api.handle(error)
     }
   }
 

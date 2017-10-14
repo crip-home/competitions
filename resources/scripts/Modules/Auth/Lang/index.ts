@@ -2,18 +2,19 @@ import {LocaleMessageObject} from 'vue-i18n'
 
 export interface AuthLang extends LocaleMessageObject {
   login: {
-    title: string,
+    title: string
+    error: string
     email: {
-      label: string,
-      placeholder: string,
-    },
+      label: string
+      placeholder: string
+    }
     password: {
-      label: string,
-      placeholder: string,
-    },
+      label: string
+      placeholder: string
+    }
     submit: {
-      button: string,
-      forgot: string,
-    },
+      button: string
+      forgot: string
+    }
   }
 }

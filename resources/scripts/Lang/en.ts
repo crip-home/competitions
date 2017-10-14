@@ -6,5 +6,10 @@ import auth from '@/Modules/Auth/Lang/en'
 export default {
   locale: 'EN',
   appTitle: 'Competition Manager',
+  api: {
+    actionNotAllowed: 'Action is not allowed',
+    unknownHttpError: 'Unknown communication error occurred',
+    unexpectedError: 'Unexpected error occurred',
+  },
   posts, nav, auth,
 } as GlobalLang
